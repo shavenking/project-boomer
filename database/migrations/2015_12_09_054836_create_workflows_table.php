@@ -12,7 +12,7 @@ class CreateWorkflowsTable extends Migration
      */
     public function up()
     {
-        Schema::create('worksflows', function (Blueprint $table) {
+        Schema::create('workflows', function (Blueprint $table) {
             $table->increments('id');
             $table->timestamps();
         });
@@ -25,6 +25,6 @@ class CreateWorkflowsTable extends Migration
      */
     public function down()
     {
-        Schema::drop('worksflows');
+        Schema::drop('workflows');
     }
 }
