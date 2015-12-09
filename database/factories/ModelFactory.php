@@ -12,3 +12,10 @@ $factory->define(App\User::class, function (Faker\Generator $faker) {
 $factory->define(App\Entities\Workflow::class, function (Faker\Generator $faker) {
     return [];
 });
+
+$factory->define(App\Entities\WorkflowNode::class, function (Faker\Generator $facker) {
+    return [
+        'order' => $facker->numberBetween(1,10),
+        'title' => $facker->title
+    ];
+});
