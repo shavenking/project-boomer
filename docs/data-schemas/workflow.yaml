@@ -1,2 +1,11 @@
-order: unsigned integer
-title: string
+workflows:
+    id: increments
+    created_at: timestamps
+    updated_at: timestamps
+
+workflow_nodes:
+    id: increments
+    order: unsigned integer
+    title: string
+    created_at: timestamps
+    updated_at: timestamps
