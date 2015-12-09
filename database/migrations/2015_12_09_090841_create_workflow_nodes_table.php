@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateWorkflowsTable extends Migration
+class CreateWorkflowNodesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -12,8 +12,14 @@ class CreateWorkflowsTable extends Migration
      */
     public function up()
     {
-        Schema::create('worksflows', function (Blueprint $table) {
+        Schema::create('workflow_nodes', function (Blueprint $table) {
             $table->increments('id');
+
+            $table->integer('workflow_id')->unsigned();
+
+            $table->integer('order')->unsigned();
+            $table->string('title');
+
             $table->timestamps();
         });
     }
@@ -25,6 +31,6 @@ class CreateWorkflowsTable extends Migration
      */
     public function down()
     {
-        Schema::drop('worksflows');
+        Schema::drop('workflow_nodes');
     }
 }
