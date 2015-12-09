@@ -5,6 +5,7 @@ workflows:
 
 workflow_nodes:
     id: increments
+    workflow_id: unsigned integer
     order: unsigned integer
     title: string
     created_at: timestamps
