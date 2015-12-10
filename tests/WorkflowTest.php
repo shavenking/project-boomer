@@ -21,7 +21,12 @@ class WorkflowTest extends TestCase
 
     public function testStore()
     {
-        $this->post(route('api.v1.workflows.store'))->seeJson();
+        $model = app(\App\Entities\Workflow::class);
+
+        $this->post(
+            route('api.v1.workflows.store'),
+            factory(get_class($model))->make()->toArray()
+        )->seeJson();
     }
 
     public function testShow()

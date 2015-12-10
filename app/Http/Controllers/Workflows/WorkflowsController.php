@@ -31,7 +31,9 @@ class WorkflowsController extends Controller
      */
     public function store(Request $request)
     {
-        $workflow = Workflow::create();
+        $workflow = Workflow::create([
+            'name' => $request->name
+        ]);
 
         return response()->json(compact('workflow'));
     }

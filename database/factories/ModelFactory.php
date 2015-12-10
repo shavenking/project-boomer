@@ -10,7 +10,9 @@ $factory->define(App\User::class, function (Faker\Generator $faker) {
 });
 
 $factory->define(App\Entities\Workflow::class, function (Faker\Generator $faker) {
-    return [];
+    return [
+        'name' => $faker->name
+    ];
 });
 
 $factory->define(App\Entities\WorkflowNode::class, function (Faker\Generator $facker) {

@@ -1,5 +1,6 @@
 workflows:
     id: increments
+    name: string
     created_at: timestamps
     updated_at: timestamps
 
