@@ -9,3 +9,6 @@ get('settings', function () {
     return view('settings.index');
 })->name('settings.index');
 
+get('workflows', function () {
+    return view('workflows.index');
+})->name('workflows.index');
