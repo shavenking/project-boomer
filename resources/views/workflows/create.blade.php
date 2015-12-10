@@ -1,7 +1,7 @@
 @extends('layouts.general')
 
 @section('title')
-    設定 ｜ 流程管理
+    設定 ｜ 流程管理 ｜ 新增
 @stop
 
 @section('navbar')
@@ -27,13 +27,25 @@
 
     <i class="right chevron icon divider"></i>
 
-    <div class="active section">流程管理</div>
+    <a href="{{ route('workflows.index') }}" class="section">流程管理首頁</a>
+
+    <i class="right chevron icon divider"></i>
+
+    <div class="active section">新增</div>
 @stop
 
 @section('content')
-    <div id="workflow-list"><!-- React Component --></div>
-@stop
 
-@section('react.components')
-    <script type="text/babel" src="/js/workflow-list.js"></script>
+    <form class="ui form" action="{{ route('workflows.store') }}" method="POST">
+        {{ csrf_field() }}
+
+        <div class="field">
+            <label>名稱</label>
+            <input type="text" name="name">
+        </div>
+
+        <button class="ui primary button" type="submit">新增</button>
+
+    </form>
+
 @stop
