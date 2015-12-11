@@ -49,7 +49,7 @@ class ProjectViewsController extends Controller
 
         $project = Project::create(compact('name'));
 
-        return redirect()->route('workflows.show', $project->id);
+        return redirect()->route('projects.show', $project->id);
     }
 
     /**
