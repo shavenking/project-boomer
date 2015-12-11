@@ -9,34 +9,4 @@ get('settings', function () {
     return view('settings.index');
 })->name('settings.index');
 
-get('workflows', function () {
-    return view('workflows.index');
-})->name('workflows.index');
-
-get('workflows/create', function () {
-    return view('workflows.create');
-})->name('workflows.create');
-
-post('workflows', function (\Illuminate\Http\Request $request) {
-    $validator = Validator::make($request->all(), [
-        'name' => 'required'
-    ]);
-
-    if ($validator->fails()) {
-        return redirect(route('workflows.create'))
-            ->withErrors($validator)
-            ->withInput();
-    }
-
-    $name = $request->input('name');
-
-    $workflow = app(\App\Entities\Workflow::class)->create(compact('name'));
-
-    return redirect()->route('workflows.show', $workflow->id);
-})->name('workflows.store');
-
-get('workflows/{id}', function ($id) {
-    $workflow = app(\App\Entities\Workflow::class)->findOrFail($id);
-
-    return view('workflows.show')->withWorkflow($workflow);
-})->name('workflows.show');
+resource('workflows', Workflows\WorkflowViewsController::class);
