@@ -10,7 +10,7 @@
 
         <div class="sixteen wide column">
             <div class="ui pointing inverted large menu">
-                @yield('navbar')
+                @include('partials.navbar')
             </div>
         </div>
 

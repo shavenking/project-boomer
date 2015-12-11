@@ -4,10 +4,6 @@
     專案首頁
 @stop
 
-@section('navbar')
-    @include('partials.navbar')
-@stop
-
 @section('breadcrumbs')
     <div class="active section">專案</div>
 @stop

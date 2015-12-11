@@ -4,10 +4,6 @@
     設定 ｜ 流程管理 ｜ {{ $workflow->name }}
 @stop
 
-@section('navbar')
-    @include('partials.navbar')
-@stop
-
 @section('sidebar')
     <a href="{{ route('workflows.index') }}" class="active item">
         流程管理

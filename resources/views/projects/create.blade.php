@@ -4,10 +4,6 @@
     專案 ｜ 新增
 @stop
 
-@section('navbar')
-    @include('partials.navbar')
-@stop
-
 @section('breadcrumbs')
     <a href="{{ route('projects.index') }}" class="section">專案首頁</a>
 
