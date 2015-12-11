@@ -35,10 +35,6 @@ class WorkflowNodeList extends React.Component {
         this.checkInput = this.checkInput.bind(this)
     }
 
-    componentDidMount() {
-        this.checkInput(this.state.inputValue)
-    }
-
     handleKeypress(e) {
         if (13 === e.charCode) {
             this.handleClick(e)
@@ -51,7 +47,7 @@ class WorkflowNodeList extends React.Component {
     }
 
     handleClick(e) {
-        if (this.hasError()) {
+        if (!this.checkInput(this.state.inputValue)) {
             return false
         }
 
@@ -100,9 +96,11 @@ class WorkflowNodeList extends React.Component {
     checkInput(value) {
         if (!this.testFormat(value)) {
             this.setErrorMsg('請輸入正確格式，例如：「1. 行政作業」')
-        } else {
-            this.setErrorMsg('')
+            return false
         }
+
+        this.setErrorMsg('')
+        return true
     }
 
     testFormat(value) {
