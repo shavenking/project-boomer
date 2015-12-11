@@ -27,7 +27,7 @@ class WorkflowNodeTest extends TestCase
         $nodes = $workflow->nodes;
 
         $this->get(
-            route('api.v1.workflows.items.index', $workflow->id)
+            route('api.v1.workflows.nodes.index', $workflow->id)
         )->seeJson();
     }
 
@@ -40,7 +40,7 @@ class WorkflowNodeTest extends TestCase
         ]);
 
         $this->post(
-            route('api.v1.workflows.items.store', $workflow->id),
+            route('api.v1.workflows.nodes.store', $workflow->id),
             [
                 'order' => $node->order,
                 'title' => $node->title
@@ -59,7 +59,7 @@ class WorkflowNodeTest extends TestCase
         );
 
         $this->get(
-            route('api.v1.workflows.items.show', [$workflow->id, $node->id])
+            route('api.v1.workflows.nodes.show', [$workflow->id, $node->id])
         )->seeJson();
     }
 
@@ -77,7 +77,7 @@ class WorkflowNodeTest extends TestCase
         ];
 
         $this->put(
-            route('api.v1.workflows.items.update', [$workflow->id, $node->id]),
+            route('api.v1.workflows.nodes.update', [$workflow->id, $node->id]),
             $updateValues
         )->seeJson();
 
@@ -96,7 +96,7 @@ class WorkflowNodeTest extends TestCase
         );
 
         $this->delete(
-            route('api.v1.workflows.items.destroy', [$workflow->id, $node->id])
+            route('api.v1.workflows.nodes.destroy', [$workflow->id, $node->id])
         )->seeJson();
 
         $this->notSeeInDatabase($this->nodeModel->getTable(), $node->toArray());

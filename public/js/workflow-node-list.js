@@ -14,7 +14,7 @@ class WorkflowNodeList extends React.Component {
             }
         }
 
-        window.$.getJSON('/api/v1/workflows/' + this.props.workflowId + '/items', response => {
+        window.$.getJSON('/api/v1/workflows/' + this.props.workflowId + '/nodes', response => {
             this.setState({
                 nodes: response.nodes
             })
@@ -58,12 +58,12 @@ class WorkflowNodeList extends React.Component {
         var newNode = this.getNodeFromString(this.state.inputValue)
 
         this.startCreating()
-        window.$.post('/api/v1/workflows/' + this.props.workflowId + '/items', {
+        window.$.post('/api/v1/workflows/' + this.props.workflowId + '/nodes', {
             _token: this.props.csrfToken,
             order: newNode.order,
             title: newNode.title
         }).then(response => {
-            var node = response.workflow
+            var node = response.node
 
             this.setState({
                 nodes: this.state.nodes.concat(node)
@@ -77,7 +77,7 @@ class WorkflowNodeList extends React.Component {
 
     handleDelete(node, e) {
         this.startDeleting()
-        window.$.post(`/api/v1/workflows/${this.props.workflowId}/items/${node.id}`, {
+        window.$.post(`/api/v1/workflows/${this.props.workflowId}/nodes/${node.id}`, {
             _token: this.props.csrfToken,
             _method: 'DELETE'
         }).then(response => {

@@ -10,7 +10,7 @@ use App\Http\Controllers\Controller;
 use App\Entities\Workflow;
 use App\Entities\WorkflowNode;
 
-class ItemsController extends Controller
+class NodesController extends Controller
 {
     public function index($workflowId)
     {
@@ -23,14 +23,14 @@ class ItemsController extends Controller
 
     public function store($workflowId, Request $request)
     {
-        $workflow = Workflow::findOrFail($workflowId)
+        $node = Workflow::findOrFail($workflowId)
             ->nodes()
             ->create([
                 'order' => $request->order,
                 'title' => $request->title
             ]);
 
-        return response()->json(compact('workflow'));
+        return response()->json(compact('node'));
     }
 
     public function show($workflowId, $id)
