@@ -1,25 +1,15 @@
-@extends('layouts.general')
+@extends('layouts.general-nosidebar')
 
 @section('title')
-    設定 ｜ 流程管理 ｜ 新增
+    專案 ｜ 新增
 @stop
 
 @section('navbar')
     @include('partials.navbar')
 @stop
 
-@section('sidebar')
-    <a href="{{ route('workflows.index') }}" class="active item">
-        流程管理
-    </a>
-@stop
-
 @section('breadcrumbs')
-    <a href="{{ route('settings.index') }}" class="section">設定</a>
-
-    <i class="right chevron icon divider"></i>
-
-    <a href="{{ route('workflows.index') }}" class="section">流程管理首頁</a>
+    <a href="{{ route('projects.index') }}" class="section">專案首頁</a>
 
     <i class="right chevron icon divider"></i>
 
@@ -28,7 +18,7 @@
 
 @section('content')
 
-    <form class="ui form {{ count($errors) ? 'error' : '' }}" action="{{ route('workflows.store') }}" method="POST">
+    <form class="ui form {{ count($errors) ? 'error' : '' }}" action="{{ route('projects.store') }}" method="POST">
         {{ csrf_field() }}
 
         <div class="field {{ $errors->has('name') ? 'error' : '' }}">

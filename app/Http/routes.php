@@ -10,3 +10,5 @@ get('settings', function () {
 })->name('settings.index');
 
 resource('workflows', Workflows\WorkflowViewsController::class);
+
+resource('projects', projects\ProjectViewsController::class);

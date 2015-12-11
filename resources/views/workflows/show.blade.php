@@ -5,15 +5,7 @@
 @stop
 
 @section('navbar')
-    <div class="header item">
-        公司名稱
-    </div>
-
-    <div class="right menu">
-        <a href="{{ route('settings.index') }}" class="active item">
-            設定
-        </a>
-    </div>
+    @include('partials.navbar')
 @stop
 
 @section('sidebar')
