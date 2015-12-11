@@ -17,6 +17,8 @@ class WorkflowNodeList extends React.Component {
         window.$.getJSON('/api/v1/workflows/' + this.props.workflowId + '/nodes', response => {
             this.setState({
                 nodes: response.nodes
+            }, () => {
+                this.drawFlow()
             })
         }.bind(this))
 
@@ -33,6 +35,7 @@ class WorkflowNodeList extends React.Component {
         this.startDeleting = this.startDeleting.bind(this)
         this.stopDeleting = this.stopDeleting.bind(this)
         this.checkInput = this.checkInput.bind(this)
+        this.drawFlow = this.drawFlow.bind(this)
     }
 
     handleKeypress(e) {
@@ -63,6 +66,8 @@ class WorkflowNodeList extends React.Component {
 
             this.setState({
                 nodes: this.state.nodes.concat(node)
+            }, () => {
+                this.drawFlow()
             })
 
             this.setInputValue('')
@@ -83,6 +88,8 @@ class WorkflowNodeList extends React.Component {
 
             this.setState({
                 nodes: nodes
+            }, () => {
+                this.drawFlow()
             })
         }).always(() => {
             this.stopDeleting()
@@ -162,6 +169,38 @@ class WorkflowNodeList extends React.Component {
         })
     }
 
+    drawFlow() {
+        window.jQuery(this._diagram).empty()
+
+        if (!this.state.nodes.length) {
+            return false
+        }
+
+        var operations = []
+
+        operations.push({
+            id: `st`,
+            content: `st=>start: Start`
+        })
+
+        window._.sortBy(this.state.nodes, 'order').forEach(node => {
+            operations.push({
+                id: `op${node.id}`,
+                content: `op${node.id}=>operation: ${node.order}. ${node.title}`
+            })
+        })
+
+        operations.push({
+            id: `end`,
+            content: `end=>end: End`
+        })
+
+        var contents = window._.pluck(operations, 'content').join('\n')
+        var flow = window._.pluck(operations, 'id').join('->')
+
+        window.flowchart.parse(`${contents}\n\n${flow}`).drawSVG('diagram', {})
+    }
+
     render() {
         var rows = []
 
@@ -221,6 +260,9 @@ class WorkflowNodeList extends React.Component {
                             </div>
                             { errorMsg }
                         </td>
+                    </tr>
+                    <tr>
+                        <td colSpan="3" id="diagram" ref={ (c) => { this._diagram = c } }></td>
                     </tr>
                 </tbody>
             </table>
