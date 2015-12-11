@@ -11,4 +11,4 @@ get('settings', function () {
 
 resource('workflows', Workflows\WorkflowViewsController::class);
 
-resource('projects', projects\ProjectViewsController::class);
+resource('projects', Projects\ProjectViewsController::class);
