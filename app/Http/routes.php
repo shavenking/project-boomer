@@ -17,8 +17,18 @@ get('workflows/create', function () {
     return view('workflows.create');
 })->name('workflows.create');
 
-post('workflows', function () {
-    $name = Request::input('name');
+post('workflows', function (\Illuminate\Http\Request $request) {
+    $validator = Validator::make($request->all(), [
+        'name' => 'required'
+    ]);
+
+    if ($validator->fails()) {
+        return redirect(route('workflows.create'))
+            ->withErrors($validator)
+            ->withInput();
+    }
+
+    $name = $request->input('name');
 
     $workflow = app(\App\Entities\Workflow::class)->create(compact('name'));
 
