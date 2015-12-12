@@ -21,7 +21,3 @@
 @section('content')
     <div id="workflow-list"><!-- React Component --></div>
 @stop
-
-@section('react.components')
-    <script type="text/babel" src="/js/workflow-list.js"></script>
-@stop

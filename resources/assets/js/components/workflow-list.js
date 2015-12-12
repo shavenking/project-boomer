@@ -1,23 +1,27 @@
-class WorkflowList extends React.Component {
+var React = require('react')
+
+function getWorkflows() {
+    return $.getJSON('/api/v1/workflows')
+}
+
+export default class WorkflowList extends React.Component {
     constructor(props) {
-        super(props);
+        super(props)
 
         this.state = {
             workflows: []
         }
 
-        window.$.getJSON('/api/v1/workflows', response => {
+        getWorkflows().then(response => {
             this.setState({
                 workflows: response.workflows
             })
-        }.bind(this))
+        })
     }
 
     render() {
-        var rows = []
-
-        this.state.workflows.forEach(workflow => {
-            rows.push(
+        var rows = this.state.workflows.map(workflow => {
+            return (
                 <tr>
                     <td className="selectable">
                         <a href={ '/workflows/' + workflow.id }>{ workflow.name }</a>
@@ -58,7 +62,3 @@ class WorkflowList extends React.Component {
     }
 }
 
-ReactDOM.render(
-  <WorkflowList />,
-  document.getElementById('workflow-list')
-)

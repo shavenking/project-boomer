@@ -12,10 +12,12 @@ Route::group(['prefix' => 'api/v1'], function () {
     resource('units', Support\UnitsController::class);
 });
 
-get('settings', function () {
-    return view('settings.index');
-})->name('settings.index');
+Route::group(['middleware' => 'csrftoken'], function () {
+    get('settings', function () {
+        return view('settings.index');
+    })->name('settings.index');
 
-resource('workflows', Workflows\WorkflowViewsController::class);
+    resource('workflows', Workflows\WorkflowViewsController::class);
 
-resource('projects', Projects\ProjectViewsController::class);
+    resource('projects', Projects\ProjectViewsController::class);
+});

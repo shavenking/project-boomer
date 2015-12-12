@@ -1,6 +1,28 @@
-class WorkflowNodeList extends React.Component {
+var React = require('react')
+var sortBy = require('lodash/collection/sortBy')
+var pluck = require('lodash/collection/pluck')
+var classNames = require('classnames')
+
+function getNodes(workflowId) {
+    return $.getJSON(`/api/v1/workflows/${workflowId}/nodes`)
+}
+
+function createNode(workflowId, order, title) {
+    return $.post(`/api/v1/workflows/${workflowId}/nodes`, {
+        order: order,
+        title: title
+    })
+}
+
+function deleteNode(workflowId, nodeId) {
+    return $.post(`/api/v1/workflows/${workflowId}/nodes/${nodeId}`, {
+        _method: 'DELETE'
+    })
+}
+
+export default class WorkflowNodeList extends React.Component {
     constructor(props) {
-        super(props);
+        super(props)
 
         this.state = {
             nodes: [],
@@ -14,13 +36,13 @@ class WorkflowNodeList extends React.Component {
             }
         }
 
-        window.$.getJSON('/api/v1/workflows/' + this.props.workflowId + '/nodes', response => {
+        getNodes(this.props.workflowId).then(response => {
             this.setState({
                 nodes: response.nodes
             }, () => {
                 this.drawFlow()
             })
-        }.bind(this))
+        })
 
         this.handleKeypress = this.handleKeypress.bind(this)
         this.handleChange = this.handleChange.bind(this)
@@ -57,11 +79,7 @@ class WorkflowNodeList extends React.Component {
         var newNode = this.getNodeFromString(this.state.inputValue)
 
         this.startCreating()
-        window.$.post('/api/v1/workflows/' + this.props.workflowId + '/nodes', {
-            _token: this.props.csrfToken,
-            order: newNode.order,
-            title: newNode.title
-        }).then(response => {
+        createNode(this.props.workflowId, newNode.order, newNode.title).then(response => {
             var node = response.node
 
             this.setState({
@@ -78,10 +96,8 @@ class WorkflowNodeList extends React.Component {
 
     handleDelete(node, e) {
         this.startDeleting()
-        window.$.post(`/api/v1/workflows/${this.props.workflowId}/nodes/${node.id}`, {
-            _token: this.props.csrfToken,
-            _method: 'DELETE'
-        }).then(response => {
+
+        deleteNode(this.props.workflowId, node.id).then(response => {
             var nodes = this.state.nodes.filter(candidate => {
                 return candidate.id !== node.id
             })
@@ -170,7 +186,7 @@ class WorkflowNodeList extends React.Component {
     }
 
     drawFlow() {
-        window.jQuery(this._diagram).empty()
+        $(this._diagram).empty()
 
         if (!this.state.nodes.length) {
             return false
@@ -183,7 +199,7 @@ class WorkflowNodeList extends React.Component {
             content: `st=>start: Start`
         })
 
-        window._.sortBy(this.state.nodes, 'order').forEach(node => {
+        sortBy(this.state.nodes, 'order').forEach(node => {
             operations.push({
                 id: `op${node.id}`,
                 content: `op${node.id}=>operation: ${node.order}. ${node.title}`
@@ -195,8 +211,8 @@ class WorkflowNodeList extends React.Component {
             content: `end=>end: End`
         })
 
-        var contents = window._.pluck(operations, 'content').join('\n')
-        var flow = window._.pluck(operations, 'id').join('->')
+        var contents = pluck(operations, 'content').join('\n')
+        var flow = pluck(operations, 'id').join('->')
 
         window.flowchart.parse(`${contents}\n\n${flow}`).drawSVG('diagram', {})
     }
@@ -204,7 +220,7 @@ class WorkflowNodeList extends React.Component {
     render() {
         var rows = []
 
-        window._.sortBy(this.state.nodes, 'order').forEach(node => {
+        sortBy(this.state.nodes, 'order').forEach(node => {
             rows.push(
                 <tr>
                     <td>{ node.order }</td>
@@ -269,8 +285,3 @@ class WorkflowNodeList extends React.Component {
         )
     }
 }
-
-ReactDOM.render(
-  <WorkflowNodeList workflowId={ window.workflowId } csrfToken={ window.csrfToken } />,
-  document.getElementById('workflow-node-list')
-)

@@ -35,9 +35,7 @@
 
     </div>
 
-    @include('partials.js-libs')
-
-    @yield('react.components')
+    <script src="/js/main.js"></script>
 
 </body>
 </html>

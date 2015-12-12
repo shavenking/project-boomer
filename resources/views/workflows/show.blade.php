@@ -23,13 +23,5 @@
 @stop
 
 @section('content')
-    <div id="workflow-node-list"><!-- React Component --></div>
-@stop
-
-@section('react.components')
-    <script>
-        window.workflowId = parseInt('{{ $workflow->id }}');
-        window.csrfToken = "{{ csrf_token() }}";
-    </script>
-    <script type="text/babel" src="/js/workflow-node-list.js"></script>
+    <div id="workflow-node-list" data-workflow-id="{{ $workflow->id }}"><!-- React Component --></div>
 @stop

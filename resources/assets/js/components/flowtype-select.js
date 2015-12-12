@@ -1,4 +1,16 @@
-class FlowtypeSelect extends React.Component {
+var React = require('react')
+var ReactDOM = require('react-dom')
+var classNames = require('classnames')
+
+function getMainflowTypes() {
+    return $.getJSON('/api/v1/mainflow-types')
+}
+
+function getDetailingflowTypes(mainflowTypeId) {
+    return $.getJSON(`/api/v1/mainflow-types/${mainflowTypeId}/detailingflow-types`)
+}
+
+export default class FlowtypeSelect extends React.Component {
     constructor(props) {
         super(props)
 
@@ -9,7 +21,7 @@ class FlowtypeSelect extends React.Component {
             selectedDetailingflowTypeId: ''
         }
 
-        window.$.getJSON('/api/v1/mainflow-types', response => {
+        getMainflowTypes().then(response => {
             this.setState({
                 mainflowTypes: response.mainflow_types
             })
@@ -21,14 +33,14 @@ class FlowtypeSelect extends React.Component {
     }
 
     componentDidMount() {
-        window.$(window.ReactDOM.findDOMNode(this)).find('.dropdown').dropdown({
+        $(ReactDOM.findDOMNode(this)).find('.dropdown').dropdown({
             message: {
                 noResults: '查無相關資料'
             }
         })
 
-        window.$(this._mainflowTypeInput).change(this.onMainflowTypeSelected)
-        window.$(this._detailingflowTypeInput).change(this.onDetailingflowTypesSelected)
+        $(this._mainflowTypeInput).change(this.onMainflowTypeSelected)
+        $(this._detailingflowTypeInput).change(this.onDetailingflowTypesSelected)
     }
 
     onMainflowTypeSelected(e) {
@@ -40,12 +52,12 @@ class FlowtypeSelect extends React.Component {
             this.clearDetailingSelection()
         })
 
-        window.$.getJSON(`/api/v1/mainflow-types/${selectedId}/detailingflow-types`, response => {
+        getDetailingflowTypes(selectedId).then(response => {
             this.setState({
                 detailingflowTypes: response.detailingflow_types
             }, () => {
                 var firstTypeId = this.state.detailingflowTypes.length ? this.state.detailingflowTypes[0].id : ''
-                window.$('#detailingflow-types-dropdown').dropdown('set selected', [firstTypeId])
+                $('#detailingflow-types-dropdown').dropdown('set selected', [firstTypeId])
             })
         })
     }
@@ -61,7 +73,7 @@ class FlowtypeSelect extends React.Component {
     clearDetailingSelection() {
         // line below will trigger change event on detailingflow_type_id input
         // so the state is updated
-        window.$('#detailingflow-types-dropdown').dropdown('clear')
+        $('#detailingflow-types-dropdown').dropdown('clear')
     }
 
     render() {
@@ -87,7 +99,7 @@ class FlowtypeSelect extends React.Component {
                 </div>
 
                 <div className="field">
-                    <div className={ window.classNames('ui', 'selection', 'dropdown', { disabled: !this.state.detailingflowTypes.length }) } id="detailingflow-types-dropdown">
+                    <div className={ classNames('ui', 'selection', 'dropdown', { disabled: !this.state.detailingflowTypes.length }) } id="detailingflow-types-dropdown">
                         <input type="hidden" name="detailingflow_type_id" ref={ (c) => { this._detailingflowTypeInput = c }} />
                         <i className="dropdown icon"></i>
                         <div className="default text">工程順序</div>
