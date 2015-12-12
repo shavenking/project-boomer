@@ -21,3 +21,27 @@ $factory->define(App\Entities\WorkflowNode::class, function (Faker\Generator $fa
         'title' => $facker->title
     ];
 });
+
+$factory->define(App\Entities\MainflowType::class, function (Faker\Generator $facker) {
+    return [
+        'name' => $facker->name
+    ];
+});
+
+$factory->define(App\Entities\DetailingflowType::class, function (Faker\Generator $facker) {
+    return [
+        'name' => $facker->name
+    ];
+});
+
+$factory->define(App\Entities\CostType::class, function (Faker\Generator $facker) {
+    return [
+        'name' => $facker->name
+    ];
+});
+
+$factory->define(App\Entities\Unit::class, function (Faker\Generator $facker) {
+    return [
+        'name' => $facker->name
+    ];
+});
