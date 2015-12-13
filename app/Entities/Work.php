@@ -19,4 +19,14 @@ class Work extends Model
     {
         return $this->hasOne(Workflow::class, 'id', 'workflow_id');
     }
+
+    public function detailingflowType()
+    {
+        return $this->hasOne(DetailingflowType::class, 'id', 'detailingflow_type_id');
+    }
+
+    public function unit()
+    {
+        return $this->hasOne(Unit::class, 'id', 'unit_id');
+    }
 }

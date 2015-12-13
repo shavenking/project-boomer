@@ -28,16 +28,24 @@
 
 @section('content')
 
-    <div class="ui tabular pointing secondary menu" id="work-tabular-meun">
-        <a class="item" data-tab="work-item-list">工料項目列表</a>
-        <a class="active item" data-tab="workflow">流程</a>
+    <div class="ui secondary pointing menu">
+        <a href="{{ route('works.show', $work->id) }}" class="active item">基本資料</a>
+        <a href="{{ route('works.work-items.index', $work->id) }}" class="item">工料項目列表</a>
+        <a href="{{ route('works.workflow', $work->id) }}" class="item">流程圖</a>
     </div>
 
-    <div class="ui tab" data-tab="work-item-list">
-        <div id="work-item-list" data-work-id="{{ $work->id }}"></div>
-    </div>
-    <div class="ui active tab" data-tab="workflow">
-        <div id="workflow-node-list" data-workflow-id="{{ $work->workflow->id }}"></div>
+    <div class="ui card">
+        <div class="content">
+            <div class="header">{{ $work->name }}</div>
+            <div class="meta">
+                <span>{{ $work->detailingflowType->mainflowType->name }} - {{ $work->detailingflowType->name }}</span>
+            </div>
+            <div class="description">
+            </div>
+        </div>
+        <div class="extra content">
+            <div class="ui label">{{ $work->unit->name }}</div>
+        </div>
     </div>
 
 @stop

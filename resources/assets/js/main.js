@@ -1,7 +1,6 @@
 var $ = window.$ = window.jQuery = require('jquery')
 window.raphael = require('raphael')
 window.flowchart = require('./libs/flowchart.min')
-require('./libs/jquery-address')
 require('semantic-ui/dist/semantic.min')
 
 var React = require('react')
@@ -66,9 +65,3 @@ if ($('#workflow-select').length) {
         document.getElementById('workflow-select')
     )
 }
-
-$(() => {
-    $('.tabular .item').tab({
-        history: true
-    })
-})

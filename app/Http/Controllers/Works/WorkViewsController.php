@@ -23,6 +23,20 @@ class WorkViewsController extends Controller
         return view('works.index')->withWorks($works);
     }
 
+    public function workItems($workId)
+    {
+        $work = Work::findOrFail($workId);
+
+        return view('works.work-items')->withWork($work);
+    }
+
+    public function workflow($workId)
+    {
+        $work = Work::findOrFail($workId);
+
+        return view('works.workflow')->withWork($work);
+    }
+
     /**
      * Show the form for creating a new resource.
      *
