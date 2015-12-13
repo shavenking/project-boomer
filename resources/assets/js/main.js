@@ -8,6 +8,9 @@ var ReactDOM = require('react-dom')
 var WorkflowList = require('./components/workflow-list')
 var WorkflowNodeList = require('./components/workflow-node-list')
 var FlowtypeSelect = require('./components/flowtype-select')
+var UnitSelect = require('./components/unit-select')
+var CostTypeSelect = require('./components/cost-type-select')
+var WorkItemList = require('./components/work-item-list')
 
 if ($('#workflow-list').length) {
     ReactDOM.render(
@@ -22,5 +25,35 @@ if ($('#workflow-node-list').length) {
     ReactDOM.render(
       <WorkflowNodeList workflowId={ workflowId } />,
       document.getElementById('workflow-node-list')
+    )
+}
+
+if ($('#flowtype-select').length) {
+    ReactDOM.render(
+        <FlowtypeSelect />,
+        document.getElementById('flowtype-select')
+    )
+}
+
+if ($('#unit-select').length) {
+    ReactDOM.render(
+        <UnitSelect />,
+        document.getElementById('unit-select')
+    )
+}
+
+if ($('#cost-type-select').length) {
+    ReactDOM.render(
+        <CostTypeSelect />,
+        document.getElementById('cost-type-select')
+    )
+}
+
+if ($('#work-item-list').length) {
+    var workId = parseInt($('#work-item-list').attr('data-work-id'))
+
+    ReactDOM.render(
+        <WorkItemList workId={workId}/>,
+        document.getElementById('work-item-list')
     )
 }

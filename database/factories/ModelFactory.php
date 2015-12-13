@@ -45,3 +45,25 @@ $factory->define(App\Entities\Unit::class, function (Faker\Generator $facker) {
         'name' => $facker->name
     ];
 });
+
+$factory->define(App\Entities\Work::class, function (Faker\Generator $facker) {
+    return [
+        'detailingflow_type_id' => $facker->numberBetween(1, 10),
+        'unit_id' => $facker->numberBetween(1, 10),
+        'name' => $facker->name,
+        'amount' => $facker->numberBetween(1, 1000),
+        'unit_price' => $facker->numberBetween(1, 1000)
+    ];
+});
+
+$factory->define(App\Entities\WorkItem::class, function (Faker\Generator $facker) {
+    return [
+        'work_id' => $facker->numberBetween(1, 10),
+        'unit_id' => $facker->numberBetween(1, 10),
+        'cost_type_id' => $facker->numberBetween(1, 10),
+        'name' => $facker->name,
+        'order' => $facker->numberBetween(1, 10),
+        'amount' => $facker->numberBetween(1, 1000),
+        'unit_price' => $facker->numberBetween(1, 1000)
+    ];
+});

@@ -87,6 +87,7 @@ export default class FlowtypeSelect extends React.Component {
 
         return (
             <div className="grouped fields">
+                <label>類別</label>
                 <div className="field">
                     <div className="ui selection dropdown">
                         <input type="hidden" name="mainflow_type_id" ref={ (c) => { this._mainflowTypeInput = c }} />

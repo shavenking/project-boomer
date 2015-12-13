@@ -20,6 +20,10 @@
     <a href="{{ route('workflows.index') }}" class="item">
         流程管理
     </a>
+
+    <a href="{{ route('works.index') }}" class="item">
+        工項管理
+    </a>
 @stop
 
 @section('breadcrumbs')

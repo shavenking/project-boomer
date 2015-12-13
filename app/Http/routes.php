@@ -10,6 +10,9 @@ Route::group(['prefix' => 'api/v1'], function () {
     resource('cost-types', Support\CostTypesController::class);
 
     resource('units', Support\UnitsController::class);
+
+    resource('works', Works\WorksController::class);
+    resource('works.work-items', Works\WorkItemsController::class);
 });
 
 Route::group(['middleware' => 'csrftoken'], function () {
@@ -20,4 +23,6 @@ Route::group(['middleware' => 'csrftoken'], function () {
     resource('workflows', Workflows\WorkflowViewsController::class);
 
     resource('projects', Projects\ProjectViewsController::class);
+
+    resource('works', Works\WorkViewsController::class);
 });
