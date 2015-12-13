@@ -44,6 +44,7 @@ class WorkViewsController extends Controller
         $this->validate($request, [
             'detailingflow_type_id' => 'required',
             'unit_id' => 'required',
+            'workflow_id' => 'required',
             'name' => 'required',
             'amount' => 'required',
             'unit_price' => 'required'

@@ -35,6 +35,10 @@
                 <div id="unit-select"></div>
         </div>
 
+        <div class="grouped fields">
+            <div id="workflow-select"></div>
+        </div>
+
         <div class="equal width fields">
             <div class="field {{ $errors->has('name') ? 'error' : '' }}">
                 <label>名稱</label>

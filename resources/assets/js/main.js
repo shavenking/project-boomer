@@ -1,6 +1,7 @@
 var $ = window.$ = window.jQuery = require('jquery')
 window.raphael = require('raphael')
 window.flowchart = require('./libs/flowchart.min')
+require('./libs/jquery-address')
 require('semantic-ui/dist/semantic.min')
 
 var React = require('react')
@@ -11,6 +12,7 @@ var FlowtypeSelect = require('./components/flowtype-select')
 var UnitSelect = require('./components/unit-select')
 var CostTypeSelect = require('./components/cost-type-select')
 var WorkItemList = require('./components/work-item-list')
+var WorkflowSelect = require('./components/workflow-select')
 
 if ($('#workflow-list').length) {
     ReactDOM.render(
@@ -57,3 +59,16 @@ if ($('#work-item-list').length) {
         document.getElementById('work-item-list')
     )
 }
+
+if ($('#workflow-select').length) {
+    ReactDOM.render(
+        <WorkflowSelect />,
+        document.getElementById('workflow-select')
+    )
+}
+
+$(() => {
+    $('.tabular .item').tab({
+        history: true
+    })
+})

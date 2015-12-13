@@ -28,6 +28,16 @@
 
 @section('content')
 
-    <div id="work-item-list" data-work-id="{{ $work->id }}"></div>
+    <div class="ui tabular pointing secondary menu" id="work-tabular-meun">
+        <a class="item" data-tab="work-item-list">工料項目列表</a>
+        <a class="active item" data-tab="workflow">流程</a>
+    </div>
+
+    <div class="ui tab" data-tab="work-item-list">
+        <div id="work-item-list" data-work-id="{{ $work->id }}"></div>
+    </div>
+    <div class="ui active tab" data-tab="workflow">
+        <div id="workflow-node-list" data-workflow-id="{{ $work->workflow->id }}"></div>
+    </div>
 
 @stop
