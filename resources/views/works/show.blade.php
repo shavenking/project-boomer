@@ -34,7 +34,7 @@
         <a href="{{ route('works.workflow', $work->id) }}" class="item">流程圖</a>
     </div>
 
-    <div class="ui card">
+    <a class="ui card" href="{{ route('works.work-items.index', $work->id) }}">
         <div class="content">
             <div class="header">{{ $work->name }}</div>
             <div class="meta">
@@ -46,6 +46,6 @@
         <div class="extra content">
             <div class="ui label">{{ $work->unit->name }}</div>
         </div>
-    </div>
+    </a>
 
 @stop
