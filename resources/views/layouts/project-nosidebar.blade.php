@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>@yield('title')</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.1.6/semantic.min.css">
+    <link rel="stylesheet" href="/css/semantic.min.css">
 </head>
 <body>
     <div class="ui grid container">
@@ -16,7 +16,7 @@
 
         <div class="sixteen wide column">
             <div class="ui fluid three item pointing menu">
-                <a class="item">內部作業</a>
+                <a href="{{ route('projects.internal', $project->id) }}" class="@if (request()->is('*internal*', '*bid*')) active @endif item">內部作業</a>
                 <a class="item">外部作業</a>
                 <a class="item">財務管理</a>
             </div>

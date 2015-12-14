@@ -1,13 +1,11 @@
 <?php
 
-namespace App\Http\Controllers\Works;
+namespace App\Http\Controllers\Projects;
 
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
-
-use App\Entities\Work;
 
 class WorksController extends Controller
 {
@@ -19,22 +17,13 @@ class WorksController extends Controller
     public function index(Request $request)
     {
         $detailingflowTypeId = $request->query('detailingflow_type_id');
-        $mainflowTypeId = $request->query('mainflow_type_id');
 
-        $query = Work::query();
-
-
-        if ($mainflowTypeId) {
-            $query->whereHas('detailingflowType', function ($query) use ($mainflowTypeId) {
-                $query->where('mainflow_type_id', $mainflowTypeId);
-            });
-        }
-
-        if ($detailingflowTypeId) {
-            $query->where('detailingflow_type_id', $detailingflowTypeId);
-        }
-
-        $works = $query->get();
+        // if ($detailingflowTypeId) {
+        //     $workIds = \App\Entities\Work::whereDetailingflowTypeId($detailingflowTypeId)->lists('id');
+        //     $works = \App\Entities\ProjectWork::whereIn('work_id', $workIds)->get();
+        // } else {
+            $works = \App\Entities\ProjectWork::all();
+        // }
 
         return response()->json(compact('works'));
     }
@@ -57,7 +46,9 @@ class WorksController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $work = \App\Entities\ProjectWork::create(array_except($request->all(), 'unit_price'));
+
+        return response()->json(compact('work'));
     }
 
     /**
@@ -68,9 +59,7 @@ class WorksController extends Controller
      */
     public function show($id)
     {
-        $work = Work::findOrFail($id);
-
-        return response()->json(compact('work'));
+        //
     }
 
     /**

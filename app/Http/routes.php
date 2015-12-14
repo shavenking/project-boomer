@@ -13,6 +13,8 @@ Route::group(['prefix' => 'api/v1'], function () {
 
     resource('works', Works\WorksController::class);
     resource('works.work-items', Works\WorkItemsController::class);
+
+    resource('projects.works', Projects\WorksController::class);
 });
 
 Route::group(['middleware' => 'csrftoken'], function () {
@@ -23,6 +25,9 @@ Route::group(['middleware' => 'csrftoken'], function () {
     get('workflows/{workflow}/works', Workflows\WorkflowViewsController::class . '@works')->name('workflows.works');
     resource('workflows', Workflows\WorkflowViewsController::class);
 
+    get('projects/{project}/internal', Projects\ProjectViewsController::class . '@internal')->name('projects.internal');
+    get('proejcts/{project}/bid', Bids\BidViewsController::class . '@index')->name('projects.bid.index');
+    get('projects/{project}/bid/works', Bids\BidViewsController::class . '@works')->name('projects.bid.works');
     resource('projects', Projects\ProjectViewsController::class);
 
     get('works/{work}/workflow', Works\WorkViewsController::class . '@workflow')->name('works.workflow');

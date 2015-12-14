@@ -13,6 +13,7 @@ var CostTypeSelect = require('./components/cost-type-select')
 var WorkItemList = require('./components/work-item-list')
 var WorkflowSelect = require('./components/workflow-select')
 var WorkSelect = require('./components/work-select')
+var ProjectWorkList = require('./components/project-work-list')
 
 if ($('#workflow-list').length) {
     ReactDOM.render(
@@ -71,5 +72,14 @@ if ($('#work-select').length) {
     ReactDOM.render(
         <WorkSelect />,
         document.getElementById('work-select')
+    )
+}
+
+if ($('#project-work-list').length) {
+    var projectId = parseInt($('#project-work-list').attr('data-project-id'))
+
+    ReactDOM.render(
+        <ProjectWorkList projectId={projectId} />,
+        document.getElementById('project-work-list')
     )
 }

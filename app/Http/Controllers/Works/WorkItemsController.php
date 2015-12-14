@@ -113,7 +113,11 @@ class WorkItemsController extends Controller
 
         $work = app(\App\Entities\Work::class)->findOrFail($workId);
 
-        $work->decrement('unit_price', $workItem->total_price);
+        if ($work->unit_price < $workItem->total_price) {
+            $work->update(['unit_price' => 0]);
+        } else {
+            $work->decrement('unit_price', $workItem->total_price);
+        }
 
         return response()->json();
     }
