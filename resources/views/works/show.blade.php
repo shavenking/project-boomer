@@ -34,18 +34,6 @@
         <a href="{{ route('works.workflow', $work->id) }}" class="item">流程圖</a>
     </div>
 
-    <a class="ui card" href="{{ route('works.work-items.index', $work->id) }}">
-        <div class="content">
-            <div class="header">{{ $work->name }}</div>
-            <div class="meta">
-                <span>{{ $work->detailingflowType->mainflowType->name }} - {{ $work->detailingflowType->name }}</span>
-            </div>
-            <div class="description">
-            </div>
-        </div>
-        <div class="extra content">
-            <div class="ui label">{{ $work->unit->name }}</div>
-        </div>
-    </a>
+    @include('works._card', $work)
 
 @stop

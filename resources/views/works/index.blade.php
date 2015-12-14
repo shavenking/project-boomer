@@ -23,33 +23,15 @@
 @stop
 
 @section('content')
-    <table class="ui celled table">
-        <thead>
-            <tr>
-                <th>工項名稱</th>
-            </tr>
-        </thead>
-        <tbody>
-            @forelse ($works as $work)
-                <tr>
-                    <td class="selectable">
-                        <a href="{{ route('works.show', $work->id) }}">{{ $work->name }}</a>
-                    </td>
-                </tr>
-            @empty
-                <tr>
-                    <td class="center aligned">目前沒有工項</td>
-                </tr>
-            @endforelse
-        </tbody>
-        <tfoot>
-            <tr>
-                <th>
-                    <a href="{{ route('works.create') }}" class="ui primary labeled icon button">
-                        <i class="plus icon"></i> 新增工項
-                    </a>
-                </th>
-            </tr>
-        </tfoot>
-    </table>
+    @if (count($works))
+        <div class="ui two column grid">
+            @foreach ($works as $work)
+                <div class="column">
+                    @include('works._card', $work)
+                </div>
+            @endforeach
+        </div>
+    @else
+        <p>目前沒有工項，請 <a href="{{ route('works.create') }}">點我</a> 新增</p>
+    @endif
 @stop

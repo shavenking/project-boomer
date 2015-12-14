@@ -52,9 +52,13 @@ class WorkItemsController extends Controller
             'unit_price' => 'required'
         ]);
 
+        $work = app(\App\Entities\Work::class)->findOrFail($workId);
+
         $workItem = WorkItem::create(array_merge($request->all(), [
             'work_id' => $workId
         ]));
+
+        $work->increment('unit_price', $workItem->total_price);
 
         return response()->json([
             'work_item' => $workItem
@@ -103,7 +107,13 @@ class WorkItemsController extends Controller
      */
     public function destroy($workId, $itemId)
     {
-        WorkItem::findOrFail($itemId)->delete();
+        $workItem = WorkItem::findOrFail($itemId);
+
+        $workItem->delete();
+
+        $work = app(\App\Entities\Work::class)->findOrFail($workId);
+
+        $work->decrement('unit_price', $workItem->total_price);
 
         return response()->json();
     }

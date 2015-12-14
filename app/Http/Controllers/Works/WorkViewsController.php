@@ -60,11 +60,10 @@ class WorkViewsController extends Controller
             'unit_id' => 'required',
             'workflow_id' => 'required',
             'name' => 'required',
-            'amount' => 'required',
-            'unit_price' => 'required'
+            'amount' => 'required'
         ]);
 
-        $work = Work::create($request->all());
+        $work = Work::create(array_merge($request->all(), ['unit_price' => 0]));
 
         return redirect(route('works.show', $work->id));
     }

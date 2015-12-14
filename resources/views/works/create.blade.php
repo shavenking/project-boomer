@@ -48,10 +48,6 @@
                 <label>數量</label>
                 <input type="text" name="amount" placeholder="數量">
             </div>
-            <div class="field {{ $errors->has('unit_price') ? 'error' : '' }}">
-                <label>單價</label>
-                <input type="text" name="unit_price" placeholder="單價">
-            </div>
         </div>
 
         @if (count($errors))

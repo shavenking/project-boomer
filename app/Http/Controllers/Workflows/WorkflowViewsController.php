@@ -52,7 +52,6 @@ class WorkflowViewsController extends Controller
 
         $name = $request->input('name');
 
-
         $workflow = app(\App\Entities\Workflow::class)->create(compact('name'));
 
         if ($request->has('work_ids')) {

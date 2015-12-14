@@ -15,6 +15,26 @@ class Work extends Model
         'unit_price'
     ];
 
+    protected $appends = [
+        'unit_name',
+        'total_price'
+    ];
+
+    protected $casts = [
+        'amount' => 'integer',
+        'unit_price' => 'integer'
+    ];
+
+    public function getUnitNameAttribute()
+    {
+        return $this->unit->name;
+    }
+
+    public function getTotalPriceAttribute()
+    {
+        return $this->amount * $this->unit_price;
+    }
+
     public function workflow()
     {
         return $this->hasOne(Workflow::class, 'id', 'workflow_id');
