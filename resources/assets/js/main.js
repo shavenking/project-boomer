@@ -12,6 +12,7 @@ var UnitSelect = require('./components/unit-select')
 var CostTypeSelect = require('./components/cost-type-select')
 var WorkItemList = require('./components/work-item-list')
 var WorkflowSelect = require('./components/workflow-select')
+var WorkSelect = require('./components/work-select')
 
 if ($('#workflow-list').length) {
     ReactDOM.render(
@@ -63,5 +64,12 @@ if ($('#workflow-select').length) {
     ReactDOM.render(
         <WorkflowSelect />,
         document.getElementById('workflow-select')
+    )
+}
+
+if ($('#work-select').length) {
+    ReactDOM.render(
+        <WorkSelect />,
+        document.getElementById('work-select')
     )
 }

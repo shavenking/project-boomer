@@ -35,6 +35,11 @@
             <label>名稱</label>
             <input type="text" name="name">
         </div>
+
+        <div class="fields">
+            <div id="work-select"></div>
+        </div>
+
         @if ($errors->has('name'))
             <div class="ui error message">
                 <div class="header">錯誤！</div>

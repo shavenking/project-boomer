@@ -19,6 +19,15 @@ class WorkflowViewsController extends Controller
         return view('workflows.index');
     }
 
+    public function works($id)
+    {
+        $workflow = app(\App\Entities\Workflow::class)->findOrFail($id);
+
+        $works = app(\App\Entities\Work::class)->whereWorkflowId($workflow->id)->get();
+
+        return view('workflows.works')->withWorkflow($workflow)->withWorks($works);
+    }
+
     /**
      * Show the form for creating a new resource.
      *
@@ -43,7 +52,17 @@ class WorkflowViewsController extends Controller
 
         $name = $request->input('name');
 
+
         $workflow = app(\App\Entities\Workflow::class)->create(compact('name'));
+
+        if ($request->has('work_ids')) {
+            $workIds = explode(',', $request->input('work_ids'));
+            $works = app(\App\Entities\Work::class)->findOrFail($workIds);
+
+            foreach ($works as $work) {
+                $work->update(['workflow_id' => $workflow->id]);
+            }
+        }
 
         return redirect()->route('workflows.show', $workflow->id);
     }
