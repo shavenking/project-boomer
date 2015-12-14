@@ -49,4 +49,9 @@ class Work extends Model
     {
         return $this->hasOne(Unit::class, 'id', 'unit_id');
     }
+
+    public function items()
+    {
+        return $this->hasMany(WorkItem::class, 'work_id', 'id');
+    }
 }

@@ -112,6 +112,11 @@ class WorkViewsController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $work = app(\App\Entities\Work::class)->findOrFail($id);
+
+        $work->items()->delete();
+        $work->delete();
+
+        return redirect()->route('works.index');
     }
 }
