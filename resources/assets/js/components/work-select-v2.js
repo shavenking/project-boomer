@@ -26,7 +26,7 @@ export default class WorkSelectV2 extends React.Component {
         var workId = parseInt(e.target.value)
 
         var works = this.state.works.filter(candidate => {
-            return candidate.id === workId
+            return candidate.id == workId
         })
 
         if (this.props.onSelected) {
