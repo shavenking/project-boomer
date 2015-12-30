@@ -43,7 +43,7 @@
 
     </div>
 
-    <script src="/js/main.js"></script>
+    @include('layouts._scripts')
 
 </body>
 </html>

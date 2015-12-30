@@ -14,5 +14,6 @@ elixir.config.js.browserify.watchify.enabled = true
  */
 
 elixir(function(mix) {
+    mix.browserify('lib.js');
     mix.browserify('main.js');
 });
