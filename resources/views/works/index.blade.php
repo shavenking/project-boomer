@@ -6,11 +6,15 @@
 
 @section('sidebar')
     <a href="{{ route('workflows.index') }}" class="item">
-        流程管理
+        施工流程管理
     </a>
 
     <a href="{{ route('works.index') }}" class="active item">
-        工項管理
+        工作項目管理
+    </a>
+
+    <a href="{{ route('check-lists.index') }}" class="item">
+        自主檢查表管理
     </a>
 @stop
 
@@ -23,6 +27,9 @@
 @stop
 
 @section('content')
+    <div class="ui basic segment">
+        <a href="{{ route('works.create') }}" class="ui primary button"><i class="plus icon"></i>新增工作項目</a>
+    </div>
     @if (count($works))
         <div class="ui two column grid">
             @foreach ($works as $work)
