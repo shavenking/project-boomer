@@ -33,5 +33,5 @@
         <a href="{{ route('projects.bid.works', $project->id) }}" class="item">工作項目列表</a>
     </div>
 
-    <p>基本茲ㄌㄧㄠ</p>
+    <p>基本資料</p>
 @stop
