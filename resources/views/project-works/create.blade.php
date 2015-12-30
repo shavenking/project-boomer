@@ -1,7 +1,7 @@
 @extends('layouts.project')
 
 @section('title')
-    專案 ｜ {{ $project->name }} ｜ 內部作業 ｜ 標單 ｜ 工作項目
+    專案 ｜ {{ $project->name }} ｜ 內部作業 ｜ 標單 ｜ 工作項目列表 ｜ 新增工項
 @stop
 
 @section('breadcrumbs')
@@ -21,7 +21,11 @@
 
     <i class="right chevron icon divider"></i>
 
-    <div class="active section">工作項目</div>
+    <a href="{{ route('projects.bid.works', $project->id) }}" class="section">工作項目列表</a>
+
+    <i class="right chevron icon divider"></i>
+
+    <div class="active section">新增工項</div>
 @stop
 
 @section('sidebar')
@@ -32,14 +36,18 @@
 
 @section('content')
 
-    <div class="ui secondary pointing menu">
-        <a href="{{ route('projects.bid.index', $project->id) }}" class="item">基本資料</a>
-        <a href="{{ route('projects.bid.works', $project->id) }}" class="active item">工作項目列表</a>
+    @if (count($errors))
+        @include('messages.errors', [
+            'header' => '請填寫欄位',
+            'message' => '必填項目：參考工項、名稱、數量'
+        ])
+    @endif
+
+    <div class="ui raised segment">
+        @include('components.form-create-project-work', [
+            'project' => $project,
+            'csrfToken' => csrf_token()
+        ])
     </div>
 
-    @if ($works->isEmpty())
-        @include('messages.empty', ['header' => '暫時沒有專案工項', 'url' => route('projects.works.create', $project->id) ])
-    @else
-        @include('components.project-work-list', compact('project', 'works'))
-    @endif
 @stop

@@ -28,6 +28,7 @@ Route::group(['middleware' => 'csrftoken'], function () {
     get('projects/{project}/internal', Projects\ProjectViewsController::class . '@internal')->name('projects.internal');
     get('proejcts/{project}/bid', Bids\BidViewsController::class . '@index')->name('projects.bid.index');
     get('projects/{project}/bid/works', Bids\BidViewsController::class . '@works')->name('projects.bid.works');
+    resource('projects.works', Projects\WorksController::class);
     resource('projects', Projects\ProjectViewsController::class);
 
     get('works/{work}/workflow', Works\WorkViewsController::class . '@workflow')->name('works.workflow');

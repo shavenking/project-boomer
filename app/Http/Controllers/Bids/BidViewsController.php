@@ -20,6 +20,8 @@ class BidViewsController extends Controller
     {
         $project = \App\Entities\Project::findOrFail($projectId);
 
-        return view('bids.works')->withProject($project);
+        $works = \App\Entities\ProjectWork::all();
+
+        return view('bids.works')->withProject($project)->withWorks($works);
     }
 }

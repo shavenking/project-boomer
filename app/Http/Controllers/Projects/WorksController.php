@@ -33,9 +33,11 @@ class WorksController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create($projectId)
     {
-        //
+        $project = \App\Entities\Project::findOrFail($projectId);
+
+        return view('project-works.create')->withProject($project);
     }
 
     /**
@@ -44,11 +46,22 @@ class WorksController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store($projectId, Request $request)
     {
+        $this->validate($request, [
+            'work_id' => 'required',
+            'name' => 'required',
+            'amount' => 'required',
+            'unit_price' => 'required'
+        ]);
+
         $work = \App\Entities\ProjectWork::create(array_except($request->all(), 'unit_price'));
 
-        return response()->json(compact('work'));
+        if ($request->ajax()) {
+            return response()->json(compact('work'));
+        }
+
+        return redirect()->route('projects.bid.works', $projectId);
     }
 
     /**
@@ -59,7 +72,7 @@ class WorksController extends Controller
      */
     public function show($id)
     {
-        //
+        return 'coming soon';
     }
 
     /**

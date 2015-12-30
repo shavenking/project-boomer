@@ -12,7 +12,8 @@ var components = {
     '#work-item-list': require('./components/work-item-list'),
     '#workflow-select': require('./components/workflow-select'),
     '#work-select': require('./components/work-select'),
-    '#project-work-list': require('./components/project-work-list')
+    '#project-work-list': require('./components/project-work-list'),
+    '#form-create-project-work': require('./components/form-create-project-work')
 }
 
 each(components, (component, selector) => {
