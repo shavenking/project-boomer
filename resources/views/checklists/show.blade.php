@@ -25,6 +25,7 @@
     <div class="ui secondary pointing menu">
         <a href="{{ route('checklists.show', $checklist->id) }}" class="active item">{{ $checklist->name }}</a>
         <a href="{{ route('checklists.workflow', $checklist->id) }}" class="item">Workflow</a>
+        <a href="{{ route('checklists.works', $checklist->id) }}" class="item">Works</a>
     </div>
 
     <div class="ui raised segment">

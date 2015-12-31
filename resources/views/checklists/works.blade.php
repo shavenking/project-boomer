@@ -1,7 +1,7 @@
 @extends('layouts.general')
 
 @section('title')
-    Settings | Check Lists | {{ $checklist->name }}
+    Settings | Check Lists | {{ $checklist->name }} | Works
 @stop
 
 @section('sidebar')
@@ -17,16 +17,20 @@
 
     <i class="right chevron icon divider"></i>
 
-    <div class="active section">{{ $checklist->name }}</div>
+    <a href="{{ route('checklists.show', $checklist->id) }}" class="section">{{ $checklist->name }}</a>
+
+    <i class="right chevron icon divider"></i>
+
+    <div class="active section">Works</div>
 @stop
 
 @section('content')
 
     <div class="ui secondary pointing menu">
         <a href="{{ route('checklists.show', $checklist->id) }}" class="item">{{ $checklist->name }}</a>
-        <a href="{{ route('checklists.workflow', $checklist->id) }}" class="active item">Workflow</a>
-        <a href="{{ route('checklists.works', $checklist->id) }}" class="item">Works</a>
+        <a href="{{ route('checklists.workflow', $checklist->id) }}" class="item">Workflow</a>
+        <a href="{{ route('checklists.works', $checklist->id) }}" class="active item">Works</a>
     </div>
 
-    <div id="workflow-node-list" data-workflow-id="{{ $checklist->workflow->id }}"><!-- React Component --></div>
+    @each('works._card', $checklist->workflow->works, 'work')
 @stop

@@ -28,6 +28,13 @@ class ChecklistsViewController extends Controller
         return view('checklists.workflow')->withChecklist($checklist);
     }
 
+    public function works($checklistId)
+    {
+        $checklist = \App\Entities\Checklist::findOrFail($checklistId);
+
+        return view('checklists.works')->withChecklist($checklist);
+    }
+
     /**
      * Show the form for creating a new resource.
      *

@@ -12,4 +12,9 @@ class Workflow extends Model
     {
         return $this->hasMany(WorkflowNode::class);
     }
+
+    public function works()
+    {
+        return $this->hasMany(Work::class);
+    }
 }
