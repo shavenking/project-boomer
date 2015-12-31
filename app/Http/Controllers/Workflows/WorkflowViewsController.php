@@ -19,6 +19,13 @@ class WorkflowViewsController extends Controller
         return view('workflows.index');
     }
 
+    public function checklist($workflowId)
+    {
+        $workflow = app(\App\Entities\Workflow::class)->findOrFail($workflowId);
+
+        return redirect()->route('checklists.show', $workflow->checklist->id);
+    }
+
     public function works($id)
     {
         $workflow = app(\App\Entities\Workflow::class)->findOrFail($id);

@@ -22,6 +22,7 @@ Route::group(['middleware' => 'csrftoken'], function () {
         return view('settings.index');
     })->name('settings.index');
 
+    get('workflows/{workflow}/checklist', Workflows\WorkflowViewsController::class . '@checklist')->name('workflows.checklist');
     get('workflows/{workflow}/works', Workflows\WorkflowViewsController::class . '@works')->name('workflows.works');
     resource('workflows', Workflows\WorkflowViewsController::class);
 
