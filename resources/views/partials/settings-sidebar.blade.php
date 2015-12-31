@@ -6,6 +6,6 @@
     工作項目管理
 </a>
 
-<a href="{{ route('check-lists.index') }}" class="@if (str_is('check-lists*', request()->route()->getName())) active @endif item">
+<a href="{{ route('checklists.index') }}" class="@if (str_is('checklists*', request()->route()->getName())) active @endif item">
     自主檢查表管理
 </a>
