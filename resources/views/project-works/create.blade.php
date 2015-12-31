@@ -29,9 +29,7 @@
 @stop
 
 @section('sidebar')
-    <a href="{{ route('projects.bid.index', $project->id) }}" class="active item">
-        標單管理
-    </a>
+    @include('partials.internal-sidebar')
 @stop
 
 @section('content')
