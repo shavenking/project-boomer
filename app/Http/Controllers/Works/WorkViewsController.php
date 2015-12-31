@@ -23,6 +23,13 @@ class WorkViewsController extends Controller
         return view('works.index')->withWorks($works);
     }
 
+    public function checklist($workId)
+    {
+        $work = Work::findOrFail($workId);
+
+        return redirect()->route('checklists.show', $work->workflow->checklist->id);
+    }
+
     public function workItems($workId)
     {
         $work = Work::findOrFail($workId);

@@ -31,6 +31,7 @@ Route::group(['middleware' => 'csrftoken'], function () {
     resource('projects.works', Projects\WorksController::class);
     resource('projects', Projects\ProjectViewsController::class);
 
+    get('works/{work}/checklist', Works\WorkViewsController::class . '@checklist')->name('works.checklist');
     get('works/{work}/workflow', Works\WorkViewsController::class . '@workflow')->name('works.workflow');
     get('works/{work}/work-items', Works\WorkViewsController::class . '@workItems')->name('works.work-items.index');
     resource('works', Works\WorkViewsController::class);

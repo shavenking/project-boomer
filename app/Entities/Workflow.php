@@ -17,4 +17,9 @@ class Workflow extends Model
     {
         return $this->hasMany(Work::class);
     }
+
+    public function checklist()
+    {
+        return $this->hasOne(Checklist::class);
+    }
 }
