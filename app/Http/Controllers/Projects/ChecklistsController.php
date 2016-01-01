@@ -56,15 +56,20 @@ class ChecklistsController extends Controller
 
         $project = Project::findOrFail($projectId);
 
-        $checklist = $project->checklists()->create(array_only(
-            $request->all(),
-            ['checklist_id', 'name']
-        ));
+        $referencedChecklist = Checklist::findOrFail($request->input('checklist_id'));
 
-        foreach ($checklist->originalCheckitems as $checkitem) {
+        $checklist = $project->checklists()->create(
+            array_merge(
+                $referencedChecklist->toArray(), [
+                    'name' => $request->input('name')
+                ]
+            )
+        );
+
+        foreach ($referencedChecklist->checkitems as $checkitem) {
             $checklist->checkitems()->create([
-                'project_id' => $projectId,
-                'checkitem_id' => $checkitem->id
+                'name' => $checkitem->name,
+                'detail' => $checkitem->detail
             ]);
         }
 

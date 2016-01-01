@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateProjectChecklistTable extends Migration
+class CreateProjectChecklistsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -12,14 +12,10 @@ class CreateProjectChecklistTable extends Migration
      */
     public function up()
     {
-        Schema::create('project_checklist', function (Blueprint $table) {
+        Schema::create('project_checklists', function (Blueprint $table) {
             $table->increments('id');
-
             $table->integer('project_id')->unsigned();
-            $table->integer('checklist_id')->unsigned();
-
             $table->string('name');
-
             $table->timestamps();
         });
     }
@@ -31,6 +27,6 @@ class CreateProjectChecklistTable extends Migration
      */
     public function down()
     {
-        Schema::drop('project_checklist');
+        Schema::drop('project_checklists');
     }
 }

@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateProjectCheckitemTable extends Migration
+class CreateProjectCheckitemsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -12,15 +12,12 @@ class CreateProjectCheckitemTable extends Migration
      */
     public function up()
     {
-        Schema::create('project_checkitem', function (Blueprint $table) {
+        Schema::create('project_checkitems', function (Blueprint $table) {
             $table->increments('id');
-
-            $table->integer('project_id')->unsigned();
             $table->integer('project_checklist_id')->unsigned();
-            $table->integer('checkitem_id')->unsigned();
-
+            $table->string('name');
+            $table->string('detail');
             $table->boolean('passes')->nullable();
-
             $table->timestamps();
         });
     }
@@ -32,6 +29,6 @@ class CreateProjectCheckitemTable extends Migration
      */
     public function down()
     {
-        Schema::drop('project_checkitem');
+        Schema::drop('project_checkitems');
     }
 }
