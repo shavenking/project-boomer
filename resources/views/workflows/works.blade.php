@@ -1,27 +1,14 @@
-@extends('layouts.general')
+{{-- */ $breadcrumbs = [
+    'Settings' => route('settings.index'),
+    'Workflows' => route('workflows.index'),
+    "{$workflow->name}" => route('workflows.show', $workflow->id),
+    'Works' => null
+] /* --}}
 
-@section('title')
-    設定 ｜ 流程管理 ｜ {{ $workflow->name }} ｜ 工作項目列表
-@stop
+@extends('layouts.general')
 
 @section('sidebar')
     @include('partials.settings-sidebar')
-@stop
-
-@section('breadcrumbs')
-    <a href="{{ route('settings.index') }}" class="section">設定</a>
-
-    <i class="right chevron icon divider"></i>
-
-    <a href="{{ route('workflows.index') }}" class="section">流程管理首頁</a>
-
-    <i class="right chevron icon divider"></i>
-
-    <a href="{{ route('workflows.show', $workflow->id) }}" class="section">{{ $workflow->name }}</a>
-
-    <i class="right chevron icon divider"></i>
-
-    <div class="active section">工作項目列表</div>
 @stop
 
 @section('content')

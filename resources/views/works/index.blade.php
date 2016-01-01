@@ -1,19 +1,12 @@
-@extends('layouts.general')
+{{-- */ $breadcrumbs = [
+    'Settings' => route('settings.index'),
+    'Works' => null
+] /* --}}
 
-@section('title')
-    設定 ｜ 工項管理
-@stop
+@extends('layouts.general')
 
 @section('sidebar')
     @include('partials.settings-sidebar')
-@stop
-
-@section('breadcrumbs')
-    <a href="{{ route('settings.index') }}" class="section">設定</a>
-
-    <i class="right chevron icon divider"></i>
-
-    <div class="active section">工項管理</div>
 @stop
 
 @section('content')

@@ -1,28 +1,12 @@
+{{-- */ $breadcrumbs = [
+    'Projects' => route('projects.index'),
+    "{$project->name}" => route('projects.show', $project->id),
+    'Internal' => route('projects.internal', $project->id),
+    'Bid' => route('projects.bid.index', $project->id),
+    'Works' => null
+] /* --}}
+
 @extends('layouts.project')
-
-@section('title')
-    專案 ｜ {{ $project->name }} ｜ 內部作業 ｜ 標單 ｜ 工作項目
-@stop
-
-@section('breadcrumbs')
-    <a href="{{ route('projects.index') }}" class="section">專案首頁</a>
-
-    <i class="right chevron icon divider"></i>
-
-    <a href="{{ route('projects.show', $project->id) }}" class="section">{{ $project->name }}</a>
-
-    <i class="right chevron icon divider"></i>
-
-    <a href="{{ route('projects.internal', $project->id) }}" class="section">內部作業</a>
-
-    <i class="right chevron icon divider"></i>
-
-    <a href="{{ route('projects.bid.index', $project->id) }}" class="section">標單</a>
-
-    <i class="right chevron icon divider"></i>
-
-    <div class="active section">工作項目</div>
-@stop
 
 @section('sidebar')
     <a href="{{ route('projects.bid.index', $project->id) }}" class="active item">

@@ -1,19 +1,12 @@
-@extends('layouts.general')
+{{-- */ $breadcrumbs = [
+    'Settings' => route('settings.index'),
+    'Checklists' => null
+] /* --}}
 
-@section('title')
-    Settings | Check Lists
-@stop
+@extends('layouts.general')
 
 @section('sidebar')
     @include('partials.settings-sidebar')
-@stop
-
-@section('breadcrumbs')
-    <a href="{{ route('settings.index') }}" class="section">Settings</a>
-
-    <i class="right chevron icon divider"></i>
-
-    <div class="active section">Check Lists</div>
 @stop
 
 @section('content')

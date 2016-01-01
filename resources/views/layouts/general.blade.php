@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>@yield('title')</title>
+    <title>@include('components.title')</title>
     <link rel="stylesheet" href="/css/semantic.min.css">
 </head>
 <body>
@@ -27,7 +27,7 @@
                 <div class="sixteen wide column">
                     <div class="ui large breadcrumb">
                         <i class="sitemap icon"></i>
-                        @yield('breadcrumbs')
+                        @include('components.breadcrumbs')
                     </div>
                 </div>
 

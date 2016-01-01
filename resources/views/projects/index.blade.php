@@ -1,12 +1,8 @@
+{{-- */ $breadcrumbs = [
+    'Projects' => null
+] /* --}}
+
 @extends('layouts.general-nosidebar')
-
-@section('title')
-    專案首頁
-@stop
-
-@section('breadcrumbs')
-    <div class="active section">專案</div>
-@stop
 
 @section('content')
     <table class="ui celled table">

@@ -1,8 +1,8 @@
-@extends('layouts.general')
+{{-- */ $breadcrumbs = [
+    'Settings' => null
+] /* --}}
 
-@section('title')
-    設定
-@stop
+@extends('layouts.general')
 
 @section('navbar')
     <div class="header item">
@@ -18,10 +18,6 @@
 
 @section('sidebar')
     @include('partials.settings-sidebar')
-@stop
-
-@section('breadcrumbs')
-    <div class="active section">設定</div>
 @stop
 
 @section('content')
