@@ -14,4 +14,9 @@ class Project extends Model
             ->withPivot('name', 'amount', 'unit_price')
             ->withTimestamps();
     }
+
+    public function checklists()
+    {
+        return $this->hasMany(ProjectChecklist::class);
+    }
 }
