@@ -1,7 +1,7 @@
 {{-- */ $breadcrumbs = [
     'Projects' => route('projects.index'),
     "{$project->name}" => null
-] --}}
+] /* --}}
 
 @extends('layouts.project-nosidebar')
 
