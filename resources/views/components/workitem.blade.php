@@ -2,13 +2,13 @@
 
 {{-- */
     $editRoute = isset($project) ?
-        route('projects.workitems.edit', [$project->id, $workitem->id]) :
+        route('projects.works.workitems.edit', [$project->id, $workitem->work->id, $workitem->id]) :
         ''
 /* --}}
 
 {{-- */
     $deleteRoute = isset($project) ?
-        route('projects.workitems.destroy', [$project->id, $workitem->id]) :
+        route('projects.works.workitems.destroy', [$project->id, $workitem->work->id, $workitem->id]) :
         ''
 /* --}}
 

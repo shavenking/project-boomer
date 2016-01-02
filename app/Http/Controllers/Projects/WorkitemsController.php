@@ -24,9 +24,14 @@ class WorkitemsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create($projectId, $workId)
     {
-        //
+        $project = \App\Entities\Project::findOrFail($projectId);
+        $work = \App\Entities\ProjectWork::findOrFail($workId);
+        $units = \App\Entities\Unit::all();
+        $costTypes = \App\Entities\CostType::all();
+
+        return view('project-workitems.create', compact('project', 'work', 'units', 'costTypes'));
     }
 
     /**
@@ -35,9 +40,22 @@ class WorkitemsController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store($projectId, $workId, Request $request)
     {
-        //
+        $this->validate($request, [
+            'name' => 'required',
+            'amount' => 'required',
+            'unit_price' => 'required',
+            'unit_id' => 'required',
+            'cost_type_id' => 'required'
+        ]);
+
+        $work = \App\Entities\ProjectWork::findOrFail($workId);
+
+        $work->workitems()->create($request->all());
+        $work->reCalculateUnitPrice();
+
+        return redirect()->route('projects.works.show', [$projectId, $workId]);
     }
 
     /**
@@ -57,7 +75,7 @@ class WorkitemsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($projectId, $workitemId)
+    public function edit($projectId, $workId, $workitemId)
     {
         $project = \App\Entities\Project::findOrFail($projectId);
         $workitem = \App\Entities\ProjectWorkitem::findOrFail($workitemId);
@@ -76,7 +94,7 @@ class WorkitemsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update($projectId, $workitemId, Request $request)
+    public function update($projectId, $workId, $workitemId, Request $request)
     {
         $this->validate($request, [
             'name' => 'required',
@@ -99,7 +117,7 @@ class WorkitemsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($projectId, $workitemId)
+    public function destroy($projectId, $workId, $workitemId)
     {
         $workitem = \App\Entities\ProjectWorkitem::findOrFail($workitemId);
 

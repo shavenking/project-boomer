@@ -19,7 +19,7 @@
     <div class="ui raised segment">
         <form
             class="ui form"
-            action="{{ route('projects.workitems.update', [$project->id, $workitem->id]) }}"
+            action="{{ route('projects.works.workitems.update', [$project->id, $work, $workitem->id]) }}"
             method="POST"
         >
             {{ csrf_field() }}

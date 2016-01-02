@@ -17,6 +17,16 @@
 
     <div class="ui grid">
 
+        <div class="sixteen wide column">
+            <a
+                href="{{ route('projects.works.workitems.create', [$project->id, $work->id]) }}"
+                class="ui primary button"
+            >
+                <i class="plus icon"></i>
+                Create Workitem
+            </a>
+        </div>
+
         @foreach ($work->workitems->sortBy('order') as $workitem)
             <div class="eight wide column">
                 @include('components.workitem')
