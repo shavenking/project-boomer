@@ -125,7 +125,7 @@ class WorksController extends Controller
     {
         $work = \App\Entities\ProjectWork::findOrFail($workId);
 
-        \App\Entities\ProjectWorkitem::destroy($work->workitems()->lists('id'));
+        \App\Entities\ProjectWorkitem::destroy($work->workitems()->lists('id')->all());
 
         $work->delete();
 

@@ -30,12 +30,14 @@ Route::group(['middleware' => 'csrftoken'], function () {
     get('workflows/{workflow}/works', Workflows\WorkflowViewsController::class . '@works')->name('workflows.works');
     resource('workflows', Workflows\WorkflowViewsController::class);
 
+
     get('projects/{project}/internal', Projects\ProjectViewsController::class . '@internal')->name('projects.internal');
     get('projects/{project}/extneral', Projects\ProjectViewsController::class . '@external')->name('projects.external');
     get('proejcts/{project}/bid', Bids\BidViewsController::class . '@index')->name('projects.bid.index');
     get('projects/{project}/bid/works', Bids\BidViewsController::class . '@works')->name('projects.bid.works');
     resource('projects.works', Projects\WorksController::class);
     put('projects/{project}/checklists/{checklist}/checkresults', Projects\ChecklistsController::class . '@updateCheckitemsResults')->name('projects.checklists.checkresults.update');
+    resource('projects.workitems', Projects\WorkitemsController::class);
     resource('projects.checklists', Projects\ChecklistsController::class);
     resource('projects', Projects\ProjectViewsController::class);
 

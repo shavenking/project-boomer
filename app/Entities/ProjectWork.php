@@ -45,4 +45,18 @@ class ProjectWork extends Model
     {
         return $this->hasOne(Unit::class, 'id', 'unit_id');
     }
+
+    public function reCalculateUnitPrice()
+    {
+        if (!$this->exists) {
+            return false;
+        }
+
+        $unitPrice = 0;
+        foreach ($this->workitems as $workitem) {
+            $unitPrice += $workitem->total_price;
+        }
+        $this->unit_price = $unitPrice;
+        return $this->save();
+    }
 }

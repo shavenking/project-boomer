@@ -35,4 +35,9 @@ class ProjectWorkitem extends Model
     {
         return $this->amount * $this->unit_price;
     }
+
+    public function work()
+    {
+        return $this->belongsTo(ProjectWork::class, 'project_work_id', 'id');
+    }
 }

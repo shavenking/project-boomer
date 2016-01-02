@@ -15,12 +15,16 @@
 
 @section('content')
 
-    <div class="ui raised segment">
-        <ol>
-            @foreach ($work->workitems as $workitem)
-                <li>{{ $workitem->name }}</li>
-            @endforeach
-        </ol>
+    <div class="ui grid">
+
+        @foreach ($work->workitems->sortBy('order') as $workitem)
+            <div class="eight wide column">
+                @include('components.workitem')
+            </div>
+        @endforeach
+
     </div>
+
+
 
 @stop

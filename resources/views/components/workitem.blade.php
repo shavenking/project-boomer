@@ -1,0 +1,48 @@
+{{-- $proejct?, $workitem --}}
+
+{{-- */
+    $editRoute = isset($project) ?
+        route('projects.workitems.edit', [$project->id, $workitem->id]) :
+        ''
+/* --}}
+
+{{-- */
+    $deleteRoute = isset($project) ?
+        route('projects.workitems.destroy', [$project->id, $workitem->id]) :
+        ''
+/* --}}
+
+<div class="ui fluid card">
+
+    <div class="content">
+
+        <div class="header">
+            <div class="ui right floated">$ {{ $workitem->total_price }}</div>
+            {{ $workitem->name }}
+        </div>
+
+        <div class="meta">
+            <span>{{ $workitem->costType->name }}</span>
+        </div>
+
+    </div>
+
+    <div class="extra content">
+        <form class="ui form right floated" action="{{ $deleteRoute }}" method="POST">
+            {{ csrf_field() }}
+            {{ method_field('DELETE')}}
+
+            <div class="ui labels">
+                <a href="{{ $editRoute }}" class="ui green label">Edit</a>
+                <button type="submit" class="ui right floated red label">Delete</button>
+            </div>
+        </form>
+
+        <div class="ui labels">
+            <div class="ui label">數量 {{ $workitem->amount }}</div>
+            <div class="ui label">單價 {{ $workitem->unit_price }}</div>
+            <div class="ui label">{{ $workitem->unit->name }}</div>
+        </div>
+    </div>
+
+</div>
