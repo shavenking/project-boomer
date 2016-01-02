@@ -29,14 +29,18 @@ class BidViewsController extends Controller
             $query->whereHas('detailingflowType', function ($query) use ($mainflowTypeId) {
                 $query->whereMainflowTypeId($mainflowTypeId);
             });
+
+            $mainflowTypeName = \App\Entities\MainflowType::findOrFail($mainflowTypeId)->name;
         }
 
         if (!empty($detailingflowTypeId)) {
             $query->whereDetailingflowTypeId($detailingflowTypeId);
+
+            $detailingflowTypeName = \App\Entities\DetailingflowType::findOrFail($detailingflowTypeId)->name;
         }
 
         $works = $query->get();
 
-        return view('bids.works')->withProject($project)->withWorks($works);
+        return view('bids.works', compact('project', 'works', 'mainflowTypeName', 'detailingflowTypeName'));
     }
 }

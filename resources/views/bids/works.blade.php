@@ -20,23 +20,36 @@
     </div>
 
     <div class="ui grid">
-        @if ($works->isEmpty())
-            <div class="sixteen wide column">
-                @include('messages.empty', [
-                    'header' => '暫時沒有專案工項',
-                    'url' => route('projects.works.create', [$project->id, 'mainflow_type_id' => request()->query('mainflow_type_id'), 'detailingflow_type_id' => request()->query('detailingflow_type_id')])
-                ])
-            </div>
-        @else
-            <div class="sixteen wide column">
-                <a href="{{ route('projects.works.create', [$project->id, 'mainflow_type_id' => request()->query('mainflow_type_id'), 'detailingflow_type_id' => request()->query('detailingflow_type_id')]) }}" class="ui primary labeled icon button">
-                    <i class="plus icon"></i>新增專案工項
-                </a>
-                <a href="{{ route('projects.works.search', [$project->id]) }}" class="ui labeled icon button">
-                    <i class="search icon"></i>搜尋
-                </a>
-            </div>
+        <div class="sixteen wide column">
+            <a href="{{ route('projects.works.create', [$project->id, 'mainflow_type_id' => request()->query('mainflow_type_id'), 'detailingflow_type_id' => request()->query('detailingflow_type_id')]) }}" class="ui primary labeled icon button">
+                <i class="plus icon"></i>新增專案工項
+            </a>
+            @if (isset($mainflowTypeName) || isset($detailingflowTypeName))
+                <div class="ui labeled button" tabindex="0">
+                    <a href="{{ route('projects.works.search', [$project->id]) }}" class="ui button">
+                        <i class="search icon"></i>Search
+                    </a>
+                    <a href="{{ route('projects.works.search', [$project->id]) }}" class="ui basic left pointing label">
+                        @if (isset($mainflowTypeName))
+                            {{ $mainflowTypeName or '' }}
+                        @endif
 
+                        @if (isset($mainflowTypeName) && isset($detailingflowTypeName))
+                            &nbsp;-&nbsp;
+                        @endif
+
+                        @if (isset($detailingflowTypeName))
+                            {{ $detailingflowTypeName }}
+                        @endif
+                    </a>
+                </div>
+            @else
+                <a href="{{ route('projects.works.search', [$project->id]) }}" class="ui button">
+                    <i class="search icon"></i>Search
+                </a>
+            @endif
+        </div>
+        @if (!$works->isEmpty())
             @foreach ($works as $work)
                 <div class="eight wide column">
                     @include('components.work')
