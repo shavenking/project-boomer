@@ -18,6 +18,10 @@ Route::group(['prefix' => 'api/v1'], function () {
 });
 
 Route::group(['middleware' => 'csrftoken'], function () {
+    get('/', function () {
+        return view('index');
+    })->name('index');
+
     get('settings', function () {
         return view('settings.index');
     })->name('settings.index');
