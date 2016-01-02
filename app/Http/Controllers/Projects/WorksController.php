@@ -49,13 +49,25 @@ class WorksController extends Controller
     public function store($projectId, Request $request)
     {
         $this->validate($request, [
+            'detailingflow_type_id' => 'required',
             'work_id' => 'required',
             'name' => 'required',
             'amount' => 'required',
             'unit_price' => 'required'
         ]);
 
-        $work = \App\Entities\ProjectWork::create(array_except($request->all(), 'unit_price'));
+        $referencedWork = \App\Entities\Work::findOrFail($request->input('work_id'));
+
+        $project = \App\Entities\Project::findOrFail($projectId);
+
+        $work = $project->works()->create(array_merge($referencedWork->toArray(), [
+            'name' => $request->input('name'),
+            'amount' => $request->input('amount')
+        ]));
+
+        foreach ($referencedWork->items as $workitem) {
+            $work->workitems()->create($workitem->toArray());
+        }
 
         if ($request->ajax()) {
             return response()->json(compact('work'));
@@ -70,9 +82,14 @@ class WorksController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($projectId, $workId)
     {
-        return 'coming soon';
+        $project = \App\Entities\Project::findOrFail($projectId);
+        $work = \App\Entities\ProjectWork::findOrFail($workId);
+
+        return view('project-works.show')
+            ->withProject($project)
+            ->withWork($work);
     }
 
     /**
@@ -104,8 +121,14 @@ class WorksController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($projectId, $workId)
     {
-        //
+        $work = \App\Entities\ProjectWork::findOrFail($workId);
+
+        \App\Entities\ProjectWorkitem::destroy($work->workitems()->lists('id'));
+
+        $work->delete();
+
+        return redirect()->route('projects.bid.works', $projectId);
     }
 }

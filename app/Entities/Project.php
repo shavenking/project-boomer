@@ -10,9 +10,7 @@ class Project extends Model
 
     public function works()
     {
-        return $this->belongsToMany(Work::class, 'project_work')
-            ->withPivot('name', 'amount', 'unit_price')
-            ->withTimestamps();
+        return $this->hasMany(ProjectWork::class);
     }
 
     public function checklists()

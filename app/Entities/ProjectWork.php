@@ -6,21 +6,14 @@ use Illuminate\Database\Eloquent\Model;
 
 class ProjectWork extends Model
 {
-    protected $table = 'project_work';
-
     protected $fillable = [
         'project_id',
-        'work_id',
+        'detailingflow_type_id',
+        'unit_id',
+        'workflow_id',
         'name',
         'amount',
         'unit_price'
-    ];
-
-    protected $appends = [
-        'unit_name',
-        'total_price',
-        'mainflow_type',
-        'detailingflow_type'
     ];
 
     protected $casts = [
@@ -28,33 +21,28 @@ class ProjectWork extends Model
         'unit_price' => 'integer'
     ];
 
-    public function getUnitAttribute()
-    {
-        return $this->originalWork->unit;
-    }
-
-    public function getUnitNameAttribute()
-    {
-        return $this->originalWork->unit->name;
-    }
-
-    public function getMainflowTypeAttribute()
-    {
-        return $this->originalWork->detailingflowType->mainflowType;
-    }
-
-    public function getDetailingflowTypeAttribute()
-    {
-        return $this->originalWork->detailingflowType;
-    }
-
     public function getTotalPriceAttribute()
     {
         return $this->amount * $this->unit_price;
     }
 
-    public function originalWork()
+    public function workitems()
     {
-        return $this->hasOne(Work::class, 'id', 'work_id');
+        return $this->hasMany(ProjectWorkitem::class);
+    }
+
+    public function workflow()
+    {
+        return $this->hasOne(Workflow::class, 'id', 'workflow_id');
+    }
+
+    public function detailingflowType()
+    {
+        return $this->hasOne(DetailingflowType::class, 'id', 'detailingflow_type_id');
+    }
+
+    public function unit()
+    {
+        return $this->hasOne(Unit::class, 'id', 'unit_id');
     }
 }

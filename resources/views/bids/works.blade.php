@@ -9,9 +9,7 @@
 @extends('layouts.project')
 
 @section('sidebar')
-    <a href="{{ route('projects.bid.index', $project->id) }}" class="active item">
-        標單管理
-    </a>
+    @include('partials.internal-sidebar')
 @stop
 
 @section('content')
@@ -21,9 +19,26 @@
         <a href="{{ route('projects.bid.works', $project->id) }}" class="active item">工作項目列表</a>
     </div>
 
-    @if ($works->isEmpty())
-        @include('messages.empty', ['header' => '暫時沒有專案工項', 'url' => route('projects.works.create', $project->id) ])
-    @else
-        @include('components.project-work-list', compact('project', 'works'))
-    @endif
+    <div class="ui grid">
+        @if ($works->isEmpty())
+            <div class="sixteen wide column">
+                @include('messages.empty', [
+                    'header' => '暫時沒有專案工項',
+                    'url' => route('projects.works.create', $project->id)
+                ])
+            </div>
+        @else
+            <div class="sixteen wide column">
+                <a href="{{ route('projects.works.create', [$project->id]) }}" class="ui primary labeled icon button">
+                    <i class="plus icon"></i>新增專案工項
+                </a>
+            </div>
+
+            @foreach ($works as $work)
+                <div class="eight wide column">
+                    @include('components.work')
+                </div>
+            @endforeach
+        @endif
+    </div>
 @stop
