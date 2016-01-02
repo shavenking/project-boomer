@@ -28,6 +28,13 @@ class WorksController extends Controller
         return response()->json(compact('works'));
     }
 
+    public function search($projectId, Request $request)
+    {
+        $project = \App\Entities\Project::findOrFail($projectId);
+
+        return view('project-works.search', compact('project'));
+    }
+
     /**
      * Show the form for creating a new resource.
      *

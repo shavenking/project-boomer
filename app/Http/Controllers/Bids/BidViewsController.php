@@ -16,11 +16,26 @@ class BidViewsController extends Controller
         return view('bids.index')->withProject($project);
     }
 
-    public function works($projectId)
+    public function works($projectId, Request $request)
     {
+        $mainflowTypeId = $request->query('mainflow_type_id');
+        $detailingflowTypeId = $request->query('detailingflow_type_id');
+
         $project = \App\Entities\Project::findOrFail($projectId);
 
-        $works = \App\Entities\ProjectWork::all();
+        $query = \App\Entities\ProjectWork::query();
+
+        if (!empty($mainflowTypeId)) {
+            $query->whereHas('detailingflowType', function ($query) use ($mainflowTypeId) {
+                $query->whereMainflowTypeId($mainflowTypeId);
+            });
+        }
+
+        if (!empty($detailingflowTypeId)) {
+            $query->whereDetailingflowTypeId($detailingflowTypeId);
+        }
+
+        $works = $query->get();
 
         return view('bids.works')->withProject($project)->withWorks($works);
     }

@@ -24,13 +24,16 @@
             <div class="sixteen wide column">
                 @include('messages.empty', [
                     'header' => '暫時沒有專案工項',
-                    'url' => route('projects.works.create', $project->id)
+                    'url' => route('projects.works.create', [$project->id, 'mainflow_type_id' => request()->query('mainflow_type_id'), 'detailingflow_type_id' => request()->query('detailingflow_type_id')])
                 ])
             </div>
         @else
             <div class="sixteen wide column">
-                <a href="{{ route('projects.works.create', [$project->id]) }}" class="ui primary labeled icon button">
+                <a href="{{ route('projects.works.create', [$project->id, 'mainflow_type_id' => request()->query('mainflow_type_id'), 'detailingflow_type_id' => request()->query('detailingflow_type_id')]) }}" class="ui primary labeled icon button">
                     <i class="plus icon"></i>新增專案工項
+                </a>
+                <a href="{{ route('projects.works.search', [$project->id]) }}" class="ui labeled icon button">
+                    <i class="search icon"></i>搜尋
                 </a>
             </div>
 

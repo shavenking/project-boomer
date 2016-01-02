@@ -35,6 +35,7 @@ Route::group(['middleware' => 'csrftoken'], function () {
     get('projects/{project}/extneral', Projects\ProjectViewsController::class . '@external')->name('projects.external');
     get('proejcts/{project}/bid', Bids\BidViewsController::class . '@index')->name('projects.bid.index');
     get('projects/{project}/bid/works', Bids\BidViewsController::class . '@works')->name('projects.bid.works');
+    get('projects/{project}/works/search', Projects\WorksController::class . '@search')->name('projects.works.search');
     resource('projects.works.workitems', Projects\WorkitemsController::class);
     resource('projects.works', Projects\WorksController::class);
     put('projects/{project}/checklists/{checklist}/checkresults', Projects\ChecklistsController::class . '@updateCheckitemsResults')->name('projects.checklists.checkresults.update');
