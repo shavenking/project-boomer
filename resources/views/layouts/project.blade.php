@@ -19,7 +19,7 @@
 
                 <a
                     href="{{ route('projects.internal', $project->id) }}"
-                    class="@if (request()->is('*internal*', '*bid*')) active @endif item"
+                    class="@if (preg_match('/projects\.(internal|works|bid).*/', request()->route()->getName())) active @endif item"
                 >
                     內部作業
                 </a>
