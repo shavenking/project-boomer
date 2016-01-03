@@ -42,7 +42,9 @@ class ChecklistsViewController extends Controller
      */
     public function create()
     {
-        return view('checklists.create');
+        $workflows = \App\Entities\Workflow::all();
+
+        return view('checklists.create', compact('workflows'));
     }
 
     /**

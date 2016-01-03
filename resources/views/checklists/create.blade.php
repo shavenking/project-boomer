@@ -11,20 +11,22 @@
 @stop
 
 @section('content')
+    <div class="ui raised segment">
+        <form action="{{ route('checklists.store') }}" method="POST" class="ui form">
+            {{ csrf_field() }}
 
-    <form action="{{ route('checklists.store') }}" method="POST" class="ui form">
-        {{ csrf_field() }}
+            <div class="field">
+                <label>Select Workflow&nbsp;or&nbsp;<a href="{{ route('workflows.create') }}">Create New Workflow</a></label>
+                @include('components.dropdown-workflow-select')
+            </div>
 
-        <div class="grouped field">
-            @include('components.workflow-select')
-        </div>
 
-        <div class="field">
-            <label>Name</label>
-            <input type="text" name="name">
-        </div>
+            <div class="field">
+                <label>Name</label>
+                <input type="text" name="name">
+            </div>
 
-        <button class="ui primary button" type="submit">Create</button>
-    </form>
-
+            <button class="ui primary button" type="submit">Create</button>
+        </form>
+    </div>
 @stop

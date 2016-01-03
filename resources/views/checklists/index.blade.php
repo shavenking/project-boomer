@@ -14,11 +14,15 @@
         <i class="plus icon"></i> Create New Check List
     </a>
 
-    <div class="ui raised segment">
-        <ol class="ui relaxed list">
-            @foreach ($checklists as $checklist)
-                <li><a href="{{ route('checklists.show', $checklist->id) }}" class="header">{{ $checklist->name }}</a></li>
-            @endforeach
-        </ol>
-    </div>
+    @if ($checklists->isEmpty())
+        @include('messages.empty')
+    @else
+        <div class="ui raised segment">
+            <ol class="ui relaxed list">
+                @foreach ($checklists as $checklist)
+                    <li><a href="{{ route('checklists.show', $checklist->id) }}" class="header">{{ $checklist->name }}</a></li>
+                @endforeach
+            </ol>
+        </div>
+    @endif
 @stop

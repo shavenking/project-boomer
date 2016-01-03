@@ -23,6 +23,10 @@ class WorkflowViewsController extends Controller
     {
         $workflow = app(\App\Entities\Workflow::class)->findOrFail($workflowId);
 
+        if (!$workflow->checklist) {
+            return redirect()->route('checklists.create', ['workflow_id' => $workflow->id]);
+        }
+
         return redirect()->route('checklists.show', $workflow->checklist->id);
     }
 
