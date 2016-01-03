@@ -30,8 +30,7 @@
     "scripts": {
         "post-install-cmd": [
             "php artisan clear-compiled",
-            "php artisan optimize",
-            "php artisan migrate:refresh --seed --force"
+            "php artisan optimize"
         ],
         "pre-update-cmd": [
             "php artisan clear-compiled"
