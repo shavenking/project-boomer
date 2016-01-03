@@ -4,9 +4,9 @@ namespace App\Entities;
 
 use Illuminate\Database\Eloquent\Model;
 
-class ProjectCheckitem extends Model
+class FaultImprovement extends Model
 {
-    protected $fillable = ['project_checklist_id', 'name', 'detail', 'passes'];
+    protected $fillable = ['project_checkitem_id', 'before_photo', 'current_photo', 'after_photo', 'passes'];
 
     protected $casts = [
         'passes' => 'boolean'
@@ -21,13 +21,8 @@ class ProjectCheckitem extends Model
         $this->attributes['passes'] = (boolean) $passes;
     }
 
-    public function faultImprovement()
+    public function checkitem()
     {
-        return $this->hasOne(FaultImprovement::class);
-    }
-
-    public function checklist()
-    {
-        return $this->belongsTo(ProjectChecklist::class, 'project_checklist_id');
+        return $this->belongsTo(ProjectCheckitem::class, 'project_checkitem_id');
     }
 }

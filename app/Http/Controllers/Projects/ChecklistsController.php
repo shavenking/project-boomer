@@ -124,6 +124,14 @@ class ChecklistsController extends Controller
             $checkitem->update([
                 'passes' => $request->passes[$checkitem->id]
             ]);
+
+            if (!is_null($checkitem->passes) && !$checkitem->passes) {
+                $checkitem->faultImprovement()->create([]);
+            } else {
+                if ($checkitem->faultImprovement) {
+                    $checkitem->faultImprovement->delete();
+                }
+            }
         });
 
         return redirect()->route('projects.checklists.show', [$projectId, $checklistId]);

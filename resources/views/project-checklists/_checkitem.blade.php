@@ -1,4 +1,4 @@
-{{-- $checkitem --}}
+{{-- $project, $checkitem --}}
 <div class="item">
     <div class="middle aligned content">
         <div class="header">
@@ -15,6 +15,31 @@
             <div class="inline right floated fields">
                 @include('components.checkitem-radio-buttons', compact('checkitem'))
             </div>
+
+            @if (!is_null($checkitem->faultImprovement))
+                @if (is_null($checkitem->faultImprovement->passes))
+                    <a
+                        href="{{ route('projects.fault-improvements.show', [$project->id, $checkitem->faultImprovement->id]) }}"
+                        class="ui label"
+                    >
+                        Fault Improvement
+                    </a>
+                @elseif (!is_null($checkitem->faultImprovement->passes) && $checkitem->faultImprovement->passes)
+                    <a
+                        href="{{ route('projects.fault-improvements.show', [$project->id, $checkitem->faultImprovement->id]) }}"
+                        class="ui green label"
+                    >
+                        Fault Improvement
+                    </a>
+                @else
+                    <a
+                        href="{{ route('projects.fault-improvements.show', [$project->id, $checkitem->faultImprovement->id]) }}"
+                        class="ui red label"
+                    >
+                        Fault Improvement
+                    </a>
+                @endif
+            @endif
         </div>
     </div>
 </div>
