@@ -5,5 +5,5 @@
 @extends('layouts.general-nosidebar')
 
 @section('content')
-    Index
+    <img src="/app_structure.jpg" class="ui centered large rounded image" alt="">
 @stop
