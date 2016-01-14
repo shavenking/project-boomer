@@ -23,20 +23,6 @@ class ProjectViewsController extends Controller
         return view('projects.index')->withProjects($projects);
     }
 
-    public function internal($id)
-    {
-        $project = Project::findOrFail($id);
-
-        return view('projects.internal')->withProject($project);
-    }
-
-    public function external($id)
-    {
-        $project = Project::findOrFail($id);
-
-        return view('projects.external')->withProject($project);
-    }
-
     /**
      * Show the form for creating a new resource.
      *

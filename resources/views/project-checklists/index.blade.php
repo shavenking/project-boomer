@@ -1,15 +1,10 @@
 {{-- */ $breadcrumbs = [
     'Projects' => route('projects.index'),
     "{$project->name}" => route('projects.show', $project->id),
-    'External' => route('projects.external', $project->id),
     'Checklists' => null
 ] /* --}}
 
 @extends('layouts.project')
-
-@section('sidebar')
-    @include('partials.external-sidebar')
-@stop
 
 @section('content')
 

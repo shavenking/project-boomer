@@ -3,7 +3,7 @@
     "{$project->name}" => null
 ] /* --}}
 
-@extends('layouts.project-nosidebar')
+@extends('layouts.project')
 
 @section('content')
     專案： {{ $project->name }} 首頁

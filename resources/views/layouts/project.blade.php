@@ -14,31 +14,9 @@
             </div>
         </div>
 
-        <div class="sixteen wide column">
-            <div class="ui fluid three item pointing menu">
-
-                <a
-                    href="{{ route('projects.internal', $project->id) }}"
-                    class="@if (preg_match('/projects\.(internal|works|bid).*/', request()->route()->getName())) active @endif item"
-                >
-                    內部作業
-                </a>
-
-                <a
-                    href="{{ route('projects.external', $project->id) }}"
-                    class="@if (preg_match('/projects\.external|checklists*/', request()->route()->getName())) active @endif item"
-                >
-                    外部作業
-                </a>
-
-                <a class="item">財務管理</a>
-
-            </div>
-        </div>
-
         <div class="four wide column">
-            <div class="ui vertical pointing menu">
-                @yield('sidebar')
+            <div class="ui vertical menu">
+                @include('components.project-sidebar')
             </div>
         </div>
 
