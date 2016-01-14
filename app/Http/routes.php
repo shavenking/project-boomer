@@ -17,7 +17,7 @@ Route::group(['prefix' => 'api/v1'], function () {
     resource('projects.works', Projects\WorksController::class);
 });
 
-Route::group(['middleware' => 'csrftoken'], function () {
+Route::group(['middleware' => ['csrftoken', 'localize']], function () {
     get('/', function () {
         return view('index');
     })->name('index');
