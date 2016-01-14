@@ -9,9 +9,7 @@
     <div class="ui grid container">
 
         <div class="sixteen wide column">
-            <div class="ui pointing inverted large menu">
-                @include('partials.navbar')
-            </div>
+            @include('components.navbar')
         </div>
 
         <div class="sixteen wide column">
