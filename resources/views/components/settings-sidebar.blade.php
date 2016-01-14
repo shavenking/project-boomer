@@ -1,6 +1,6 @@
 <div class="ui vertical menu">
     <div class="item">
-        <div class="header">Settings</div>
+        <div class="header">{{ trans('all.settings') }}</div>
 
         <div class="menu">
 
@@ -8,21 +8,21 @@
                 href="{{ route('workflows.index') }}"
                 class="@if (str_is('workflows*', request()->route()->getName())) active @endif item"
             >
-                施工流程管理
+                {{ trans_choice('all.workflows', 2) }}
             </a>
 
             <a
                 href="{{ route('works.index') }}"
                 class="@if (str_is('works*', request()->route()->getName())) active @endif item"
             >
-                工作項目管理
+                {{ trans_choice('all.works', 2) }}
             </a>
 
             <a
                 href="{{ route('checklists.index') }}"
                 class="@if (str_is('checklists*', request()->route()->getName())) active @endif item"
             >
-                自主檢查表管理
+                {{ trans_choice('all.checklists', 2) }}
             </a>
 
         </div>

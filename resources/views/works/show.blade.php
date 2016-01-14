@@ -1,6 +1,6 @@
 {{-- */ $breadcrumbs = [
-    'Settings' => route('settings.index'),
-    'Works' => route('works.index'),
+    trans('all.settings') => route('settings.index'),
+    trans_choice('all.works', 2) => route('works.index'),
     "{$work->name}" => null
 ] /* --}}
 
@@ -9,10 +9,10 @@
 @section('content')
 
     <div class="ui secondary pointing menu">
-        <a href="{{ route('works.show', $work->id) }}" class="active item">基本資料</a>
-        <a href="{{ route('works.work-items.index', $work->id) }}" class="item">工料項目列表</a>
-        <a href="{{ route('works.workflow', $work->id) }}" class="item">流程圖</a>
-        <a href="{{ route('works.checklist', $work->id) }}" class="item">Check List</a>
+        <a href="{{ route('works.show', $work->id) }}" class="active item">{{ trans_choice('all.works', 1) }}</a>
+        <a href="{{ route('works.work-items.index', $work->id) }}" class="item">{{ trans_choice('all.workitems', 2) }}</a>
+        <a href="{{ route('works.workflow', $work->id) }}" class="item">{{ trans_choice('all.workflows', 1) }}</a>
+        <a href="{{ route('works.checklist', $work->id) }}" class="item">{{ trans_choice('all.checklists', 1) }}</a>
     </div>
 
     @include('works._card', $work)

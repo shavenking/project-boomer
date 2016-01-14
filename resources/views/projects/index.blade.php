@@ -1,5 +1,5 @@
 {{-- */ $breadcrumbs = [
-    'Projects' => null
+    trans_choice('all.projects', 2) => null
 ] /* --}}
 
 @extends('layouts.general-nosidebar')
@@ -8,7 +8,7 @@
     <table class="ui celled table">
         <thead>
             <tr>
-                <th>專案名稱</th>
+                <th>{{ trans('all.name') }}</th>
             </tr>
         </thead>
         <tbody>
@@ -20,7 +20,7 @@
                 </tr>
             @empty
                 <tr>
-                    <td class="center aligned">目前沒有專案</td>
+                    <td class="center aligned">{{ trans('all.empty_projects') }}</td>
                 </tr>
             @endforelse
         </tbody>
@@ -28,7 +28,7 @@
             <tr>
                 <th class="right aligned">
                     <a href="{{ route('projects.create') }}" class="ui primary labeled icon button">
-                        <i class="plus icon"></i> 新增專案
+                        <i class="plus icon"></i>{{ trans('all.create_project') }}
                     </a>
                 </th>
             </tr>

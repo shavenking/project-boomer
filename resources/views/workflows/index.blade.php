@@ -1,6 +1,6 @@
 {{-- */ $breadcrumbs = [
-    'Settings' => route('settings.index'),
-    'Workflows' => null
+    trans('all.settings') => route('settings.index'),
+    trans_choice('all.workflows', 2) => null
 ] /* --}}
 
 @extends('layouts.settings')

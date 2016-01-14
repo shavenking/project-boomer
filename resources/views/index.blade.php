@@ -1,5 +1,5 @@
 {{-- */ $breadcrumbs = [
-    'Index' => null
+    trans('all.index') => null
 ] /* --}}
 
 @extends('layouts.general-nosidebar')

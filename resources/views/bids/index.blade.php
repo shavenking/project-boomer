@@ -1,7 +1,7 @@
 {{-- */ $breadcrumbs = [
-    'Projects' => route('projects.index'),
+    trans_choice('all.projects', 2) => route('projects.index'),
     "{$project->name}" => route('projects.show', $project->id),
-    'Bid' => null
+    trans('all.bid') => null
 ] /* --}}
 
 @extends('layouts.project')
@@ -9,9 +9,9 @@
 @section('content')
 
     <div class="ui secondary pointing menu">
-        <a href="{{ route('projects.bid.index', $project->id) }}" class="active item">基本資料</a>
-        <a href="{{ route('projects.bid.works', $project->id) }}" class="item">工作項目列表</a>
+        <a href="{{ route('projects.bid.index', $project->id) }}" class="active item">{{ trans('all.bid') }}</a>
+        <a href="{{ route('projects.bid.works', $project->id) }}" class="item">{{ trans_choice('all.works', 2) }}</a>
     </div>
 
-    <p>基本資料</p>
+    <p>{{ trans('all.bid') }}</p>
 @stop

@@ -1,9 +1,9 @@
 {{-- */ $breadcrumbs = [
-    'Projects' => route('projects.index'),
+    trans_choice('all.projects', 2) => route('projects.index'),
     "{$project->name}" => route('projects.show', $project->id),
-    'Bid' => route('projects.bid.index', $project->id),
-    'Works' => route('projects.bid.works', $project->id),
-    'Create' => null
+    trans('all.bid') => route('projects.bid.index', $project->id),
+    trans_choice('all.works', 2) => route('projects.bid.works', $project->id),
+    trans('all.create') => null
 ] /* --}}
 
 @extends('layouts.project')
@@ -12,8 +12,8 @@
 
     @if (count($errors))
         @include('messages.errors', [
-            'header' => '請填寫欄位',
-            'message' => '必填項目：參考工項、名稱、數量'
+            'header' => trans('all.please_fill_the_form'),
+            'message' => trans('all.required_fields', ['fields' => implode(['Referenced Work', 'Name', 'Amount'])])
         ])
     @endif
 

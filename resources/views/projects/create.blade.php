@@ -1,6 +1,6 @@
 {{-- */ $breadcrumbs = [
-    'Projects' => route('projects.index'),
-    'Create' => null
+    trans_choice('all.projects', 2) => route('projects.index'),
+    trans('all.create') => null
 ] /* --}}
 
 @extends('layouts.general-nosidebar')
@@ -11,17 +11,17 @@
         {{ csrf_field() }}
 
         <div class="field {{ $errors->has('name') ? 'error' : '' }}">
-            <label>名稱</label>
+            <label>{{ trans('all.name') }}</label>
             <input type="text" name="name">
         </div>
         @if ($errors->has('name'))
             <div class="ui error message">
-                <div class="header">錯誤！</div>
-                <p>欄位請勿留空</p>
+                <div class="header">{{ trans('all.please_fill_the_form') }}</div>
+                <p>{{ trans('all.please_fill_the_form') }}</p>
             </div>
         @endif
 
-        <button class="ui primary button" type="submit">新增</button>
+        <button class="ui primary button" type="submit">{{ trans('all.create') }}</button>
 
     </form>
 

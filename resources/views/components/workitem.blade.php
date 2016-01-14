@@ -33,14 +33,14 @@
             {{ method_field('DELETE')}}
 
             <div class="ui labels">
-                <a href="{{ $editRoute }}" class="ui green label">Edit</a>
-                <button type="submit" class="ui right floated red label">Delete</button>
+                <a href="{{ $editRoute }}" class="ui green label">{{ trans('all.edit') }}</a>
+                <button type="submit" class="ui right floated red label">{{ trans('all.delete') }}</button>
             </div>
         </form>
 
         <div class="ui labels">
-            <div class="ui label">數量 {{ $workitem->amount }}</div>
-            <div class="ui label">單價 {{ $workitem->unit_price }}</div>
+            <div class="ui label">{{ trans('all.amount') }} {{ $workitem->amount }}</div>
+            <div class="ui label">{{ trans('all.unit_price') }} {{ $workitem->unit_price }}</div>
             <div class="ui label">{{ $workitem->unit->name }}</div>
         </div>
     </div>

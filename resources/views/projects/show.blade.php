@@ -1,10 +1,10 @@
 {{-- */ $breadcrumbs = [
-    'Projects' => route('projects.index'),
+    trans_choice('all.projects', 2) => route('projects.index'),
     "{$project->name}" => null
 ] /* --}}
 
 @extends('layouts.project')
 
 @section('content')
-    專案： {{ $project->name }} 首頁
+    {{ trans_choice('all.projects', 1) }}: {{ $project->name }}
 @stop

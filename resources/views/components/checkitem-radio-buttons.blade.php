@@ -8,7 +8,7 @@
             tabindex="0"
             @if (is_null($checkitem->passes)) checked @endif
         >
-        <label>unchecked</label>
+        <label>{{ trans('all.unchecked') }}</label>
     </div>
 </div>
 <div class="field">
@@ -20,7 +20,7 @@
             tabindex="0"
             @if (!is_null($checkitem->passes) && $checkitem->passes) checked @endif
         >
-        <label>passes</label>
+        <label>{{ trans('all.passes') }}</label>
     </div>
 </div>
 <div class="field">
@@ -32,6 +32,6 @@
             tabindex="0"
             @if (!is_null($checkitem->passes) && !$checkitem->passes) checked @endif
         >
-        <label>failed</label>
+        <label>{{ trans('all.failed') }}</label>
     </div>
 </div>

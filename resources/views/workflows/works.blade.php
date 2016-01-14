@@ -1,8 +1,8 @@
 {{-- */ $breadcrumbs = [
-    'Settings' => route('settings.index'),
-    'Workflows' => route('workflows.index'),
+    trans('all.settings') => route('settings.index'),
+    trans_choice('all.workflows', 2) => route('workflows.index'),
     "{$workflow->name}" => route('workflows.show', $workflow->id),
-    'Works' => null
+    trans_choice('all.works', 2) => null
 ] /* --}}
 
 @extends('layouts.settings')
@@ -10,15 +10,15 @@
 @section('content')
 
     <div class="ui secondary pointing menu">
-        <a href="{{ route('workflows.show', $workflow->id) }}" class="item">流程圖</a>
-        <a href="{{ route('workflows.works', $workflow->id) }}" class="active item">工作項目列表</a>
-        <a href="{{ route('workflows.checklist', $workflow->id) }}" class="item">Check List</a>
+        <a href="{{ route('workflows.show', $workflow->id) }}" class="item">{{ trans_choice('all.workflows', 2) }}</a>
+        <a href="{{ route('workflows.works', $workflow->id) }}" class="active item">{{ trans_choice('all.works', 2) }}</a>
+        <a href="{{ route('workflows.checklist', $workflow->id) }}" class="item">{{ trans_choice('all.checklists', 1) }}</a>
     </div>
 
     <table class="ui celled table">
         <thead>
             <tr>
-                <th>工項名稱</th>
+                <th>{{ trans('all.name') }}</th>
             </tr>
         </thead>
         <tbody>
@@ -30,19 +30,10 @@
                 </tr>
             @empty
                 <tr>
-                    <td class="center aligned">目前沒有工項</td>
+                    <td class="center aligned">{{ trans('all.empty_works') }}</td>
                 </tr>
             @endforelse
         </tbody>
-        {{-- <tfoot>
-            <tr>
-                <th>
-                    <a href="{{ route('works.create') }}" class="ui primary labeled icon button">
-                        <i class="plus icon"></i> 新增工項
-                    </a>
-                </th>
-            </tr>
-        </tfoot> --}}
     </table>
 
 @stop

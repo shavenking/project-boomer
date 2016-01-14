@@ -1,9 +1,9 @@
 {{-- */ $breadcrumbs = [
-    'Projects' => route('projects.index'),
+    trans_choice('all.projects', 2) => route('projects.index'),
     "{$project->name}" => route('projects.show', $project->id),
-    'Bid' => route('projects.bid.index', $project->id),
-    'Works' => route('projects.bid.works', $project->id),
-    'Search' => null
+    trans('all.bid') => route('projects.bid.index', $project->id),
+    trans_choice('all.works', 2) => route('projects.bid.works', $project->id),
+    trans('all.search') => null
 ] /* --}}
 
 @extends('layouts.project')
@@ -14,7 +14,7 @@
         <form method="GET" action="{{ route('projects.bid.works', $project->id)}}" class="ui inline form">
             <div id="flowtype-select"></div>
 
-            <button class="ui primary button" type="submit">Search</button>
+            <button class="ui primary button" type="submit">{{ trans('all.search') }}</button>
         </form>
     </div>
 @stop

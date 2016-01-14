@@ -1,7 +1,7 @@
 {{-- */ $breadcrumbs = [
-    'Projects' => route('projects.index'),
+    trans_choice('all.projects', 2) => route('projects.index'),
     "{$project->name}" => route('projects.show', $project->id),
-    'Checklists' => null
+    trans_choice('all.checklists', 2) => null
 ] /* --}}
 
 @extends('layouts.project')
@@ -9,7 +9,7 @@
 @section('content')
 
     <a href="{{ route('projects.checklists.create', $project->id) }}" class="ui primary button">
-        <i class="plus icon"></i> Add Check List
+        <i class="plus icon"></i>{{ trans('all.create_checklist') }}
     </a>
 
     <div class="ui raised segment">

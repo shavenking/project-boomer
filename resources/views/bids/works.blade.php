@@ -1,8 +1,8 @@
 {{-- */ $breadcrumbs = [
-    'Projects' => route('projects.index'),
+    trans_choice('all.projects', 2) => route('projects.index'),
     "{$project->name}" => route('projects.show', $project->id),
-    'Bid' => route('projects.bid.index', $project->id),
-    'Works' => null
+    trans('all.bid') => route('projects.bid.index', $project->id),
+    trans('all.works') => null
 ] /* --}}
 
 @extends('layouts.project')
@@ -10,19 +10,19 @@
 @section('content')
 
     <div class="ui secondary pointing menu">
-        <a href="{{ route('projects.bid.index', $project->id) }}" class="item">基本資料</a>
-        <a href="{{ route('projects.bid.works', $project->id) }}" class="active item">工作項目列表</a>
+        <a href="{{ route('projects.bid.index', $project->id) }}" class="item">{{ trans('all.bid') }}</a>
+        <a href="{{ route('projects.bid.works', $project->id) }}" class="active item">{{ trans_choice('all.works', 2) }}</a>
     </div>
 
     <div class="ui grid">
         <div class="sixteen wide column">
             <a href="{{ route('projects.works.create', [$project->id, 'mainflow_type_id' => request()->query('mainflow_type_id'), 'detailingflow_type_id' => request()->query('detailingflow_type_id')]) }}" class="ui primary labeled icon button">
-                <i class="plus icon"></i>新增專案工項
+                <i class="plus icon"></i>{{ trans('all.create_project_work') }}
             </a>
             @if (isset($mainflowTypeName) || isset($detailingflowTypeName))
                 <div class="ui labeled button" tabindex="0">
                     <a href="{{ route('projects.works.search', [$project->id]) }}" class="ui button">
-                        <i class="search icon"></i>Search
+                        <i class="search icon"></i>{{ trans('all.search') }}
                     </a>
                     <a href="{{ route('projects.works.search', [$project->id]) }}" class="ui basic left pointing label">
                         @if (isset($mainflowTypeName))
@@ -40,7 +40,7 @@
                 </div>
             @else
                 <a href="{{ route('projects.works.search', [$project->id]) }}" class="ui button">
-                    <i class="search icon"></i>Search
+                    <i class="search icon"></i>{{ trans('all.search') }}
                 </a>
             @endif
         </div>

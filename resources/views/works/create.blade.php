@@ -1,7 +1,7 @@
 {{-- */ $breadcrumbs = [
-    'Settings' => route('settings.index'),
-    'Works' => route('works.index'),
-    "Create" => null
+    trans('all.settings') => route('settings.index'),
+    trans_choice('all.works', 2) => route('works.index'),
+    trans('all.create') => null
 ] /* --}}
 
 @extends('layouts.settings')
@@ -21,22 +21,22 @@
 
         <div class="equal width fields">
             <div class="field {{ $errors->has('name') ? 'error' : '' }}">
-                <label>名稱</label>
+                <label>{{ trans('all.name') }}</label>
                 <input type="text" name="name" placeholder="名稱">
             </div>
             <div class="field {{ $errors->has('amount') ? 'error' : '' }}">
-                <label>數量</label>
+                <label>{{ trans('all.amount') }}</label>
                 <input type="text" name="amount" placeholder="數量">
             </div>
         </div>
 
         @if (count($errors))
             <div class="ui error message">
-                <div class="header">錯誤！</div>
-                <p>欄位請勿留空</p>
+                <div class="header">{{ trans('all.please_fill_the_form') }}</div>
+                <p>{{ trans('all.please_fill_the_form') }}</p>
             </div>
         @endif
 
-        <button class="ui primary button" type="submit">新增</button>
+        <button class="ui primary button" type="submit">{{ trans('all.create') }}</button>
     </div>
 @stop

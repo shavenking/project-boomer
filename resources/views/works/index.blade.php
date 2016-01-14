@@ -1,13 +1,13 @@
 {{-- */ $breadcrumbs = [
-    'Settings' => route('settings.index'),
-    'Works' => null
+    trans('all.settings') => route('settings.index'),
+    trans_choice('all.works', 2) => null
 ] /* --}}
 
 @extends('layouts.settings')
 
 @section('content')
     <div class="ui basic segment">
-        <a href="{{ route('works.create') }}" class="ui primary button"><i class="plus icon"></i>新增工作項目</a>
+        <a href="{{ route('works.create') }}" class="ui primary button"><i class="plus icon"></i>{{ trans('all.create_work') }}</a>
     </div>
     @if (count($works))
         <div class="ui two column grid">
@@ -18,6 +18,6 @@
             @endforeach
         </div>
     @else
-        <p>目前沒有工項，請 <a href="{{ route('works.create') }}">點我</a> 新增</p>
+        <p>{{ trans('all.empty_works') }} <a href="{{ route('works.create') }}">{{ trans('all.create') }}</a></p>
     @endif
 @stop

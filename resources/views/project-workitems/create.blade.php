@@ -1,10 +1,10 @@
 {{-- */ $breadcrumbs = [
-    'Projects' => route('projects.index'),
+    trans_choice('all.projects', 2) => route('projects.index'),
     "{$project->name}" => route('projects.show', $project->id),
-    'Bid' => route('projects.bid.index', $project->id),
-    'Works' => route('projects.bid.works', $project->id),
+    trans('all.bid') => route('projects.bid.index', $project->id),
+    trans_choice('all.works', 2) => route('projects.bid.works', $project->id),
     "{$work->name}" => route('projects.works.show', [$project->id, $work->id]),
-    'Create Workitem' => null
+    trans('all.create_workitem') => null
 ] /* --}}
 
 @extends('layouts.project')
@@ -20,22 +20,22 @@
             {{ csrf_field() }}
 
             <div class="field">
-                <label>Name</label>
+                <label>{{ trans('all.name') }}</label>
                 <input type="text" name="name">
             </div>
 
             <div class="field">
-                <label>Amount</label>
+                <label>{{ trans('all.amount') }}</label>
                 <input type="text" name="amount">
             </div>
 
             <div class="field">
-                <label>Unit Price</label>
+                <label>{{ trans('all.unit_price') }}</label>
                 <input type="text" name="unit_price">
             </div>
 
             <div class="field">
-                <label>Unit</label>
+                <label>{{ trans('all.unit') }}</label>
                 <select class="ui dropdown" name="unit_id">
                     @foreach ($units as $unit)
                         <option value="{{ $unit->id }}">{{ $unit->name }}</option>
@@ -44,7 +44,7 @@
             </div>
 
             <div class="field">
-                <label>Types</label>
+                <label>{{ trans('all.type') }}</label>
                 <select class="ui dropdown" name="cost_type_id">
                     @foreach ($costTypes as $costType)
                         <option value="{{ $costType->id }}">{{ $costType->name }}</option>
@@ -52,7 +52,7 @@
                 </select>
             </div>
 
-            <button class="ui primary button" type="submit">Create</button>
+            <button class="ui primary button" type="submit">{{ trans('all.create') }}</button>
         </form>
     </div>
 

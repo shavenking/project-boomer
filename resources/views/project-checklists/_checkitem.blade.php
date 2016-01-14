@@ -22,21 +22,21 @@
                         href="{{ route('projects.fault-improvements.show', [$project->id, $checkitem->faultImprovement->id]) }}"
                         class="ui label"
                     >
-                        Fault Improvement
+                        {{ trans_choice('all.fault_improvements', 1) }}
                     </a>
                 @elseif (!is_null($checkitem->faultImprovement->passes) && $checkitem->faultImprovement->passes)
                     <a
                         href="{{ route('projects.fault-improvements.show', [$project->id, $checkitem->faultImprovement->id]) }}"
                         class="ui green label"
                     >
-                        Fault Improvement
+                        {{ trans_choice('all.fault_improvements', 1) }}
                     </a>
                 @else
                     <a
                         href="{{ route('projects.fault-improvements.show', [$project->id, $checkitem->faultImprovement->id]) }}"
                         class="ui red label"
                     >
-                        Fault Improvement
+                        {{ trans_choice('all.fault_improvements', 1) }}
                     </a>
                 @endif
             @endif

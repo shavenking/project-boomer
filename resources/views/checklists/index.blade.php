@@ -1,13 +1,13 @@
 {{-- */ $breadcrumbs = [
-    'Settings' => route('settings.index'),
-    'Checklists' => null
+    trans('all.settings') => route('settings.index'),
+    trans_choice('all.checklists', 2) => null
 ] /* --}}
 
 @extends('layouts.settings')
 
 @section('content')
     <a href="{{ route('checklists.create') }}" class="ui primary button">
-        <i class="plus icon"></i> Create New Check List
+        <i class="plus icon"></i>{{ trans('all.create_checklist') }}
     </a>
 
     @if ($checklists->isEmpty())

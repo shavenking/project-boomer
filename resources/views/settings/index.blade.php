@@ -1,9 +1,9 @@
 {{-- */ $breadcrumbs = [
-    'Settings' => null
+    trans('all.settings') => null
 ] /* --}}
 
 @extends('layouts.settings')
 
 @section('content')
-    <p>設定首頁</p>
+    <p>{{ trans('all.settings') }}</p>
 @stop

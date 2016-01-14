@@ -3,7 +3,7 @@
     {{ csrf_field() }}
 
     <div class="field">
-        <label>Referenced Checklist</label>
+        <label>{{ trans('all.referenced_checklist') }}</label>
         <select name="checklist_id" class="ui selection dropdown">
             @foreach ($checklists as $checklist)
                 <option value="{{ $checklist->id }}">{{ $checklist->name }}</option>
@@ -12,9 +12,9 @@
     </div>
 
     <div class="field">
-        <label>Custom Name</label>
+        <label>{{ trans('all.custom_name') }}</label>
         <input type="text" name="name">
     </div>
 
-    <button class="ui primary button" type="submit">Create</button>
+    <button class="ui primary button" type="submit">{{ trans('all.create') }}</button>
 </form>

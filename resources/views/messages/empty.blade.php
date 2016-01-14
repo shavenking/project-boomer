@@ -1,7 +1,7 @@
 {{-- $header, $message, $url --}}
 <div class="ui message">
     <div class="header">
-        Empty!
+        {{ trans('all.empty') }}
     </div>
-    <p>There is no item yet.</p>
+    <p>{{ trans('all.empty_items') }}</p>
 </div>

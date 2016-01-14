@@ -1,6 +1,6 @@
 {{-- */ $breadcrumbs = [
-    'Settings' => route('settings.index'),
-    'Workflows' => route('workflows.index'),
+    trans('all.settings') => route('settings.index'),
+    trans_choice('all.workflows', 2) => route('workflows.index'),
     "{$workflow->name}" => null
 ] /* --}}
 
@@ -9,9 +9,9 @@
 @section('content')
 
     <div class="ui secondary pointing menu">
-        <a href="{{ route('workflows.show', $workflow->id) }}" class="active item">流程圖</a>
-        <a href="{{ route('workflows.works', $workflow->id) }}" class="item">工作項目列表</a>
-        <a href="{{ route('workflows.checklist', $workflow->id) }}" class="item">Check List</a>
+        <a href="{{ route('workflows.show', $workflow->id) }}" class="active item">{{ trans_choice('all.workflows', 1) }}</a>
+        <a href="{{ route('workflows.works', $workflow->id) }}" class="item">{{ trans_choice('all.works', 2) }}</a>
+        <a href="{{ route('workflows.checklist', $workflow->id) }}" class="item">{{ trans_choice('all.checklists', 1) }}</a>
     </div>
 
     <div id="workflow-node-list" data-workflow-id="{{ $workflow->id }}"><!-- React Component --></div>

@@ -1,7 +1,7 @@
 {{-- */ $breadcrumbs = [
-    'Settings' => route('settings.index'),
-    'Checklists' => route('checklists.index'),
-    'Create' => null
+    trans('all.settings') => route('settings.index'),
+    trans_choice('all.checklists', 2) => route('checklists.index'),
+    trans('all.create') => null
 ] /* --}}
 
 @extends('layouts.settings')
@@ -12,17 +12,17 @@
             {{ csrf_field() }}
 
             <div class="field">
-                <label>Select Workflow&nbsp;or&nbsp;<a href="{{ route('workflows.create') }}">Create New Workflow</a></label>
+                <label>{{ trans('all.select_workflow') }}&nbsp;{{ trans('all.or') }}&nbsp;<a href="{{ route('workflows.create') }}">{{ trans('all.create_workflow') }}</a></label>
                 @include('components.dropdown-workflow-select')
             </div>
 
 
             <div class="field">
-                <label>Name</label>
+                <label>{{ trans('all.name') }}</label>
                 <input type="text" name="name">
             </div>
 
-            <button class="ui primary button" type="submit">Create</button>
+            <button class="ui primary button" type="submit">{{ trans('all.create') }}</button>
         </form>
     </div>
 @stop

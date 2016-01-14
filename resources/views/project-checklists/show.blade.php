@@ -1,7 +1,7 @@
 {{-- */ $breadcrumbs = [
-    'Projects' => route('projects.index'),
+    trans_choice('all.projects', 2) => route('projects.index'),
     "{$project->name}" => route('projects.show', $project->id),
-    'Checklists' => route('projects.checklists.index', $project->id),
+    trans_choice('all.checklists', 2) => route('projects.checklists.index', $project->id),
     "{$checklist->name}" => null
 ] /* --}}
 
@@ -10,7 +10,7 @@
 @section('content')
 
     @if ($checklist->checkitems->isEmpty())
-        You didn't create any checkitem yet.
+        {{ trans('all.empty_checkitems') }}
     @else
         <div class="ui clearing raised segment">
             <form class="ui form" action="{{ route('projects.checklists.checkresults.update', [$project->id, $checklist->id])}}" method="POST">
@@ -23,7 +23,7 @@
                     @endforeach
                 </div>
 
-                <button class="ui right floated primary button" type="submit">Save</button>
+                <button class="ui right floated primary button" type="submit">{{ trans('all.save') }}</button>
             </form>
         </div>
     @endif
