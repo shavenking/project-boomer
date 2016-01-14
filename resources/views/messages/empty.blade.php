@@ -1,7 +1,6 @@
-{{-- $header, $message, $url --}}
-<div class="ui message">
-    <div class="header">
-        {{ trans('all.empty') }}
+<div class="ui icon message">
+    <i class="info icon"></i>
+    <div class="content">
+        <div class="header">{{ trans('all.empty') }}</div>
     </div>
-    <p>{{ trans('all.empty_items') }}</p>
 </div>

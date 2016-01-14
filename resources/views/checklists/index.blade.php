@@ -7,22 +7,24 @@
 
 @section('content')
     <div class="ui grid">
-        <div class="column">
+
+        <div class="sixteen wide column">
             <a href="{{ route('checklists.create') }}" class="ui primary button">
                 <i class="plus icon"></i>{{ trans('all.create_checklist') }}
             </a>
         </div>
-    </div>
 
-    @if ($checklists->isEmpty())
-        @include('messages.empty')
-    @else
-        <div class="ui two column grid">
+        @if (count($checklists))
             @foreach ($checklists as $checklist)
-                <div class="column">
+                <div class="eight wide column">
                     @include('components.checklist')
                 </div>
             @endforeach
-        </div>
-    @endif
+        @else
+            <div class="sixteen wide column">
+                @include('messages.empty')
+            </div>
+        @endif
+
+    </div>
 @stop

@@ -7,16 +7,22 @@
 
 @section('content')
     <div class="ui grid">
-        <div class="column">
+
+        <div class="sixteen wide column">
             <a href="{{ route('workflows.create') }}" class="ui primary button"><i class="plus icon"></i>{{ trans('all.create_workflow') }}</a>
         </div>
-    </div>
 
-    <div class="ui two column grid">
-        @foreach ($workflows as $workflow)
-            <div class="column">
-                @include ('components.workflow')
+        @if (count($workflows))
+            @foreach ($workflows as $workflow)
+                <div class="eight wide column">
+                    @include ('components.workflow')
+                </div>
+            @endforeach
+        @else
+            <div class="sixteen wide column">
+                @include('messages.empty')
             </div>
-        @endforeach
+        @endif
+
     </div>
 @stop
