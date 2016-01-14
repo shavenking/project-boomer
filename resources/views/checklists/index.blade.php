@@ -6,19 +6,23 @@
 @extends('layouts.settings')
 
 @section('content')
-    <a href="{{ route('checklists.create') }}" class="ui primary button">
-        <i class="plus icon"></i>{{ trans('all.create_checklist') }}
-    </a>
+    <div class="ui grid">
+        <div class="column">
+            <a href="{{ route('checklists.create') }}" class="ui primary button">
+                <i class="plus icon"></i>{{ trans('all.create_checklist') }}
+            </a>
+        </div>
+    </div>
 
     @if ($checklists->isEmpty())
         @include('messages.empty')
     @else
-        <div class="ui raised segment">
-            <ol class="ui relaxed list">
-                @foreach ($checklists as $checklist)
-                    <li><a href="{{ route('checklists.show', $checklist->id) }}" class="header">{{ $checklist->name }}</a></li>
-                @endforeach
-            </ol>
+        <div class="ui two column grid">
+            @foreach ($checklists as $checklist)
+                <div class="column">
+                    @include('components.checklist')
+                </div>
+            @endforeach
         </div>
     @endif
 @stop
