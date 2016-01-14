@@ -10,7 +10,7 @@
 
     <div class="ui secondary pointing menu">
         <a href="{{ route('checklists.show', $checklist->id) }}" class="active item">{{ $checklist->name }}</a>
-        <a href="{{ route('checklists.workflow', $checklist->id) }}" class="item">{{ trans_choice('all.workflow', 1) }}</a>
+        <a href="{{ route('checklists.workflow', $checklist->id) }}" class="item">{{ trans_choice('all.workflows', 1) }}</a>
         <a href="{{ route('checklists.works', $checklist->id) }}" class="item">{{ trans_choice('all.works', 1) }}</a>
     </div>
 
