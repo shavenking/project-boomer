@@ -13,9 +13,7 @@
         </div>
 
         <div class="four wide column">
-            <div class="ui vertical pointing menu">
-                @yield('sidebar')
-            </div>
+            @include('components.settings-sidebar')
         </div>
 
         <div class="twelve wide column">

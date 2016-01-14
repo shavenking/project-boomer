@@ -4,11 +4,7 @@
     "Create" => null
 ] /* --}}
 
-@extends('layouts.general')
-
-@section('sidebar')
-    @include('partials.settings-sidebar')
-@stop
+@extends('layouts.settings')
 
 @section('content')
     <form class="ui form {{ count($errors) ? 'error' : '' }}" method="POST" action="{{ route('works.store') }}">

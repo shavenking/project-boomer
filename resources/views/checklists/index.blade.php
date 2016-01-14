@@ -3,11 +3,7 @@
     'Checklists' => null
 ] /* --}}
 
-@extends('layouts.general')
-
-@section('sidebar')
-    @include('partials.settings-sidebar')
-@stop
+@extends('layouts.settings')
 
 @section('content')
     <a href="{{ route('checklists.create') }}" class="ui primary button">

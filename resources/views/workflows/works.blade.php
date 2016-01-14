@@ -5,11 +5,7 @@
     'Works' => null
 ] /* --}}
 
-@extends('layouts.general')
-
-@section('sidebar')
-    @include('partials.settings-sidebar')
-@stop
+@extends('layouts.settings')
 
 @section('content')
 
