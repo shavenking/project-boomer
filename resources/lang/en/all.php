@@ -8,6 +8,7 @@ return [
     'settings' => 'Settings',
     'projects' => 'Project|Projects',
     'workflows' => 'Workflow|Workflows',
+    'workflow_nodes' => 'Workflow Node|Workflow Nodes',
     'works' => 'Work|Works',
     'workitems' => 'Workitem|Workitems',
     'checklists' => 'Checklist|Checklists',

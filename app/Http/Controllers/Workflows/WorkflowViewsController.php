@@ -16,7 +16,9 @@ class WorkflowViewsController extends Controller
      */
     public function index()
     {
-        return view('workflows.index');
+        $workflows = \App\Entities\Workflow::all();
+
+        return view('workflows.index')->withWorkflows($workflows);
     }
 
     public function checklist($workflowId)

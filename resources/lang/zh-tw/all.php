@@ -8,6 +8,7 @@ return [
     'settings' => '設定',
     'projects' => '專案|專案列表',
     'workflows' => '流程|流程列表',
+    'workflow_nodes' => '流程項目|流程項目',
     'works' => '工作項目|工作項目列表',
     'workitems' => '工料項目|工料項目列表',
     'checklists' => '自主檢查表|自主檢查表列表',

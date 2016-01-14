@@ -6,5 +6,17 @@
 @extends('layouts.settings')
 
 @section('content')
-    <div id="workflow-list"><!-- React Component --></div>
+    <div class="ui grid">
+        <div class="column">
+            <a href="{{ route('workflows.create') }}" class="ui primary button"><i class="plus icon"></i>{{ trans('all.create_workflow') }}</a>
+        </div>
+    </div>
+
+    <div class="ui two column grid">
+        @foreach ($workflows as $workflow)
+            <div class="column">
+                @include ('components.workflow')
+            </div>
+        @endforeach
+    </div>
 @stop
