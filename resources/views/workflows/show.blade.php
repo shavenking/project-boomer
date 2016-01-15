@@ -14,6 +14,15 @@
         <a href="{{ route('workflows.checklist', $workflow->id) }}" class="item">{{ trans_choice('all.checklists', 1) }}</a>
     </div>
 
-    <div id="workflow-node-list" data-workflow-id="{{ $workflow->id }}"><!-- React Component --></div>
+    <div class="ui raised segment">
+        <div class="ui form">
+            <div class="field">
+                <label>Order Name</label>
+                <order-name-input></order-name-input>
+            </div>
+        </div>
+    </div>
+
+    {{-- <div id="workflow-node-list" data-workflow-id="{{ $workflow->id }}"><!-- React Component --></div> --}}
 
 @stop

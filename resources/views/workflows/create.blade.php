@@ -17,8 +17,12 @@
                 <input type="text" name="name">
             </div>
 
-            <div class="fields">
-                <div id="work-select"></div>
+            <div class="field">
+                <label>{{ trans_choice('all.works', 2) }}</label>
+                <work-select
+                    default-text="{{ trans_choice('all.works', 2) }}"
+                    empty-text="{{ trans('all.empty_items') }}"
+                ></work-select>
             </div>
 
             @if ($errors->has('name'))
