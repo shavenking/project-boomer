@@ -35,6 +35,7 @@ return [
 
     'create' => 'Create',
     'create_workflow' => 'Create Workflow',
+    'create_node' => 'Create Node',
     'create_project_work' => 'Create Project Work',
     'create_checklist' => 'Create Checklist',
     'create_checkitem' => 'Create Checkitem',

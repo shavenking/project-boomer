@@ -15,14 +15,7 @@
     </div>
 
     <div class="ui raised segment">
-        <div class="ui form">
-            <div class="field">
-                <label>Order Name</label>
-                <order-name-input></order-name-input>
-            </div>
-        </div>
+        <workflow-nodes label-text="{{ trans('all.create_node') }}" workflow-id="{{ $workflow->id }}"></workflow-nodes>
     </div>
-
-    {{-- <div id="workflow-node-list" data-workflow-id="{{ $workflow->id }}"><!-- React Component --></div> --}}
 
 @stop

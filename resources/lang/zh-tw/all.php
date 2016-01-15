@@ -35,6 +35,7 @@ return [
 
     'create' => '新增',
     'create_workflow' => '新增流程',
+    'create_node' => '新增流程項目',
     'create_project_work' => '新增專案工作項目',
     'create_checklist' => '新增自主檢查表',
     'create_checkitem' => '新增檢查項目',
