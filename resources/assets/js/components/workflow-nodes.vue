@@ -11,7 +11,7 @@
         </div>
 
         <div class="eight wide column" id="vue-workflow-node-list-{{ _uid }}">
-            <workflow-node-list v-bind:nodes.sync="nodes"></workflow-node-list>
+            <workflow-node-list v-bind:nodes.sync="nodes" v-on:drawn="onDrawn"></workflow-node-list>
         </div>
 
     </div>
@@ -50,6 +50,12 @@
 
             onInvalid() {
                 console.log('failed')
+            },
+
+            onDrawn() {
+                window.$(`#vue-order-title-input-${this._uid}`).sticky({
+                    context: `#vue-workflow-node-list-${this._uid}`
+                })
             }
         },
 
@@ -66,10 +72,6 @@
                 Vue.nextTick(() => {
                     this.$broadcast('listUpdated')
                 })
-            })
-
-            window.$(`#vue-order-title-input-${this._uid}`).sticky({
-                context: `#vue-workflow-node-list-${this._uid}`
             })
         }
     }

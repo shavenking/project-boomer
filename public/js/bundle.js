@@ -54,7 +54,7 @@
 
 	var _workSelect2 = _interopRequireDefault(_workSelect);
 
-	var _workflowNodes = __webpack_require__(9);
+	var _workflowNodes = __webpack_require__(5);
 
 	var _workflowNodes2 = _interopRequireDefault(_workflowNodes);
 
@@ -9683,16 +9683,12 @@
 	module.exports = "\n<div class=\"ui multiple selection dropdown\" id=\"vue-dropdown-{{ _uid }}\">\n    <input type=\"hidden\" name=\"work_ids\">\n    <i class=\"dropdown icon\"></i>\n    <div class=\"default text\">{{ isEmpty ? emptyText : defaultText }}</div>\n    <div class=\"menu\">\n        <div\n            v-for=\"work in works\"\n            class=\"item\"\n            v-bind:data-value.once=\"work.id\"\n        >\n            {{ work.name }}\n        </div>\n    </div>\n</div>\n";
 
 /***/ },
-/* 5 */,
-/* 6 */,
-/* 7 */,
-/* 8 */,
-/* 9 */
+/* 5 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __vue_script__, __vue_template__
-	__vue_script__ = __webpack_require__(10)
-	__vue_template__ = __webpack_require__(11)
+	__vue_script__ = __webpack_require__(6)
+	__vue_template__ = __webpack_require__(67)
 	module.exports = __vue_script__ || {}
 	if (module.exports.__esModule) module.exports = module.exports.default
 	if (__vue_template__) { (typeof module.exports === "function" ? module.exports.options : module.exports).template = __vue_template__ }
@@ -9709,7 +9705,7 @@
 	})()}
 
 /***/ },
-/* 10 */
+/* 6 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -9722,11 +9718,11 @@
 
 	var _vue2 = _interopRequireDefault(_vue);
 
-	var _orderTitleInput = __webpack_require__(15);
+	var _orderTitleInput = __webpack_require__(7);
 
 	var _orderTitleInput2 = _interopRequireDefault(_orderTitleInput);
 
-	var _workflowNodeList = __webpack_require__(12);
+	var _workflowNodeList = __webpack_require__(10);
 
 	var _workflowNodeList2 = _interopRequireDefault(_workflowNodeList);
 
@@ -9747,7 +9743,7 @@
 	//         </div>
 	//
 	//         <div class="eight wide column" id="vue-workflow-node-list-{{ _uid }}">
-	//             <workflow-node-list v-bind:nodes.sync="nodes"></workflow-node-list>
+	//             <workflow-node-list v-bind:nodes.sync="nodes" v-on:drawn="onDrawn"></workflow-node-list>
 	//         </div>
 	//
 	//     </div>
@@ -9780,6 +9776,11 @@
 	        },
 	        onInvalid: function onInvalid() {
 	            console.log('failed');
+	        },
+	        onDrawn: function onDrawn() {
+	            window.$('#vue-order-title-input-' + this._uid).sticky({
+	                context: '#vue-workflow-node-list-' + this._uid
+	            });
 	        }
 	    },
 
@@ -9798,121 +9799,17 @@
 	                _this2.$broadcast('listUpdated');
 	            });
 	        });
-
-	        window.$('#vue-order-title-input-' + this._uid).sticky({
-	            context: '#vue-workflow-node-list-' + this._uid
-	        });
 	    }
 	};
 	// </script>
 
 /***/ },
-/* 11 */
-/***/ function(module, exports) {
-
-	module.exports = "\n<div class=\"ui grid\">\n\n    <div class=\"eight wide column\">\n        <div class=\"ui sticky form\" id=\"vue-order-title-input-{{ _uid }}\">\n            <div class=\"field\">\n                <label>{{ labelText }}</label>\n                <order-title-input v-on:valid=\"onValid\" v-on:invalid=\"onInvalid\"></order-title-input>\n            </div>\n        </div>\n    </div>\n\n    <div class=\"eight wide column\" id=\"vue-workflow-node-list-{{ _uid }}\">\n        <workflow-node-list v-bind:nodes.sync=\"nodes\"></workflow-node-list>\n    </div>\n\n</div>\n";
-
-/***/ },
-/* 12 */
+/* 7 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __vue_script__, __vue_template__
-	__vue_script__ = __webpack_require__(13)
-	__vue_template__ = __webpack_require__(14)
-	module.exports = __vue_script__ || {}
-	if (module.exports.__esModule) module.exports = module.exports.default
-	if (__vue_template__) { (typeof module.exports === "function" ? module.exports.options : module.exports).template = __vue_template__ }
-	if (false) {(function () {  module.hot.accept()
-	  var hotAPI = require("vue-hot-reload-api")
-	  hotAPI.install(require("vue"), true)
-	  if (!hotAPI.compatible) return
-	  var id = "/Users/andytsai/Documents/Code/project-boomer/resources/assets/js/components/workflow-node-list.vue"
-	  if (!module.hot.data) {
-	    hotAPI.createRecord(id, module.exports)
-	  } else {
-	    hotAPI.update(id, module.exports, __vue_template__)
-	  }
-	})()}
-
-/***/ },
-/* 13 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
-
-	var _sortBy = __webpack_require__(18);
-
-	var _sortBy2 = _interopRequireDefault(_sortBy);
-
-	var _pluck = __webpack_require__(69);
-
-	var _pluck2 = _interopRequireDefault(_pluck);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	// <template>
-	//     <div class="ui small image" id="vue-diagram-{{ _uid }}"></div>
-	// </template>
-	//
-	// <script>
-	exports.default = {
-	    props: ['workflowId', 'nodes'],
-
-	    methods: {
-	        drawFlow: function drawFlow() {
-	            window.$('#vue-diagram-' + this._uid).empty();
-
-	            var operations = [];
-
-	            operations.push({
-	                id: 'st',
-	                content: 'st=>start: Start'
-	            });
-
-	            (0, _sortBy2.default)(this.nodes, 'order').forEach(function (node) {
-	                operations.push({
-	                    id: 'op' + node.id,
-	                    content: 'op' + node.id + '=>operation: ' + node.order + '. ' + node.title
-	                });
-	            });
-
-	            operations.push({
-	                id: 'end',
-	                content: 'end=>end: End'
-	            });
-
-	            var contents = (0, _pluck2.default)(operations, 'content').join('\n');
-	            var flow = (0, _pluck2.default)(operations, 'id').join('->');
-
-	            window.flowchart.parse(contents + '\n\n' + flow).drawSVG('vue-diagram-' + this._uid, {});
-	        }
-	    },
-
-	    events: {
-	        listUpdated: function listUpdated() {
-	            this.drawFlow();
-	        }
-	    }
-	};
-	// </script>
-
-/***/ },
-/* 14 */
-/***/ function(module, exports) {
-
-	module.exports = "\n<div class=\"ui small image\" id=\"vue-diagram-{{ _uid }}\"></div>\n";
-
-/***/ },
-/* 15 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var __vue_script__, __vue_template__
-	__vue_script__ = __webpack_require__(16)
-	__vue_template__ = __webpack_require__(17)
+	__vue_script__ = __webpack_require__(8)
+	__vue_template__ = __webpack_require__(9)
 	module.exports = __vue_script__ || {}
 	if (module.exports.__esModule) module.exports = module.exports.default
 	if (__vue_template__) { (typeof module.exports === "function" ? module.exports.options : module.exports).template = __vue_template__ }
@@ -9929,7 +9826,7 @@
 	})()}
 
 /***/ },
-/* 16 */
+/* 8 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -9996,20 +9893,110 @@
 	// </script>
 
 /***/ },
-/* 17 */
+/* 9 */
 /***/ function(module, exports) {
 
 	module.exports = "\n<input type=\"text\" v-model=\"orderTitle\" v-on:keypress.enter=\"onKeypress\">\n";
 
 /***/ },
-/* 18 */
+/* 10 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var baseCallback = __webpack_require__(19),
-	    baseMap = __webpack_require__(59),
-	    baseSortBy = __webpack_require__(65),
-	    compareAscending = __webpack_require__(66),
-	    isIterateeCall = __webpack_require__(68);
+	var __vue_script__, __vue_template__
+	__vue_script__ = __webpack_require__(11)
+	__vue_template__ = __webpack_require__(66)
+	module.exports = __vue_script__ || {}
+	if (module.exports.__esModule) module.exports = module.exports.default
+	if (__vue_template__) { (typeof module.exports === "function" ? module.exports.options : module.exports).template = __vue_template__ }
+	if (false) {(function () {  module.hot.accept()
+	  var hotAPI = require("vue-hot-reload-api")
+	  hotAPI.install(require("vue"), true)
+	  if (!hotAPI.compatible) return
+	  var id = "/Users/andytsai/Documents/Code/project-boomer/resources/assets/js/components/workflow-node-list.vue"
+	  if (!module.hot.data) {
+	    hotAPI.createRecord(id, module.exports)
+	  } else {
+	    hotAPI.update(id, module.exports, __vue_template__)
+	  }
+	})()}
+
+/***/ },
+/* 11 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+
+	var _sortBy = __webpack_require__(12);
+
+	var _sortBy2 = _interopRequireDefault(_sortBy);
+
+	var _pluck = __webpack_require__(63);
+
+	var _pluck2 = _interopRequireDefault(_pluck);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	// <template>
+	//     <div class="ui small image" id="vue-diagram-{{ _uid }}"></div>
+	// </template>
+	//
+	// <script>
+	exports.default = {
+	    props: ['workflowId', 'nodes'],
+
+	    methods: {
+	        drawFlow: function drawFlow() {
+	            window.$('#vue-diagram-' + this._uid).empty();
+
+	            var operations = [];
+
+	            operations.push({
+	                id: 'st',
+	                content: 'st=>start: Start'
+	            });
+
+	            (0, _sortBy2.default)(this.nodes, 'order').forEach(function (node) {
+	                operations.push({
+	                    id: 'op' + node.id,
+	                    content: 'op' + node.id + '=>operation: ' + node.order + '. ' + node.title
+	                });
+	            });
+
+	            operations.push({
+	                id: 'end',
+	                content: 'end=>end: End'
+	            });
+
+	            var contents = (0, _pluck2.default)(operations, 'content').join('\n');
+	            var flow = (0, _pluck2.default)(operations, 'id').join('->');
+
+	            window.flowchart.parse(contents + '\n\n' + flow).drawSVG('vue-diagram-' + this._uid, {});
+
+	            this.$dispatch('drawn');
+	        }
+	    },
+
+	    events: {
+	        listUpdated: function listUpdated() {
+	            this.drawFlow();
+	        }
+	    }
+	};
+	// </script>
+
+/***/ },
+/* 12 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var baseCallback = __webpack_require__(13),
+	    baseMap = __webpack_require__(53),
+	    baseSortBy = __webpack_require__(59),
+	    compareAscending = __webpack_require__(60),
+	    isIterateeCall = __webpack_require__(62);
 
 	/**
 	 * Creates an array of elements, sorted in ascending order by the results of
@@ -10079,14 +10066,14 @@
 
 
 /***/ },
-/* 19 */
+/* 13 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var baseMatches = __webpack_require__(20),
-	    baseMatchesProperty = __webpack_require__(48),
-	    bindCallback = __webpack_require__(55),
-	    identity = __webpack_require__(56),
-	    property = __webpack_require__(57);
+	var baseMatches = __webpack_require__(14),
+	    baseMatchesProperty = __webpack_require__(42),
+	    bindCallback = __webpack_require__(49),
+	    identity = __webpack_require__(50),
+	    property = __webpack_require__(51);
 
 	/**
 	 * The base implementation of `_.callback` which supports specifying the
@@ -10120,12 +10107,12 @@
 
 
 /***/ },
-/* 20 */
+/* 14 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var baseIsMatch = __webpack_require__(21),
-	    getMatchData = __webpack_require__(45),
-	    toObject = __webpack_require__(44);
+	var baseIsMatch = __webpack_require__(15),
+	    getMatchData = __webpack_require__(39),
+	    toObject = __webpack_require__(38);
 
 	/**
 	 * The base implementation of `_.matches` which does not clone `source`.
@@ -10156,11 +10143,11 @@
 
 
 /***/ },
-/* 21 */
+/* 15 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var baseIsEqual = __webpack_require__(22),
-	    toObject = __webpack_require__(44);
+	var baseIsEqual = __webpack_require__(16),
+	    toObject = __webpack_require__(38);
 
 	/**
 	 * The base implementation of `_.isMatch` without support for callback
@@ -10214,12 +10201,12 @@
 
 
 /***/ },
-/* 22 */
+/* 16 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var baseIsEqualDeep = __webpack_require__(23),
-	    isObject = __webpack_require__(32),
-	    isObjectLike = __webpack_require__(33);
+	var baseIsEqualDeep = __webpack_require__(17),
+	    isObject = __webpack_require__(26),
+	    isObjectLike = __webpack_require__(27);
 
 	/**
 	 * The base implementation of `_.isEqual` without support for `this` binding
@@ -10248,14 +10235,14 @@
 
 
 /***/ },
-/* 23 */
+/* 17 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var equalArrays = __webpack_require__(24),
-	    equalByTag = __webpack_require__(26),
-	    equalObjects = __webpack_require__(27),
-	    isArray = __webpack_require__(40),
-	    isTypedArray = __webpack_require__(43);
+	var equalArrays = __webpack_require__(18),
+	    equalByTag = __webpack_require__(20),
+	    equalObjects = __webpack_require__(21),
+	    isArray = __webpack_require__(34),
+	    isTypedArray = __webpack_require__(37);
 
 	/** `Object#toString` result references. */
 	var argsTag = '[object Arguments]',
@@ -10356,10 +10343,10 @@
 
 
 /***/ },
-/* 24 */
+/* 18 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var arraySome = __webpack_require__(25);
+	var arraySome = __webpack_require__(19);
 
 	/**
 	 * A specialized version of `baseIsEqualDeep` for arrays with support for
@@ -10413,7 +10400,7 @@
 
 
 /***/ },
-/* 25 */
+/* 19 */
 /***/ function(module, exports) {
 
 	/**
@@ -10442,7 +10429,7 @@
 
 
 /***/ },
-/* 26 */
+/* 20 */
 /***/ function(module, exports) {
 
 	/** `Object#toString` result references. */
@@ -10496,10 +10483,10 @@
 
 
 /***/ },
-/* 27 */
+/* 21 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var keys = __webpack_require__(28);
+	var keys = __webpack_require__(22);
 
 	/** Used for native method references. */
 	var objectProto = Object.prototype;
@@ -10569,13 +10556,13 @@
 
 
 /***/ },
-/* 28 */
+/* 22 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var getNative = __webpack_require__(29),
-	    isArrayLike = __webpack_require__(34),
-	    isObject = __webpack_require__(32),
-	    shimKeys = __webpack_require__(38);
+	var getNative = __webpack_require__(23),
+	    isArrayLike = __webpack_require__(28),
+	    isObject = __webpack_require__(26),
+	    shimKeys = __webpack_require__(32);
 
 	/* Native method references for those with the same name as other `lodash` methods. */
 	var nativeKeys = getNative(Object, 'keys');
@@ -10620,10 +10607,10 @@
 
 
 /***/ },
-/* 29 */
+/* 23 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var isNative = __webpack_require__(30);
+	var isNative = __webpack_require__(24);
 
 	/**
 	 * Gets the native function at `key` of `object`.
@@ -10642,11 +10629,11 @@
 
 
 /***/ },
-/* 30 */
+/* 24 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var isFunction = __webpack_require__(31),
-	    isObjectLike = __webpack_require__(33);
+	var isFunction = __webpack_require__(25),
+	    isObjectLike = __webpack_require__(27);
 
 	/** Used to detect host constructors (Safari > 5). */
 	var reIsHostCtor = /^\[object .+?Constructor\]$/;
@@ -10696,10 +10683,10 @@
 
 
 /***/ },
-/* 31 */
+/* 25 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var isObject = __webpack_require__(32);
+	var isObject = __webpack_require__(26);
 
 	/** `Object#toString` result references. */
 	var funcTag = '[object Function]';
@@ -10740,7 +10727,7 @@
 
 
 /***/ },
-/* 32 */
+/* 26 */
 /***/ function(module, exports) {
 
 	/**
@@ -10774,7 +10761,7 @@
 
 
 /***/ },
-/* 33 */
+/* 27 */
 /***/ function(module, exports) {
 
 	/**
@@ -10792,11 +10779,11 @@
 
 
 /***/ },
-/* 34 */
+/* 28 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var getLength = __webpack_require__(35),
-	    isLength = __webpack_require__(37);
+	var getLength = __webpack_require__(29),
+	    isLength = __webpack_require__(31);
 
 	/**
 	 * Checks if `value` is array-like.
@@ -10813,10 +10800,10 @@
 
 
 /***/ },
-/* 35 */
+/* 29 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var baseProperty = __webpack_require__(36);
+	var baseProperty = __webpack_require__(30);
 
 	/**
 	 * Gets the "length" property value of `object`.
@@ -10834,7 +10821,7 @@
 
 
 /***/ },
-/* 36 */
+/* 30 */
 /***/ function(module, exports) {
 
 	/**
@@ -10854,7 +10841,7 @@
 
 
 /***/ },
-/* 37 */
+/* 31 */
 /***/ function(module, exports) {
 
 	/**
@@ -10880,14 +10867,14 @@
 
 
 /***/ },
-/* 38 */
+/* 32 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var isArguments = __webpack_require__(39),
-	    isArray = __webpack_require__(40),
-	    isIndex = __webpack_require__(41),
-	    isLength = __webpack_require__(37),
-	    keysIn = __webpack_require__(42);
+	var isArguments = __webpack_require__(33),
+	    isArray = __webpack_require__(34),
+	    isIndex = __webpack_require__(35),
+	    isLength = __webpack_require__(31),
+	    keysIn = __webpack_require__(36);
 
 	/** Used for native method references. */
 	var objectProto = Object.prototype;
@@ -10927,11 +10914,11 @@
 
 
 /***/ },
-/* 39 */
+/* 33 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var isArrayLike = __webpack_require__(34),
-	    isObjectLike = __webpack_require__(33);
+	var isArrayLike = __webpack_require__(28),
+	    isObjectLike = __webpack_require__(27);
 
 	/** Used for native method references. */
 	var objectProto = Object.prototype;
@@ -10967,12 +10954,12 @@
 
 
 /***/ },
-/* 40 */
+/* 34 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var getNative = __webpack_require__(29),
-	    isLength = __webpack_require__(37),
-	    isObjectLike = __webpack_require__(33);
+	var getNative = __webpack_require__(23),
+	    isLength = __webpack_require__(31),
+	    isObjectLike = __webpack_require__(27);
 
 	/** `Object#toString` result references. */
 	var arrayTag = '[object Array]';
@@ -11013,7 +11000,7 @@
 
 
 /***/ },
-/* 41 */
+/* 35 */
 /***/ function(module, exports) {
 
 	/** Used to detect unsigned integer values. */
@@ -11043,14 +11030,14 @@
 
 
 /***/ },
-/* 42 */
+/* 36 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var isArguments = __webpack_require__(39),
-	    isArray = __webpack_require__(40),
-	    isIndex = __webpack_require__(41),
-	    isLength = __webpack_require__(37),
-	    isObject = __webpack_require__(32);
+	var isArguments = __webpack_require__(33),
+	    isArray = __webpack_require__(34),
+	    isIndex = __webpack_require__(35),
+	    isLength = __webpack_require__(31),
+	    isObject = __webpack_require__(26);
 
 	/** Used for native method references. */
 	var objectProto = Object.prototype;
@@ -11113,11 +11100,11 @@
 
 
 /***/ },
-/* 43 */
+/* 37 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var isLength = __webpack_require__(37),
-	    isObjectLike = __webpack_require__(33);
+	var isLength = __webpack_require__(31),
+	    isObjectLike = __webpack_require__(27);
 
 	/** `Object#toString` result references. */
 	var argsTag = '[object Arguments]',
@@ -11193,10 +11180,10 @@
 
 
 /***/ },
-/* 44 */
+/* 38 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var isObject = __webpack_require__(32);
+	var isObject = __webpack_require__(26);
 
 	/**
 	 * Converts `value` to an object if it's not one.
@@ -11213,11 +11200,11 @@
 
 
 /***/ },
-/* 45 */
+/* 39 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var isStrictComparable = __webpack_require__(46),
-	    pairs = __webpack_require__(47);
+	var isStrictComparable = __webpack_require__(40),
+	    pairs = __webpack_require__(41);
 
 	/**
 	 * Gets the propery names, values, and compare flags of `object`.
@@ -11240,10 +11227,10 @@
 
 
 /***/ },
-/* 46 */
+/* 40 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var isObject = __webpack_require__(32);
+	var isObject = __webpack_require__(26);
 
 	/**
 	 * Checks if `value` is suitable for strict equality comparisons, i.e. `===`.
@@ -11261,11 +11248,11 @@
 
 
 /***/ },
-/* 47 */
+/* 41 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var keys = __webpack_require__(28),
-	    toObject = __webpack_require__(44);
+	var keys = __webpack_require__(22),
+	    toObject = __webpack_require__(38);
 
 	/**
 	 * Creates a two dimensional array of the key-value pairs for `object`,
@@ -11300,18 +11287,18 @@
 
 
 /***/ },
-/* 48 */
+/* 42 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var baseGet = __webpack_require__(49),
-	    baseIsEqual = __webpack_require__(22),
-	    baseSlice = __webpack_require__(50),
-	    isArray = __webpack_require__(40),
-	    isKey = __webpack_require__(51),
-	    isStrictComparable = __webpack_require__(46),
-	    last = __webpack_require__(52),
-	    toObject = __webpack_require__(44),
-	    toPath = __webpack_require__(53);
+	var baseGet = __webpack_require__(43),
+	    baseIsEqual = __webpack_require__(16),
+	    baseSlice = __webpack_require__(44),
+	    isArray = __webpack_require__(34),
+	    isKey = __webpack_require__(45),
+	    isStrictComparable = __webpack_require__(40),
+	    last = __webpack_require__(46),
+	    toObject = __webpack_require__(38),
+	    toPath = __webpack_require__(47);
 
 	/**
 	 * The base implementation of `_.matchesProperty` which does not clone `srcValue`.
@@ -11351,10 +11338,10 @@
 
 
 /***/ },
-/* 49 */
+/* 43 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var toObject = __webpack_require__(44);
+	var toObject = __webpack_require__(38);
 
 	/**
 	 * The base implementation of `get` without support for string paths
@@ -11386,7 +11373,7 @@
 
 
 /***/ },
-/* 50 */
+/* 44 */
 /***/ function(module, exports) {
 
 	/**
@@ -11424,11 +11411,11 @@
 
 
 /***/ },
-/* 51 */
+/* 45 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var isArray = __webpack_require__(40),
-	    toObject = __webpack_require__(44);
+	var isArray = __webpack_require__(34),
+	    toObject = __webpack_require__(38);
 
 	/** Used to match property names within property paths. */
 	var reIsDeepProp = /\.|\[(?:[^[\]]*|(["'])(?:(?!\1)[^\n\\]|\\.)*?\1)\]/,
@@ -11458,7 +11445,7 @@
 
 
 /***/ },
-/* 52 */
+/* 46 */
 /***/ function(module, exports) {
 
 	/**
@@ -11483,11 +11470,11 @@
 
 
 /***/ },
-/* 53 */
+/* 47 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var baseToString = __webpack_require__(54),
-	    isArray = __webpack_require__(40);
+	var baseToString = __webpack_require__(48),
+	    isArray = __webpack_require__(34);
 
 	/** Used to match property names within property paths. */
 	var rePropName = /[^.[\]]+|\[(?:(-?\d+(?:\.\d+)?)|(["'])((?:(?!\2)[^\n\\]|\\.)*?)\2)\]/g;
@@ -11517,7 +11504,7 @@
 
 
 /***/ },
-/* 54 */
+/* 48 */
 /***/ function(module, exports) {
 
 	/**
@@ -11536,10 +11523,10 @@
 
 
 /***/ },
-/* 55 */
+/* 49 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var identity = __webpack_require__(56);
+	var identity = __webpack_require__(50);
 
 	/**
 	 * A specialized version of `baseCallback` which only supports `this` binding
@@ -11581,7 +11568,7 @@
 
 
 /***/ },
-/* 56 */
+/* 50 */
 /***/ function(module, exports) {
 
 	/**
@@ -11607,12 +11594,12 @@
 
 
 /***/ },
-/* 57 */
+/* 51 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var baseProperty = __webpack_require__(36),
-	    basePropertyDeep = __webpack_require__(58),
-	    isKey = __webpack_require__(51);
+	var baseProperty = __webpack_require__(30),
+	    basePropertyDeep = __webpack_require__(52),
+	    isKey = __webpack_require__(45);
 
 	/**
 	 * Creates a function that returns the property value at `path` on a
@@ -11644,11 +11631,11 @@
 
 
 /***/ },
-/* 58 */
+/* 52 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var baseGet = __webpack_require__(49),
-	    toPath = __webpack_require__(53);
+	var baseGet = __webpack_require__(43),
+	    toPath = __webpack_require__(47);
 
 	/**
 	 * A specialized version of `baseProperty` which supports deep paths.
@@ -11669,11 +11656,11 @@
 
 
 /***/ },
-/* 59 */
+/* 53 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var baseEach = __webpack_require__(60),
-	    isArrayLike = __webpack_require__(34);
+	var baseEach = __webpack_require__(54),
+	    isArrayLike = __webpack_require__(28);
 
 	/**
 	 * The base implementation of `_.map` without support for callback shorthands
@@ -11698,11 +11685,11 @@
 
 
 /***/ },
-/* 60 */
+/* 54 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var baseForOwn = __webpack_require__(61),
-	    createBaseEach = __webpack_require__(64);
+	var baseForOwn = __webpack_require__(55),
+	    createBaseEach = __webpack_require__(58);
 
 	/**
 	 * The base implementation of `_.forEach` without support for callback
@@ -11719,11 +11706,11 @@
 
 
 /***/ },
-/* 61 */
+/* 55 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var baseFor = __webpack_require__(62),
-	    keys = __webpack_require__(28);
+	var baseFor = __webpack_require__(56),
+	    keys = __webpack_require__(22);
 
 	/**
 	 * The base implementation of `_.forOwn` without support for callback
@@ -11742,10 +11729,10 @@
 
 
 /***/ },
-/* 62 */
+/* 56 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var createBaseFor = __webpack_require__(63);
+	var createBaseFor = __webpack_require__(57);
 
 	/**
 	 * The base implementation of `baseForIn` and `baseForOwn` which iterates
@@ -11765,10 +11752,10 @@
 
 
 /***/ },
-/* 63 */
+/* 57 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var toObject = __webpack_require__(44);
+	var toObject = __webpack_require__(38);
 
 	/**
 	 * Creates a base function for `_.forIn` or `_.forInRight`.
@@ -11798,12 +11785,12 @@
 
 
 /***/ },
-/* 64 */
+/* 58 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var getLength = __webpack_require__(35),
-	    isLength = __webpack_require__(37),
-	    toObject = __webpack_require__(44);
+	var getLength = __webpack_require__(29),
+	    isLength = __webpack_require__(31),
+	    toObject = __webpack_require__(38);
 
 	/**
 	 * Creates a `baseEach` or `baseEachRight` function.
@@ -11835,7 +11822,7 @@
 
 
 /***/ },
-/* 65 */
+/* 59 */
 /***/ function(module, exports) {
 
 	/**
@@ -11862,10 +11849,10 @@
 
 
 /***/ },
-/* 66 */
+/* 60 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var baseCompareAscending = __webpack_require__(67);
+	var baseCompareAscending = __webpack_require__(61);
 
 	/**
 	 * Used by `_.sortBy` to compare transformed elements of a collection and stable
@@ -11884,7 +11871,7 @@
 
 
 /***/ },
-/* 67 */
+/* 61 */
 /***/ function(module, exports) {
 
 	/**
@@ -11924,12 +11911,12 @@
 
 
 /***/ },
-/* 68 */
+/* 62 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var isArrayLike = __webpack_require__(34),
-	    isIndex = __webpack_require__(41),
-	    isObject = __webpack_require__(32);
+	var isArrayLike = __webpack_require__(28),
+	    isIndex = __webpack_require__(35),
+	    isObject = __webpack_require__(26);
 
 	/**
 	 * Checks if the provided arguments are from an iteratee call.
@@ -11958,11 +11945,11 @@
 
 
 /***/ },
-/* 69 */
+/* 63 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var map = __webpack_require__(70),
-	    property = __webpack_require__(57);
+	var map = __webpack_require__(64),
+	    property = __webpack_require__(51);
 
 	/**
 	 * Gets the property value of `path` from all elements in `collection`.
@@ -11995,13 +11982,13 @@
 
 
 /***/ },
-/* 70 */
+/* 64 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var arrayMap = __webpack_require__(71),
-	    baseCallback = __webpack_require__(19),
-	    baseMap = __webpack_require__(59),
-	    isArray = __webpack_require__(40);
+	var arrayMap = __webpack_require__(65),
+	    baseCallback = __webpack_require__(13),
+	    baseMap = __webpack_require__(53),
+	    isArray = __webpack_require__(34);
 
 	/**
 	 * Creates an array of values by running each element in `collection` through
@@ -12069,7 +12056,7 @@
 
 
 /***/ },
-/* 71 */
+/* 65 */
 /***/ function(module, exports) {
 
 	/**
@@ -12094,6 +12081,18 @@
 
 	module.exports = arrayMap;
 
+
+/***/ },
+/* 66 */
+/***/ function(module, exports) {
+
+	module.exports = "\n<div class=\"ui small image\" id=\"vue-diagram-{{ _uid }}\"></div>\n";
+
+/***/ },
+/* 67 */
+/***/ function(module, exports) {
+
+	module.exports = "\n<div class=\"ui grid\">\n\n    <div class=\"eight wide column\">\n        <div class=\"ui sticky form\" id=\"vue-order-title-input-{{ _uid }}\">\n            <div class=\"field\">\n                <label>{{ labelText }}</label>\n                <order-title-input v-on:valid=\"onValid\" v-on:invalid=\"onInvalid\"></order-title-input>\n            </div>\n        </div>\n    </div>\n\n    <div class=\"eight wide column\" id=\"vue-workflow-node-list-{{ _uid }}\">\n        <workflow-node-list v-bind:nodes.sync=\"nodes\" v-on:drawn=\"onDrawn\"></workflow-node-list>\n    </div>\n\n</div>\n";
 
 /***/ }
 /******/ ]);

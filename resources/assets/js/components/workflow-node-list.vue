@@ -36,6 +36,8 @@
                 let flow = pluck(operations, 'id').join('->')
 
                 window.flowchart.parse(`${contents}\n\n${flow}`).drawSVG(`vue-diagram-${this._uid}`, {})
+
+                this.$dispatch('drawn')
             }
         },
 
