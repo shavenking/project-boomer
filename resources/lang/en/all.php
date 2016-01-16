@@ -33,6 +33,7 @@ return [
 
     'select_workflow' => 'Select Workflow',
     'select_type_order' => 'Select Type and Order',
+    'select_unit' => 'Select Unit',
 
     'create' => 'Create',
     'create_workflow' => 'Create Workflow',

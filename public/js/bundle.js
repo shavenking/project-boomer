@@ -58,6 +58,10 @@
 
 	var _flowtypeSelect2 = _interopRequireDefault(_flowtypeSelect);
 
+	var _unitSelect = __webpack_require__(83);
+
+	var _unitSelect2 = _interopRequireDefault(_unitSelect);
+
 	var _workflowNodes = __webpack_require__(5);
 
 	var _workflowNodes2 = _interopRequireDefault(_workflowNodes);
@@ -69,7 +73,8 @@
 	    components: {
 	        WorkSelect: _workSelect2.default,
 	        WorkflowNodes: _workflowNodes2.default,
-	        FlowtypeSelect: _flowtypeSelect2.default
+	        FlowtypeSelect: _flowtypeSelect2.default,
+	        UnitSelect: _unitSelect2.default
 	    }
 	});
 
@@ -12340,6 +12345,81 @@
 /***/ function(module, exports) {
 
 	module.exports = "\n<div\n    class=\"ui selection dropdown\"\n    :class=\"{ 'multiple': multiple, 'disabled': isEmpty }\"\n    id=\"vue-dropdown-select-{{ _uid }}\"\n>\n    <input type=\"hidden\" v-bind:name=\"inputName\">\n    <i class=\"dropdown icon\"></i>\n    <div class=\"default text\"></div>\n    <div class=\"menu\">\n        <div\n            v-for=\"option in options\"\n            class=\"item\"\n            v-bind:data-value.once=\"option[optionValueName]\"\n        >\n            {{ option[optionTextName] }}\n        </div>\n    </div>\n</div>\n";
+
+/***/ },
+/* 83 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var __vue_script__, __vue_template__
+	__vue_script__ = __webpack_require__(84)
+	__vue_template__ = __webpack_require__(85)
+	module.exports = __vue_script__ || {}
+	if (module.exports.__esModule) module.exports = module.exports.default
+	if (__vue_template__) { (typeof module.exports === "function" ? module.exports.options : module.exports).template = __vue_template__ }
+	if (false) {(function () {  module.hot.accept()
+	  var hotAPI = require("vue-hot-reload-api")
+	  hotAPI.install(require("vue"), true)
+	  if (!hotAPI.compatible) return
+	  var id = "/Users/andytsai/Documents/Code/project-boomer/resources/assets/js/components/unit-select.vue"
+	  if (!module.hot.data) {
+	    hotAPI.createRecord(id, module.exports)
+	  } else {
+	    hotAPI.update(id, module.exports, __vue_template__)
+	  }
+	})()}
+
+/***/ },
+/* 84 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+
+	var _dropdownSelect = __webpack_require__(80);
+
+	var _dropdownSelect2 = _interopRequireDefault(_dropdownSelect);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function getUnits() {
+	    return window.$.getJSON('/api/v1/units');
+	} // <template>
+	//     <dropdown-select
+	//         input-name="unit_id"
+	//         :options="units"
+	//         option-value-name="id"
+	//         option-text-name="name"
+	//     ></dropdown-select>
+	// </template>
+	//
+	// <script>
+
+	exports.default = {
+	    components: { DropdownSelect: _dropdownSelect2.default },
+
+	    data: function data() {
+	        return {
+	            units: []
+	        };
+	    },
+	    ready: function ready() {
+	        var _this = this;
+
+	        getUnits().then(function (response) {
+	            _this.units = response.units;
+	        });
+	    }
+	};
+	// </script>
+
+/***/ },
+/* 85 */
+/***/ function(module, exports) {
+
+	module.exports = "\n<dropdown-select\n    input-name=\"unit_id\"\n    :options=\"units\"\n    option-value-name=\"id\"\n    option-text-name=\"name\"\n></dropdown-select>\n";
 
 /***/ }
 /******/ ]);

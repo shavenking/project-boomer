@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import WorkSelect from './components/work-select.vue'
 import FlowtypeSelect from './components/flowtype-select.vue'
+import UnitSelect from './components/unit-select.vue'
 import WorkflowNodes from './components/workflow-nodes.vue'
 
 new Vue({
@@ -8,6 +9,7 @@ new Vue({
     components: {
         WorkSelect,
         WorkflowNodes,
-        FlowtypeSelect
+        FlowtypeSelect,
+        UnitSelect
     }
 })

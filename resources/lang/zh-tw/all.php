@@ -33,6 +33,7 @@ return [
 
     'select_workflow' => '選擇流程',
     'select_type_order' => '選擇工程類別與順序',
+    'select_unit' => '選擇單位',
 
     'create' => '新增',
     'create_workflow' => '新增流程',

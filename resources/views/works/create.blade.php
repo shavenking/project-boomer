@@ -15,8 +15,9 @@
             <flowtype-select></flowtype-select>
         </div>
 
-        <div class="grouped fields">
-                <div id="unit-select"></div>
+        <div class="field">
+            <label>{{ trans('all.select_unit') }}</label>
+            <unit-select></unit-select>
         </div>
 
         <div class="grouped fields">
