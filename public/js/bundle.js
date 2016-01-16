@@ -12308,6 +12308,7 @@
 
 	    events: {
 	        optionsUpdated: function optionsUpdated() {
+	            this._dropdown.dropdown('refresh');
 	            this._dropdown.dropdown('clear');
 	            this._dropdown.dropdown('show');
 	        }
