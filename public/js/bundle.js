@@ -60,8 +60,6 @@
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-	_vue2.default.config.debug = true;
-
 	new _vue2.default({
 	    el: 'body',
 	    components: { WorkSelect: _workSelect2.default, WorkflowNodes: _workflowNodes2.default }
