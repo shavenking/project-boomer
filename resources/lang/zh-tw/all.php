@@ -32,6 +32,7 @@ return [
     'custom_name' => '自定義名稱',
 
     'select_workflow' => '選擇流程',
+    'select_type_order' => '選擇工程類別與順序',
 
     'create' => '新增',
     'create_workflow' => '新增流程',

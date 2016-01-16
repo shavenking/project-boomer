@@ -54,6 +54,10 @@
 
 	var _workSelect2 = _interopRequireDefault(_workSelect);
 
+	var _flowtypeSelect = __webpack_require__(68);
+
+	var _flowtypeSelect2 = _interopRequireDefault(_flowtypeSelect);
+
 	var _workflowNodes = __webpack_require__(5);
 
 	var _workflowNodes2 = _interopRequireDefault(_workflowNodes);
@@ -62,7 +66,11 @@
 
 	new _vue2.default({
 	    el: 'body',
-	    components: { WorkSelect: _workSelect2.default, WorkflowNodes: _workflowNodes2.default }
+	    components: {
+	        WorkSelect: _workSelect2.default,
+	        WorkflowNodes: _workflowNodes2.default,
+	        FlowtypeSelect: _flowtypeSelect2.default
+	    }
 	});
 
 /***/ },
@@ -12091,6 +12099,247 @@
 /***/ function(module, exports) {
 
 	module.exports = "\n<div class=\"ui grid\">\n\n    <div class=\"eight wide column\">\n        <div class=\"ui sticky form\" id=\"vue-order-title-input-{{ _uid }}\">\n            <div class=\"field\">\n                <label>{{ labelText }}</label>\n                <order-title-input v-on:valid=\"onValid\" v-on:invalid=\"onInvalid\"></order-title-input>\n            </div>\n        </div>\n    </div>\n\n    <div class=\"eight wide column\" id=\"vue-workflow-node-list-{{ _uid }}\">\n        <workflow-node-list v-bind:nodes.sync=\"nodes\" v-on:drawn=\"onDrawn\"></workflow-node-list>\n    </div>\n\n</div>\n";
+
+/***/ },
+/* 68 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var __vue_script__, __vue_template__
+	__vue_script__ = __webpack_require__(69)
+	__vue_template__ = __webpack_require__(70)
+	module.exports = __vue_script__ || {}
+	if (module.exports.__esModule) module.exports = module.exports.default
+	if (__vue_template__) { (typeof module.exports === "function" ? module.exports.options : module.exports).template = __vue_template__ }
+	if (false) {(function () {  module.hot.accept()
+	  var hotAPI = require("vue-hot-reload-api")
+	  hotAPI.install(require("vue"), true)
+	  if (!hotAPI.compatible) return
+	  var id = "/Users/andytsai/Documents/Code/project-boomer/resources/assets/js/components/flowtype-select.vue"
+	  if (!module.hot.data) {
+	    hotAPI.createRecord(id, module.exports)
+	  } else {
+	    hotAPI.update(id, module.exports, __vue_template__)
+	  }
+	})()}
+
+/***/ },
+/* 69 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+
+	var _vue = __webpack_require__(1);
+
+	var _vue2 = _interopRequireDefault(_vue);
+
+	var _dropdownSelect = __webpack_require__(80);
+
+	var _dropdownSelect2 = _interopRequireDefault(_dropdownSelect);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	// <template>
+	//     <div class="two fields">
+	//         <div class="field">
+	//             <dropdown-select
+	//                 input-name="mainflow_type_id"
+	//                 :options="mainflowTypes"
+	//                 option-value-name="id"
+	//                 option-text-name="name"
+	//                 @selected="onMainflowTypeSelected"
+	//             ></dropdown-select>
+	//         </div>
+	//         <div class="field">
+	//             <dropdown-select
+	//                 input-name="detailingflow_type_id"
+	//                 :options="detailingflowTypes"
+	//                 option-value-name="id"
+	//                 option-text-name="name"
+	//                 @selected="onDetailingflowTypeSelected"
+	//                 v-ref:detailingflow-type-select
+	//             ></dropdown-select>
+	//         </div>
+	//     </div>
+	// </template>
+	//
+	// <script>
+
+	function getMainflowTypes() {
+	    return window.$.getJSON('/api/v1/mainflow-types');
+	}
+
+	function getDetailingflowTypes(mainflowTypeId) {
+	    return window.$.getJSON('/api/v1/mainflow-types/' + mainflowTypeId + '/detailingflow-types');
+	}
+
+	exports.default = {
+	    components: { DropdownSelect: _dropdownSelect2.default },
+
+	    methods: {
+	        onMainflowTypeSelected: function onMainflowTypeSelected(mainflowTypeId) {
+	            var _this = this;
+
+	            getDetailingflowTypes(mainflowTypeId).then(function (response) {
+	                _this.detailingflowTypes = response.detailingflow_types;
+
+	                _vue2.default.nextTick(function () {
+	                    _this.$refs.detailingflowTypeSelect.$emit('optionsUpdated');
+	                });
+	            });
+
+	            return false;
+	        },
+	        onDetailingflowTypeSelected: function onDetailingflowTypeSelected(detailingflowTypeId) {
+	            return false;
+	        }
+	    },
+
+	    data: function data() {
+	        return {
+	            mainflowTypes: [],
+	            detailingflowTypes: []
+	        };
+	    },
+	    ready: function ready() {
+	        var _this2 = this;
+
+	        getMainflowTypes().then(function (response) {
+	            _this2.mainflowTypes = response.mainflow_types;
+	        });
+	    }
+	};
+	// </script>
+
+/***/ },
+/* 70 */
+/***/ function(module, exports) {
+
+	module.exports = "\n<div class=\"two fields\">\n    <div class=\"field\">\n        <dropdown-select\n            input-name=\"mainflow_type_id\"\n            :options=\"mainflowTypes\"\n            option-value-name=\"id\"\n            option-text-name=\"name\"\n            @selected=\"onMainflowTypeSelected\"\n        ></dropdown-select>\n    </div>\n    <div class=\"field\">\n        <dropdown-select\n            input-name=\"detailingflow_type_id\"\n            :options=\"detailingflowTypes\"\n            option-value-name=\"id\"\n            option-text-name=\"name\"\n            @selected=\"onDetailingflowTypeSelected\"\n            v-ref:detailingflow-type-select\n        ></dropdown-select>\n    </div>\n</div>\n";
+
+/***/ },
+/* 71 */,
+/* 72 */,
+/* 73 */,
+/* 74 */,
+/* 75 */,
+/* 76 */,
+/* 77 */,
+/* 78 */,
+/* 79 */,
+/* 80 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var __vue_script__, __vue_template__
+	__vue_script__ = __webpack_require__(81)
+	__vue_template__ = __webpack_require__(82)
+	module.exports = __vue_script__ || {}
+	if (module.exports.__esModule) module.exports = module.exports.default
+	if (__vue_template__) { (typeof module.exports === "function" ? module.exports.options : module.exports).template = __vue_template__ }
+	if (false) {(function () {  module.hot.accept()
+	  var hotAPI = require("vue-hot-reload-api")
+	  hotAPI.install(require("vue"), true)
+	  if (!hotAPI.compatible) return
+	  var id = "/Users/andytsai/Documents/Code/project-boomer/resources/assets/js/components/dropdown-select.vue"
+	  if (!module.hot.data) {
+	    hotAPI.createRecord(id, module.exports)
+	  } else {
+	    hotAPI.update(id, module.exports, __vue_template__)
+	  }
+	})()}
+
+/***/ },
+/* 81 */
+/***/ function(module, exports) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	// <template>
+	//     <div
+	//         class="ui selection dropdown"
+	//         :class="{ 'multiple': multiple, 'disabled': isEmpty }"
+	//         id="vue-dropdown-select-{{ _uid }}"
+	//     >
+	//         <input type="hidden" v-bind:name="inputName">
+	//         <i class="dropdown icon"></i>
+	//         <div class="default text"></div>
+	//         <div class="menu">
+	//             <div
+	//                 v-for="option in options"
+	//                 class="item"
+	//                 v-bind:data-value.once="option[optionValueName]"
+	//             >
+	//                 {{ option[optionTextName] }}
+	//             </div>
+	//         </div>
+	//     </div>
+	// </template>
+	//
+	// <script>
+	exports.default = {
+	    props: {
+	        inputName: {
+	            required: true,
+	            type: String
+	        },
+	        options: {
+	            required: true,
+	            type: Array
+	        },
+	        optionValueName: {
+	            required: true,
+	            type: String
+	        },
+	        optionTextName: {
+	            required: true,
+	            type: String
+	        },
+	        multiple: {
+	            default: false,
+	            type: Boolean
+	        },
+	        defaultValue: {
+	            default: '',
+	            type: String
+	        }
+	    },
+
+	    events: {
+	        optionsUpdated: function optionsUpdated() {
+	            this._dropdown.dropdown('clear');
+	            this._dropdown.dropdown('show');
+	        }
+	    },
+
+	    computed: {
+	        isEmpty: function isEmpty() {
+	            return !this.options.length;
+	        }
+	    },
+
+	    ready: function ready() {
+	        var _this = this;
+
+	        this._dropdown = window.$('#vue-dropdown-select-' + this._uid).dropdown({
+	            onChange: function onChange(value) {
+	                _this.$dispatch('selected', value);
+	            }
+	        });
+	    }
+	};
+	// </script>
+
+/***/ },
+/* 82 */
+/***/ function(module, exports) {
+
+	module.exports = "\n<div\n    class=\"ui selection dropdown\"\n    :class=\"{ 'multiple': multiple, 'disabled': isEmpty }\"\n    id=\"vue-dropdown-select-{{ _uid }}\"\n>\n    <input type=\"hidden\" v-bind:name=\"inputName\">\n    <i class=\"dropdown icon\"></i>\n    <div class=\"default text\"></div>\n    <div class=\"menu\">\n        <div\n            v-for=\"option in options\"\n            class=\"item\"\n            v-bind:data-value.once=\"option[optionValueName]\"\n        >\n            {{ option[optionTextName] }}\n        </div>\n    </div>\n</div>\n";
 
 /***/ }
 /******/ ]);

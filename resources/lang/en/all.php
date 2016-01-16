@@ -32,6 +32,7 @@ return [
     'custom_name' => 'Custom Name',
 
     'select_workflow' => 'Select Workflow',
+    'select_type_order' => 'Select Type and Order',
 
     'create' => 'Create',
     'create_workflow' => 'Create Workflow',
