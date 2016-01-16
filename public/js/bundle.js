@@ -9629,54 +9629,39 @@
 
 /***/ },
 /* 3 */
-/***/ function(module, exports) {
+/***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
 	Object.defineProperty(exports, "__esModule", {
 	    value: true
 	});
-	// <template>
-	//     <div class="ui multiple selection dropdown" id="vue-dropdown-{{ _uid }}">
-	//         <input type="hidden" name="work_ids">
-	//         <i class="dropdown icon"></i>
-	//         <div class="default text">{{ isEmpty ? emptyText : defaultText }}</div>
-	//         <div class="menu">
-	//             <div
-	//                 v-for="work in works"
-	//                 class="item"
-	//                 v-bind:data-value.once="work.id"
-	//             >
-	//                 {{ work.name }}
-	//             </div>
-	//         </div>
-	//     </div>
+
+	var _dropdownSelect = __webpack_require__(80);
+
+	var _dropdownSelect2 = _interopRequireDefault(_dropdownSelect);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	var getWorks = function getWorks() {
+	    return window.$.getJSON('/api/v1/works');
+	}; // <template>
+	//     <dropdown-select
+	//         input-name="work_ids"
+	//         :options="works"
+	//         option-value-name="id"
+	//         option-text-name="name"
+	//         :multible.once="true"
+	//     ></dropdown-select>
 	// </template>
 	//
 	// <script>
-	var getWorks = function getWorks() {
-	    return window.$.getJSON('/api/v1/works');
-	};
 
 	exports.default = {
-	    props: {
-	        defaultText: {
-	            required: true
-	        },
-	        emptyText: {
-	            required: true
-	        }
-	    },
-
-	    computed: {
-	        isEmpty: function isEmpty() {
-	            return !this.works.length;
-	        }
-	    },
+	    components: { DropdownSelect: _dropdownSelect2.default },
 
 	    data: function data() {
 	        return {
-	            default: '',
 	            works: []
 	        };
 	    },
@@ -9686,8 +9671,6 @@
 	        getWorks().then(function (response) {
 	            _this.works = response.works;
 	        });
-
-	        window.$('#vue-dropdown-' + this._uid).dropdown();
 	    }
 	};
 	// </script>
@@ -9696,7 +9679,7 @@
 /* 4 */
 /***/ function(module, exports) {
 
-	module.exports = "\n<div class=\"ui multiple selection dropdown\" id=\"vue-dropdown-{{ _uid }}\">\n    <input type=\"hidden\" name=\"work_ids\">\n    <i class=\"dropdown icon\"></i>\n    <div class=\"default text\">{{ isEmpty ? emptyText : defaultText }}</div>\n    <div class=\"menu\">\n        <div\n            v-for=\"work in works\"\n            class=\"item\"\n            v-bind:data-value.once=\"work.id\"\n        >\n            {{ work.name }}\n        </div>\n    </div>\n</div>\n";
+	module.exports = "\n<dropdown-select\n    input-name=\"work_ids\"\n    :options=\"works\"\n    option-value-name=\"id\"\n    option-text-name=\"name\"\n    :multible.once=\"true\"\n></dropdown-select>\n";
 
 /***/ },
 /* 5 */
