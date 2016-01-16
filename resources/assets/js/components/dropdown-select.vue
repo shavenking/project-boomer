@@ -41,10 +41,13 @@
             multiple: {
                 default: false,
                 type: Boolean
-            },
-            defaultValue: {
-                default: '',
-                type: String
+            }
+        },
+
+        methods: {
+            select(value) {
+                this._dropdown.dropdown('refresh')
+                this._dropdown.dropdown('set selected', [value])
             }
         },
 

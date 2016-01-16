@@ -12296,10 +12296,13 @@
 	        multiple: {
 	            default: false,
 	            type: Boolean
-	        },
-	        defaultValue: {
-	            default: '',
-	            type: String
+	        }
+	    },
+
+	    methods: {
+	        select: function select(value) {
+	            this._dropdown.dropdown('refresh');
+	            this._dropdown.dropdown('set selected', [value]);
 	        }
 	    },
 
@@ -12455,6 +12458,7 @@
 	//         :options="workflows"
 	//         option-value-name="id"
 	//         option-text-name="name"
+	//         v-ref:dropdown
 	//     ></dropdown-select>
 	// </template>
 	//
@@ -12462,6 +12466,8 @@
 
 	exports.default = {
 	    components: { DropdownSelect: _dropdownSelect2.default },
+
+	    props: ['defaultValue'],
 
 	    data: function data() {
 	        return {
@@ -12473,6 +12479,10 @@
 
 	        getWorkflows().then(function (response) {
 	            _this.workflows = response.workflows;
+
+	            _this.$nextTick(function () {
+	                _this.$refs.dropdown.select(_this.defaultValue);
+	            });
 	        });
 	    }
 	};
@@ -12482,7 +12492,7 @@
 /* 88 */
 /***/ function(module, exports) {
 
-	module.exports = "\n<dropdown-select\n    input-name=\"workflow_id\"\n    :options=\"workflows\"\n    option-value-name=\"id\"\n    option-text-name=\"name\"\n></dropdown-select>\n";
+	module.exports = "\n<dropdown-select\n    input-name=\"workflow_id\"\n    :options=\"workflows\"\n    option-value-name=\"id\"\n    option-text-name=\"name\"\n    v-ref:dropdown\n></dropdown-select>\n";
 
 /***/ }
 /******/ ]);

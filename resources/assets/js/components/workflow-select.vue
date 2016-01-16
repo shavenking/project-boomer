@@ -4,6 +4,7 @@
         :options="workflows"
         option-value-name="id"
         option-text-name="name"
+        v-ref:dropdown
     ></dropdown-select>
 </template>
 
@@ -17,6 +18,8 @@
     export default {
         components: { DropdownSelect },
 
+        props: ['defaultValue'],
+
         data() {
             return {
                 workflows: []
@@ -26,6 +29,10 @@
         ready() {
             getWorkflows().then(response => {
                 this.workflows = response.workflows
+
+                this.$nextTick(() => {
+                    this.$refs.dropdown.select(this.defaultValue)
+                })
             })
         }
     }
