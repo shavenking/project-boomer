@@ -20,8 +20,9 @@
             <unit-select></unit-select>
         </div>
 
-        <div class="grouped fields">
-            <div id="workflow-select"></div>
+        <div class="field">
+            <label>{{ trans('all.select_workflow') }}</label>
+            <workflow-select></workflow-select>
         </div>
 
         <div class="equal width fields">

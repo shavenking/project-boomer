@@ -62,6 +62,10 @@
 
 	var _unitSelect2 = _interopRequireDefault(_unitSelect);
 
+	var _workflowSelect = __webpack_require__(86);
+
+	var _workflowSelect2 = _interopRequireDefault(_workflowSelect);
+
 	var _workflowNodes = __webpack_require__(5);
 
 	var _workflowNodes2 = _interopRequireDefault(_workflowNodes);
@@ -74,7 +78,8 @@
 	        WorkSelect: _workSelect2.default,
 	        WorkflowNodes: _workflowNodes2.default,
 	        FlowtypeSelect: _flowtypeSelect2.default,
-	        UnitSelect: _unitSelect2.default
+	        UnitSelect: _unitSelect2.default,
+	        WorkflowSelect: _workflowSelect2.default
 	    }
 	});
 
@@ -12420,6 +12425,81 @@
 /***/ function(module, exports) {
 
 	module.exports = "\n<dropdown-select\n    input-name=\"unit_id\"\n    :options=\"units\"\n    option-value-name=\"id\"\n    option-text-name=\"name\"\n></dropdown-select>\n";
+
+/***/ },
+/* 86 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var __vue_script__, __vue_template__
+	__vue_script__ = __webpack_require__(87)
+	__vue_template__ = __webpack_require__(88)
+	module.exports = __vue_script__ || {}
+	if (module.exports.__esModule) module.exports = module.exports.default
+	if (__vue_template__) { (typeof module.exports === "function" ? module.exports.options : module.exports).template = __vue_template__ }
+	if (false) {(function () {  module.hot.accept()
+	  var hotAPI = require("vue-hot-reload-api")
+	  hotAPI.install(require("vue"), true)
+	  if (!hotAPI.compatible) return
+	  var id = "/Users/andytsai/Documents/Code/project-boomer/resources/assets/js/components/workflow-select.vue"
+	  if (!module.hot.data) {
+	    hotAPI.createRecord(id, module.exports)
+	  } else {
+	    hotAPI.update(id, module.exports, __vue_template__)
+	  }
+	})()}
+
+/***/ },
+/* 87 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+
+	var _dropdownSelect = __webpack_require__(80);
+
+	var _dropdownSelect2 = _interopRequireDefault(_dropdownSelect);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function getWorkflows() {
+	    return window.$.getJSON('/api/v1/workflows');
+	} // <template>
+	//     <dropdown-select
+	//         input-name="workflow_id"
+	//         :options="workflows"
+	//         option-value-name="id"
+	//         option-text-name="name"
+	//     ></dropdown-select>
+	// </template>
+	//
+	// <script>
+
+	exports.default = {
+	    components: { DropdownSelect: _dropdownSelect2.default },
+
+	    data: function data() {
+	        return {
+	            workflows: []
+	        };
+	    },
+	    ready: function ready() {
+	        var _this = this;
+
+	        getWorkflows().then(function (response) {
+	            _this.workflows = response.workflows;
+	        });
+	    }
+	};
+	// </script>
+
+/***/ },
+/* 88 */
+/***/ function(module, exports) {
+
+	module.exports = "\n<dropdown-select\n    input-name=\"workflow_id\"\n    :options=\"workflows\"\n    option-value-name=\"id\"\n    option-text-name=\"name\"\n></dropdown-select>\n";
 
 /***/ }
 /******/ ]);
