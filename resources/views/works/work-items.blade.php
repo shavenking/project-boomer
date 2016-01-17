@@ -26,6 +26,7 @@
             clear-label="{{ trans('all.clear') }}"
             update-label="{{ trans('all.save') }}"
             cancel-label="{{ trans('all.cancel') }}"
+            total-price-label="{{ trans('all.total_price') }}"
             edit-text="{{ trans('all.edit') }}"
             delete-text="{{ trans('all.delete') }}"
             amount-text="{{ trans('all.amount') }}"

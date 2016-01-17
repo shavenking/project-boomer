@@ -1,17 +1,33 @@
 <template>
-    <div class="ui grid">
-        <div class="nine wide column">
-            <div class="ui cards">
-                <price-card
-                    v-for="item in items | orderBy 'order'"
-                    :item.once="item"
-                    :amount-text.once="amountText"
-                    :unit-price-text.once="unitPriceText"
-                ></price-card>
+    <div class="ui vertically divided grid">
+        <div class="row">
+            <div class="sixteen wide column">
+                <div class="ui mini statistics">
+                    <div class="statistic">
+                        <div class="label">{{ totalPriceLabel }}</div>
+                        <div class="value">{{ total | currency }}</div>
+                    </div>
+                    <div class="statistic" v-for="(key, typeTotal) in typeTotals">
+                        <div class="label">{{ costTypes[key] }}</div>
+                        <div class="value">{{ typeTotal | currency }}</div>
+                    </div>
+                </div>
             </div>
         </div>
-        <div class="seven wide column">
-            <workitem-form :labels.once="labels" class="sticky" id="vue-workitem-form-{{ _uid }}" v-ref:form></workitem-form>
+        <div class="row">
+            <div class="nine wide column">
+                <div class="ui cards">
+                    <price-card
+                        v-for="item in items | orderBy 'order'"
+                        :item.once="item"
+                        :amount-text.once="amountText"
+                        :unit-price-text.once="unitPriceText"
+                    ></price-card>
+                </div>
+            </div>
+            <div class="seven wide column">
+                <workitem-form :labels.once="labels" class="sticky" id="vue-workitem-form-{{ _uid }}" v-ref:form></workitem-form>
+            </div>
         </div>
     </div>
 </template>
@@ -19,10 +35,16 @@
 <script>
     import PriceCard from './price-card.vue'
     import WorkitemForm from './workitem-form.vue'
+    import zipObject from 'lodash/array/zipObject'
+    import pluck from 'lodash/collection/pluck'
     import merge from 'lodash/object/merge'
 
     function getItems(workId) {
         return window.$.getJSON(`/api/v1/works/${workId}/work-items`)
+    }
+
+    function getTypes() {
+        return window.$.getJSON('/api/v1/cost-types')
     }
 
     function createItem(workId, item) {
@@ -58,7 +80,8 @@
             'editText',
             'deleteText',
             'amountText',
-            'unitPriceText'
+            'unitPriceText',
+            'totalPriceLabel'
         ],
 
         computed: {
@@ -75,6 +98,29 @@
                     cancel: this.cancelLabel,
                     clear: this.clearLabel
                 }
+            },
+            total() {
+                let sum = 0
+
+                pluck(this.items, 'total_price').forEach((price) => {
+                    sum += price
+                })
+
+                return sum
+            },
+            typeTotals() {
+                let sum = {
+                    1: 0,
+                    2: 0,
+                    3: 0,
+                    4: 0
+                }
+
+                this.items.forEach(item => {
+                    sum[item.cost_type_id] += item.total_price
+                })
+
+                return sum
             }
         },
 
@@ -119,7 +165,8 @@
 
         data() {
             return {
-                items: []
+                items: [],
+                costTypes: {}
             }
         },
 
@@ -133,6 +180,13 @@
                         bottomOffset: 20
                     })
                 })
+            })
+
+            getTypes().then(response => {
+                this.costTypes = zipObject(
+                    pluck(response.cost_types, 'id'),
+                    pluck(response.cost_types, 'name')
+                )
             })
         }
     }
