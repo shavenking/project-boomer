@@ -1,5 +1,6 @@
 <template>
     <form class="ui form" @submit.prevent="onSubmit">
+        <div class="ui dividing header">{{ isEditing ? item.name : labels.create }}</div>
         <div class="field">
             <label>{{ labels.unit }}</label>
             <unit-select v-ref:unit-select></unit-select>

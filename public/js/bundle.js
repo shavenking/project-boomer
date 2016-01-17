@@ -12882,6 +12882,7 @@
 	// </script>
 	// <template>
 	//     <form class="ui form" @submit.prevent="onSubmit">
+	//         <div class="ui dividing header">{{ isEditing ? item.name : labels.create }}</div>
 	//         <div class="field">
 	//             <label>{{ labels.unit }}</label>
 	//             <unit-select v-ref:unit-select></unit-select>
@@ -13578,7 +13579,7 @@
 /* 102 */
 /***/ function(module, exports) {
 
-	module.exports = "\n<form class=\"ui form\" @submit.prevent=\"onSubmit\">\n    <div class=\"field\">\n        <label>{{ labels.unit }}</label>\n        <unit-select v-ref:unit-select></unit-select>\n    </div>\n    <div class=\"field\">\n        <label>{{ labels.costType }}</label>\n        <cost-type-select v-ref:cost-type-select></cost-type-select>\n    </div>\n    <div class=\"field\">\n        <label>{{ labels.order }}</label>\n        <input type=\"text\" name=\"order\" v-model=\"item.order\">\n    </div>\n    <div class=\"field\">\n        <label>{{ labels.name }}</label>\n        <input type=\"text\" name=\"name\" v-model=\"item.name\">\n    </div>\n    <div class=\"field\">\n        <label>{{ labels.amount }}</label>\n        <input type=\"text\" name=\"amount\" v-model=\"item.amount\">\n    </div>\n    <div class=\"field\">\n        <label>{{ labels.unitPrice }}</label>\n        <input type=\"text\" name=\"unit_price\" v-model=\"item.unit_price\">\n    </div>\n\n    <button type=\"submit\" class=\"ui primary button\">{{ isEditing ? labels.update : labels.create }}</button>\n    <button type=\"button\" class=\"ui button\" @click=\"clearForm\">{{ isEditing ? labels.cancel : labels.clear }}</button>\n</form>\n";
+	module.exports = "\n<form class=\"ui form\" @submit.prevent=\"onSubmit\">\n    <div class=\"ui dividing header\">{{ isEditing ? item.name : labels.create }}</div>\n    <div class=\"field\">\n        <label>{{ labels.unit }}</label>\n        <unit-select v-ref:unit-select></unit-select>\n    </div>\n    <div class=\"field\">\n        <label>{{ labels.costType }}</label>\n        <cost-type-select v-ref:cost-type-select></cost-type-select>\n    </div>\n    <div class=\"field\">\n        <label>{{ labels.order }}</label>\n        <input type=\"text\" name=\"order\" v-model=\"item.order\">\n    </div>\n    <div class=\"field\">\n        <label>{{ labels.name }}</label>\n        <input type=\"text\" name=\"name\" v-model=\"item.name\">\n    </div>\n    <div class=\"field\">\n        <label>{{ labels.amount }}</label>\n        <input type=\"text\" name=\"amount\" v-model=\"item.amount\">\n    </div>\n    <div class=\"field\">\n        <label>{{ labels.unitPrice }}</label>\n        <input type=\"text\" name=\"unit_price\" v-model=\"item.unit_price\">\n    </div>\n\n    <button type=\"submit\" class=\"ui primary button\">{{ isEditing ? labels.update : labels.create }}</button>\n    <button type=\"button\" class=\"ui button\" @click=\"clearForm\">{{ isEditing ? labels.cancel : labels.clear }}</button>\n</form>\n";
 
 /***/ },
 /* 103 */
