@@ -1,17 +1,17 @@
 <template>
     <div class="ui grid">
-        <div class="eight wide column">
-            <workitem-form :labels.once="labels" v-ref:form class="ui sticky form" id="vue-workitem-form-{{ _uid }}"></workitem-form>
-        </div>
-        <div class="eight wide column">
+        <div class="nine wide column">
             <div class="ui cards">
                 <price-card
-                    v-for="item in items"
+                    v-for="item in items | orderBy 'order'"
                     :item.once="item"
                     :amount-text.once="amountText"
                     :unit-price-text.once="unitPriceText"
                 ></price-card>
             </div>
+        </div>
+        <div class="seven wide column">
+            <workitem-form :labels.once="labels" class="sticky" id="vue-workitem-form-{{ _uid }}" v-ref:form></workitem-form>
         </div>
     </div>
 </template>

@@ -12554,18 +12554,18 @@
 	    return window.$.getJSON('/api/v1/works/' + workId + '/work-items');
 	} // <template>
 	//     <div class="ui grid">
-	//         <div class="eight wide column">
-	//             <workitem-form :labels.once="labels" v-ref:form class="ui sticky form" id="vue-workitem-form-{{ _uid }}"></workitem-form>
-	//         </div>
-	//         <div class="eight wide column">
+	//         <div class="nine wide column">
 	//             <div class="ui cards">
 	//                 <price-card
-	//                     v-for="item in items"
+	//                     v-for="item in items | orderBy 'order'"
 	//                     :item.once="item"
 	//                     :amount-text.once="amountText"
 	//                     :unit-price-text.once="unitPriceText"
 	//                 ></price-card>
 	//             </div>
+	//         </div>
+	//         <div class="seven wide column">
+	//             <workitem-form :labels.once="labels" class="sticky" id="vue-workitem-form-{{ _uid }}" v-ref:form></workitem-form>
 	//         </div>
 	//     </div>
 	// </template>
@@ -12708,7 +12708,7 @@
 	//                 <div class="right floated">
 	//                     {{ item.amount * item.unit_price | currency }}
 	//                 </div>
-	//                 {{ item.name }}
+	//                 {{ item.order }}.&nbsp;{{ item.name }}
 	//             </div>
 	//             <div class="meta">
 	//                 <span>{{ item.cost_type_name }}</span>
@@ -12757,7 +12757,7 @@
 /* 84 */
 /***/ function(module, exports) {
 
-	module.exports = "\n<div class=\"ui fluid card\">\n    <div class=\"content\">\n        <div class=\"header\">\n            <div class=\"right floated\">\n                {{ item.amount * item.unit_price | currency }}\n            </div>\n            {{ item.name }}\n        </div>\n        <div class=\"meta\">\n            <span>{{ item.cost_type_name }}</span>\n            <span>{{ item.unit_name }}</span>\n        </div>\n    </div>\n    <div class=\"extra content middle aligned\">\n        <div class=\"ui tiny compact right floated icon buttons\">\n            <button class=\"ui button\" @click=\"editItem\">\n                <i class=\"pencil icon\"></i>\n            </button>\n            <button class=\"ui button\" @click=\"deleteItem\">\n                <i class=\"trash icon\"></i>\n            </button>\n        </div>\n        <div class=\"ui labels\">\n            <div class=\"ui label\">{{ unitPriceText }}&nbsp;{{ item.unit_price | currency }}</div>\n            <div class=\"ui label\">{{ amountText }}&nbsp;{{ item.amount }}</div>\n        </div>\n    </div>\n</div>\n";
+	module.exports = "\n<div class=\"ui fluid card\">\n    <div class=\"content\">\n        <div class=\"header\">\n            <div class=\"right floated\">\n                {{ item.amount * item.unit_price | currency }}\n            </div>\n            {{ item.order }}.&nbsp;{{ item.name }}\n        </div>\n        <div class=\"meta\">\n            <span>{{ item.cost_type_name }}</span>\n            <span>{{ item.unit_name }}</span>\n        </div>\n    </div>\n    <div class=\"extra content middle aligned\">\n        <div class=\"ui tiny compact right floated icon buttons\">\n            <button class=\"ui button\" @click=\"editItem\">\n                <i class=\"pencil icon\"></i>\n            </button>\n            <button class=\"ui button\" @click=\"deleteItem\">\n                <i class=\"trash icon\"></i>\n            </button>\n        </div>\n        <div class=\"ui labels\">\n            <div class=\"ui label\">{{ unitPriceText }}&nbsp;{{ item.unit_price | currency }}</div>\n            <div class=\"ui label\">{{ amountText }}&nbsp;{{ item.amount }}</div>\n        </div>\n    </div>\n</div>\n";
 
 /***/ },
 /* 85 */
@@ -13580,7 +13580,7 @@
 /* 103 */
 /***/ function(module, exports) {
 
-	module.exports = "\n<div class=\"ui grid\">\n    <div class=\"eight wide column\">\n        <workitem-form :labels.once=\"labels\" v-ref:form class=\"ui sticky form\" id=\"vue-workitem-form-{{ _uid }}\"></workitem-form>\n    </div>\n    <div class=\"eight wide column\">\n        <div class=\"ui cards\">\n            <price-card\n                v-for=\"item in items\"\n                :item.once=\"item\"\n                :amount-text.once=\"amountText\"\n                :unit-price-text.once=\"unitPriceText\"\n            ></price-card>\n        </div>\n    </div>\n</div>\n";
+	module.exports = "\n<div class=\"ui grid\">\n    <div class=\"nine wide column\">\n        <div class=\"ui cards\">\n            <price-card\n                v-for=\"item in items | orderBy 'order'\"\n                :item.once=\"item\"\n                :amount-text.once=\"amountText\"\n                :unit-price-text.once=\"unitPriceText\"\n            ></price-card>\n        </div>\n    </div>\n    <div class=\"seven wide column\">\n        <workitem-form :labels.once=\"labels\" class=\"sticky\" id=\"vue-workitem-form-{{ _uid }}\" v-ref:form></workitem-form>\n    </div>\n</div>\n";
 
 /***/ }
 /******/ ]);

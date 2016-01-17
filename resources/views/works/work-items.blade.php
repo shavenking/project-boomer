@@ -15,7 +15,6 @@
         <a href="{{ route('works.checklist', $work->id) }}" class="item">{{ trans_choice('all.checklists', 1) }}</a>
     </div>
 
-    <div class="ui raised segment">
         <workitem-list
             work-id="{{ $work->id }}"
             unit-label="{{ trans('all.select_unit') }}"
@@ -28,5 +27,5 @@
             amount-text="{{ trans('all.amount') }}"
             unit-price-text="{{ trans('all.unit_price') }}"
         ></workitem-list>
-    </div>
+
 @stop
