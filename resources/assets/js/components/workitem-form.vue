@@ -55,7 +55,9 @@
                 const item = zipObject(pluck(inputs, 'name'), pluck(inputs, 'value'))
 
                 if (this.isEditing) {
-                    this.$parent.$emit('update', merge(item, this.item))
+                    this.$parent.$emit('update', merge(item, {
+                        id: this.item.id
+                    }))
                 } else {
                     this.$parent.$emit('create', item)
                 }

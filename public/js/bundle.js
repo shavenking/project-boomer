@@ -12958,7 +12958,9 @@
 	            var item = (0, _zipObject2.default)((0, _pluck2.default)(inputs, 'name'), (0, _pluck2.default)(inputs, 'value'));
 
 	            if (this.isEditing) {
-	                this.$parent.$emit('update', (0, _merge2.default)(item, this.item));
+	                this.$parent.$emit('update', (0, _merge2.default)(item, {
+	                    id: this.item.id
+	                }));
 	            } else {
 	                this.$parent.$emit('create', item);
 	            }
