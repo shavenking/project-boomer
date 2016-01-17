@@ -21,6 +21,7 @@ return [
     'passes' => 'Passes',
     'failed' => 'Failed',
 
+    'order' => 'Order',
     'name' => 'Name',
     'detail' => 'Detail',
     'amount' => 'Amount',
@@ -34,6 +35,7 @@ return [
     'select_workflow' => 'Select Workflow',
     'select_type_order' => 'Select Type and Order',
     'select_unit' => 'Select Unit',
+    'select_cost_type' => 'Select Type of Cost',
 
     'create' => 'Create',
     'create_workflow' => 'Create Workflow',

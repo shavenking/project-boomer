@@ -1,27 +1,27 @@
 <template>
     <form class="ui form" @submit.prevent="onSubmit">
         <div class="field">
-            <label>Unit</label>
+            <label>{{ labels.unit }}</label>
             <unit-select v-ref:unit-select></unit-select>
         </div>
         <div class="field">
-            <label>Cost Type</label>
+            <label>{{ labels.costType }}</label>
             <cost-type-select v-ref:cost-type-select></cost-type-select>
         </div>
         <div class="field">
-            <label>Order</label>
+            <label>{{ labels.order }}</label>
             <input type="text" name="order" v-model="item.order">
         </div>
         <div class="field">
-            <label>Name</label>
+            <label>{{ labels.name }}</label>
             <input type="text" name="name" v-model="item.name">
         </div>
         <div class="field">
-            <label>Amount</label>
+            <label>{{ labels.amount }}</label>
             <input type="text" name="amount" v-model="item.amount">
         </div>
         <div class="field">
-            <label>Unit Price</label>
+            <label>{{ labels.unitPrice }}</label>
             <input type="text" name="unit_price" v-model="item.unit_price">
         </div>
 
@@ -40,7 +40,12 @@
     export default {
         components: { UnitSelect, CostTypeSelect },
 
-        props: {},
+        props: {
+            labels: {
+                required: true,
+                type: Object
+            }
+        },
 
         computed: {
             isEditing() {

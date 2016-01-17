@@ -54,23 +54,23 @@
 
 	var _workSelect2 = _interopRequireDefault(_workSelect);
 
-	var _flowtypeSelect = __webpack_require__(68);
+	var _flowtypeSelect = __webpack_require__(8);
 
 	var _flowtypeSelect2 = _interopRequireDefault(_flowtypeSelect);
 
-	var _unitSelect = __webpack_require__(83);
+	var _unitSelect = __webpack_require__(11);
 
 	var _unitSelect2 = _interopRequireDefault(_unitSelect);
 
-	var _workflowSelect = __webpack_require__(86);
+	var _workflowSelect = __webpack_require__(14);
 
 	var _workflowSelect2 = _interopRequireDefault(_workflowSelect);
 
-	var _workflowNodes = __webpack_require__(5);
+	var _workflowNodes = __webpack_require__(17);
 
 	var _workflowNodes2 = _interopRequireDefault(_workflowNodes);
 
-	var _workitemList = __webpack_require__(121);
+	var _workitemList = __webpack_require__(80);
 
 	var _workitemList2 = _interopRequireDefault(_workitemList);
 
@@ -9616,7 +9616,7 @@
 
 	var __vue_script__, __vue_template__
 	__vue_script__ = __webpack_require__(3)
-	__vue_template__ = __webpack_require__(4)
+	__vue_template__ = __webpack_require__(7)
 	module.exports = __vue_script__ || {}
 	if (module.exports.__esModule) module.exports = module.exports.default
 	if (__vue_template__) { (typeof module.exports === "function" ? module.exports.options : module.exports).template = __vue_template__ }
@@ -9642,7 +9642,7 @@
 	    value: true
 	});
 
-	var _dropdownSelect = __webpack_require__(80);
+	var _dropdownSelect = __webpack_require__(4);
 
 	var _dropdownSelect2 = _interopRequireDefault(_dropdownSelect);
 
@@ -9682,17 +9682,423 @@
 
 /***/ },
 /* 4 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var __vue_script__, __vue_template__
+	__vue_script__ = __webpack_require__(5)
+	__vue_template__ = __webpack_require__(6)
+	module.exports = __vue_script__ || {}
+	if (module.exports.__esModule) module.exports = module.exports.default
+	if (__vue_template__) { (typeof module.exports === "function" ? module.exports.options : module.exports).template = __vue_template__ }
+	if (false) {(function () {  module.hot.accept()
+	  var hotAPI = require("vue-hot-reload-api")
+	  hotAPI.install(require("vue"), true)
+	  if (!hotAPI.compatible) return
+	  var id = "/Users/andytsai/Documents/Code/project-boomer/resources/assets/js/components/dropdown-select.vue"
+	  if (!module.hot.data) {
+	    hotAPI.createRecord(id, module.exports)
+	  } else {
+	    hotAPI.update(id, module.exports, __vue_template__)
+	  }
+	})()}
+
+/***/ },
+/* 5 */
+/***/ function(module, exports) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	// <template>
+	//     <div
+	//         class="ui selection dropdown"
+	//         :class="{ 'multiple': multiple, 'disabled': isEmpty }"
+	//         id="vue-dropdown-select-{{ _uid }}"
+	//     >
+	//         <input type="hidden" v-bind:name="inputName">
+	//         <i class="dropdown icon"></i>
+	//         <div class="default text"></div>
+	//         <div class="menu">
+	//             <div
+	//                 v-for="option in options"
+	//                 class="item"
+	//                 v-bind:data-value.once="option[optionValueName]"
+	//             >
+	//                 {{ option[optionTextName] }}
+	//             </div>
+	//         </div>
+	//     </div>
+	// </template>
+	//
+	// <script>
+	exports.default = {
+	    props: {
+	        inputName: {
+	            required: true,
+	            type: String
+	        },
+	        options: {
+	            required: true,
+	            type: Array
+	        },
+	        optionValueName: {
+	            required: true,
+	            type: String
+	        },
+	        optionTextName: {
+	            required: true,
+	            type: String
+	        },
+	        multiple: {
+	            default: false,
+	            type: Boolean
+	        }
+	    },
+
+	    methods: {
+	        select: function select(value) {
+	            this._dropdown.dropdown('refresh');
+	            this._dropdown.dropdown('set selected', [value]);
+	        },
+	        clear: function clear() {
+	            this._dropdown.dropdown('clear');
+	        }
+	    },
+
+	    events: {
+	        optionsUpdated: function optionsUpdated() {
+	            this._dropdown.dropdown('refresh');
+	            this._dropdown.dropdown('clear');
+	            this._dropdown.dropdown('show');
+	        }
+	    },
+
+	    computed: {
+	        isEmpty: function isEmpty() {
+	            return !this.options.length;
+	        }
+	    },
+
+	    ready: function ready() {
+	        var _this = this;
+
+	        this._dropdown = window.$('#vue-dropdown-select-' + this._uid).dropdown({
+	            onChange: function onChange(value) {
+	                _this.$dispatch('selected', value);
+	            }
+	        });
+	    }
+	};
+	// </script>
+
+/***/ },
+/* 6 */
+/***/ function(module, exports) {
+
+	module.exports = "\n<div\n    class=\"ui selection dropdown\"\n    :class=\"{ 'multiple': multiple, 'disabled': isEmpty }\"\n    id=\"vue-dropdown-select-{{ _uid }}\"\n>\n    <input type=\"hidden\" v-bind:name=\"inputName\">\n    <i class=\"dropdown icon\"></i>\n    <div class=\"default text\"></div>\n    <div class=\"menu\">\n        <div\n            v-for=\"option in options\"\n            class=\"item\"\n            v-bind:data-value.once=\"option[optionValueName]\"\n        >\n            {{ option[optionTextName] }}\n        </div>\n    </div>\n</div>\n";
+
+/***/ },
+/* 7 */
 /***/ function(module, exports) {
 
 	module.exports = "\n<dropdown-select\n    input-name=\"work_ids\"\n    :options=\"works\"\n    option-value-name=\"id\"\n    option-text-name=\"name\"\n    :multible.once=\"true\"\n></dropdown-select>\n";
 
 /***/ },
-/* 5 */
+/* 8 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __vue_script__, __vue_template__
-	__vue_script__ = __webpack_require__(6)
-	__vue_template__ = __webpack_require__(67)
+	__vue_script__ = __webpack_require__(9)
+	__vue_template__ = __webpack_require__(10)
+	module.exports = __vue_script__ || {}
+	if (module.exports.__esModule) module.exports = module.exports.default
+	if (__vue_template__) { (typeof module.exports === "function" ? module.exports.options : module.exports).template = __vue_template__ }
+	if (false) {(function () {  module.hot.accept()
+	  var hotAPI = require("vue-hot-reload-api")
+	  hotAPI.install(require("vue"), true)
+	  if (!hotAPI.compatible) return
+	  var id = "/Users/andytsai/Documents/Code/project-boomer/resources/assets/js/components/flowtype-select.vue"
+	  if (!module.hot.data) {
+	    hotAPI.createRecord(id, module.exports)
+	  } else {
+	    hotAPI.update(id, module.exports, __vue_template__)
+	  }
+	})()}
+
+/***/ },
+/* 9 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+
+	var _vue = __webpack_require__(1);
+
+	var _vue2 = _interopRequireDefault(_vue);
+
+	var _dropdownSelect = __webpack_require__(4);
+
+	var _dropdownSelect2 = _interopRequireDefault(_dropdownSelect);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	// <template>
+	//     <div class="two fields">
+	//         <div class="field">
+	//             <dropdown-select
+	//                 input-name="mainflow_type_id"
+	//                 :options="mainflowTypes"
+	//                 option-value-name="id"
+	//                 option-text-name="name"
+	//                 @selected="onMainflowTypeSelected"
+	//             ></dropdown-select>
+	//         </div>
+	//         <div class="field">
+	//             <dropdown-select
+	//                 input-name="detailingflow_type_id"
+	//                 :options="detailingflowTypes"
+	//                 option-value-name="id"
+	//                 option-text-name="name"
+	//                 @selected="onDetailingflowTypeSelected"
+	//                 v-ref:detailingflow-type-select
+	//             ></dropdown-select>
+	//         </div>
+	//     </div>
+	// </template>
+	//
+	// <script>
+
+	function getMainflowTypes() {
+	    return window.$.getJSON('/api/v1/mainflow-types');
+	}
+
+	function getDetailingflowTypes(mainflowTypeId) {
+	    return window.$.getJSON('/api/v1/mainflow-types/' + mainflowTypeId + '/detailingflow-types');
+	}
+
+	exports.default = {
+	    components: { DropdownSelect: _dropdownSelect2.default },
+
+	    methods: {
+	        onMainflowTypeSelected: function onMainflowTypeSelected(mainflowTypeId) {
+	            var _this = this;
+
+	            getDetailingflowTypes(mainflowTypeId).then(function (response) {
+	                _this.detailingflowTypes = response.detailingflow_types;
+
+	                _vue2.default.nextTick(function () {
+	                    _this.$refs.detailingflowTypeSelect.$emit('optionsUpdated');
+	                });
+	            });
+
+	            return false;
+	        },
+	        onDetailingflowTypeSelected: function onDetailingflowTypeSelected(detailingflowTypeId) {
+	            return false;
+	        }
+	    },
+
+	    data: function data() {
+	        return {
+	            mainflowTypes: [],
+	            detailingflowTypes: []
+	        };
+	    },
+	    ready: function ready() {
+	        var _this2 = this;
+
+	        getMainflowTypes().then(function (response) {
+	            _this2.mainflowTypes = response.mainflow_types;
+	        });
+	    }
+	};
+	// </script>
+
+/***/ },
+/* 10 */
+/***/ function(module, exports) {
+
+	module.exports = "\n<div class=\"two fields\">\n    <div class=\"field\">\n        <dropdown-select\n            input-name=\"mainflow_type_id\"\n            :options=\"mainflowTypes\"\n            option-value-name=\"id\"\n            option-text-name=\"name\"\n            @selected=\"onMainflowTypeSelected\"\n        ></dropdown-select>\n    </div>\n    <div class=\"field\">\n        <dropdown-select\n            input-name=\"detailingflow_type_id\"\n            :options=\"detailingflowTypes\"\n            option-value-name=\"id\"\n            option-text-name=\"name\"\n            @selected=\"onDetailingflowTypeSelected\"\n            v-ref:detailingflow-type-select\n        ></dropdown-select>\n    </div>\n</div>\n";
+
+/***/ },
+/* 11 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var __vue_script__, __vue_template__
+	__vue_script__ = __webpack_require__(12)
+	__vue_template__ = __webpack_require__(13)
+	module.exports = __vue_script__ || {}
+	if (module.exports.__esModule) module.exports = module.exports.default
+	if (__vue_template__) { (typeof module.exports === "function" ? module.exports.options : module.exports).template = __vue_template__ }
+	if (false) {(function () {  module.hot.accept()
+	  var hotAPI = require("vue-hot-reload-api")
+	  hotAPI.install(require("vue"), true)
+	  if (!hotAPI.compatible) return
+	  var id = "/Users/andytsai/Documents/Code/project-boomer/resources/assets/js/components/unit-select.vue"
+	  if (!module.hot.data) {
+	    hotAPI.createRecord(id, module.exports)
+	  } else {
+	    hotAPI.update(id, module.exports, __vue_template__)
+	  }
+	})()}
+
+/***/ },
+/* 12 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+
+	var _dropdownSelect = __webpack_require__(4);
+
+	var _dropdownSelect2 = _interopRequireDefault(_dropdownSelect);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function getUnits() {
+	    return window.$.getJSON('/api/v1/units');
+	} // <template>
+	//     <dropdown-select
+	//         input-name="unit_id"
+	//         :options="units"
+	//         option-value-name="id"
+	//         option-text-name="name"
+	//         v-ref:dropdown
+	//     ></dropdown-select>
+	// </template>
+	//
+	// <script>
+
+	exports.default = {
+	    components: { DropdownSelect: _dropdownSelect2.default },
+
+	    methods: {
+	        select: function select(value) {
+	            this.$refs.dropdown.select(value);
+	        },
+	        clear: function clear() {
+	            this.$refs.dropdown.clear();
+	        }
+	    },
+
+	    data: function data() {
+	        return {
+	            units: []
+	        };
+	    },
+	    ready: function ready() {
+	        var _this = this;
+
+	        getUnits().then(function (response) {
+	            _this.units = response.units;
+	        });
+	    }
+	};
+	// </script>
+
+/***/ },
+/* 13 */
+/***/ function(module, exports) {
+
+	module.exports = "\n<dropdown-select\n    input-name=\"unit_id\"\n    :options=\"units\"\n    option-value-name=\"id\"\n    option-text-name=\"name\"\n    v-ref:dropdown\n></dropdown-select>\n";
+
+/***/ },
+/* 14 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var __vue_script__, __vue_template__
+	__vue_script__ = __webpack_require__(15)
+	__vue_template__ = __webpack_require__(16)
+	module.exports = __vue_script__ || {}
+	if (module.exports.__esModule) module.exports = module.exports.default
+	if (__vue_template__) { (typeof module.exports === "function" ? module.exports.options : module.exports).template = __vue_template__ }
+	if (false) {(function () {  module.hot.accept()
+	  var hotAPI = require("vue-hot-reload-api")
+	  hotAPI.install(require("vue"), true)
+	  if (!hotAPI.compatible) return
+	  var id = "/Users/andytsai/Documents/Code/project-boomer/resources/assets/js/components/workflow-select.vue"
+	  if (!module.hot.data) {
+	    hotAPI.createRecord(id, module.exports)
+	  } else {
+	    hotAPI.update(id, module.exports, __vue_template__)
+	  }
+	})()}
+
+/***/ },
+/* 15 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+
+	var _dropdownSelect = __webpack_require__(4);
+
+	var _dropdownSelect2 = _interopRequireDefault(_dropdownSelect);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function getWorkflows() {
+	    return window.$.getJSON('/api/v1/workflows');
+	} // <template>
+	//     <dropdown-select
+	//         input-name="workflow_id"
+	//         :options="workflows"
+	//         option-value-name="id"
+	//         option-text-name="name"
+	//         v-ref:dropdown
+	//     ></dropdown-select>
+	// </template>
+	//
+	// <script>
+
+	exports.default = {
+	    components: { DropdownSelect: _dropdownSelect2.default },
+
+	    props: ['defaultValue'],
+
+	    data: function data() {
+	        return {
+	            workflows: []
+	        };
+	    },
+	    ready: function ready() {
+	        var _this = this;
+
+	        getWorkflows().then(function (response) {
+	            _this.workflows = response.workflows;
+
+	            _this.$nextTick(function () {
+	                _this.$refs.dropdown.select(_this.defaultValue);
+	            });
+	        });
+	    }
+	};
+	// </script>
+
+/***/ },
+/* 16 */
+/***/ function(module, exports) {
+
+	module.exports = "\n<dropdown-select\n    input-name=\"workflow_id\"\n    :options=\"workflows\"\n    option-value-name=\"id\"\n    option-text-name=\"name\"\n    v-ref:dropdown\n></dropdown-select>\n";
+
+/***/ },
+/* 17 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var __vue_script__, __vue_template__
+	__vue_script__ = __webpack_require__(18)
+	__vue_template__ = __webpack_require__(79)
 	module.exports = __vue_script__ || {}
 	if (module.exports.__esModule) module.exports = module.exports.default
 	if (__vue_template__) { (typeof module.exports === "function" ? module.exports.options : module.exports).template = __vue_template__ }
@@ -9709,7 +10115,7 @@
 	})()}
 
 /***/ },
-/* 6 */
+/* 18 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -9722,11 +10128,11 @@
 
 	var _vue2 = _interopRequireDefault(_vue);
 
-	var _orderTitleInput = __webpack_require__(7);
+	var _orderTitleInput = __webpack_require__(19);
 
 	var _orderTitleInput2 = _interopRequireDefault(_orderTitleInput);
 
-	var _workflowNodeList = __webpack_require__(10);
+	var _workflowNodeList = __webpack_require__(22);
 
 	var _workflowNodeList2 = _interopRequireDefault(_workflowNodeList);
 
@@ -9808,12 +10214,12 @@
 	// </script>
 
 /***/ },
-/* 7 */
+/* 19 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __vue_script__, __vue_template__
-	__vue_script__ = __webpack_require__(8)
-	__vue_template__ = __webpack_require__(9)
+	__vue_script__ = __webpack_require__(20)
+	__vue_template__ = __webpack_require__(21)
 	module.exports = __vue_script__ || {}
 	if (module.exports.__esModule) module.exports = module.exports.default
 	if (__vue_template__) { (typeof module.exports === "function" ? module.exports.options : module.exports).template = __vue_template__ }
@@ -9830,7 +10236,7 @@
 	})()}
 
 /***/ },
-/* 8 */
+/* 20 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -9897,18 +10303,18 @@
 	// </script>
 
 /***/ },
-/* 9 */
+/* 21 */
 /***/ function(module, exports) {
 
 	module.exports = "\n<input type=\"text\" v-model=\"orderTitle\" v-on:keypress.enter=\"onKeypress\">\n";
 
 /***/ },
-/* 10 */
+/* 22 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __vue_script__, __vue_template__
-	__vue_script__ = __webpack_require__(11)
-	__vue_template__ = __webpack_require__(66)
+	__vue_script__ = __webpack_require__(23)
+	__vue_template__ = __webpack_require__(78)
 	module.exports = __vue_script__ || {}
 	if (module.exports.__esModule) module.exports = module.exports.default
 	if (__vue_template__) { (typeof module.exports === "function" ? module.exports.options : module.exports).template = __vue_template__ }
@@ -9925,7 +10331,7 @@
 	})()}
 
 /***/ },
-/* 11 */
+/* 23 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -9934,11 +10340,11 @@
 	    value: true
 	});
 
-	var _sortBy = __webpack_require__(12);
+	var _sortBy = __webpack_require__(24);
 
 	var _sortBy2 = _interopRequireDefault(_sortBy);
 
-	var _pluck = __webpack_require__(63);
+	var _pluck = __webpack_require__(75);
 
 	var _pluck2 = _interopRequireDefault(_pluck);
 
@@ -9993,14 +10399,14 @@
 	// </script>
 
 /***/ },
-/* 12 */
+/* 24 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var baseCallback = __webpack_require__(13),
-	    baseMap = __webpack_require__(53),
-	    baseSortBy = __webpack_require__(59),
-	    compareAscending = __webpack_require__(60),
-	    isIterateeCall = __webpack_require__(62);
+	var baseCallback = __webpack_require__(25),
+	    baseMap = __webpack_require__(65),
+	    baseSortBy = __webpack_require__(71),
+	    compareAscending = __webpack_require__(72),
+	    isIterateeCall = __webpack_require__(74);
 
 	/**
 	 * Creates an array of elements, sorted in ascending order by the results of
@@ -10070,14 +10476,14 @@
 
 
 /***/ },
-/* 13 */
+/* 25 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var baseMatches = __webpack_require__(14),
-	    baseMatchesProperty = __webpack_require__(42),
-	    bindCallback = __webpack_require__(49),
-	    identity = __webpack_require__(50),
-	    property = __webpack_require__(51);
+	var baseMatches = __webpack_require__(26),
+	    baseMatchesProperty = __webpack_require__(54),
+	    bindCallback = __webpack_require__(61),
+	    identity = __webpack_require__(62),
+	    property = __webpack_require__(63);
 
 	/**
 	 * The base implementation of `_.callback` which supports specifying the
@@ -10111,12 +10517,12 @@
 
 
 /***/ },
-/* 14 */
+/* 26 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var baseIsMatch = __webpack_require__(15),
-	    getMatchData = __webpack_require__(39),
-	    toObject = __webpack_require__(38);
+	var baseIsMatch = __webpack_require__(27),
+	    getMatchData = __webpack_require__(51),
+	    toObject = __webpack_require__(50);
 
 	/**
 	 * The base implementation of `_.matches` which does not clone `source`.
@@ -10147,11 +10553,11 @@
 
 
 /***/ },
-/* 15 */
+/* 27 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var baseIsEqual = __webpack_require__(16),
-	    toObject = __webpack_require__(38);
+	var baseIsEqual = __webpack_require__(28),
+	    toObject = __webpack_require__(50);
 
 	/**
 	 * The base implementation of `_.isMatch` without support for callback
@@ -10205,12 +10611,12 @@
 
 
 /***/ },
-/* 16 */
+/* 28 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var baseIsEqualDeep = __webpack_require__(17),
-	    isObject = __webpack_require__(26),
-	    isObjectLike = __webpack_require__(27);
+	var baseIsEqualDeep = __webpack_require__(29),
+	    isObject = __webpack_require__(38),
+	    isObjectLike = __webpack_require__(39);
 
 	/**
 	 * The base implementation of `_.isEqual` without support for `this` binding
@@ -10239,14 +10645,14 @@
 
 
 /***/ },
-/* 17 */
+/* 29 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var equalArrays = __webpack_require__(18),
-	    equalByTag = __webpack_require__(20),
-	    equalObjects = __webpack_require__(21),
-	    isArray = __webpack_require__(34),
-	    isTypedArray = __webpack_require__(37);
+	var equalArrays = __webpack_require__(30),
+	    equalByTag = __webpack_require__(32),
+	    equalObjects = __webpack_require__(33),
+	    isArray = __webpack_require__(46),
+	    isTypedArray = __webpack_require__(49);
 
 	/** `Object#toString` result references. */
 	var argsTag = '[object Arguments]',
@@ -10347,10 +10753,10 @@
 
 
 /***/ },
-/* 18 */
+/* 30 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var arraySome = __webpack_require__(19);
+	var arraySome = __webpack_require__(31);
 
 	/**
 	 * A specialized version of `baseIsEqualDeep` for arrays with support for
@@ -10404,7 +10810,7 @@
 
 
 /***/ },
-/* 19 */
+/* 31 */
 /***/ function(module, exports) {
 
 	/**
@@ -10433,7 +10839,7 @@
 
 
 /***/ },
-/* 20 */
+/* 32 */
 /***/ function(module, exports) {
 
 	/** `Object#toString` result references. */
@@ -10487,10 +10893,10 @@
 
 
 /***/ },
-/* 21 */
+/* 33 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var keys = __webpack_require__(22);
+	var keys = __webpack_require__(34);
 
 	/** Used for native method references. */
 	var objectProto = Object.prototype;
@@ -10560,13 +10966,13 @@
 
 
 /***/ },
-/* 22 */
+/* 34 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var getNative = __webpack_require__(23),
-	    isArrayLike = __webpack_require__(28),
-	    isObject = __webpack_require__(26),
-	    shimKeys = __webpack_require__(32);
+	var getNative = __webpack_require__(35),
+	    isArrayLike = __webpack_require__(40),
+	    isObject = __webpack_require__(38),
+	    shimKeys = __webpack_require__(44);
 
 	/* Native method references for those with the same name as other `lodash` methods. */
 	var nativeKeys = getNative(Object, 'keys');
@@ -10611,10 +11017,10 @@
 
 
 /***/ },
-/* 23 */
+/* 35 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var isNative = __webpack_require__(24);
+	var isNative = __webpack_require__(36);
 
 	/**
 	 * Gets the native function at `key` of `object`.
@@ -10633,11 +11039,11 @@
 
 
 /***/ },
-/* 24 */
+/* 36 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var isFunction = __webpack_require__(25),
-	    isObjectLike = __webpack_require__(27);
+	var isFunction = __webpack_require__(37),
+	    isObjectLike = __webpack_require__(39);
 
 	/** Used to detect host constructors (Safari > 5). */
 	var reIsHostCtor = /^\[object .+?Constructor\]$/;
@@ -10687,10 +11093,10 @@
 
 
 /***/ },
-/* 25 */
+/* 37 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var isObject = __webpack_require__(26);
+	var isObject = __webpack_require__(38);
 
 	/** `Object#toString` result references. */
 	var funcTag = '[object Function]';
@@ -10731,7 +11137,7 @@
 
 
 /***/ },
-/* 26 */
+/* 38 */
 /***/ function(module, exports) {
 
 	/**
@@ -10765,7 +11171,7 @@
 
 
 /***/ },
-/* 27 */
+/* 39 */
 /***/ function(module, exports) {
 
 	/**
@@ -10783,11 +11189,11 @@
 
 
 /***/ },
-/* 28 */
+/* 40 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var getLength = __webpack_require__(29),
-	    isLength = __webpack_require__(31);
+	var getLength = __webpack_require__(41),
+	    isLength = __webpack_require__(43);
 
 	/**
 	 * Checks if `value` is array-like.
@@ -10804,10 +11210,10 @@
 
 
 /***/ },
-/* 29 */
+/* 41 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var baseProperty = __webpack_require__(30);
+	var baseProperty = __webpack_require__(42);
 
 	/**
 	 * Gets the "length" property value of `object`.
@@ -10825,7 +11231,7 @@
 
 
 /***/ },
-/* 30 */
+/* 42 */
 /***/ function(module, exports) {
 
 	/**
@@ -10845,7 +11251,7 @@
 
 
 /***/ },
-/* 31 */
+/* 43 */
 /***/ function(module, exports) {
 
 	/**
@@ -10871,14 +11277,14 @@
 
 
 /***/ },
-/* 32 */
+/* 44 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var isArguments = __webpack_require__(33),
-	    isArray = __webpack_require__(34),
-	    isIndex = __webpack_require__(35),
-	    isLength = __webpack_require__(31),
-	    keysIn = __webpack_require__(36);
+	var isArguments = __webpack_require__(45),
+	    isArray = __webpack_require__(46),
+	    isIndex = __webpack_require__(47),
+	    isLength = __webpack_require__(43),
+	    keysIn = __webpack_require__(48);
 
 	/** Used for native method references. */
 	var objectProto = Object.prototype;
@@ -10918,11 +11324,11 @@
 
 
 /***/ },
-/* 33 */
+/* 45 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var isArrayLike = __webpack_require__(28),
-	    isObjectLike = __webpack_require__(27);
+	var isArrayLike = __webpack_require__(40),
+	    isObjectLike = __webpack_require__(39);
 
 	/** Used for native method references. */
 	var objectProto = Object.prototype;
@@ -10958,12 +11364,12 @@
 
 
 /***/ },
-/* 34 */
+/* 46 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var getNative = __webpack_require__(23),
-	    isLength = __webpack_require__(31),
-	    isObjectLike = __webpack_require__(27);
+	var getNative = __webpack_require__(35),
+	    isLength = __webpack_require__(43),
+	    isObjectLike = __webpack_require__(39);
 
 	/** `Object#toString` result references. */
 	var arrayTag = '[object Array]';
@@ -11004,7 +11410,7 @@
 
 
 /***/ },
-/* 35 */
+/* 47 */
 /***/ function(module, exports) {
 
 	/** Used to detect unsigned integer values. */
@@ -11034,14 +11440,14 @@
 
 
 /***/ },
-/* 36 */
+/* 48 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var isArguments = __webpack_require__(33),
-	    isArray = __webpack_require__(34),
-	    isIndex = __webpack_require__(35),
-	    isLength = __webpack_require__(31),
-	    isObject = __webpack_require__(26);
+	var isArguments = __webpack_require__(45),
+	    isArray = __webpack_require__(46),
+	    isIndex = __webpack_require__(47),
+	    isLength = __webpack_require__(43),
+	    isObject = __webpack_require__(38);
 
 	/** Used for native method references. */
 	var objectProto = Object.prototype;
@@ -11104,11 +11510,11 @@
 
 
 /***/ },
-/* 37 */
+/* 49 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var isLength = __webpack_require__(31),
-	    isObjectLike = __webpack_require__(27);
+	var isLength = __webpack_require__(43),
+	    isObjectLike = __webpack_require__(39);
 
 	/** `Object#toString` result references. */
 	var argsTag = '[object Arguments]',
@@ -11184,10 +11590,10 @@
 
 
 /***/ },
-/* 38 */
+/* 50 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var isObject = __webpack_require__(26);
+	var isObject = __webpack_require__(38);
 
 	/**
 	 * Converts `value` to an object if it's not one.
@@ -11204,11 +11610,11 @@
 
 
 /***/ },
-/* 39 */
+/* 51 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var isStrictComparable = __webpack_require__(40),
-	    pairs = __webpack_require__(41);
+	var isStrictComparable = __webpack_require__(52),
+	    pairs = __webpack_require__(53);
 
 	/**
 	 * Gets the propery names, values, and compare flags of `object`.
@@ -11231,10 +11637,10 @@
 
 
 /***/ },
-/* 40 */
+/* 52 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var isObject = __webpack_require__(26);
+	var isObject = __webpack_require__(38);
 
 	/**
 	 * Checks if `value` is suitable for strict equality comparisons, i.e. `===`.
@@ -11252,11 +11658,11 @@
 
 
 /***/ },
-/* 41 */
+/* 53 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var keys = __webpack_require__(22),
-	    toObject = __webpack_require__(38);
+	var keys = __webpack_require__(34),
+	    toObject = __webpack_require__(50);
 
 	/**
 	 * Creates a two dimensional array of the key-value pairs for `object`,
@@ -11291,18 +11697,18 @@
 
 
 /***/ },
-/* 42 */
+/* 54 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var baseGet = __webpack_require__(43),
-	    baseIsEqual = __webpack_require__(16),
-	    baseSlice = __webpack_require__(44),
-	    isArray = __webpack_require__(34),
-	    isKey = __webpack_require__(45),
-	    isStrictComparable = __webpack_require__(40),
-	    last = __webpack_require__(46),
-	    toObject = __webpack_require__(38),
-	    toPath = __webpack_require__(47);
+	var baseGet = __webpack_require__(55),
+	    baseIsEqual = __webpack_require__(28),
+	    baseSlice = __webpack_require__(56),
+	    isArray = __webpack_require__(46),
+	    isKey = __webpack_require__(57),
+	    isStrictComparable = __webpack_require__(52),
+	    last = __webpack_require__(58),
+	    toObject = __webpack_require__(50),
+	    toPath = __webpack_require__(59);
 
 	/**
 	 * The base implementation of `_.matchesProperty` which does not clone `srcValue`.
@@ -11342,10 +11748,10 @@
 
 
 /***/ },
-/* 43 */
+/* 55 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var toObject = __webpack_require__(38);
+	var toObject = __webpack_require__(50);
 
 	/**
 	 * The base implementation of `get` without support for string paths
@@ -11377,7 +11783,7 @@
 
 
 /***/ },
-/* 44 */
+/* 56 */
 /***/ function(module, exports) {
 
 	/**
@@ -11415,11 +11821,11 @@
 
 
 /***/ },
-/* 45 */
+/* 57 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var isArray = __webpack_require__(34),
-	    toObject = __webpack_require__(38);
+	var isArray = __webpack_require__(46),
+	    toObject = __webpack_require__(50);
 
 	/** Used to match property names within property paths. */
 	var reIsDeepProp = /\.|\[(?:[^[\]]*|(["'])(?:(?!\1)[^\n\\]|\\.)*?\1)\]/,
@@ -11449,7 +11855,7 @@
 
 
 /***/ },
-/* 46 */
+/* 58 */
 /***/ function(module, exports) {
 
 	/**
@@ -11474,11 +11880,11 @@
 
 
 /***/ },
-/* 47 */
+/* 59 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var baseToString = __webpack_require__(48),
-	    isArray = __webpack_require__(34);
+	var baseToString = __webpack_require__(60),
+	    isArray = __webpack_require__(46);
 
 	/** Used to match property names within property paths. */
 	var rePropName = /[^.[\]]+|\[(?:(-?\d+(?:\.\d+)?)|(["'])((?:(?!\2)[^\n\\]|\\.)*?)\2)\]/g;
@@ -11508,7 +11914,7 @@
 
 
 /***/ },
-/* 48 */
+/* 60 */
 /***/ function(module, exports) {
 
 	/**
@@ -11527,10 +11933,10 @@
 
 
 /***/ },
-/* 49 */
+/* 61 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var identity = __webpack_require__(50);
+	var identity = __webpack_require__(62);
 
 	/**
 	 * A specialized version of `baseCallback` which only supports `this` binding
@@ -11572,7 +11978,7 @@
 
 
 /***/ },
-/* 50 */
+/* 62 */
 /***/ function(module, exports) {
 
 	/**
@@ -11598,12 +12004,12 @@
 
 
 /***/ },
-/* 51 */
+/* 63 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var baseProperty = __webpack_require__(30),
-	    basePropertyDeep = __webpack_require__(52),
-	    isKey = __webpack_require__(45);
+	var baseProperty = __webpack_require__(42),
+	    basePropertyDeep = __webpack_require__(64),
+	    isKey = __webpack_require__(57);
 
 	/**
 	 * Creates a function that returns the property value at `path` on a
@@ -11635,11 +12041,11 @@
 
 
 /***/ },
-/* 52 */
+/* 64 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var baseGet = __webpack_require__(43),
-	    toPath = __webpack_require__(47);
+	var baseGet = __webpack_require__(55),
+	    toPath = __webpack_require__(59);
 
 	/**
 	 * A specialized version of `baseProperty` which supports deep paths.
@@ -11660,11 +12066,11 @@
 
 
 /***/ },
-/* 53 */
+/* 65 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var baseEach = __webpack_require__(54),
-	    isArrayLike = __webpack_require__(28);
+	var baseEach = __webpack_require__(66),
+	    isArrayLike = __webpack_require__(40);
 
 	/**
 	 * The base implementation of `_.map` without support for callback shorthands
@@ -11689,11 +12095,11 @@
 
 
 /***/ },
-/* 54 */
+/* 66 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var baseForOwn = __webpack_require__(55),
-	    createBaseEach = __webpack_require__(58);
+	var baseForOwn = __webpack_require__(67),
+	    createBaseEach = __webpack_require__(70);
 
 	/**
 	 * The base implementation of `_.forEach` without support for callback
@@ -11710,11 +12116,11 @@
 
 
 /***/ },
-/* 55 */
+/* 67 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var baseFor = __webpack_require__(56),
-	    keys = __webpack_require__(22);
+	var baseFor = __webpack_require__(68),
+	    keys = __webpack_require__(34);
 
 	/**
 	 * The base implementation of `_.forOwn` without support for callback
@@ -11733,10 +12139,10 @@
 
 
 /***/ },
-/* 56 */
+/* 68 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var createBaseFor = __webpack_require__(57);
+	var createBaseFor = __webpack_require__(69);
 
 	/**
 	 * The base implementation of `baseForIn` and `baseForOwn` which iterates
@@ -11756,10 +12162,10 @@
 
 
 /***/ },
-/* 57 */
+/* 69 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var toObject = __webpack_require__(38);
+	var toObject = __webpack_require__(50);
 
 	/**
 	 * Creates a base function for `_.forIn` or `_.forInRight`.
@@ -11789,12 +12195,12 @@
 
 
 /***/ },
-/* 58 */
+/* 70 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var getLength = __webpack_require__(29),
-	    isLength = __webpack_require__(31),
-	    toObject = __webpack_require__(38);
+	var getLength = __webpack_require__(41),
+	    isLength = __webpack_require__(43),
+	    toObject = __webpack_require__(50);
 
 	/**
 	 * Creates a `baseEach` or `baseEachRight` function.
@@ -11826,7 +12232,7 @@
 
 
 /***/ },
-/* 59 */
+/* 71 */
 /***/ function(module, exports) {
 
 	/**
@@ -11853,10 +12259,10 @@
 
 
 /***/ },
-/* 60 */
+/* 72 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var baseCompareAscending = __webpack_require__(61);
+	var baseCompareAscending = __webpack_require__(73);
 
 	/**
 	 * Used by `_.sortBy` to compare transformed elements of a collection and stable
@@ -11875,7 +12281,7 @@
 
 
 /***/ },
-/* 61 */
+/* 73 */
 /***/ function(module, exports) {
 
 	/**
@@ -11915,12 +12321,12 @@
 
 
 /***/ },
-/* 62 */
+/* 74 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var isArrayLike = __webpack_require__(28),
-	    isIndex = __webpack_require__(35),
-	    isObject = __webpack_require__(26);
+	var isArrayLike = __webpack_require__(40),
+	    isIndex = __webpack_require__(47),
+	    isObject = __webpack_require__(38);
 
 	/**
 	 * Checks if the provided arguments are from an iteratee call.
@@ -11949,11 +12355,11 @@
 
 
 /***/ },
-/* 63 */
+/* 75 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var map = __webpack_require__(64),
-	    property = __webpack_require__(51);
+	var map = __webpack_require__(76),
+	    property = __webpack_require__(63);
 
 	/**
 	 * Gets the property value of `path` from all elements in `collection`.
@@ -11986,13 +12392,13 @@
 
 
 /***/ },
-/* 64 */
+/* 76 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var arrayMap = __webpack_require__(65),
-	    baseCallback = __webpack_require__(13),
-	    baseMap = __webpack_require__(53),
-	    isArray = __webpack_require__(34);
+	var arrayMap = __webpack_require__(77),
+	    baseCallback = __webpack_require__(25),
+	    baseMap = __webpack_require__(65),
+	    isArray = __webpack_require__(46);
 
 	/**
 	 * Creates an array of values by running each element in `collection` through
@@ -12060,7 +12466,7 @@
 
 
 /***/ },
-/* 65 */
+/* 77 */
 /***/ function(module, exports) {
 
 	/**
@@ -12087,471 +12493,24 @@
 
 
 /***/ },
-/* 66 */
+/* 78 */
 /***/ function(module, exports) {
 
 	module.exports = "\n<div class=\"ui small image\" id=\"vue-diagram-{{ _uid }}\"></div>\n";
 
 /***/ },
-/* 67 */
+/* 79 */
 /***/ function(module, exports) {
 
 	module.exports = "\n<div class=\"ui grid\">\n\n    <div class=\"eight wide column\">\n        <div class=\"ui sticky form\" id=\"vue-order-title-input-{{ _uid }}\">\n            <div class=\"field\">\n                <label>{{ labelText }}</label>\n                <order-title-input v-on:valid=\"onValid\" v-on:invalid=\"onInvalid\"></order-title-input>\n            </div>\n        </div>\n    </div>\n\n    <div class=\"eight wide column\" id=\"vue-workflow-node-list-{{ _uid }}\">\n        <workflow-node-list v-bind:nodes.sync=\"nodes\" v-on:drawn=\"onDrawn\"></workflow-node-list>\n    </div>\n\n</div>\n";
 
 /***/ },
-/* 68 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var __vue_script__, __vue_template__
-	__vue_script__ = __webpack_require__(69)
-	__vue_template__ = __webpack_require__(70)
-	module.exports = __vue_script__ || {}
-	if (module.exports.__esModule) module.exports = module.exports.default
-	if (__vue_template__) { (typeof module.exports === "function" ? module.exports.options : module.exports).template = __vue_template__ }
-	if (false) {(function () {  module.hot.accept()
-	  var hotAPI = require("vue-hot-reload-api")
-	  hotAPI.install(require("vue"), true)
-	  if (!hotAPI.compatible) return
-	  var id = "/Users/andytsai/Documents/Code/project-boomer/resources/assets/js/components/flowtype-select.vue"
-	  if (!module.hot.data) {
-	    hotAPI.createRecord(id, module.exports)
-	  } else {
-	    hotAPI.update(id, module.exports, __vue_template__)
-	  }
-	})()}
-
-/***/ },
-/* 69 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
-
-	var _vue = __webpack_require__(1);
-
-	var _vue2 = _interopRequireDefault(_vue);
-
-	var _dropdownSelect = __webpack_require__(80);
-
-	var _dropdownSelect2 = _interopRequireDefault(_dropdownSelect);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	// <template>
-	//     <div class="two fields">
-	//         <div class="field">
-	//             <dropdown-select
-	//                 input-name="mainflow_type_id"
-	//                 :options="mainflowTypes"
-	//                 option-value-name="id"
-	//                 option-text-name="name"
-	//                 @selected="onMainflowTypeSelected"
-	//             ></dropdown-select>
-	//         </div>
-	//         <div class="field">
-	//             <dropdown-select
-	//                 input-name="detailingflow_type_id"
-	//                 :options="detailingflowTypes"
-	//                 option-value-name="id"
-	//                 option-text-name="name"
-	//                 @selected="onDetailingflowTypeSelected"
-	//                 v-ref:detailingflow-type-select
-	//             ></dropdown-select>
-	//         </div>
-	//     </div>
-	// </template>
-	//
-	// <script>
-
-	function getMainflowTypes() {
-	    return window.$.getJSON('/api/v1/mainflow-types');
-	}
-
-	function getDetailingflowTypes(mainflowTypeId) {
-	    return window.$.getJSON('/api/v1/mainflow-types/' + mainflowTypeId + '/detailingflow-types');
-	}
-
-	exports.default = {
-	    components: { DropdownSelect: _dropdownSelect2.default },
-
-	    methods: {
-	        onMainflowTypeSelected: function onMainflowTypeSelected(mainflowTypeId) {
-	            var _this = this;
-
-	            getDetailingflowTypes(mainflowTypeId).then(function (response) {
-	                _this.detailingflowTypes = response.detailingflow_types;
-
-	                _vue2.default.nextTick(function () {
-	                    _this.$refs.detailingflowTypeSelect.$emit('optionsUpdated');
-	                });
-	            });
-
-	            return false;
-	        },
-	        onDetailingflowTypeSelected: function onDetailingflowTypeSelected(detailingflowTypeId) {
-	            return false;
-	        }
-	    },
-
-	    data: function data() {
-	        return {
-	            mainflowTypes: [],
-	            detailingflowTypes: []
-	        };
-	    },
-	    ready: function ready() {
-	        var _this2 = this;
-
-	        getMainflowTypes().then(function (response) {
-	            _this2.mainflowTypes = response.mainflow_types;
-	        });
-	    }
-	};
-	// </script>
-
-/***/ },
-/* 70 */
-/***/ function(module, exports) {
-
-	module.exports = "\n<div class=\"two fields\">\n    <div class=\"field\">\n        <dropdown-select\n            input-name=\"mainflow_type_id\"\n            :options=\"mainflowTypes\"\n            option-value-name=\"id\"\n            option-text-name=\"name\"\n            @selected=\"onMainflowTypeSelected\"\n        ></dropdown-select>\n    </div>\n    <div class=\"field\">\n        <dropdown-select\n            input-name=\"detailingflow_type_id\"\n            :options=\"detailingflowTypes\"\n            option-value-name=\"id\"\n            option-text-name=\"name\"\n            @selected=\"onDetailingflowTypeSelected\"\n            v-ref:detailingflow-type-select\n        ></dropdown-select>\n    </div>\n</div>\n";
-
-/***/ },
-/* 71 */,
-/* 72 */,
-/* 73 */,
-/* 74 */,
-/* 75 */,
-/* 76 */,
-/* 77 */,
-/* 78 */,
-/* 79 */,
 /* 80 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __vue_script__, __vue_template__
 	__vue_script__ = __webpack_require__(81)
-	__vue_template__ = __webpack_require__(82)
-	module.exports = __vue_script__ || {}
-	if (module.exports.__esModule) module.exports = module.exports.default
-	if (__vue_template__) { (typeof module.exports === "function" ? module.exports.options : module.exports).template = __vue_template__ }
-	if (false) {(function () {  module.hot.accept()
-	  var hotAPI = require("vue-hot-reload-api")
-	  hotAPI.install(require("vue"), true)
-	  if (!hotAPI.compatible) return
-	  var id = "/Users/andytsai/Documents/Code/project-boomer/resources/assets/js/components/dropdown-select.vue"
-	  if (!module.hot.data) {
-	    hotAPI.createRecord(id, module.exports)
-	  } else {
-	    hotAPI.update(id, module.exports, __vue_template__)
-	  }
-	})()}
-
-/***/ },
-/* 81 */
-/***/ function(module, exports) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
-	// <template>
-	//     <div
-	//         class="ui selection dropdown"
-	//         :class="{ 'multiple': multiple, 'disabled': isEmpty }"
-	//         id="vue-dropdown-select-{{ _uid }}"
-	//     >
-	//         <input type="hidden" v-bind:name="inputName">
-	//         <i class="dropdown icon"></i>
-	//         <div class="default text"></div>
-	//         <div class="menu">
-	//             <div
-	//                 v-for="option in options"
-	//                 class="item"
-	//                 v-bind:data-value.once="option[optionValueName]"
-	//             >
-	//                 {{ option[optionTextName] }}
-	//             </div>
-	//         </div>
-	//     </div>
-	// </template>
-	//
-	// <script>
-	exports.default = {
-	    props: {
-	        inputName: {
-	            required: true,
-	            type: String
-	        },
-	        options: {
-	            required: true,
-	            type: Array
-	        },
-	        optionValueName: {
-	            required: true,
-	            type: String
-	        },
-	        optionTextName: {
-	            required: true,
-	            type: String
-	        },
-	        multiple: {
-	            default: false,
-	            type: Boolean
-	        }
-	    },
-
-	    methods: {
-	        select: function select(value) {
-	            this._dropdown.dropdown('refresh');
-	            this._dropdown.dropdown('set selected', [value]);
-	        },
-	        clear: function clear() {
-	            this._dropdown.dropdown('clear');
-	        }
-	    },
-
-	    events: {
-	        optionsUpdated: function optionsUpdated() {
-	            this._dropdown.dropdown('refresh');
-	            this._dropdown.dropdown('clear');
-	            this._dropdown.dropdown('show');
-	        }
-	    },
-
-	    computed: {
-	        isEmpty: function isEmpty() {
-	            return !this.options.length;
-	        }
-	    },
-
-	    ready: function ready() {
-	        var _this = this;
-
-	        this._dropdown = window.$('#vue-dropdown-select-' + this._uid).dropdown({
-	            onChange: function onChange(value) {
-	                _this.$dispatch('selected', value);
-	            }
-	        });
-	    }
-	};
-	// </script>
-
-/***/ },
-/* 82 */
-/***/ function(module, exports) {
-
-	module.exports = "\n<div\n    class=\"ui selection dropdown\"\n    :class=\"{ 'multiple': multiple, 'disabled': isEmpty }\"\n    id=\"vue-dropdown-select-{{ _uid }}\"\n>\n    <input type=\"hidden\" v-bind:name=\"inputName\">\n    <i class=\"dropdown icon\"></i>\n    <div class=\"default text\"></div>\n    <div class=\"menu\">\n        <div\n            v-for=\"option in options\"\n            class=\"item\"\n            v-bind:data-value.once=\"option[optionValueName]\"\n        >\n            {{ option[optionTextName] }}\n        </div>\n    </div>\n</div>\n";
-
-/***/ },
-/* 83 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var __vue_script__, __vue_template__
-	__vue_script__ = __webpack_require__(84)
-	__vue_template__ = __webpack_require__(85)
-	module.exports = __vue_script__ || {}
-	if (module.exports.__esModule) module.exports = module.exports.default
-	if (__vue_template__) { (typeof module.exports === "function" ? module.exports.options : module.exports).template = __vue_template__ }
-	if (false) {(function () {  module.hot.accept()
-	  var hotAPI = require("vue-hot-reload-api")
-	  hotAPI.install(require("vue"), true)
-	  if (!hotAPI.compatible) return
-	  var id = "/Users/andytsai/Documents/Code/project-boomer/resources/assets/js/components/unit-select.vue"
-	  if (!module.hot.data) {
-	    hotAPI.createRecord(id, module.exports)
-	  } else {
-	    hotAPI.update(id, module.exports, __vue_template__)
-	  }
-	})()}
-
-/***/ },
-/* 84 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
-
-	var _dropdownSelect = __webpack_require__(80);
-
-	var _dropdownSelect2 = _interopRequireDefault(_dropdownSelect);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	function getUnits() {
-	    return window.$.getJSON('/api/v1/units');
-	} // <template>
-	//     <dropdown-select
-	//         input-name="unit_id"
-	//         :options="units"
-	//         option-value-name="id"
-	//         option-text-name="name"
-	//         v-ref:dropdown
-	//     ></dropdown-select>
-	// </template>
-	//
-	// <script>
-
-	exports.default = {
-	    components: { DropdownSelect: _dropdownSelect2.default },
-
-	    methods: {
-	        select: function select(value) {
-	            this.$refs.dropdown.select(value);
-	        },
-	        clear: function clear() {
-	            this.$refs.dropdown.clear();
-	        }
-	    },
-
-	    data: function data() {
-	        return {
-	            units: []
-	        };
-	    },
-	    ready: function ready() {
-	        var _this = this;
-
-	        getUnits().then(function (response) {
-	            _this.units = response.units;
-	        });
-	    }
-	};
-	// </script>
-
-/***/ },
-/* 85 */
-/***/ function(module, exports) {
-
-	module.exports = "\n<dropdown-select\n    input-name=\"unit_id\"\n    :options=\"units\"\n    option-value-name=\"id\"\n    option-text-name=\"name\"\n    v-ref:dropdown\n></dropdown-select>\n";
-
-/***/ },
-/* 86 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var __vue_script__, __vue_template__
-	__vue_script__ = __webpack_require__(87)
-	__vue_template__ = __webpack_require__(88)
-	module.exports = __vue_script__ || {}
-	if (module.exports.__esModule) module.exports = module.exports.default
-	if (__vue_template__) { (typeof module.exports === "function" ? module.exports.options : module.exports).template = __vue_template__ }
-	if (false) {(function () {  module.hot.accept()
-	  var hotAPI = require("vue-hot-reload-api")
-	  hotAPI.install(require("vue"), true)
-	  if (!hotAPI.compatible) return
-	  var id = "/Users/andytsai/Documents/Code/project-boomer/resources/assets/js/components/workflow-select.vue"
-	  if (!module.hot.data) {
-	    hotAPI.createRecord(id, module.exports)
-	  } else {
-	    hotAPI.update(id, module.exports, __vue_template__)
-	  }
-	})()}
-
-/***/ },
-/* 87 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
-
-	var _dropdownSelect = __webpack_require__(80);
-
-	var _dropdownSelect2 = _interopRequireDefault(_dropdownSelect);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	function getWorkflows() {
-	    return window.$.getJSON('/api/v1/workflows');
-	} // <template>
-	//     <dropdown-select
-	//         input-name="workflow_id"
-	//         :options="workflows"
-	//         option-value-name="id"
-	//         option-text-name="name"
-	//         v-ref:dropdown
-	//     ></dropdown-select>
-	// </template>
-	//
-	// <script>
-
-	exports.default = {
-	    components: { DropdownSelect: _dropdownSelect2.default },
-
-	    props: ['defaultValue'],
-
-	    data: function data() {
-	        return {
-	            workflows: []
-	        };
-	    },
-	    ready: function ready() {
-	        var _this = this;
-
-	        getWorkflows().then(function (response) {
-	            _this.workflows = response.workflows;
-
-	            _this.$nextTick(function () {
-	                _this.$refs.dropdown.select(_this.defaultValue);
-	            });
-	        });
-	    }
-	};
-	// </script>
-
-/***/ },
-/* 88 */
-/***/ function(module, exports) {
-
-	module.exports = "\n<dropdown-select\n    input-name=\"workflow_id\"\n    :options=\"workflows\"\n    option-value-name=\"id\"\n    option-text-name=\"name\"\n    v-ref:dropdown\n></dropdown-select>\n";
-
-/***/ },
-/* 89 */,
-/* 90 */,
-/* 91 */,
-/* 92 */,
-/* 93 */,
-/* 94 */,
-/* 95 */,
-/* 96 */,
-/* 97 */,
-/* 98 */,
-/* 99 */,
-/* 100 */,
-/* 101 */,
-/* 102 */,
-/* 103 */,
-/* 104 */,
-/* 105 */,
-/* 106 */,
-/* 107 */,
-/* 108 */,
-/* 109 */,
-/* 110 */,
-/* 111 */,
-/* 112 */,
-/* 113 */,
-/* 114 */,
-/* 115 */,
-/* 116 */,
-/* 117 */,
-/* 118 */,
-/* 119 */,
-/* 120 */,
-/* 121 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var __vue_script__, __vue_template__
-	__vue_script__ = __webpack_require__(122)
-	__vue_template__ = __webpack_require__(123)
+	__vue_template__ = __webpack_require__(103)
 	module.exports = __vue_script__ || {}
 	if (module.exports.__esModule) module.exports = module.exports.default
 	if (__vue_template__) { (typeof module.exports === "function" ? module.exports.options : module.exports).template = __vue_template__ }
@@ -12568,7 +12527,7 @@
 	})()}
 
 /***/ },
-/* 122 */
+/* 81 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -12577,15 +12536,15 @@
 	    value: true
 	});
 
-	var _priceCard = __webpack_require__(124);
+	var _priceCard = __webpack_require__(82);
 
 	var _priceCard2 = _interopRequireDefault(_priceCard);
 
-	var _workitemForm = __webpack_require__(130);
+	var _workitemForm = __webpack_require__(85);
 
 	var _workitemForm2 = _interopRequireDefault(_workitemForm);
 
-	var _merge = __webpack_require__(134);
+	var _merge = __webpack_require__(91);
 
 	var _merge2 = _interopRequireDefault(_merge);
 
@@ -12596,7 +12555,7 @@
 	} // <template>
 	//     <div class="ui grid">
 	//         <div class="eight wide column">
-	//             <workitem-form v-ref:form class="ui sticky form" id="vue-workitem-form-{{ _uid }}"></workitem-form>
+	//             <workitem-form :labels.once="labels" v-ref:form class="ui sticky form" id="vue-workitem-form-{{ _uid }}"></workitem-form>
 	//         </div>
 	//         <div class="eight wide column">
 	//             <div class="ui cards">
@@ -12632,9 +12591,20 @@
 	exports.default = {
 	    components: { PriceCard: _priceCard2.default, WorkitemForm: _workitemForm2.default },
 
-	    props: ['workId', 'editText', 'deleteText', 'amountText', 'unitPriceText'],
+	    props: ['workId', 'unitLabel', 'costTypeLabel', 'orderLabel', 'nameLabel', 'amountLabel', 'editText', 'deleteText', 'amountText', 'unitPriceText'],
 
-	    computed: {},
+	    computed: {
+	        labels: function labels() {
+	            return {
+	                unit: this.unitLabel,
+	                costType: this.costTypeLabel,
+	                order: this.orderLabel,
+	                name: this.nameLabel,
+	                amount: this.amountLabel,
+	                unitPrice: this.unitPriceText
+	            };
+	        }
+	    },
 
 	    methods: {},
 
@@ -12701,18 +12671,12 @@
 	// </script>
 
 /***/ },
-/* 123 */
-/***/ function(module, exports) {
-
-	module.exports = "\n<div class=\"ui grid\">\n    <div class=\"eight wide column\">\n        <workitem-form v-ref:form class=\"ui sticky form\" id=\"vue-workitem-form-{{ _uid }}\"></workitem-form>\n    </div>\n    <div class=\"eight wide column\">\n        <div class=\"ui cards\">\n            <price-card\n                v-for=\"item in items\"\n                :item.once=\"item\"\n                :amount-text.once=\"amountText\"\n                :unit-price-text.once=\"unitPriceText\"\n            ></price-card>\n        </div>\n    </div>\n</div>\n";
-
-/***/ },
-/* 124 */
+/* 82 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __vue_script__, __vue_template__
-	__vue_script__ = __webpack_require__(125)
-	__vue_template__ = __webpack_require__(126)
+	__vue_script__ = __webpack_require__(83)
+	__vue_template__ = __webpack_require__(84)
 	module.exports = __vue_script__ || {}
 	if (module.exports.__esModule) module.exports = module.exports.default
 	if (__vue_template__) { (typeof module.exports === "function" ? module.exports.options : module.exports).template = __vue_template__ }
@@ -12729,7 +12693,7 @@
 	})()}
 
 /***/ },
-/* 125 */
+/* 83 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -12790,103 +12754,18 @@
 	// </script>
 
 /***/ },
-/* 126 */
+/* 84 */
 /***/ function(module, exports) {
 
 	module.exports = "\n<div class=\"ui fluid card\">\n    <div class=\"content\">\n        <div class=\"header\">\n            <div class=\"right floated\">\n                {{ item.amount * item.unit_price | currency }}\n            </div>\n            {{ item.name }}\n        </div>\n        <div class=\"meta\">\n            <span>{{ item.cost_type_name }}</span>\n            <span>{{ item.unit_name }}</span>\n        </div>\n    </div>\n    <div class=\"extra content middle aligned\">\n        <div class=\"ui tiny compact right floated icon buttons\">\n            <button class=\"ui button\" @click=\"editItem\">\n                <i class=\"pencil icon\"></i>\n            </button>\n            <button class=\"ui button\" @click=\"deleteItem\">\n                <i class=\"trash icon\"></i>\n            </button>\n        </div>\n        <div class=\"ui labels\">\n            <div class=\"ui label\">{{ unitPriceText }}&nbsp;{{ item.unit_price | currency }}</div>\n            <div class=\"ui label\">{{ amountText }}&nbsp;{{ item.amount }}</div>\n        </div>\n    </div>\n</div>\n";
 
 /***/ },
-/* 127 */
+/* 85 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __vue_script__, __vue_template__
-	__vue_script__ = __webpack_require__(128)
-	__vue_template__ = __webpack_require__(129)
-	module.exports = __vue_script__ || {}
-	if (module.exports.__esModule) module.exports = module.exports.default
-	if (__vue_template__) { (typeof module.exports === "function" ? module.exports.options : module.exports).template = __vue_template__ }
-	if (false) {(function () {  module.hot.accept()
-	  var hotAPI = require("vue-hot-reload-api")
-	  hotAPI.install(require("vue"), true)
-	  if (!hotAPI.compatible) return
-	  var id = "/Users/andytsai/Documents/Code/project-boomer/resources/assets/js/components/cost-type-select.vue"
-	  if (!module.hot.data) {
-	    hotAPI.createRecord(id, module.exports)
-	  } else {
-	    hotAPI.update(id, module.exports, __vue_template__)
-	  }
-	})()}
-
-/***/ },
-/* 128 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
-
-	var _dropdownSelect = __webpack_require__(80);
-
-	var _dropdownSelect2 = _interopRequireDefault(_dropdownSelect);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	function getTypes() {
-	    return window.$.getJSON('/api/v1/cost-types');
-	} // <template>
-	//     <dropdown-select
-	//         input-name="cost_type_id"
-	//         :options="costTypes"
-	//         option-value-name="id"
-	//         option-text-name="name"
-	//         v-ref:dropdown
-	//     ></dropdown-select>
-	// </template>
-	//
-	// <script>
-
-	exports.default = {
-	    components: { DropdownSelect: _dropdownSelect2.default },
-
-	    methods: {
-	        select: function select(value) {
-	            this.$refs.dropdown.select(value);
-	        },
-	        clear: function clear() {
-	            this.$refs.dropdown.clear();
-	        }
-	    },
-
-	    data: function data() {
-	        return {
-	            costTypes: []
-	        };
-	    },
-	    ready: function ready() {
-	        var _this = this;
-
-	        getTypes().then(function (response) {
-	            _this.costTypes = response.cost_types;
-	        });
-	    }
-	};
-	// </script>
-
-/***/ },
-/* 129 */
-/***/ function(module, exports) {
-
-	module.exports = "\n<dropdown-select\n    input-name=\"cost_type_id\"\n    :options=\"costTypes\"\n    option-value-name=\"id\"\n    option-text-name=\"name\"\n    v-ref:dropdown\n></dropdown-select>\n";
-
-/***/ },
-/* 130 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var __vue_script__, __vue_template__
-	__vue_script__ = __webpack_require__(132)
-	__vue_template__ = __webpack_require__(131)
+	__vue_script__ = __webpack_require__(86)
+	__vue_template__ = __webpack_require__(102)
 	module.exports = __vue_script__ || {}
 	if (module.exports.__esModule) module.exports = module.exports.default
 	if (__vue_template__) { (typeof module.exports === "function" ? module.exports.options : module.exports).template = __vue_template__ }
@@ -12903,13 +12782,7 @@
 	})()}
 
 /***/ },
-/* 131 */
-/***/ function(module, exports) {
-
-	module.exports = "\n<form class=\"ui form\" @submit.prevent=\"onSubmit\">\n    <div class=\"field\">\n        <label>Unit</label>\n        <unit-select v-ref:unit-select></unit-select>\n    </div>\n    <div class=\"field\">\n        <label>Cost Type</label>\n        <cost-type-select v-ref:cost-type-select></cost-type-select>\n    </div>\n    <div class=\"field\">\n        <label>Order</label>\n        <input type=\"text\" name=\"order\" v-model=\"item.order\">\n    </div>\n    <div class=\"field\">\n        <label>Name</label>\n        <input type=\"text\" name=\"name\" v-model=\"item.name\">\n    </div>\n    <div class=\"field\">\n        <label>Amount</label>\n        <input type=\"text\" name=\"amount\" v-model=\"item.amount\">\n    </div>\n    <div class=\"field\">\n        <label>Unit Price</label>\n        <input type=\"text\" name=\"unit_price\" v-model=\"item.unit_price\">\n    </div>\n\n    <button type=\"submit\" class=\"ui primary button\">{{ isEditing ? 'Save' : 'Submit' }}</button>\n    <button type=\"button\" class=\"ui button\" @click=\"clearForm\">{{ isEditing ? 'Cancel' : 'Clear' }}</button>\n</form>\n";
-
-/***/ },
-/* 132 */
+/* 86 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -12918,23 +12791,23 @@
 	    value: true
 	});
 
-	var _unitSelect = __webpack_require__(83);
+	var _unitSelect = __webpack_require__(11);
 
 	var _unitSelect2 = _interopRequireDefault(_unitSelect);
 
-	var _costTypeSelect = __webpack_require__(127);
+	var _costTypeSelect = __webpack_require__(87);
 
 	var _costTypeSelect2 = _interopRequireDefault(_costTypeSelect);
 
-	var _pluck = __webpack_require__(63);
+	var _pluck = __webpack_require__(75);
 
 	var _pluck2 = _interopRequireDefault(_pluck);
 
-	var _zipObject = __webpack_require__(133);
+	var _zipObject = __webpack_require__(90);
 
 	var _zipObject2 = _interopRequireDefault(_zipObject);
 
-	var _merge = __webpack_require__(134);
+	var _merge = __webpack_require__(91);
 
 	var _merge2 = _interopRequireDefault(_merge);
 
@@ -12943,7 +12816,12 @@
 	exports.default = {
 	    components: { UnitSelect: _unitSelect2.default, CostTypeSelect: _costTypeSelect2.default },
 
-	    props: {},
+	    props: {
+	        labels: {
+	            required: true,
+	            type: Object
+	        }
+	    },
 
 	    computed: {
 	        isEditing: function isEditing() {
@@ -13001,27 +12879,27 @@
 	// <template>
 	//     <form class="ui form" @submit.prevent="onSubmit">
 	//         <div class="field">
-	//             <label>Unit</label>
+	//             <label>{{ labels.unit }}</label>
 	//             <unit-select v-ref:unit-select></unit-select>
 	//         </div>
 	//         <div class="field">
-	//             <label>Cost Type</label>
+	//             <label>{{ labels.costType }}</label>
 	//             <cost-type-select v-ref:cost-type-select></cost-type-select>
 	//         </div>
 	//         <div class="field">
-	//             <label>Order</label>
+	//             <label>{{ labels.order }}</label>
 	//             <input type="text" name="order" v-model="item.order">
 	//         </div>
 	//         <div class="field">
-	//             <label>Name</label>
+	//             <label>{{ labels.name }}</label>
 	//             <input type="text" name="name" v-model="item.name">
 	//         </div>
 	//         <div class="field">
-	//             <label>Amount</label>
+	//             <label>{{ labels.amount }}</label>
 	//             <input type="text" name="amount" v-model="item.amount">
 	//         </div>
 	//         <div class="field">
-	//             <label>Unit Price</label>
+	//             <label>{{ labels.unitPrice }}</label>
 	//             <input type="text" name="unit_price" v-model="item.unit_price">
 	//         </div>
 	//
@@ -13033,10 +12911,95 @@
 	// <script>
 
 /***/ },
-/* 133 */
+/* 87 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var isArray = __webpack_require__(34);
+	var __vue_script__, __vue_template__
+	__vue_script__ = __webpack_require__(88)
+	__vue_template__ = __webpack_require__(89)
+	module.exports = __vue_script__ || {}
+	if (module.exports.__esModule) module.exports = module.exports.default
+	if (__vue_template__) { (typeof module.exports === "function" ? module.exports.options : module.exports).template = __vue_template__ }
+	if (false) {(function () {  module.hot.accept()
+	  var hotAPI = require("vue-hot-reload-api")
+	  hotAPI.install(require("vue"), true)
+	  if (!hotAPI.compatible) return
+	  var id = "/Users/andytsai/Documents/Code/project-boomer/resources/assets/js/components/cost-type-select.vue"
+	  if (!module.hot.data) {
+	    hotAPI.createRecord(id, module.exports)
+	  } else {
+	    hotAPI.update(id, module.exports, __vue_template__)
+	  }
+	})()}
+
+/***/ },
+/* 88 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+
+	var _dropdownSelect = __webpack_require__(4);
+
+	var _dropdownSelect2 = _interopRequireDefault(_dropdownSelect);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function getTypes() {
+	    return window.$.getJSON('/api/v1/cost-types');
+	} // <template>
+	//     <dropdown-select
+	//         input-name="cost_type_id"
+	//         :options="costTypes"
+	//         option-value-name="id"
+	//         option-text-name="name"
+	//         v-ref:dropdown
+	//     ></dropdown-select>
+	// </template>
+	//
+	// <script>
+
+	exports.default = {
+	    components: { DropdownSelect: _dropdownSelect2.default },
+
+	    methods: {
+	        select: function select(value) {
+	            this.$refs.dropdown.select(value);
+	        },
+	        clear: function clear() {
+	            this.$refs.dropdown.clear();
+	        }
+	    },
+
+	    data: function data() {
+	        return {
+	            costTypes: []
+	        };
+	    },
+	    ready: function ready() {
+	        var _this = this;
+
+	        getTypes().then(function (response) {
+	            _this.costTypes = response.cost_types;
+	        });
+	    }
+	};
+	// </script>
+
+/***/ },
+/* 89 */
+/***/ function(module, exports) {
+
+	module.exports = "\n<dropdown-select\n    input-name=\"cost_type_id\"\n    :options=\"costTypes\"\n    option-value-name=\"id\"\n    option-text-name=\"name\"\n    v-ref:dropdown\n></dropdown-select>\n";
+
+/***/ },
+/* 90 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var isArray = __webpack_require__(46);
 
 	/**
 	 * The inverse of `_.pairs`; this method returns an object composed from arrays
@@ -13082,11 +13045,11 @@
 
 
 /***/ },
-/* 134 */
+/* 91 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var baseMerge = __webpack_require__(135),
-	    createAssigner = __webpack_require__(143);
+	var baseMerge = __webpack_require__(92),
+	    createAssigner = __webpack_require__(100);
 
 	/**
 	 * Recursively merges own enumerable properties of the source object(s), that
@@ -13142,17 +13105,17 @@
 
 
 /***/ },
-/* 135 */
+/* 92 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var arrayEach = __webpack_require__(136),
-	    baseMergeDeep = __webpack_require__(137),
-	    isArray = __webpack_require__(34),
-	    isArrayLike = __webpack_require__(28),
-	    isObject = __webpack_require__(26),
-	    isObjectLike = __webpack_require__(27),
-	    isTypedArray = __webpack_require__(37),
-	    keys = __webpack_require__(22);
+	var arrayEach = __webpack_require__(93),
+	    baseMergeDeep = __webpack_require__(94),
+	    isArray = __webpack_require__(46),
+	    isArrayLike = __webpack_require__(40),
+	    isObject = __webpack_require__(38),
+	    isObjectLike = __webpack_require__(39),
+	    isTypedArray = __webpack_require__(49),
+	    keys = __webpack_require__(34);
 
 	/**
 	 * The base implementation of `_.merge` without support for argument juggling,
@@ -13204,7 +13167,7 @@
 
 
 /***/ },
-/* 136 */
+/* 93 */
 /***/ function(module, exports) {
 
 	/**
@@ -13232,16 +13195,16 @@
 
 
 /***/ },
-/* 137 */
+/* 94 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var arrayCopy = __webpack_require__(138),
-	    isArguments = __webpack_require__(33),
-	    isArray = __webpack_require__(34),
-	    isArrayLike = __webpack_require__(28),
-	    isPlainObject = __webpack_require__(139),
-	    isTypedArray = __webpack_require__(37),
-	    toPlainObject = __webpack_require__(141);
+	var arrayCopy = __webpack_require__(95),
+	    isArguments = __webpack_require__(45),
+	    isArray = __webpack_require__(46),
+	    isArrayLike = __webpack_require__(40),
+	    isPlainObject = __webpack_require__(96),
+	    isTypedArray = __webpack_require__(49),
+	    toPlainObject = __webpack_require__(98);
 
 	/**
 	 * A specialized version of `baseMerge` for arrays and objects which performs
@@ -13305,7 +13268,7 @@
 
 
 /***/ },
-/* 138 */
+/* 95 */
 /***/ function(module, exports) {
 
 	/**
@@ -13331,12 +13294,12 @@
 
 
 /***/ },
-/* 139 */
+/* 96 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var baseForIn = __webpack_require__(140),
-	    isArguments = __webpack_require__(33),
-	    isObjectLike = __webpack_require__(27);
+	var baseForIn = __webpack_require__(97),
+	    isArguments = __webpack_require__(45),
+	    isObjectLike = __webpack_require__(39);
 
 	/** `Object#toString` result references. */
 	var objectTag = '[object Object]';
@@ -13408,11 +13371,11 @@
 
 
 /***/ },
-/* 140 */
+/* 97 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var baseFor = __webpack_require__(56),
-	    keysIn = __webpack_require__(36);
+	var baseFor = __webpack_require__(68),
+	    keysIn = __webpack_require__(48);
 
 	/**
 	 * The base implementation of `_.forIn` without support for callback
@@ -13431,11 +13394,11 @@
 
 
 /***/ },
-/* 141 */
+/* 98 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var baseCopy = __webpack_require__(142),
-	    keysIn = __webpack_require__(36);
+	var baseCopy = __webpack_require__(99),
+	    keysIn = __webpack_require__(48);
 
 	/**
 	 * Converts `value` to a plain object flattening inherited enumerable
@@ -13468,7 +13431,7 @@
 
 
 /***/ },
-/* 142 */
+/* 99 */
 /***/ function(module, exports) {
 
 	/**
@@ -13497,12 +13460,12 @@
 
 
 /***/ },
-/* 143 */
+/* 100 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var bindCallback = __webpack_require__(49),
-	    isIterateeCall = __webpack_require__(62),
-	    restParam = __webpack_require__(144);
+	var bindCallback = __webpack_require__(61),
+	    isIterateeCall = __webpack_require__(74),
+	    restParam = __webpack_require__(101);
 
 	/**
 	 * Creates a `_.assign`, `_.defaults`, or `_.merge` function.
@@ -13544,7 +13507,7 @@
 
 
 /***/ },
-/* 144 */
+/* 101 */
 /***/ function(module, exports) {
 
 	/** Used as the `TypeError` message for "Functions" methods. */
@@ -13606,6 +13569,18 @@
 
 	module.exports = restParam;
 
+
+/***/ },
+/* 102 */
+/***/ function(module, exports) {
+
+	module.exports = "\n<form class=\"ui form\" @submit.prevent=\"onSubmit\">\n    <div class=\"field\">\n        <label>{{ labels.unit }}</label>\n        <unit-select v-ref:unit-select></unit-select>\n    </div>\n    <div class=\"field\">\n        <label>{{ labels.costType }}</label>\n        <cost-type-select v-ref:cost-type-select></cost-type-select>\n    </div>\n    <div class=\"field\">\n        <label>{{ labels.order }}</label>\n        <input type=\"text\" name=\"order\" v-model=\"item.order\">\n    </div>\n    <div class=\"field\">\n        <label>{{ labels.name }}</label>\n        <input type=\"text\" name=\"name\" v-model=\"item.name\">\n    </div>\n    <div class=\"field\">\n        <label>{{ labels.amount }}</label>\n        <input type=\"text\" name=\"amount\" v-model=\"item.amount\">\n    </div>\n    <div class=\"field\">\n        <label>{{ labels.unitPrice }}</label>\n        <input type=\"text\" name=\"unit_price\" v-model=\"item.unit_price\">\n    </div>\n\n    <button type=\"submit\" class=\"ui primary button\">{{ isEditing ? 'Save' : 'Submit' }}</button>\n    <button type=\"button\" class=\"ui button\" @click=\"clearForm\">{{ isEditing ? 'Cancel' : 'Clear' }}</button>\n</form>\n";
+
+/***/ },
+/* 103 */
+/***/ function(module, exports) {
+
+	module.exports = "\n<div class=\"ui grid\">\n    <div class=\"eight wide column\">\n        <workitem-form :labels.once=\"labels\" v-ref:form class=\"ui sticky form\" id=\"vue-workitem-form-{{ _uid }}\"></workitem-form>\n    </div>\n    <div class=\"eight wide column\">\n        <div class=\"ui cards\">\n            <price-card\n                v-for=\"item in items\"\n                :item.once=\"item\"\n                :amount-text.once=\"amountText\"\n                :unit-price-text.once=\"unitPriceText\"\n            ></price-card>\n        </div>\n    </div>\n</div>\n";
 
 /***/ }
 /******/ ]);

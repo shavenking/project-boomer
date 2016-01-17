@@ -21,6 +21,7 @@ return [
     'passes' => '通過',
     'failed' => '缺失',
 
+    'order' => '順序',
     'name' => '名稱',
     'detail' => '細項',
     'amount' => '數量',
@@ -34,6 +35,7 @@ return [
     'select_workflow' => '選擇流程',
     'select_type_order' => '選擇工程類別與順序',
     'select_unit' => '選擇單位',
+    'select_cost_type' => '選擇費用類別',
 
     'create' => '新增',
     'create_workflow' => '新增流程',

@@ -1,7 +1,7 @@
 <template>
     <div class="ui grid">
         <div class="eight wide column">
-            <workitem-form v-ref:form class="ui sticky form" id="vue-workitem-form-{{ _uid }}"></workitem-form>
+            <workitem-form :labels.once="labels" v-ref:form class="ui sticky form" id="vue-workitem-form-{{ _uid }}"></workitem-form>
         </div>
         <div class="eight wide column">
             <div class="ui cards">
@@ -44,12 +44,33 @@
     export default {
         components: { PriceCard, WorkitemForm },
 
-        props: ['workId', 'editText', 'deleteText', 'amountText', 'unitPriceText'],
+        props: [
+            'workId',
+            'unitLabel',
+            'costTypeLabel',
+            'orderLabel',
+            'nameLabel',
+            'amountLabel',
+            'editText',
+            'deleteText',
+            'amountText',
+            'unitPriceText'
+        ],
 
-        computed: {},
-
-        methods: {
+        computed: {
+            labels() {
+                return {
+                    unit: this.unitLabel,
+                    costType: this.costTypeLabel,
+                    order: this.orderLabel,
+                    name: this.nameLabel,
+                    amount: this.amountLabel,
+                    unitPrice: this.unitPriceText
+                }
+            }
         },
+
+        methods: {},
 
         events: {
             edit(item) {

@@ -18,6 +18,11 @@
     <div class="ui raised segment">
         <workitem-list
             work-id="{{ $work->id }}"
+            unit-label="{{ trans('all.select_unit') }}"
+            cost-type-label="{{ trans('all.select_cost_type') }}"
+            order-label="{{ trans('all.order') }}"
+            name-label="{{ trans('all.name') }}"
+            amount-label="{{ trans('all.amount') }}"
             edit-text="{{ trans('all.edit') }}"
             delete-text="{{ trans('all.delete') }}"
             amount-text="{{ trans('all.amount') }}"
