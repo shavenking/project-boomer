@@ -12591,7 +12591,7 @@
 	exports.default = {
 	    components: { PriceCard: _priceCard2.default, WorkitemForm: _workitemForm2.default },
 
-	    props: ['workId', 'unitLabel', 'costTypeLabel', 'orderLabel', 'nameLabel', 'amountLabel', 'editText', 'deleteText', 'amountText', 'unitPriceText'],
+	    props: ['workId', 'unitLabel', 'costTypeLabel', 'orderLabel', 'nameLabel', 'amountLabel', 'createLabel', 'clearLabel', 'updateLabel', 'cancelLabel', 'editText', 'deleteText', 'amountText', 'unitPriceText'],
 
 	    computed: {
 	        labels: function labels() {
@@ -12601,7 +12601,11 @@
 	                order: this.orderLabel,
 	                name: this.nameLabel,
 	                amount: this.amountLabel,
-	                unitPrice: this.unitPriceText
+	                unitPrice: this.unitPriceText,
+	                create: this.createLabel,
+	                update: this.updateLabel,
+	                cancel: this.cancelLabel,
+	                clear: this.clearLabel
 	            };
 	        }
 	    },
@@ -12903,8 +12907,8 @@
 	//             <input type="text" name="unit_price" v-model="item.unit_price">
 	//         </div>
 	//
-	//         <button type="submit" class="ui primary button">{{ isEditing ? 'Save' : 'Submit' }}</button>
-	//         <button type="button" class="ui button" @click="clearForm">{{ isEditing ? 'Cancel' : 'Clear' }}</button>
+	//         <button type="submit" class="ui primary button">{{ isEditing ? labels.update : labels.create }}</button>
+	//         <button type="button" class="ui button" @click="clearForm">{{ isEditing ? labels.cancel : labels.clear }}</button>
 	//     </form>
 	// </template>
 	//
@@ -13574,7 +13578,7 @@
 /* 102 */
 /***/ function(module, exports) {
 
-	module.exports = "\n<form class=\"ui form\" @submit.prevent=\"onSubmit\">\n    <div class=\"field\">\n        <label>{{ labels.unit }}</label>\n        <unit-select v-ref:unit-select></unit-select>\n    </div>\n    <div class=\"field\">\n        <label>{{ labels.costType }}</label>\n        <cost-type-select v-ref:cost-type-select></cost-type-select>\n    </div>\n    <div class=\"field\">\n        <label>{{ labels.order }}</label>\n        <input type=\"text\" name=\"order\" v-model=\"item.order\">\n    </div>\n    <div class=\"field\">\n        <label>{{ labels.name }}</label>\n        <input type=\"text\" name=\"name\" v-model=\"item.name\">\n    </div>\n    <div class=\"field\">\n        <label>{{ labels.amount }}</label>\n        <input type=\"text\" name=\"amount\" v-model=\"item.amount\">\n    </div>\n    <div class=\"field\">\n        <label>{{ labels.unitPrice }}</label>\n        <input type=\"text\" name=\"unit_price\" v-model=\"item.unit_price\">\n    </div>\n\n    <button type=\"submit\" class=\"ui primary button\">{{ isEditing ? 'Save' : 'Submit' }}</button>\n    <button type=\"button\" class=\"ui button\" @click=\"clearForm\">{{ isEditing ? 'Cancel' : 'Clear' }}</button>\n</form>\n";
+	module.exports = "\n<form class=\"ui form\" @submit.prevent=\"onSubmit\">\n    <div class=\"field\">\n        <label>{{ labels.unit }}</label>\n        <unit-select v-ref:unit-select></unit-select>\n    </div>\n    <div class=\"field\">\n        <label>{{ labels.costType }}</label>\n        <cost-type-select v-ref:cost-type-select></cost-type-select>\n    </div>\n    <div class=\"field\">\n        <label>{{ labels.order }}</label>\n        <input type=\"text\" name=\"order\" v-model=\"item.order\">\n    </div>\n    <div class=\"field\">\n        <label>{{ labels.name }}</label>\n        <input type=\"text\" name=\"name\" v-model=\"item.name\">\n    </div>\n    <div class=\"field\">\n        <label>{{ labels.amount }}</label>\n        <input type=\"text\" name=\"amount\" v-model=\"item.amount\">\n    </div>\n    <div class=\"field\">\n        <label>{{ labels.unitPrice }}</label>\n        <input type=\"text\" name=\"unit_price\" v-model=\"item.unit_price\">\n    </div>\n\n    <button type=\"submit\" class=\"ui primary button\">{{ isEditing ? labels.update : labels.create }}</button>\n    <button type=\"button\" class=\"ui button\" @click=\"clearForm\">{{ isEditing ? labels.cancel : labels.clear }}</button>\n</form>\n";
 
 /***/ },
 /* 103 */

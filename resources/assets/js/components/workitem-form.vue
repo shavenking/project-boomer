@@ -25,8 +25,8 @@
             <input type="text" name="unit_price" v-model="item.unit_price">
         </div>
 
-        <button type="submit" class="ui primary button">{{ isEditing ? 'Save' : 'Submit' }}</button>
-        <button type="button" class="ui button" @click="clearForm">{{ isEditing ? 'Cancel' : 'Clear' }}</button>
+        <button type="submit" class="ui primary button">{{ isEditing ? labels.update : labels.create }}</button>
+        <button type="button" class="ui button" @click="clearForm">{{ isEditing ? labels.cancel : labels.clear }}</button>
     </form>
 </template>
 

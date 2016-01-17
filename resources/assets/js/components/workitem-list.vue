@@ -51,6 +51,10 @@
             'orderLabel',
             'nameLabel',
             'amountLabel',
+            'createLabel',
+            'clearLabel',
+            'updateLabel',
+            'cancelLabel',
             'editText',
             'deleteText',
             'amountText',
@@ -65,7 +69,11 @@
                     order: this.orderLabel,
                     name: this.nameLabel,
                     amount: this.amountLabel,
-                    unitPrice: this.unitPriceText
+                    unitPrice: this.unitPriceText,
+                    create: this.createLabel,
+                    update: this.updateLabel,
+                    cancel: this.cancelLabel,
+                    clear: this.clearLabel
                 }
             }
         },

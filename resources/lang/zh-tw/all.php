@@ -53,6 +53,9 @@ return [
 
     'save' => '儲存',
 
+    'cancel' => '取消',
+    'clear' => '重設',
+
     'empty' => '目前沒有相關資料',
     'empty_checkitems' => '目前沒有檢查項目',
     'empty_items' => '目前沒有相關資料',

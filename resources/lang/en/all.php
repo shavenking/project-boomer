@@ -53,6 +53,9 @@ return [
 
     'save' => 'Save',
 
+    'cancel' => 'Cancel',
+    'clear' => 'Clear',
+
     'empty' => 'Empty',
     'empty_checkitems' => 'There are no checkitems',
     'empty_items' => 'There are no items',
