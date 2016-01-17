@@ -1,7 +1,7 @@
 <template>
     <dropdown-select
-        input-name="unit_id"
-        :options="units"
+        input-name="cost_type_id"
+        :options="costTypes"
         option-value-name="id"
         option-text-name="name"
         v-ref:dropdown
@@ -11,8 +11,8 @@
 <script>
     import DropdownSelect from './dropdown-select.vue'
 
-    function getUnits() {
-        return window.$.getJSON('/api/v1/units')
+    function getTypes() {
+        return window.$.getJSON('/api/v1/cost-types')
     }
 
     export default {
@@ -29,13 +29,13 @@
 
         data() {
             return {
-                units: []
+                costTypes: []
             }
         },
 
         ready() {
-            getUnits().then(response => {
-                this.units = response.units
+            getTypes().then(response => {
+                this.costTypes = response.cost_types
             })
         }
     }

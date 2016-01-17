@@ -70,6 +70,10 @@
 
 	var _workflowNodes2 = _interopRequireDefault(_workflowNodes);
 
+	var _workitemList = __webpack_require__(121);
+
+	var _workitemList2 = _interopRequireDefault(_workitemList);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	new _vue2.default({
@@ -79,7 +83,8 @@
 	        WorkflowNodes: _workflowNodes2.default,
 	        FlowtypeSelect: _flowtypeSelect2.default,
 	        UnitSelect: _unitSelect2.default,
-	        WorkflowSelect: _workflowSelect2.default
+	        WorkflowSelect: _workflowSelect2.default,
+	        WorkitemList: _workitemList2.default
 	    }
 	});
 
@@ -12303,6 +12308,9 @@
 	        select: function select(value) {
 	            this._dropdown.dropdown('refresh');
 	            this._dropdown.dropdown('set selected', [value]);
+	        },
+	        clear: function clear() {
+	            this._dropdown.dropdown('clear');
 	        }
 	    },
 
@@ -12384,6 +12392,7 @@
 	//         :options="units"
 	//         option-value-name="id"
 	//         option-text-name="name"
+	//         v-ref:dropdown
 	//     ></dropdown-select>
 	// </template>
 	//
@@ -12391,6 +12400,15 @@
 
 	exports.default = {
 	    components: { DropdownSelect: _dropdownSelect2.default },
+
+	    methods: {
+	        select: function select(value) {
+	            this.$refs.dropdown.select(value);
+	        },
+	        clear: function clear() {
+	            this.$refs.dropdown.clear();
+	        }
+	    },
 
 	    data: function data() {
 	        return {
@@ -12411,7 +12429,7 @@
 /* 85 */
 /***/ function(module, exports) {
 
-	module.exports = "\n<dropdown-select\n    input-name=\"unit_id\"\n    :options=\"units\"\n    option-value-name=\"id\"\n    option-text-name=\"name\"\n></dropdown-select>\n";
+	module.exports = "\n<dropdown-select\n    input-name=\"unit_id\"\n    :options=\"units\"\n    option-value-name=\"id\"\n    option-text-name=\"name\"\n    v-ref:dropdown\n></dropdown-select>\n";
 
 /***/ },
 /* 86 */
@@ -12494,6 +12512,1098 @@
 /***/ function(module, exports) {
 
 	module.exports = "\n<dropdown-select\n    input-name=\"workflow_id\"\n    :options=\"workflows\"\n    option-value-name=\"id\"\n    option-text-name=\"name\"\n    v-ref:dropdown\n></dropdown-select>\n";
+
+/***/ },
+/* 89 */,
+/* 90 */,
+/* 91 */,
+/* 92 */,
+/* 93 */,
+/* 94 */,
+/* 95 */,
+/* 96 */,
+/* 97 */,
+/* 98 */,
+/* 99 */,
+/* 100 */,
+/* 101 */,
+/* 102 */,
+/* 103 */,
+/* 104 */,
+/* 105 */,
+/* 106 */,
+/* 107 */,
+/* 108 */,
+/* 109 */,
+/* 110 */,
+/* 111 */,
+/* 112 */,
+/* 113 */,
+/* 114 */,
+/* 115 */,
+/* 116 */,
+/* 117 */,
+/* 118 */,
+/* 119 */,
+/* 120 */,
+/* 121 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var __vue_script__, __vue_template__
+	__vue_script__ = __webpack_require__(122)
+	__vue_template__ = __webpack_require__(123)
+	module.exports = __vue_script__ || {}
+	if (module.exports.__esModule) module.exports = module.exports.default
+	if (__vue_template__) { (typeof module.exports === "function" ? module.exports.options : module.exports).template = __vue_template__ }
+	if (false) {(function () {  module.hot.accept()
+	  var hotAPI = require("vue-hot-reload-api")
+	  hotAPI.install(require("vue"), true)
+	  if (!hotAPI.compatible) return
+	  var id = "/Users/andytsai/Documents/Code/project-boomer/resources/assets/js/components/workitem-list.vue"
+	  if (!module.hot.data) {
+	    hotAPI.createRecord(id, module.exports)
+	  } else {
+	    hotAPI.update(id, module.exports, __vue_template__)
+	  }
+	})()}
+
+/***/ },
+/* 122 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+
+	var _priceCard = __webpack_require__(124);
+
+	var _priceCard2 = _interopRequireDefault(_priceCard);
+
+	var _workitemForm = __webpack_require__(130);
+
+	var _workitemForm2 = _interopRequireDefault(_workitemForm);
+
+	var _merge = __webpack_require__(134);
+
+	var _merge2 = _interopRequireDefault(_merge);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function getItems(workId) {
+	    return window.$.getJSON('/api/v1/works/' + workId + '/work-items');
+	} // <template>
+	//     <div class="ui grid">
+	//         <div class="eight wide column">
+	//             <workitem-form v-ref:form class="ui sticky form" id="vue-workitem-form-{{ _uid }}"></workitem-form>
+	//         </div>
+	//         <div class="eight wide column">
+	//             <div class="ui cards">
+	//                 <price-card
+	//                     v-for="item in items"
+	//                     :item.once="item"
+	//                     :amount-text.once="amountText"
+	//                     :unit-price-text.once="unitPriceText"
+	//                 ></price-card>
+	//             </div>
+	//         </div>
+	//     </div>
+	// </template>
+	//
+	// <script>
+
+	function createItem(workId, item) {
+	    return window.$.post('/api/v1/works/' + workId + '/work-items', item);
+	}
+
+	function updateItem(workId, item) {
+	    return window.$.post('/api/v1/works/' + workId + '/work-items/' + item.id, (0, _merge2.default)(item, {
+	        _method: 'PUT'
+	    }));
+	}
+
+	function deleteItem(item) {
+	    return window.$.post('/api/v1/works/' + item.work_id + '/work-items/' + item.id, {
+	        _method: 'DELETE'
+	    });
+	}
+
+	exports.default = {
+	    components: { PriceCard: _priceCard2.default, WorkitemForm: _workitemForm2.default },
+
+	    props: ['workId', 'editText', 'deleteText', 'amountText', 'unitPriceText'],
+
+	    computed: {},
+
+	    methods: {},
+
+	    events: {
+	        edit: function edit(item) {
+	            this.$refs.form.$emit('edit', item);
+	        },
+	        create: function create(item) {
+	            var _this = this;
+
+	            createItem(this.workId, item).then(function (response) {
+	                _this.items.push(response.work_item);
+
+	                _this.$refs.form.$emit('created', response.work_item);
+	            });
+	        },
+	        update: function update(item) {
+	            var _this2 = this;
+
+	            updateItem(this.workId, item).then(function (response) {
+	                var item = response.work_item;
+
+	                var items = _this2.items.map(function (candidate) {
+	                    if (candidate.id == item.id) {
+	                        return item;
+	                    }
+
+	                    return candidate;
+	                });
+
+	                _this2.items = items;
+
+	                _this2.$refs.form.$emit('updated', response.work_item);
+	            });
+	        },
+	        delete: function _delete(item) {
+	            var _this3 = this;
+
+	            deleteItem(item).then(function (response) {
+	                _this3.items = _this3.items.filter(function (candidate) {
+	                    return candidate.id != item.id;
+	                });
+	            });
+	        }
+	    },
+
+	    data: function data() {
+	        return {
+	            items: []
+	        };
+	    },
+	    ready: function ready() {
+	        var _this4 = this;
+
+	        getItems(this.workId).then(function (response) {
+	            _this4.items = response.work_items;
+
+	            _this4.$nextTick(function () {
+	                window.$('#vue-workitem-form-' + _this4._uid).sticky({});
+	            });
+	        });
+	    }
+	};
+	// </script>
+
+/***/ },
+/* 123 */
+/***/ function(module, exports) {
+
+	module.exports = "\n<div class=\"ui grid\">\n    <div class=\"eight wide column\">\n        <workitem-form v-ref:form class=\"ui sticky form\" id=\"vue-workitem-form-{{ _uid }}\"></workitem-form>\n    </div>\n    <div class=\"eight wide column\">\n        <div class=\"ui cards\">\n            <price-card\n                v-for=\"item in items\"\n                :item.once=\"item\"\n                :amount-text.once=\"amountText\"\n                :unit-price-text.once=\"unitPriceText\"\n            ></price-card>\n        </div>\n    </div>\n</div>\n";
+
+/***/ },
+/* 124 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var __vue_script__, __vue_template__
+	__vue_script__ = __webpack_require__(125)
+	__vue_template__ = __webpack_require__(126)
+	module.exports = __vue_script__ || {}
+	if (module.exports.__esModule) module.exports = module.exports.default
+	if (__vue_template__) { (typeof module.exports === "function" ? module.exports.options : module.exports).template = __vue_template__ }
+	if (false) {(function () {  module.hot.accept()
+	  var hotAPI = require("vue-hot-reload-api")
+	  hotAPI.install(require("vue"), true)
+	  if (!hotAPI.compatible) return
+	  var id = "/Users/andytsai/Documents/Code/project-boomer/resources/assets/js/components/price-card.vue"
+	  if (!module.hot.data) {
+	    hotAPI.createRecord(id, module.exports)
+	  } else {
+	    hotAPI.update(id, module.exports, __vue_template__)
+	  }
+	})()}
+
+/***/ },
+/* 125 */
+/***/ function(module, exports) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	// <template>
+	//     <div class="ui fluid card">
+	//         <div class="content">
+	//             <div class="header">
+	//                 <div class="right floated">
+	//                     {{ item.amount * item.unit_price | currency }}
+	//                 </div>
+	//                 {{ item.name }}
+	//             </div>
+	//             <div class="meta">
+	//                 <span>{{ item.cost_type_name }}</span>
+	//                 <span>{{ item.unit_name }}</span>
+	//             </div>
+	//         </div>
+	//         <div class="extra content middle aligned">
+	//             <div class="ui tiny compact right floated icon buttons">
+	//                 <button class="ui button" @click="editItem">
+	//                     <i class="pencil icon"></i>
+	//                 </button>
+	//                 <button class="ui button" @click="deleteItem">
+	//                     <i class="trash icon"></i>
+	//                 </button>
+	//             </div>
+	//             <div class="ui labels">
+	//                 <div class="ui label">{{ unitPriceText }}&nbsp;{{ item.unit_price | currency }}</div>
+	//                 <div class="ui label">{{ amountText }}&nbsp;{{ item.amount }}</div>
+	//             </div>
+	//         </div>
+	//     </div>
+	// </template>
+	//
+	// <script>
+	exports.default = {
+
+	    props: ['item', 'amountText', 'unitPriceText'],
+
+	    computed: {},
+
+	    methods: {
+	        editItem: function editItem() {
+	            this.$parent.$emit('edit', this.item);
+	        },
+	        deleteItem: function deleteItem() {
+	            this.$parent.$emit('delete', this.item);
+	        }
+	    },
+
+	    data: function data() {},
+	    ready: function ready() {}
+	};
+	// </script>
+
+/***/ },
+/* 126 */
+/***/ function(module, exports) {
+
+	module.exports = "\n<div class=\"ui fluid card\">\n    <div class=\"content\">\n        <div class=\"header\">\n            <div class=\"right floated\">\n                {{ item.amount * item.unit_price | currency }}\n            </div>\n            {{ item.name }}\n        </div>\n        <div class=\"meta\">\n            <span>{{ item.cost_type_name }}</span>\n            <span>{{ item.unit_name }}</span>\n        </div>\n    </div>\n    <div class=\"extra content middle aligned\">\n        <div class=\"ui tiny compact right floated icon buttons\">\n            <button class=\"ui button\" @click=\"editItem\">\n                <i class=\"pencil icon\"></i>\n            </button>\n            <button class=\"ui button\" @click=\"deleteItem\">\n                <i class=\"trash icon\"></i>\n            </button>\n        </div>\n        <div class=\"ui labels\">\n            <div class=\"ui label\">{{ unitPriceText }}&nbsp;{{ item.unit_price | currency }}</div>\n            <div class=\"ui label\">{{ amountText }}&nbsp;{{ item.amount }}</div>\n        </div>\n    </div>\n</div>\n";
+
+/***/ },
+/* 127 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var __vue_script__, __vue_template__
+	__vue_script__ = __webpack_require__(128)
+	__vue_template__ = __webpack_require__(129)
+	module.exports = __vue_script__ || {}
+	if (module.exports.__esModule) module.exports = module.exports.default
+	if (__vue_template__) { (typeof module.exports === "function" ? module.exports.options : module.exports).template = __vue_template__ }
+	if (false) {(function () {  module.hot.accept()
+	  var hotAPI = require("vue-hot-reload-api")
+	  hotAPI.install(require("vue"), true)
+	  if (!hotAPI.compatible) return
+	  var id = "/Users/andytsai/Documents/Code/project-boomer/resources/assets/js/components/cost-type-select.vue"
+	  if (!module.hot.data) {
+	    hotAPI.createRecord(id, module.exports)
+	  } else {
+	    hotAPI.update(id, module.exports, __vue_template__)
+	  }
+	})()}
+
+/***/ },
+/* 128 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+
+	var _dropdownSelect = __webpack_require__(80);
+
+	var _dropdownSelect2 = _interopRequireDefault(_dropdownSelect);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function getTypes() {
+	    return window.$.getJSON('/api/v1/cost-types');
+	} // <template>
+	//     <dropdown-select
+	//         input-name="cost_type_id"
+	//         :options="costTypes"
+	//         option-value-name="id"
+	//         option-text-name="name"
+	//         v-ref:dropdown
+	//     ></dropdown-select>
+	// </template>
+	//
+	// <script>
+
+	exports.default = {
+	    components: { DropdownSelect: _dropdownSelect2.default },
+
+	    methods: {
+	        select: function select(value) {
+	            this.$refs.dropdown.select(value);
+	        },
+	        clear: function clear() {
+	            this.$refs.dropdown.clear();
+	        }
+	    },
+
+	    data: function data() {
+	        return {
+	            costTypes: []
+	        };
+	    },
+	    ready: function ready() {
+	        var _this = this;
+
+	        getTypes().then(function (response) {
+	            _this.costTypes = response.cost_types;
+	        });
+	    }
+	};
+	// </script>
+
+/***/ },
+/* 129 */
+/***/ function(module, exports) {
+
+	module.exports = "\n<dropdown-select\n    input-name=\"cost_type_id\"\n    :options=\"costTypes\"\n    option-value-name=\"id\"\n    option-text-name=\"name\"\n    v-ref:dropdown\n></dropdown-select>\n";
+
+/***/ },
+/* 130 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var __vue_script__, __vue_template__
+	__vue_script__ = __webpack_require__(132)
+	__vue_template__ = __webpack_require__(131)
+	module.exports = __vue_script__ || {}
+	if (module.exports.__esModule) module.exports = module.exports.default
+	if (__vue_template__) { (typeof module.exports === "function" ? module.exports.options : module.exports).template = __vue_template__ }
+	if (false) {(function () {  module.hot.accept()
+	  var hotAPI = require("vue-hot-reload-api")
+	  hotAPI.install(require("vue"), true)
+	  if (!hotAPI.compatible) return
+	  var id = "/Users/andytsai/Documents/Code/project-boomer/resources/assets/js/components/workitem-form.vue"
+	  if (!module.hot.data) {
+	    hotAPI.createRecord(id, module.exports)
+	  } else {
+	    hotAPI.update(id, module.exports, __vue_template__)
+	  }
+	})()}
+
+/***/ },
+/* 131 */
+/***/ function(module, exports) {
+
+	module.exports = "\n<form class=\"ui form\" @submit.prevent=\"onSubmit\">\n    <div class=\"field\">\n        <label>Unit</label>\n        <unit-select v-ref:unit-select></unit-select>\n    </div>\n    <div class=\"field\">\n        <label>Cost Type</label>\n        <cost-type-select v-ref:cost-type-select></cost-type-select>\n    </div>\n    <div class=\"field\">\n        <label>Order</label>\n        <input type=\"text\" name=\"order\" v-model=\"item.order\">\n    </div>\n    <div class=\"field\">\n        <label>Name</label>\n        <input type=\"text\" name=\"name\" v-model=\"item.name\">\n    </div>\n    <div class=\"field\">\n        <label>Amount</label>\n        <input type=\"text\" name=\"amount\" v-model=\"item.amount\">\n    </div>\n    <div class=\"field\">\n        <label>Unit Price</label>\n        <input type=\"text\" name=\"unit_price\" v-model=\"item.unit_price\">\n    </div>\n\n    <button type=\"submit\" class=\"ui primary button\">{{ isEditing ? 'Save' : 'Submit' }}</button>\n    <button type=\"button\" class=\"ui button\" @click=\"clearForm\">{{ isEditing ? 'Cancel' : 'Clear' }}</button>\n</form>\n";
+
+/***/ },
+/* 132 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+
+	var _unitSelect = __webpack_require__(83);
+
+	var _unitSelect2 = _interopRequireDefault(_unitSelect);
+
+	var _costTypeSelect = __webpack_require__(127);
+
+	var _costTypeSelect2 = _interopRequireDefault(_costTypeSelect);
+
+	var _pluck = __webpack_require__(63);
+
+	var _pluck2 = _interopRequireDefault(_pluck);
+
+	var _zipObject = __webpack_require__(133);
+
+	var _zipObject2 = _interopRequireDefault(_zipObject);
+
+	var _merge = __webpack_require__(134);
+
+	var _merge2 = _interopRequireDefault(_merge);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	exports.default = {
+	    components: { UnitSelect: _unitSelect2.default, CostTypeSelect: _costTypeSelect2.default },
+
+	    props: {},
+
+	    computed: {
+	        isEditing: function isEditing() {
+	            return this.item['id'];
+	        }
+	    },
+
+	    methods: {
+	        onSubmit: function onSubmit() {
+	            var inputs = this._form.serializeArray();
+
+	            var item = (0, _zipObject2.default)((0, _pluck2.default)(inputs, 'name'), (0, _pluck2.default)(inputs, 'value'));
+
+	            if (this.isEditing) {
+	                this.$parent.$emit('update', (0, _merge2.default)(item, this.item));
+	            } else {
+	                this.$parent.$emit('create', item);
+	            }
+	        },
+	        clearForm: function clearForm() {
+	            this.$refs.unitSelect.clear();
+	            this.$refs.costTypeSelect.clear();
+
+	            this.item = {};
+	        }
+	    },
+
+	    events: {
+	        edit: function edit(item) {
+	            this.item = (0, _merge2.default)({}, item);
+
+	            this.$refs.unitSelect.select(item.unit.id);
+	            this.$refs.costTypeSelect.select(item.cost_type.id);
+	        },
+	        created: function created(item) {
+	            this.clearForm();
+	        },
+	        updated: function updated(item) {
+	            this.clearForm();
+	        }
+	    },
+
+	    data: function data() {
+	        return {
+	            item: {}
+	        };
+	    },
+	    ready: function ready() {
+	        this._form = window.$(this.$el);
+	    }
+	};
+	// </script>
+	// <template>
+	//     <form class="ui form" @submit.prevent="onSubmit">
+	//         <div class="field">
+	//             <label>Unit</label>
+	//             <unit-select v-ref:unit-select></unit-select>
+	//         </div>
+	//         <div class="field">
+	//             <label>Cost Type</label>
+	//             <cost-type-select v-ref:cost-type-select></cost-type-select>
+	//         </div>
+	//         <div class="field">
+	//             <label>Order</label>
+	//             <input type="text" name="order" v-model="item.order">
+	//         </div>
+	//         <div class="field">
+	//             <label>Name</label>
+	//             <input type="text" name="name" v-model="item.name">
+	//         </div>
+	//         <div class="field">
+	//             <label>Amount</label>
+	//             <input type="text" name="amount" v-model="item.amount">
+	//         </div>
+	//         <div class="field">
+	//             <label>Unit Price</label>
+	//             <input type="text" name="unit_price" v-model="item.unit_price">
+	//         </div>
+	//
+	//         <button type="submit" class="ui primary button">{{ isEditing ? 'Save' : 'Submit' }}</button>
+	//         <button type="button" class="ui button" @click="clearForm">{{ isEditing ? 'Cancel' : 'Clear' }}</button>
+	//     </form>
+	// </template>
+	//
+	// <script>
+
+/***/ },
+/* 133 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var isArray = __webpack_require__(34);
+
+	/**
+	 * The inverse of `_.pairs`; this method returns an object composed from arrays
+	 * of property names and values. Provide either a single two dimensional array,
+	 * e.g. `[[key1, value1], [key2, value2]]` or two arrays, one of property names
+	 * and one of corresponding values.
+	 *
+	 * @static
+	 * @memberOf _
+	 * @alias object
+	 * @category Array
+	 * @param {Array} props The property names.
+	 * @param {Array} [values=[]] The property values.
+	 * @returns {Object} Returns the new object.
+	 * @example
+	 *
+	 * _.zipObject([['fred', 30], ['barney', 40]]);
+	 * // => { 'fred': 30, 'barney': 40 }
+	 *
+	 * _.zipObject(['fred', 'barney'], [30, 40]);
+	 * // => { 'fred': 30, 'barney': 40 }
+	 */
+	function zipObject(props, values) {
+	  var index = -1,
+	      length = props ? props.length : 0,
+	      result = {};
+
+	  if (length && !values && !isArray(props[0])) {
+	    values = [];
+	  }
+	  while (++index < length) {
+	    var key = props[index];
+	    if (values) {
+	      result[key] = values[index];
+	    } else if (key) {
+	      result[key[0]] = key[1];
+	    }
+	  }
+	  return result;
+	}
+
+	module.exports = zipObject;
+
+
+/***/ },
+/* 134 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var baseMerge = __webpack_require__(135),
+	    createAssigner = __webpack_require__(143);
+
+	/**
+	 * Recursively merges own enumerable properties of the source object(s), that
+	 * don't resolve to `undefined` into the destination object. Subsequent sources
+	 * overwrite property assignments of previous sources. If `customizer` is
+	 * provided it's invoked to produce the merged values of the destination and
+	 * source properties. If `customizer` returns `undefined` merging is handled
+	 * by the method instead. The `customizer` is bound to `thisArg` and invoked
+	 * with five arguments: (objectValue, sourceValue, key, object, source).
+	 *
+	 * @static
+	 * @memberOf _
+	 * @category Object
+	 * @param {Object} object The destination object.
+	 * @param {...Object} [sources] The source objects.
+	 * @param {Function} [customizer] The function to customize assigned values.
+	 * @param {*} [thisArg] The `this` binding of `customizer`.
+	 * @returns {Object} Returns `object`.
+	 * @example
+	 *
+	 * var users = {
+	 *   'data': [{ 'user': 'barney' }, { 'user': 'fred' }]
+	 * };
+	 *
+	 * var ages = {
+	 *   'data': [{ 'age': 36 }, { 'age': 40 }]
+	 * };
+	 *
+	 * _.merge(users, ages);
+	 * // => { 'data': [{ 'user': 'barney', 'age': 36 }, { 'user': 'fred', 'age': 40 }] }
+	 *
+	 * // using a customizer callback
+	 * var object = {
+	 *   'fruits': ['apple'],
+	 *   'vegetables': ['beet']
+	 * };
+	 *
+	 * var other = {
+	 *   'fruits': ['banana'],
+	 *   'vegetables': ['carrot']
+	 * };
+	 *
+	 * _.merge(object, other, function(a, b) {
+	 *   if (_.isArray(a)) {
+	 *     return a.concat(b);
+	 *   }
+	 * });
+	 * // => { 'fruits': ['apple', 'banana'], 'vegetables': ['beet', 'carrot'] }
+	 */
+	var merge = createAssigner(baseMerge);
+
+	module.exports = merge;
+
+
+/***/ },
+/* 135 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var arrayEach = __webpack_require__(136),
+	    baseMergeDeep = __webpack_require__(137),
+	    isArray = __webpack_require__(34),
+	    isArrayLike = __webpack_require__(28),
+	    isObject = __webpack_require__(26),
+	    isObjectLike = __webpack_require__(27),
+	    isTypedArray = __webpack_require__(37),
+	    keys = __webpack_require__(22);
+
+	/**
+	 * The base implementation of `_.merge` without support for argument juggling,
+	 * multiple sources, and `this` binding `customizer` functions.
+	 *
+	 * @private
+	 * @param {Object} object The destination object.
+	 * @param {Object} source The source object.
+	 * @param {Function} [customizer] The function to customize merged values.
+	 * @param {Array} [stackA=[]] Tracks traversed source objects.
+	 * @param {Array} [stackB=[]] Associates values with source counterparts.
+	 * @returns {Object} Returns `object`.
+	 */
+	function baseMerge(object, source, customizer, stackA, stackB) {
+	  if (!isObject(object)) {
+	    return object;
+	  }
+	  var isSrcArr = isArrayLike(source) && (isArray(source) || isTypedArray(source)),
+	      props = isSrcArr ? undefined : keys(source);
+
+	  arrayEach(props || source, function(srcValue, key) {
+	    if (props) {
+	      key = srcValue;
+	      srcValue = source[key];
+	    }
+	    if (isObjectLike(srcValue)) {
+	      stackA || (stackA = []);
+	      stackB || (stackB = []);
+	      baseMergeDeep(object, source, key, baseMerge, customizer, stackA, stackB);
+	    }
+	    else {
+	      var value = object[key],
+	          result = customizer ? customizer(value, srcValue, key, object, source) : undefined,
+	          isCommon = result === undefined;
+
+	      if (isCommon) {
+	        result = srcValue;
+	      }
+	      if ((result !== undefined || (isSrcArr && !(key in object))) &&
+	          (isCommon || (result === result ? (result !== value) : (value === value)))) {
+	        object[key] = result;
+	      }
+	    }
+	  });
+	  return object;
+	}
+
+	module.exports = baseMerge;
+
+
+/***/ },
+/* 136 */
+/***/ function(module, exports) {
+
+	/**
+	 * A specialized version of `_.forEach` for arrays without support for callback
+	 * shorthands and `this` binding.
+	 *
+	 * @private
+	 * @param {Array} array The array to iterate over.
+	 * @param {Function} iteratee The function invoked per iteration.
+	 * @returns {Array} Returns `array`.
+	 */
+	function arrayEach(array, iteratee) {
+	  var index = -1,
+	      length = array.length;
+
+	  while (++index < length) {
+	    if (iteratee(array[index], index, array) === false) {
+	      break;
+	    }
+	  }
+	  return array;
+	}
+
+	module.exports = arrayEach;
+
+
+/***/ },
+/* 137 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var arrayCopy = __webpack_require__(138),
+	    isArguments = __webpack_require__(33),
+	    isArray = __webpack_require__(34),
+	    isArrayLike = __webpack_require__(28),
+	    isPlainObject = __webpack_require__(139),
+	    isTypedArray = __webpack_require__(37),
+	    toPlainObject = __webpack_require__(141);
+
+	/**
+	 * A specialized version of `baseMerge` for arrays and objects which performs
+	 * deep merges and tracks traversed objects enabling objects with circular
+	 * references to be merged.
+	 *
+	 * @private
+	 * @param {Object} object The destination object.
+	 * @param {Object} source The source object.
+	 * @param {string} key The key of the value to merge.
+	 * @param {Function} mergeFunc The function to merge values.
+	 * @param {Function} [customizer] The function to customize merged values.
+	 * @param {Array} [stackA=[]] Tracks traversed source objects.
+	 * @param {Array} [stackB=[]] Associates values with source counterparts.
+	 * @returns {boolean} Returns `true` if the objects are equivalent, else `false`.
+	 */
+	function baseMergeDeep(object, source, key, mergeFunc, customizer, stackA, stackB) {
+	  var length = stackA.length,
+	      srcValue = source[key];
+
+	  while (length--) {
+	    if (stackA[length] == srcValue) {
+	      object[key] = stackB[length];
+	      return;
+	    }
+	  }
+	  var value = object[key],
+	      result = customizer ? customizer(value, srcValue, key, object, source) : undefined,
+	      isCommon = result === undefined;
+
+	  if (isCommon) {
+	    result = srcValue;
+	    if (isArrayLike(srcValue) && (isArray(srcValue) || isTypedArray(srcValue))) {
+	      result = isArray(value)
+	        ? value
+	        : (isArrayLike(value) ? arrayCopy(value) : []);
+	    }
+	    else if (isPlainObject(srcValue) || isArguments(srcValue)) {
+	      result = isArguments(value)
+	        ? toPlainObject(value)
+	        : (isPlainObject(value) ? value : {});
+	    }
+	    else {
+	      isCommon = false;
+	    }
+	  }
+	  // Add the source value to the stack of traversed objects and associate
+	  // it with its merged value.
+	  stackA.push(srcValue);
+	  stackB.push(result);
+
+	  if (isCommon) {
+	    // Recursively merge objects and arrays (susceptible to call stack limits).
+	    object[key] = mergeFunc(result, srcValue, customizer, stackA, stackB);
+	  } else if (result === result ? (result !== value) : (value === value)) {
+	    object[key] = result;
+	  }
+	}
+
+	module.exports = baseMergeDeep;
+
+
+/***/ },
+/* 138 */
+/***/ function(module, exports) {
+
+	/**
+	 * Copies the values of `source` to `array`.
+	 *
+	 * @private
+	 * @param {Array} source The array to copy values from.
+	 * @param {Array} [array=[]] The array to copy values to.
+	 * @returns {Array} Returns `array`.
+	 */
+	function arrayCopy(source, array) {
+	  var index = -1,
+	      length = source.length;
+
+	  array || (array = Array(length));
+	  while (++index < length) {
+	    array[index] = source[index];
+	  }
+	  return array;
+	}
+
+	module.exports = arrayCopy;
+
+
+/***/ },
+/* 139 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var baseForIn = __webpack_require__(140),
+	    isArguments = __webpack_require__(33),
+	    isObjectLike = __webpack_require__(27);
+
+	/** `Object#toString` result references. */
+	var objectTag = '[object Object]';
+
+	/** Used for native method references. */
+	var objectProto = Object.prototype;
+
+	/** Used to check objects for own properties. */
+	var hasOwnProperty = objectProto.hasOwnProperty;
+
+	/**
+	 * Used to resolve the [`toStringTag`](http://ecma-international.org/ecma-262/6.0/#sec-object.prototype.tostring)
+	 * of values.
+	 */
+	var objToString = objectProto.toString;
+
+	/**
+	 * Checks if `value` is a plain object, that is, an object created by the
+	 * `Object` constructor or one with a `[[Prototype]]` of `null`.
+	 *
+	 * **Note:** This method assumes objects created by the `Object` constructor
+	 * have no inherited enumerable properties.
+	 *
+	 * @static
+	 * @memberOf _
+	 * @category Lang
+	 * @param {*} value The value to check.
+	 * @returns {boolean} Returns `true` if `value` is a plain object, else `false`.
+	 * @example
+	 *
+	 * function Foo() {
+	 *   this.a = 1;
+	 * }
+	 *
+	 * _.isPlainObject(new Foo);
+	 * // => false
+	 *
+	 * _.isPlainObject([1, 2, 3]);
+	 * // => false
+	 *
+	 * _.isPlainObject({ 'x': 0, 'y': 0 });
+	 * // => true
+	 *
+	 * _.isPlainObject(Object.create(null));
+	 * // => true
+	 */
+	function isPlainObject(value) {
+	  var Ctor;
+
+	  // Exit early for non `Object` objects.
+	  if (!(isObjectLike(value) && objToString.call(value) == objectTag && !isArguments(value)) ||
+	      (!hasOwnProperty.call(value, 'constructor') && (Ctor = value.constructor, typeof Ctor == 'function' && !(Ctor instanceof Ctor)))) {
+	    return false;
+	  }
+	  // IE < 9 iterates inherited properties before own properties. If the first
+	  // iterated property is an object's own property then there are no inherited
+	  // enumerable properties.
+	  var result;
+	  // In most environments an object's own properties are iterated before
+	  // its inherited properties. If the last iterated property is an object's
+	  // own property then there are no inherited enumerable properties.
+	  baseForIn(value, function(subValue, key) {
+	    result = key;
+	  });
+	  return result === undefined || hasOwnProperty.call(value, result);
+	}
+
+	module.exports = isPlainObject;
+
+
+/***/ },
+/* 140 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var baseFor = __webpack_require__(56),
+	    keysIn = __webpack_require__(36);
+
+	/**
+	 * The base implementation of `_.forIn` without support for callback
+	 * shorthands and `this` binding.
+	 *
+	 * @private
+	 * @param {Object} object The object to iterate over.
+	 * @param {Function} iteratee The function invoked per iteration.
+	 * @returns {Object} Returns `object`.
+	 */
+	function baseForIn(object, iteratee) {
+	  return baseFor(object, iteratee, keysIn);
+	}
+
+	module.exports = baseForIn;
+
+
+/***/ },
+/* 141 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var baseCopy = __webpack_require__(142),
+	    keysIn = __webpack_require__(36);
+
+	/**
+	 * Converts `value` to a plain object flattening inherited enumerable
+	 * properties of `value` to own properties of the plain object.
+	 *
+	 * @static
+	 * @memberOf _
+	 * @category Lang
+	 * @param {*} value The value to convert.
+	 * @returns {Object} Returns the converted plain object.
+	 * @example
+	 *
+	 * function Foo() {
+	 *   this.b = 2;
+	 * }
+	 *
+	 * Foo.prototype.c = 3;
+	 *
+	 * _.assign({ 'a': 1 }, new Foo);
+	 * // => { 'a': 1, 'b': 2 }
+	 *
+	 * _.assign({ 'a': 1 }, _.toPlainObject(new Foo));
+	 * // => { 'a': 1, 'b': 2, 'c': 3 }
+	 */
+	function toPlainObject(value) {
+	  return baseCopy(value, keysIn(value));
+	}
+
+	module.exports = toPlainObject;
+
+
+/***/ },
+/* 142 */
+/***/ function(module, exports) {
+
+	/**
+	 * Copies properties of `source` to `object`.
+	 *
+	 * @private
+	 * @param {Object} source The object to copy properties from.
+	 * @param {Array} props The property names to copy.
+	 * @param {Object} [object={}] The object to copy properties to.
+	 * @returns {Object} Returns `object`.
+	 */
+	function baseCopy(source, props, object) {
+	  object || (object = {});
+
+	  var index = -1,
+	      length = props.length;
+
+	  while (++index < length) {
+	    var key = props[index];
+	    object[key] = source[key];
+	  }
+	  return object;
+	}
+
+	module.exports = baseCopy;
+
+
+/***/ },
+/* 143 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var bindCallback = __webpack_require__(49),
+	    isIterateeCall = __webpack_require__(62),
+	    restParam = __webpack_require__(144);
+
+	/**
+	 * Creates a `_.assign`, `_.defaults`, or `_.merge` function.
+	 *
+	 * @private
+	 * @param {Function} assigner The function to assign values.
+	 * @returns {Function} Returns the new assigner function.
+	 */
+	function createAssigner(assigner) {
+	  return restParam(function(object, sources) {
+	    var index = -1,
+	        length = object == null ? 0 : sources.length,
+	        customizer = length > 2 ? sources[length - 2] : undefined,
+	        guard = length > 2 ? sources[2] : undefined,
+	        thisArg = length > 1 ? sources[length - 1] : undefined;
+
+	    if (typeof customizer == 'function') {
+	      customizer = bindCallback(customizer, thisArg, 5);
+	      length -= 2;
+	    } else {
+	      customizer = typeof thisArg == 'function' ? thisArg : undefined;
+	      length -= (customizer ? 1 : 0);
+	    }
+	    if (guard && isIterateeCall(sources[0], sources[1], guard)) {
+	      customizer = length < 3 ? undefined : customizer;
+	      length = 1;
+	    }
+	    while (++index < length) {
+	      var source = sources[index];
+	      if (source) {
+	        assigner(object, source, customizer);
+	      }
+	    }
+	    return object;
+	  });
+	}
+
+	module.exports = createAssigner;
+
+
+/***/ },
+/* 144 */
+/***/ function(module, exports) {
+
+	/** Used as the `TypeError` message for "Functions" methods. */
+	var FUNC_ERROR_TEXT = 'Expected a function';
+
+	/* Native method references for those with the same name as other `lodash` methods. */
+	var nativeMax = Math.max;
+
+	/**
+	 * Creates a function that invokes `func` with the `this` binding of the
+	 * created function and arguments from `start` and beyond provided as an array.
+	 *
+	 * **Note:** This method is based on the [rest parameter](https://developer.mozilla.org/Web/JavaScript/Reference/Functions/rest_parameters).
+	 *
+	 * @static
+	 * @memberOf _
+	 * @category Function
+	 * @param {Function} func The function to apply a rest parameter to.
+	 * @param {number} [start=func.length-1] The start position of the rest parameter.
+	 * @returns {Function} Returns the new function.
+	 * @example
+	 *
+	 * var say = _.restParam(function(what, names) {
+	 *   return what + ' ' + _.initial(names).join(', ') +
+	 *     (_.size(names) > 1 ? ', & ' : '') + _.last(names);
+	 * });
+	 *
+	 * say('hello', 'fred', 'barney', 'pebbles');
+	 * // => 'hello fred, barney, & pebbles'
+	 */
+	function restParam(func, start) {
+	  if (typeof func != 'function') {
+	    throw new TypeError(FUNC_ERROR_TEXT);
+	  }
+	  start = nativeMax(start === undefined ? (func.length - 1) : (+start || 0), 0);
+	  return function() {
+	    var args = arguments,
+	        index = -1,
+	        length = nativeMax(args.length - start, 0),
+	        rest = Array(length);
+
+	    while (++index < length) {
+	      rest[index] = args[start + index];
+	    }
+	    switch (start) {
+	      case 0: return func.call(this, rest);
+	      case 1: return func.call(this, args[0], rest);
+	      case 2: return func.call(this, args[0], args[1], rest);
+	    }
+	    var otherArgs = Array(start + 1);
+	    index = -1;
+	    while (++index < start) {
+	      otherArgs[index] = args[index];
+	    }
+	    otherArgs[start] = rest;
+	    return func.apply(this, otherArgs);
+	  };
+	}
+
+	module.exports = restParam;
+
 
 /***/ }
 /******/ ]);

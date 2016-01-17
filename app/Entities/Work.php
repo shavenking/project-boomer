@@ -54,4 +54,18 @@ class Work extends Model
     {
         return $this->hasMany(WorkItem::class, 'work_id', 'id');
     }
+
+    public function reCalculateUnitPrice()
+    {
+        if (!$this->exists) {
+            return false;
+        }
+
+        $unitPrice = 0;
+        foreach ($this->items as $workitem) {
+            $unitPrice += $workitem->total_price;
+        }
+        $this->unit_price = $unitPrice;
+        return $this->save();
+    }
 }

@@ -48,6 +48,9 @@
             select(value) {
                 this._dropdown.dropdown('refresh')
                 this._dropdown.dropdown('set selected', [value])
+            },
+            clear() {
+                this._dropdown.dropdown('clear')
             }
         },
 
