@@ -1,17 +1,17 @@
 <template>
     <div class="ui grid">
 
-        <div class="eight wide column">
+        <div class="nine wide center aligned column" id="vue-workflow-node-list-{{ _uid }}">
+            <workflow-node-list v-bind:nodes.sync="nodes" v-on:drawn="onDrawn"></workflow-node-list>
+        </div>
+
+        <div class="seven wide column">
             <div class="ui sticky form" id="vue-order-title-input-{{ _uid }}">
                 <div class="field">
                     <label>{{ labelText }}</label>
                     <order-title-input v-on:valid="onValid" v-on:invalid="onInvalid"></order-title-input>
                 </div>
             </div>
-        </div>
-
-        <div class="eight wide column" id="vue-workflow-node-list-{{ _uid }}">
-            <workflow-node-list v-bind:nodes.sync="nodes" v-on:drawn="onDrawn"></workflow-node-list>
         </div>
 
     </div>

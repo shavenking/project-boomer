@@ -10143,17 +10143,17 @@
 	} // <template>
 	//     <div class="ui grid">
 	//
-	//         <div class="eight wide column">
+	//         <div class="nine wide center aligned column" id="vue-workflow-node-list-{{ _uid }}">
+	//             <workflow-node-list v-bind:nodes.sync="nodes" v-on:drawn="onDrawn"></workflow-node-list>
+	//         </div>
+	//
+	//         <div class="seven wide column">
 	//             <div class="ui sticky form" id="vue-order-title-input-{{ _uid }}">
 	//                 <div class="field">
 	//                     <label>{{ labelText }}</label>
 	//                     <order-title-input v-on:valid="onValid" v-on:invalid="onInvalid"></order-title-input>
 	//                 </div>
 	//             </div>
-	//         </div>
-	//
-	//         <div class="eight wide column" id="vue-workflow-node-list-{{ _uid }}">
-	//             <workflow-node-list v-bind:nodes.sync="nodes" v-on:drawn="onDrawn"></workflow-node-list>
 	//         </div>
 	//
 	//     </div>
@@ -12502,7 +12502,7 @@
 /* 79 */
 /***/ function(module, exports) {
 
-	module.exports = "\n<div class=\"ui grid\">\n\n    <div class=\"eight wide column\">\n        <div class=\"ui sticky form\" id=\"vue-order-title-input-{{ _uid }}\">\n            <div class=\"field\">\n                <label>{{ labelText }}</label>\n                <order-title-input v-on:valid=\"onValid\" v-on:invalid=\"onInvalid\"></order-title-input>\n            </div>\n        </div>\n    </div>\n\n    <div class=\"eight wide column\" id=\"vue-workflow-node-list-{{ _uid }}\">\n        <workflow-node-list v-bind:nodes.sync=\"nodes\" v-on:drawn=\"onDrawn\"></workflow-node-list>\n    </div>\n\n</div>\n";
+	module.exports = "\n<div class=\"ui grid\">\n\n    <div class=\"nine wide center aligned column\" id=\"vue-workflow-node-list-{{ _uid }}\">\n        <workflow-node-list v-bind:nodes.sync=\"nodes\" v-on:drawn=\"onDrawn\"></workflow-node-list>\n    </div>\n\n    <div class=\"seven wide column\">\n        <div class=\"ui sticky form\" id=\"vue-order-title-input-{{ _uid }}\">\n            <div class=\"field\">\n                <label>{{ labelText }}</label>\n                <order-title-input v-on:valid=\"onValid\" v-on:invalid=\"onInvalid\"></order-title-input>\n            </div>\n        </div>\n    </div>\n\n</div>\n";
 
 /***/ },
 /* 80 */
