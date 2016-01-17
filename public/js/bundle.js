@@ -12563,17 +12563,19 @@
 	function getItems(workId) {
 	    return window.$.getJSON('/api/v1/works/' + workId + '/work-items');
 	} // <template>
-	//     <div class="ui vertically divided grid">
+	//     <div class="ui grid">
 	//         <div class="row">
 	//             <div class="sixteen wide column">
-	//                 <div class="ui mini statistics">
-	//                     <div class="statistic">
-	//                         <div class="label">{{ totalPriceLabel }}</div>
-	//                         <div class="value">{{ total | currency }}</div>
-	//                     </div>
-	//                     <div class="statistic" v-for="(key, typeTotal) in typeTotals">
-	//                         <div class="label">{{ costTypes[key] }}</div>
-	//                         <div class="value">{{ typeTotal | currency }}</div>
+	//                 <div class="ui raised segment">
+	//                     <div class="ui mini five statistics">
+	//                         <div class="statistic">
+	//                             <div class="label">{{ totalPriceLabel }}</div>
+	//                             <div class="value">{{ total | currency }}</div>
+	//                         </div>
+	//                         <div class="statistic" v-for="(key, typeTotal) in typeTotals">
+	//                             <div class="label">{{ costTypes[key] }}</div>
+	//                             <div class="value">{{ typeTotal | currency }}</div>
+	//                         </div>
 	//                     </div>
 	//                 </div>
 	//             </div>
@@ -13646,7 +13648,7 @@
 /* 103 */
 /***/ function(module, exports) {
 
-	module.exports = "\n<div class=\"ui vertically divided grid\">\n    <div class=\"row\">\n        <div class=\"sixteen wide column\">\n            <div class=\"ui mini statistics\">\n                <div class=\"statistic\">\n                    <div class=\"label\">{{ totalPriceLabel }}</div>\n                    <div class=\"value\">{{ total | currency }}</div>\n                </div>\n                <div class=\"statistic\" v-for=\"(key, typeTotal) in typeTotals\">\n                    <div class=\"label\">{{ costTypes[key] }}</div>\n                    <div class=\"value\">{{ typeTotal | currency }}</div>\n                </div>\n            </div>\n        </div>\n    </div>\n    <div class=\"row\">\n        <div class=\"nine wide column\">\n            <div class=\"ui cards\">\n                <price-card\n                    v-for=\"item in items | orderBy 'order'\"\n                    :item.once=\"item\"\n                    :amount-text.once=\"amountText\"\n                    :unit-price-text.once=\"unitPriceText\"\n                ></price-card>\n            </div>\n        </div>\n        <div class=\"seven wide column\">\n            <workitem-form :labels.once=\"labels\" class=\"sticky\" id=\"vue-workitem-form-{{ _uid }}\" v-ref:form></workitem-form>\n        </div>\n    </div>\n</div>\n";
+	module.exports = "\n<div class=\"ui grid\">\n    <div class=\"row\">\n        <div class=\"sixteen wide column\">\n            <div class=\"ui raised segment\">\n                <div class=\"ui mini five statistics\">\n                    <div class=\"statistic\">\n                        <div class=\"label\">{{ totalPriceLabel }}</div>\n                        <div class=\"value\">{{ total | currency }}</div>\n                    </div>\n                    <div class=\"statistic\" v-for=\"(key, typeTotal) in typeTotals\">\n                        <div class=\"label\">{{ costTypes[key] }}</div>\n                        <div class=\"value\">{{ typeTotal | currency }}</div>\n                    </div>\n                </div>\n            </div>\n        </div>\n    </div>\n    <div class=\"row\">\n        <div class=\"nine wide column\">\n            <div class=\"ui cards\">\n                <price-card\n                    v-for=\"item in items | orderBy 'order'\"\n                    :item.once=\"item\"\n                    :amount-text.once=\"amountText\"\n                    :unit-price-text.once=\"unitPriceText\"\n                ></price-card>\n            </div>\n        </div>\n        <div class=\"seven wide column\">\n            <workitem-form :labels.once=\"labels\" class=\"sticky\" id=\"vue-workitem-form-{{ _uid }}\" v-ref:form></workitem-form>\n        </div>\n    </div>\n</div>\n";
 
 /***/ }
 /******/ ]);

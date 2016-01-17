@@ -1,15 +1,17 @@
 <template>
-    <div class="ui vertically divided grid">
+    <div class="ui grid">
         <div class="row">
             <div class="sixteen wide column">
-                <div class="ui mini statistics">
-                    <div class="statistic">
-                        <div class="label">{{ totalPriceLabel }}</div>
-                        <div class="value">{{ total | currency }}</div>
-                    </div>
-                    <div class="statistic" v-for="(key, typeTotal) in typeTotals">
-                        <div class="label">{{ costTypes[key] }}</div>
-                        <div class="value">{{ typeTotal | currency }}</div>
+                <div class="ui raised segment">
+                    <div class="ui mini five statistics">
+                        <div class="statistic">
+                            <div class="label">{{ totalPriceLabel }}</div>
+                            <div class="value">{{ total | currency }}</div>
+                        </div>
+                        <div class="statistic" v-for="(key, typeTotal) in typeTotals">
+                            <div class="label">{{ costTypes[key] }}</div>
+                            <div class="value">{{ typeTotal | currency }}</div>
+                        </div>
                     </div>
                 </div>
             </div>
