@@ -128,7 +128,10 @@
                 this.items = response.work_items
 
                 this.$nextTick(() => {
-                    window.$(`#vue-workitem-form-${this._uid}`).sticky({})
+                    window.$(`#vue-workitem-form-${this._uid}`).sticky({
+                        offset: 20,
+                        bottomOffset: 20
+                    })
                 })
             })
         }

@@ -10189,6 +10189,8 @@
 	        },
 	        onDrawn: function onDrawn() {
 	            window.$('#vue-order-title-input-' + this._uid).sticky({
+	                offset: 20,
+	                bottomOffset: 20,
 	                context: '#vue-workflow-node-list-' + this._uid
 	            });
 	        }
@@ -12667,7 +12669,10 @@
 	            _this4.items = response.work_items;
 
 	            _this4.$nextTick(function () {
-	                window.$('#vue-workitem-form-' + _this4._uid).sticky({});
+	                window.$('#vue-workitem-form-' + _this4._uid).sticky({
+	                    offset: 20,
+	                    bottomOffset: 20
+	                });
 	            });
 	        });
 	    }

@@ -54,6 +54,8 @@
 
             onDrawn() {
                 window.$(`#vue-order-title-input-${this._uid}`).sticky({
+                    offset: 20,
+                    bottomOffset: 20,
                     context: `#vue-workflow-node-list-${this._uid}`
                 })
             }
