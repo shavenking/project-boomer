@@ -1,49 +1,47 @@
 <template>
-    <div class="ui small image" id="vue-diagram-{{ _uid }}"></div>
+    <div class="ui items">
+        <div class="item" v-for="node in nodesExceptLast">
+            <div class="middle aligned content">
+                <div class="header">
+                    {{ node.order }}.&nbsp;{{ node.title }}
+                </div>
+                <div class="vue-divider">
+                    <i class="large grey long arrow down icon"></i>
+                </div>
+            </div>
+        </div>
+        <div class="item" v-if="lastNode">
+            <div class="middle aligned content">
+                <div class="header">{{ lastNode.order }}.&nbsp;{{ lastNode.title }}</div>
+            </div>
+        </div>
+    </div>
 </template>
+
+<style>
+    .item .vue-divider {
+        margin-top: 1.5em;
+        margin-bottom: 1em;
+    }
+</style>
 
 <script>
     import sortBy from 'lodash/collection/sortBy'
-    import pluck from 'lodash/collection/pluck'
+    import last from 'lodash/array/last'
+    import take from 'lodash/array/take'
 
     export default {
         props: ['workflowId', 'nodes'],
 
-        methods: {
-            drawFlow() {
-                window.$(`#vue-diagram-${this._uid}`).empty()
-
-                let operations = []
-
-                operations.push({
-                    id: 'st',
-                    content: 'st=>start: Start'
-                })
-
-                sortBy(this.nodes, 'order').forEach(node => {
-                    operations.push({
-                        id: `op${node.id}`,
-                        content: `op${node.id}=>operation: ${node.order}. ${node.title}`
-                    })
-                })
-
-                operations.push({
-                    id: 'end',
-                    content: 'end=>end: End'
-                })
-
-                let contents = pluck(operations, 'content').join('\n')
-                let flow = pluck(operations, 'id').join('->')
-
-                window.flowchart.parse(`${contents}\n\n${flow}`).drawSVG(`vue-diagram-${this._uid}`, {})
-
-                this.$dispatch('drawn')
-            }
-        },
-
-        events: {
-            listUpdated() {
-                this.drawFlow()
+        computed: {
+            sortedNodes() {
+                return sortBy(this.nodes, 'order')
+            },
+            nodesExceptLast() {
+                return take(this.sortedNodes, this.sortedNodes.length - 1)
+            },
+            lastNode() {
+                return last(this.sortedNodes)
             }
         }
     }

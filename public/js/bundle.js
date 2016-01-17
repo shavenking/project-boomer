@@ -10124,10 +10124,6 @@
 	    value: true
 	});
 
-	var _vue = __webpack_require__(1);
-
-	var _vue2 = _interopRequireDefault(_vue);
-
 	var _orderTitleInput = __webpack_require__(19);
 
 	var _orderTitleInput2 = _interopRequireDefault(_orderTitleInput);
@@ -10138,13 +10134,10 @@
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-	function getNodes(workflowId) {
-	    return window.$.getJSON('/api/v1/workflows/' + workflowId + '/nodes');
-	} // <template>
+	// <template>
 	//     <div class="ui grid">
-	//
-	//         <div class="nine wide center aligned column" id="vue-workflow-node-list-{{ _uid }}">
-	//             <workflow-node-list v-bind:nodes.sync="nodes" v-on:drawn="onDrawn"></workflow-node-list>
+	//         <div class="nine wide center aligned column">
+	//             <workflow-node-list :nodes.sync="nodes"></workflow-node-list>
 	//         </div>
 	//
 	//         <div class="seven wide column">
@@ -10155,11 +10148,14 @@
 	//                 </div>
 	//             </div>
 	//         </div>
-	//
 	//     </div>
 	// </template>
 	//
 	// <script>
+
+	function getNodes(workflowId) {
+	    return window.$.getJSON('/api/v1/workflows/' + workflowId + '/nodes');
+	}
 
 	function createNode(workflowId, order, title) {
 	    return window.$.post('/api/v1/workflows/' + workflowId + '/nodes', { order: order, title: title });
@@ -10177,22 +10173,15 @@
 	            createNode(this.workflowId, dataBag.order, dataBag.title).then(function (response) {
 	                _this.nodes.push(response.node);
 
-	                _this.$broadcast('nodeCreated');
-
-	                _vue2.default.nextTick(function () {
-	                    _this.$broadcast('listUpdated');
+	                _this.$nextTick(function () {
+	                    _this._input.sticky('refresh');
 	                });
+
+	                _this.$broadcast('nodeCreated');
 	            });
 	        },
 	        onInvalid: function onInvalid() {
 	            console.log('failed');
-	        },
-	        onDrawn: function onDrawn() {
-	            window.$('#vue-order-title-input-' + this._uid).sticky({
-	                offset: 20,
-	                bottomOffset: 20,
-	                context: '#vue-workflow-node-list-' + this._uid
-	            });
 	        }
 	    },
 
@@ -10207,8 +10196,13 @@
 	        getNodes(this.workflowId).then(function (response) {
 	            _this2.nodes = response.nodes;
 
-	            _vue2.default.nextTick(function () {
-	                _this2.$broadcast('listUpdated');
+	            _this2.$nextTick(function () {
+	                _this2._input = window.$('#vue-order-title-input-' + _this2._uid);
+
+	                _this2._input.sticky({
+	                    offset: 20,
+	                    bottomOffset: 20
+	                });
 	            });
 	        });
 	    }
@@ -10315,6 +10309,7 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	var __vue_script__, __vue_template__
+	__webpack_require__(105)
 	__vue_script__ = __webpack_require__(23)
 	__vue_template__ = __webpack_require__(78)
 	module.exports = __vue_script__ || {}
@@ -10346,59 +10341,60 @@
 
 	var _sortBy2 = _interopRequireDefault(_sortBy);
 
-	var _pluck = __webpack_require__(75);
+	var _last = __webpack_require__(58);
 
-	var _pluck2 = _interopRequireDefault(_pluck);
+	var _last2 = _interopRequireDefault(_last);
+
+	var _take = __webpack_require__(104);
+
+	var _take2 = _interopRequireDefault(_take);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-	// <template>
-	//     <div class="ui small image" id="vue-diagram-{{ _uid }}"></div>
-	// </template>
-	//
-	// <script>
 	exports.default = {
 	    props: ['workflowId', 'nodes'],
 
-	    methods: {
-	        drawFlow: function drawFlow() {
-	            window.$('#vue-diagram-' + this._uid).empty();
-
-	            var operations = [];
-
-	            operations.push({
-	                id: 'st',
-	                content: 'st=>start: Start'
-	            });
-
-	            (0, _sortBy2.default)(this.nodes, 'order').forEach(function (node) {
-	                operations.push({
-	                    id: 'op' + node.id,
-	                    content: 'op' + node.id + '=>operation: ' + node.order + '. ' + node.title
-	                });
-	            });
-
-	            operations.push({
-	                id: 'end',
-	                content: 'end=>end: End'
-	            });
-
-	            var contents = (0, _pluck2.default)(operations, 'content').join('\n');
-	            var flow = (0, _pluck2.default)(operations, 'id').join('->');
-
-	            window.flowchart.parse(contents + '\n\n' + flow).drawSVG('vue-diagram-' + this._uid, {});
-
-	            this.$dispatch('drawn');
-	        }
-	    },
-
-	    events: {
-	        listUpdated: function listUpdated() {
-	            this.drawFlow();
+	    computed: {
+	        sortedNodes: function sortedNodes() {
+	            return (0, _sortBy2.default)(this.nodes, 'order');
+	        },
+	        nodesExceptLast: function nodesExceptLast() {
+	            return (0, _take2.default)(this.sortedNodes, this.sortedNodes.length - 1);
+	        },
+	        lastNode: function lastNode() {
+	            return (0, _last2.default)(this.sortedNodes);
 	        }
 	    }
 	};
 	// </script>
+	// <template>
+	//     <div class="ui items">
+	//         <div class="item" v-for="node in nodesExceptLast">
+	//             <div class="middle aligned content">
+	//                 <div class="header">
+	//                     {{ node.order }}.&nbsp;{{ node.title }}
+	//                 </div>
+	//                 <div class="vue-divider">
+	//                     <i class="large grey long arrow down icon"></i>
+	//                 </div>
+	//             </div>
+	//         </div>
+	//         <div class="item" v-if="lastNode">
+	//             <div class="middle aligned content">
+	//                 <div class="header">{{ lastNode.order }}.&nbsp;{{ lastNode.title }}</div>
+	//             </div>
+	//         </div>
+	//     </div>
+	// </template>
+	//
+	// <style>
+	//     .item .vue-divider {
+	//         margin-top: 1.5em;
+	//         margin-bottom: 1em;
+	//     }
+	// </style>
+	//
+	// <script>
 
 /***/ },
 /* 24 */
@@ -12498,13 +12494,13 @@
 /* 78 */
 /***/ function(module, exports) {
 
-	module.exports = "\n<div class=\"ui small image\" id=\"vue-diagram-{{ _uid }}\"></div>\n";
+	module.exports = "\n<div class=\"ui items\">\n    <div class=\"item\" v-for=\"node in nodesExceptLast\">\n        <div class=\"middle aligned content\">\n            <div class=\"header\">\n                {{ node.order }}.&nbsp;{{ node.title }}\n            </div>\n            <div class=\"vue-divider\">\n                <i class=\"large grey long arrow down icon\"></i>\n            </div>\n        </div>\n    </div>\n    <div class=\"item\" v-if=\"lastNode\">\n        <div class=\"middle aligned content\">\n            <div class=\"header\">{{ lastNode.order }}.&nbsp;{{ lastNode.title }}</div>\n        </div>\n    </div>\n</div>\n";
 
 /***/ },
 /* 79 */
 /***/ function(module, exports) {
 
-	module.exports = "\n<div class=\"ui grid\">\n\n    <div class=\"nine wide center aligned column\" id=\"vue-workflow-node-list-{{ _uid }}\">\n        <workflow-node-list v-bind:nodes.sync=\"nodes\" v-on:drawn=\"onDrawn\"></workflow-node-list>\n    </div>\n\n    <div class=\"seven wide column\">\n        <div class=\"ui sticky form\" id=\"vue-order-title-input-{{ _uid }}\">\n            <div class=\"field\">\n                <label>{{ labelText }}</label>\n                <order-title-input v-on:valid=\"onValid\" v-on:invalid=\"onInvalid\"></order-title-input>\n            </div>\n        </div>\n    </div>\n\n</div>\n";
+	module.exports = "\n<div class=\"ui grid\">\n    <div class=\"nine wide center aligned column\">\n        <workflow-node-list :nodes.sync=\"nodes\"></workflow-node-list>\n    </div>\n\n    <div class=\"seven wide column\">\n        <div class=\"ui sticky form\" id=\"vue-order-title-input-{{ _uid }}\">\n            <div class=\"field\">\n                <label>{{ labelText }}</label>\n                <order-title-input v-on:valid=\"onValid\" v-on:invalid=\"onInvalid\"></order-title-input>\n            </div>\n        </div>\n    </div>\n</div>\n";
 
 /***/ },
 /* 80 */
@@ -13649,6 +13645,369 @@
 /***/ function(module, exports) {
 
 	module.exports = "\n<div class=\"ui grid\">\n    <div class=\"row\">\n        <div class=\"sixteen wide column\">\n            <div class=\"ui raised segment\">\n                <div class=\"ui mini five statistics\">\n                    <div class=\"statistic\">\n                        <div class=\"label\">{{ totalPriceLabel }}</div>\n                        <div class=\"value\">{{ total | currency }}</div>\n                    </div>\n                    <div class=\"statistic\" v-for=\"(key, typeTotal) in typeTotals\">\n                        <div class=\"label\">{{ costTypes[key] }}</div>\n                        <div class=\"value\">{{ typeTotal | currency }}</div>\n                    </div>\n                </div>\n            </div>\n        </div>\n    </div>\n    <div class=\"row\">\n        <div class=\"nine wide column\">\n            <div class=\"ui cards\">\n                <price-card\n                    v-for=\"item in items | orderBy 'order'\"\n                    :item.once=\"item\"\n                    :amount-text.once=\"amountText\"\n                    :unit-price-text.once=\"unitPriceText\"\n                ></price-card>\n            </div>\n        </div>\n        <div class=\"seven wide column\">\n            <workitem-form :labels.once=\"labels\" class=\"sticky\" id=\"vue-workitem-form-{{ _uid }}\" v-ref:form></workitem-form>\n        </div>\n    </div>\n</div>\n";
+
+/***/ },
+/* 104 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var baseSlice = __webpack_require__(56),
+	    isIterateeCall = __webpack_require__(74);
+
+	/**
+	 * Creates a slice of `array` with `n` elements taken from the beginning.
+	 *
+	 * @static
+	 * @memberOf _
+	 * @category Array
+	 * @param {Array} array The array to query.
+	 * @param {number} [n=1] The number of elements to take.
+	 * @param- {Object} [guard] Enables use as a callback for functions like `_.map`.
+	 * @returns {Array} Returns the slice of `array`.
+	 * @example
+	 *
+	 * _.take([1, 2, 3]);
+	 * // => [1]
+	 *
+	 * _.take([1, 2, 3], 2);
+	 * // => [1, 2]
+	 *
+	 * _.take([1, 2, 3], 5);
+	 * // => [1, 2, 3]
+	 *
+	 * _.take([1, 2, 3], 0);
+	 * // => []
+	 */
+	function take(array, n, guard) {
+	  var length = array ? array.length : 0;
+	  if (!length) {
+	    return [];
+	  }
+	  if (guard ? isIterateeCall(array, n, guard) : n == null) {
+	    n = 1;
+	  }
+	  return baseSlice(array, 0, n < 0 ? 0 : n);
+	}
+
+	module.exports = take;
+
+
+/***/ },
+/* 105 */
+/***/ function(module, exports, __webpack_require__) {
+
+	// style-loader: Adds some css to the DOM by adding a <style> tag
+
+	// load the styles
+	var content = __webpack_require__(106);
+	if(typeof content === 'string') content = [[module.id, content, '']];
+	// add the styles to the DOM
+	var update = __webpack_require__(108)(content, {});
+	if(content.locals) module.exports = content.locals;
+	// Hot Module Replacement
+	if(false) {
+		// When the styles change, update the <style> tags
+		if(!content.locals) {
+			module.hot.accept("!!./../../../../node_modules/css-loader/index.js!./../../../../node_modules/vue-loader/lib/style-rewriter.js?id=_v-7642282a&file=workflow-node-list.vue!./../../../../node_modules/vue-loader/lib/selector.js?type=style&index=0!./workflow-node-list.vue", function() {
+				var newContent = require("!!./../../../../node_modules/css-loader/index.js!./../../../../node_modules/vue-loader/lib/style-rewriter.js?id=_v-7642282a&file=workflow-node-list.vue!./../../../../node_modules/vue-loader/lib/selector.js?type=style&index=0!./workflow-node-list.vue");
+				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+				update(newContent);
+			});
+		}
+		// When the module is disposed, remove the <style> tags
+		module.hot.dispose(function() { update(); });
+	}
+
+/***/ },
+/* 106 */
+/***/ function(module, exports, __webpack_require__) {
+
+	exports = module.exports = __webpack_require__(107)();
+	// imports
+
+
+	// module
+	exports.push([module.id, "\n.item .vue-divider {\n    margin-top: 1.5em;\n    margin-bottom: 1em;\n}\n", ""]);
+
+	// exports
+
+
+/***/ },
+/* 107 */
+/***/ function(module, exports) {
+
+	/*
+		MIT License http://www.opensource.org/licenses/mit-license.php
+		Author Tobias Koppers @sokra
+	*/
+	// css base code, injected by the css-loader
+	module.exports = function() {
+		var list = [];
+
+		// return the list of modules as css string
+		list.toString = function toString() {
+			var result = [];
+			for(var i = 0; i < this.length; i++) {
+				var item = this[i];
+				if(item[2]) {
+					result.push("@media " + item[2] + "{" + item[1] + "}");
+				} else {
+					result.push(item[1]);
+				}
+			}
+			return result.join("");
+		};
+
+		// import a list of modules into the list
+		list.i = function(modules, mediaQuery) {
+			if(typeof modules === "string")
+				modules = [[null, modules, ""]];
+			var alreadyImportedModules = {};
+			for(var i = 0; i < this.length; i++) {
+				var id = this[i][0];
+				if(typeof id === "number")
+					alreadyImportedModules[id] = true;
+			}
+			for(i = 0; i < modules.length; i++) {
+				var item = modules[i];
+				// skip already imported module
+				// this implementation is not 100% perfect for weird media query combinations
+				//  when a module is imported multiple times with different media queries.
+				//  I hope this will never occur (Hey this way we have smaller bundles)
+				if(typeof item[0] !== "number" || !alreadyImportedModules[item[0]]) {
+					if(mediaQuery && !item[2]) {
+						item[2] = mediaQuery;
+					} else if(mediaQuery) {
+						item[2] = "(" + item[2] + ") and (" + mediaQuery + ")";
+					}
+					list.push(item);
+				}
+			}
+		};
+		return list;
+	};
+
+
+/***/ },
+/* 108 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/*
+		MIT License http://www.opensource.org/licenses/mit-license.php
+		Author Tobias Koppers @sokra
+	*/
+	var stylesInDom = {},
+		memoize = function(fn) {
+			var memo;
+			return function () {
+				if (typeof memo === "undefined") memo = fn.apply(this, arguments);
+				return memo;
+			};
+		},
+		isOldIE = memoize(function() {
+			return /msie [6-9]\b/.test(window.navigator.userAgent.toLowerCase());
+		}),
+		getHeadElement = memoize(function () {
+			return document.head || document.getElementsByTagName("head")[0];
+		}),
+		singletonElement = null,
+		singletonCounter = 0,
+		styleElementsInsertedAtTop = [];
+
+	module.exports = function(list, options) {
+		if(false) {
+			if(typeof document !== "object") throw new Error("The style-loader cannot be used in a non-browser environment");
+		}
+
+		options = options || {};
+		// Force single-tag solution on IE6-9, which has a hard limit on the # of <style>
+		// tags it will allow on a page
+		if (typeof options.singleton === "undefined") options.singleton = isOldIE();
+
+		// By default, add <style> tags to the bottom of <head>.
+		if (typeof options.insertAt === "undefined") options.insertAt = "bottom";
+
+		var styles = listToStyles(list);
+		addStylesToDom(styles, options);
+
+		return function update(newList) {
+			var mayRemove = [];
+			for(var i = 0; i < styles.length; i++) {
+				var item = styles[i];
+				var domStyle = stylesInDom[item.id];
+				domStyle.refs--;
+				mayRemove.push(domStyle);
+			}
+			if(newList) {
+				var newStyles = listToStyles(newList);
+				addStylesToDom(newStyles, options);
+			}
+			for(var i = 0; i < mayRemove.length; i++) {
+				var domStyle = mayRemove[i];
+				if(domStyle.refs === 0) {
+					for(var j = 0; j < domStyle.parts.length; j++)
+						domStyle.parts[j]();
+					delete stylesInDom[domStyle.id];
+				}
+			}
+		};
+	}
+
+	function addStylesToDom(styles, options) {
+		for(var i = 0; i < styles.length; i++) {
+			var item = styles[i];
+			var domStyle = stylesInDom[item.id];
+			if(domStyle) {
+				domStyle.refs++;
+				for(var j = 0; j < domStyle.parts.length; j++) {
+					domStyle.parts[j](item.parts[j]);
+				}
+				for(; j < item.parts.length; j++) {
+					domStyle.parts.push(addStyle(item.parts[j], options));
+				}
+			} else {
+				var parts = [];
+				for(var j = 0; j < item.parts.length; j++) {
+					parts.push(addStyle(item.parts[j], options));
+				}
+				stylesInDom[item.id] = {id: item.id, refs: 1, parts: parts};
+			}
+		}
+	}
+
+	function listToStyles(list) {
+		var styles = [];
+		var newStyles = {};
+		for(var i = 0; i < list.length; i++) {
+			var item = list[i];
+			var id = item[0];
+			var css = item[1];
+			var media = item[2];
+			var sourceMap = item[3];
+			var part = {css: css, media: media, sourceMap: sourceMap};
+			if(!newStyles[id])
+				styles.push(newStyles[id] = {id: id, parts: [part]});
+			else
+				newStyles[id].parts.push(part);
+		}
+		return styles;
+	}
+
+	function insertStyleElement(options, styleElement) {
+		var head = getHeadElement();
+		var lastStyleElementInsertedAtTop = styleElementsInsertedAtTop[styleElementsInsertedAtTop.length - 1];
+		if (options.insertAt === "top") {
+			if(!lastStyleElementInsertedAtTop) {
+				head.insertBefore(styleElement, head.firstChild);
+			} else if(lastStyleElementInsertedAtTop.nextSibling) {
+				head.insertBefore(styleElement, lastStyleElementInsertedAtTop.nextSibling);
+			} else {
+				head.appendChild(styleElement);
+			}
+			styleElementsInsertedAtTop.push(styleElement);
+		} else if (options.insertAt === "bottom") {
+			head.appendChild(styleElement);
+		} else {
+			throw new Error("Invalid value for parameter 'insertAt'. Must be 'top' or 'bottom'.");
+		}
+	}
+
+	function removeStyleElement(styleElement) {
+		styleElement.parentNode.removeChild(styleElement);
+		var idx = styleElementsInsertedAtTop.indexOf(styleElement);
+		if(idx >= 0) {
+			styleElementsInsertedAtTop.splice(idx, 1);
+		}
+	}
+
+	function createStyleElement(options) {
+		var styleElement = document.createElement("style");
+		styleElement.type = "text/css";
+		insertStyleElement(options, styleElement);
+		return styleElement;
+	}
+
+	function addStyle(obj, options) {
+		var styleElement, update, remove;
+
+		if (options.singleton) {
+			var styleIndex = singletonCounter++;
+			styleElement = singletonElement || (singletonElement = createStyleElement(options));
+			update = applyToSingletonTag.bind(null, styleElement, styleIndex, false);
+			remove = applyToSingletonTag.bind(null, styleElement, styleIndex, true);
+		} else {
+			styleElement = createStyleElement(options);
+			update = applyToTag.bind(null, styleElement);
+			remove = function() {
+				removeStyleElement(styleElement);
+			};
+		}
+
+		update(obj);
+
+		return function updateStyle(newObj) {
+			if(newObj) {
+				if(newObj.css === obj.css && newObj.media === obj.media && newObj.sourceMap === obj.sourceMap)
+					return;
+				update(obj = newObj);
+			} else {
+				remove();
+			}
+		};
+	}
+
+	var replaceText = (function () {
+		var textStore = [];
+
+		return function (index, replacement) {
+			textStore[index] = replacement;
+			return textStore.filter(Boolean).join('\n');
+		};
+	})();
+
+	function applyToSingletonTag(styleElement, index, remove, obj) {
+		var css = remove ? "" : obj.css;
+
+		if (styleElement.styleSheet) {
+			styleElement.styleSheet.cssText = replaceText(index, css);
+		} else {
+			var cssNode = document.createTextNode(css);
+			var childNodes = styleElement.childNodes;
+			if (childNodes[index]) styleElement.removeChild(childNodes[index]);
+			if (childNodes.length) {
+				styleElement.insertBefore(cssNode, childNodes[index]);
+			} else {
+				styleElement.appendChild(cssNode);
+			}
+		}
+	}
+
+	function applyToTag(styleElement, obj) {
+		var css = obj.css;
+		var media = obj.media;
+		var sourceMap = obj.sourceMap;
+
+		if (media) {
+			styleElement.setAttribute("media", media);
+		}
+
+		if (sourceMap) {
+			// https://developer.chrome.com/devtools/docs/javascript-debugging
+			// this makes source maps inside style tags work properly in Chrome
+			css += '\n/*# sourceURL=' + sourceMap.sources[0] + ' */';
+			// http://stackoverflow.com/a/26603875
+			css += "\n/*# sourceMappingURL=data:application/json;base64," + btoa(unescape(encodeURIComponent(JSON.stringify(sourceMap)))) + " */";
+		}
+
+		if (styleElement.styleSheet) {
+			styleElement.styleSheet.cssText = css;
+		} else {
+			while(styleElement.firstChild) {
+				styleElement.removeChild(styleElement.firstChild);
+			}
+			styleElement.appendChild(document.createTextNode(css));
+		}
+	}
+
 
 /***/ }
 /******/ ]);

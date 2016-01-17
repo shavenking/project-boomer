@@ -1,8 +1,7 @@
 <template>
     <div class="ui grid">
-
-        <div class="nine wide center aligned column" id="vue-workflow-node-list-{{ _uid }}">
-            <workflow-node-list v-bind:nodes.sync="nodes" v-on:drawn="onDrawn"></workflow-node-list>
+        <div class="nine wide center aligned column">
+            <workflow-node-list :nodes.sync="nodes"></workflow-node-list>
         </div>
 
         <div class="seven wide column">
@@ -13,12 +12,10 @@
                 </div>
             </div>
         </div>
-
     </div>
 </template>
 
 <script>
-    import Vue from 'vue'
     import OrderTitleInput from './order-title-input.vue'
     import WorkflowNodeList from './workflow-node-list.vue'
 
@@ -40,24 +37,16 @@
                 createNode(this.workflowId, dataBag.order, dataBag.title).then((response) => {
                     this.nodes.push(response.node)
 
-                    this.$broadcast('nodeCreated')
-
-                    Vue.nextTick(() => {
-                        this.$broadcast('listUpdated')
+                    this.$nextTick(() => {
+                        this._input.sticky('refresh')
                     })
+
+                    this.$broadcast('nodeCreated')
                 })
             },
 
             onInvalid() {
                 console.log('failed')
-            },
-
-            onDrawn() {
-                window.$(`#vue-order-title-input-${this._uid}`).sticky({
-                    offset: 20,
-                    bottomOffset: 20,
-                    context: `#vue-workflow-node-list-${this._uid}`
-                })
             }
         },
 
@@ -71,8 +60,13 @@
             getNodes(this.workflowId).then(response => {
                 this.nodes = response.nodes
 
-                Vue.nextTick(() => {
-                    this.$broadcast('listUpdated')
+                this.$nextTick(() => {
+                    this._input = window.$(`#vue-order-title-input-${this._uid}`)
+
+                    this._input.sticky({
+                        offset: 20,
+                        bottomOffset: 20
+                    })
                 })
             })
         }
