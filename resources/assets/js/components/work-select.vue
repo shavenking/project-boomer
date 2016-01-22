@@ -4,7 +4,7 @@
         :options="works"
         option-value-name="id"
         option-text-name="name"
-        :multible.once="true"
+        :multiple.once="true"
     ></dropdown-select>
 </template>
 
