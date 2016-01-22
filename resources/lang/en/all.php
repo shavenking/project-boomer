@@ -21,6 +21,7 @@ return [
     'passes' => 'Passes',
     'failed' => 'Failed',
 
+    'order' => 'Order',
     'name' => 'Name',
     'detail' => 'Detail',
     'amount' => 'Amount',
@@ -32,9 +33,13 @@ return [
     'custom_name' => 'Custom Name',
 
     'select_workflow' => 'Select Workflow',
+    'select_type_order' => 'Select Type and Order',
+    'select_unit' => 'Select Unit',
+    'select_cost_type' => 'Select Type of Cost',
 
     'create' => 'Create',
     'create_workflow' => 'Create Workflow',
+    'create_node' => 'Create Node',
     'create_project_work' => 'Create Project Work',
     'create_checklist' => 'Create Checklist',
     'create_checkitem' => 'Create Checkitem',
@@ -47,6 +52,9 @@ return [
     'edit' => 'Edit',
 
     'save' => 'Save',
+
+    'cancel' => 'Cancel',
+    'clear' => 'Clear',
 
     'empty' => 'Empty',
     'empty_checkitems' => 'There are no checkitems',

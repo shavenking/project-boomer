@@ -13,7 +13,7 @@
 
             <div class="field">
                 <label>{{ trans('all.select_workflow') }}&nbsp;{{ trans('all.or') }}&nbsp;<a href="{{ route('workflows.create') }}">{{ trans('all.create_workflow') }}</a></label>
-                @include('components.dropdown-workflow-select')
+                <workflow-select default-value="{{ request()->query('workflow_id') }}"></workflow-select>
             </div>
 
 

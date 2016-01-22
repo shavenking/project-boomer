@@ -9,14 +9,20 @@
 @section('content')
     <form class="ui form {{ count($errors) ? 'error' : '' }}" method="POST" action="{{ route('works.store') }}">
         {{ csrf_field() }}
-        <div id="flowtype-select"></div>
 
-        <div class="grouped fields">
-                <div id="unit-select"></div>
+        <div class="field">
+            <label>{{ trans('all.select_type_order') }}</label>
+            <flowtype-select></flowtype-select>
         </div>
 
-        <div class="grouped fields">
-            <div id="workflow-select"></div>
+        <div class="field">
+            <label>{{ trans('all.select_unit') }}</label>
+            <unit-select></unit-select>
+        </div>
+
+        <div class="field">
+            <label>{{ trans('all.select_workflow') }}</label>
+            <workflow-select></workflow-select>
         </div>
 
         <div class="equal width fields">

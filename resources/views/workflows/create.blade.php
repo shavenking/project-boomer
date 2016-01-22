@@ -17,8 +17,9 @@
                 <input type="text" name="name">
             </div>
 
-            <div class="fields">
-                <div id="work-select"></div>
+            <div class="field">
+                <label>{{ trans_choice('all.works', 2) }}</label>
+                <work-select></work-select>
             </div>
 
             @if ($errors->has('name'))

@@ -21,6 +21,7 @@ return [
     'passes' => '通過',
     'failed' => '缺失',
 
+    'order' => '順序',
     'name' => '名稱',
     'detail' => '細項',
     'amount' => '數量',
@@ -32,9 +33,13 @@ return [
     'custom_name' => '自定義名稱',
 
     'select_workflow' => '選擇流程',
+    'select_type_order' => '選擇工程類別與順序',
+    'select_unit' => '選擇單位',
+    'select_cost_type' => '選擇費用類別',
 
     'create' => '新增',
     'create_workflow' => '新增流程',
+    'create_node' => '新增流程項目',
     'create_project_work' => '新增專案工作項目',
     'create_checklist' => '新增自主檢查表',
     'create_checkitem' => '新增檢查項目',
@@ -47,6 +52,9 @@ return [
     'edit' => '編輯',
 
     'save' => '儲存',
+
+    'cancel' => '取消',
+    'clear' => '重設',
 
     'empty' => '目前沒有相關資料',
     'empty_checkitems' => '目前沒有檢查項目',

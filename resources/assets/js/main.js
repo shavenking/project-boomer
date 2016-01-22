@@ -1,29 +1,19 @@
-var $ = require('jquery')
-var each = require('lodash/collection/forEach')
-var React = require('react')
-var ReactDOM = require('react-dom')
+import Vue from 'vue'
+import WorkSelect from './components/work-select.vue'
+import FlowtypeSelect from './components/flowtype-select.vue'
+import UnitSelect from './components/unit-select.vue'
+import WorkflowSelect from './components/workflow-select.vue'
+import WorkflowNodes from './components/workflow-nodes.vue'
+import WorkitemList from './components/workitem-list.vue'
 
-var components = {
-    '#workflow-list': require('./components/workflow-list'),
-    '#workflow-node-list': require('./components/workflow-node-list'),
-    '#flowtype-select': require('./components/flowtype-select'),
-    '#unit-select': require('./components/unit-select'),
-    '#cost-type-select': require('./components/cost-type-select'),
-    '#work-item-list': require('./components/work-item-list'),
-    '#workflow-select': require('./components/workflow-select'),
-    '#work-select': require('./components/work-select'),
-    '#project-work-list': require('./components/project-work-list'),
-    '#form-create-project-work': require('./components/form-create-project-work')
-}
-
-each(components, (component, selector) => {
-    var targetDOM = $(selector)
-    var props = targetDOM.data()
-
-    if (targetDOM.length) {
-        ReactDOM.render(
-            React.createElement(component, props),
-            targetDOM.get(0)
-        )
+new Vue({
+    el: 'body',
+    components: {
+        WorkSelect,
+        WorkflowNodes,
+        FlowtypeSelect,
+        UnitSelect,
+        WorkflowSelect,
+        WorkitemList
     }
 })

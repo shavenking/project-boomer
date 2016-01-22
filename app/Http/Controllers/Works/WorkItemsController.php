@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
+use App\Entities\Work;
 use App\Entities\WorkItem;
 
 class WorkItemsController extends Controller
@@ -94,9 +95,26 @@ class WorkItemsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update($workId, $itemId, Request $request)
     {
-        //
+        $this->validate($request, [
+            'unit_id' => 'required',
+            'cost_type_id' => 'required',
+            'name' => 'required',
+            'order' => 'required',
+            'amount' => 'required',
+            'unit_price' => 'required'
+        ]);
+
+        $work = Work::findOrFail($workId);
+        $workItem = WorkItem::findOrFail($itemId);
+
+        $workItem->update($request->all());
+        $work->reCalculateUnitPrice();
+
+        return response()->json([
+            'work_item' => $workItem
+        ]);
     }
 
     /**
