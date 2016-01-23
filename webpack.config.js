@@ -1,7 +1,11 @@
+var webpack = require('webpack')
 var WebpackNotifierPlugin = require('webpack-notifier')
 
 module.exports = {
-    entry: './resources/assets/js/main.js',
+    entry: {
+        main: './resources/assets/js/main.js',
+        vendor: './resources/assets/js/vendor.js'
+    },
     output: {
         path: './public/js',
         filename: 'bundle.js'
@@ -25,6 +29,7 @@ module.exports = {
         }
     },
     plugins: [
-        new WebpackNotifierPlugin()
+        new WebpackNotifierPlugin(),
+        new webpack.optimize.CommonsChunkPlugin("vendor", "vendor.bundle.js")
     ]
 }

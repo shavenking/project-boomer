@@ -1,7 +1,5 @@
 var elixir = require('laravel-elixir');
 
-elixir.config.js.browserify.watchify.enabled = true
-
 /*
  |--------------------------------------------------------------------------
  | Elixir Asset Management
@@ -13,7 +11,4 @@ elixir.config.js.browserify.watchify.enabled = true
  |
  */
 
-elixir(function(mix) {
-    mix.browserify('lib.js');
-    mix.browserify('main.js');
-});
+elixir(function(mix) {});
