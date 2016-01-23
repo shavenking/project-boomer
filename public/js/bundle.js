@@ -1,46 +1,4 @@
-/******/ (function(modules) { // webpackBootstrap
-/******/ 	// The module cache
-/******/ 	var installedModules = {};
-
-/******/ 	// The require function
-/******/ 	function __webpack_require__(moduleId) {
-
-/******/ 		// Check if module is in cache
-/******/ 		if(installedModules[moduleId])
-/******/ 			return installedModules[moduleId].exports;
-
-/******/ 		// Create a new module (and put it into the cache)
-/******/ 		var module = installedModules[moduleId] = {
-/******/ 			exports: {},
-/******/ 			id: moduleId,
-/******/ 			loaded: false
-/******/ 		};
-
-/******/ 		// Execute the module function
-/******/ 		modules[moduleId].call(module.exports, module, module.exports, __webpack_require__);
-
-/******/ 		// Flag the module as loaded
-/******/ 		module.loaded = true;
-
-/******/ 		// Return the exports of the module
-/******/ 		return module.exports;
-/******/ 	}
-
-
-/******/ 	// expose the modules object (__webpack_modules__)
-/******/ 	__webpack_require__.m = modules;
-
-/******/ 	// expose the module cache
-/******/ 	__webpack_require__.c = installedModules;
-
-/******/ 	// __webpack_public_path__
-/******/ 	__webpack_require__.p = "";
-
-/******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(0);
-/******/ })
-/************************************************************************/
-/******/ ([
+webpackJsonp([0],[
 /* 0 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -10266,23 +10224,41 @@
 	    return window.$.post('/api/v1/workflows/' + workflowId + '/nodes', { order: order, title: title });
 	}
 
+	function deleteNode(node) {
+	    return window.$.post('/api/v1/workflows/' + node.workflow_id + '/nodes/' + node.id, {
+	        _method: 'DELETE'
+	    });
+	}
+
 	exports.default = {
 	    components: { OrderTitleInput: _orderTitleInput2.default, WorkflowNodeList: _workflowNodeList2.default },
 
 	    props: ['workflowId', 'labelText'],
 
-	    methods: {
-	        onValid: function onValid(dataBag) {
+	    events: {
+	        delete: function _delete(node) {
 	            var _this = this;
 
-	            createNode(this.workflowId, dataBag.order, dataBag.title).then(function (response) {
-	                _this.nodes.push(response.node);
+	            deleteNode(node).then(function (response) {
+	                _this.nodes = _this.nodes.filter(function (candidate) {
+	                    return candidate.id !== node.id;
+	                });
+	            });
+	        }
+	    },
 
-	                _this.$nextTick(function () {
-	                    _this._input.sticky('refresh');
+	    methods: {
+	        onValid: function onValid(dataBag) {
+	            var _this2 = this;
+
+	            createNode(this.workflowId, dataBag.order, dataBag.title).then(function (response) {
+	                _this2.nodes.push(response.node);
+
+	                _this2.$nextTick(function () {
+	                    _this2._input.sticky('refresh');
 	                });
 
-	                _this.$broadcast('nodeCreated');
+	                _this2.$broadcast('nodeCreated');
 	            });
 	        },
 	        onInvalid: function onInvalid() {
@@ -10296,15 +10272,15 @@
 	        };
 	    },
 	    ready: function ready() {
-	        var _this2 = this;
+	        var _this3 = this;
 
 	        getNodes(this.workflowId).then(function (response) {
-	            _this2.nodes = response.nodes;
+	            _this3.nodes = response.nodes;
 
-	            _this2.$nextTick(function () {
-	                _this2._input = window.$('#vue-order-title-input-' + _this2._uid);
+	            _this3.$nextTick(function () {
+	                _this3._input = window.$('#vue-order-title-input-' + _this3._uid);
 
-	                _this2._input.sticky({
+	                _this3._input.sticky({
 	                    offset: 20,
 	                    bottomOffset: 20
 	                });
@@ -10777,6 +10753,12 @@
 	exports.default = {
 	    props: ['workflowId', 'nodes'],
 
+	    methods: {
+	        deleteNode: function deleteNode(node) {
+	            this.$dispatch('delete', node);
+	        }
+	    },
+
 	    computed: {
 	        sortedNodes: function sortedNodes() {
 	            return (0, _sortBy2.default)(this.nodes, 'order');
@@ -10796,6 +10778,7 @@
 	//             <div class="middle aligned content">
 	//                 <div class="header">
 	//                     {{ node.order }}.&nbsp;{{ node.title }}
+	//                     <i class="red trash link icon" @click="deleteNode(node)"></i>
 	//                 </div>
 	//                 <div class="vue-divider">
 	//                     <i class="large grey long arrow down icon"></i>
@@ -10804,7 +10787,10 @@
 	//         </div>
 	//         <div class="item" v-if="lastNode">
 	//             <div class="middle aligned content">
-	//                 <div class="header">{{ lastNode.order }}.&nbsp;{{ lastNode.title }}</div>
+	//                 <div class="header">
+	//                     {{ lastNode.order }}.&nbsp;{{ lastNode.title }}
+	//                     <i class="red trash link icon" @click="deleteNode(lastNode)"></i>
+	//                 </div>
 	//             </div>
 	//         </div>
 	//     </div>
@@ -12824,7 +12810,7 @@
 /* 81 */
 /***/ function(module, exports) {
 
-	module.exports = "\n<div class=\"ui items\">\n    <div class=\"item\" v-for=\"node in nodesExceptLast\">\n        <div class=\"middle aligned content\">\n            <div class=\"header\">\n                {{ node.order }}.&nbsp;{{ node.title }}\n            </div>\n            <div class=\"vue-divider\">\n                <i class=\"large grey long arrow down icon\"></i>\n            </div>\n        </div>\n    </div>\n    <div class=\"item\" v-if=\"lastNode\">\n        <div class=\"middle aligned content\">\n            <div class=\"header\">{{ lastNode.order }}.&nbsp;{{ lastNode.title }}</div>\n        </div>\n    </div>\n</div>\n";
+	module.exports = "\n<div class=\"ui items\">\n    <div class=\"item\" v-for=\"node in nodesExceptLast\">\n        <div class=\"middle aligned content\">\n            <div class=\"header\">\n                {{ node.order }}.&nbsp;{{ node.title }}\n                <i class=\"red trash link icon\" @click=\"deleteNode(node)\"></i>\n            </div>\n            <div class=\"vue-divider\">\n                <i class=\"large grey long arrow down icon\"></i>\n            </div>\n        </div>\n    </div>\n    <div class=\"item\" v-if=\"lastNode\">\n        <div class=\"middle aligned content\">\n            <div class=\"header\">\n                {{ lastNode.order }}.&nbsp;{{ lastNode.title }}\n                <i class=\"red trash link icon\" @click=\"deleteNode(lastNode)\"></i>\n            </div>\n        </div>\n    </div>\n</div>\n";
 
 /***/ },
 /* 82 */
@@ -14115,4 +14101,4 @@
 	module.exports = "\n<div class=\"ui grid\">\n    <div class=\"row\">\n        <div class=\"sixteen wide column\">\n            <div class=\"ui raised segment\">\n                <div class=\"ui mini five statistics\">\n                    <div class=\"statistic\">\n                        <div class=\"label\">{{ totalPriceLabel }}</div>\n                        <div class=\"value\">{{ total | currency }}</div>\n                    </div>\n                    <div class=\"statistic\" v-for=\"(key, typeTotal) in typeTotals\">\n                        <div class=\"label\">{{ costTypes[key] }}</div>\n                        <div class=\"value\">{{ typeTotal | currency }}</div>\n                    </div>\n                </div>\n            </div>\n        </div>\n    </div>\n    <div class=\"row\">\n        <div class=\"nine wide column\">\n            <div class=\"ui cards\">\n                <price-card\n                    v-for=\"item in items | orderBy 'order'\"\n                    :item.once=\"item\"\n                    :amount-text.once=\"amountText\"\n                    :unit-price-text.once=\"unitPriceText\"\n                ></price-card>\n            </div>\n        </div>\n        <div class=\"seven wide column\">\n            <workitem-form :labels.once=\"labels\" class=\"sticky\" id=\"vue-workitem-form-{{ _uid }}\" v-ref:form></workitem-form>\n        </div>\n    </div>\n</div>\n";
 
 /***/ }
-/******/ ]);
+]);

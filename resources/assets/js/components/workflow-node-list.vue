@@ -4,6 +4,7 @@
             <div class="middle aligned content">
                 <div class="header">
                     {{ node.order }}.&nbsp;{{ node.title }}
+                    <i class="red trash link icon" @click="deleteNode(node)"></i>
                 </div>
                 <div class="vue-divider">
                     <i class="large grey long arrow down icon"></i>
@@ -12,7 +13,10 @@
         </div>
         <div class="item" v-if="lastNode">
             <div class="middle aligned content">
-                <div class="header">{{ lastNode.order }}.&nbsp;{{ lastNode.title }}</div>
+                <div class="header">
+                    {{ lastNode.order }}.&nbsp;{{ lastNode.title }}
+                    <i class="red trash link icon" @click="deleteNode(lastNode)"></i>
+                </div>
             </div>
         </div>
     </div>
@@ -32,6 +36,12 @@
 
     export default {
         props: ['workflowId', 'nodes'],
+
+        methods: {
+            deleteNode(node) {
+                this.$dispatch('delete', node)
+            }
+        },
 
         computed: {
             sortedNodes() {

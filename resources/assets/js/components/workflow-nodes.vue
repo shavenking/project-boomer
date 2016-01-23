@@ -27,10 +27,26 @@
         return window.$.post(`/api/v1/workflows/${workflowId}/nodes`, {order, title})
     }
 
+    function deleteNode(node) {
+        return window.$.post(`/api/v1/workflows/${node.workflow_id}/nodes/${node.id}`, {
+            _method: 'DELETE'
+        })
+    }
+
     export default {
         components: { OrderTitleInput, WorkflowNodeList },
 
         props: ['workflowId', 'labelText'],
+
+        events: {
+            delete(node) {
+                deleteNode(node).then(response => {
+                    this.nodes = this.nodes.filter(candidate => {
+                        return candidate.id !== node.id
+                    })
+                })
+            }
+        },
 
         methods: {
             onValid(dataBag) {
