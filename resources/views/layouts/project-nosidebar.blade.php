@@ -16,10 +16,6 @@
             @include('components.project-secondary-menu')
         </div>
 
-        <div class="four wide column">
-            @include('components.project-sidebar')
-        </div>
-
         <div class="twelve wide column">
 
             <div class="ui grid">

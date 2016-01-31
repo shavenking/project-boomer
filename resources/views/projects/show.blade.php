@@ -3,7 +3,7 @@
     "{$project->name}" => null
 ] /* --}}
 
-@extends('layouts.project')
+@extends('layouts.project-nosidebar')
 
 @section('content')
     {{ trans_choice('all.projects', 1) }}: {{ $project->name }}
