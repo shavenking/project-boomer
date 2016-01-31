@@ -32,7 +32,7 @@ Route::group(['middleware' => ['csrftoken', 'localize']], function () {
 
     get('projects/{project}/internal', Projects\ProjectViewsController::class . '@internal')->name('projects.internal.index');
     get('projects/{project}/external', Projects\ProjectViewsController::class . '@external')->name('projects.external.index');
-    get('proejcts/{project}/bid', Bids\BidViewsController::class . '@index')->name('projects.bid.index');
+    get('projects/{project}/bid', Bids\BidViewsController::class . '@index')->name('projects.bid.index');
     get('projects/{project}/bid/works', Bids\BidViewsController::class . '@works')->name('projects.bid.works');
     get('projects/{project}/works/search', Projects\WorksController::class . '@search')->name('projects.works.search');
     resource('projects.fault-improvements', Projects\FaultImprovementsController::class);
