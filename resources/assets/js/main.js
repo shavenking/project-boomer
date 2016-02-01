@@ -5,6 +5,7 @@ import UnitSelect from './components/unit-select.vue'
 import WorkflowSelect from './components/workflow-select.vue'
 import WorkflowNodes from './components/workflow-nodes.vue'
 import WorkitemList from './components/workitem-list.vue'
+import Checklist from './components/checklist.vue'
 
 new Vue({
     el: 'body',
@@ -14,6 +15,7 @@ new Vue({
         FlowtypeSelect,
         UnitSelect,
         WorkflowSelect,
-        WorkitemList
+        WorkitemList,
+        Checklist
     }
 })

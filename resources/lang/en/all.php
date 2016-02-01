@@ -23,6 +23,7 @@ return [
 
     'order' => 'Order',
     'name' => 'Name',
+    'title' => 'Title',
     'detail' => 'Detail',
     'amount' => 'Amount',
     'unit_price' => 'Unit Price',

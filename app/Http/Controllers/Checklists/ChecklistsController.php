@@ -1,15 +1,13 @@
 <?php
 
-namespace App\Http\Controllers\Projects;
+namespace App\Http\Controllers\Checklists;
 
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
-use App\Entities\Project;
-
-class ProjectViewsController extends Controller
+class ChecklistsController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -18,23 +16,7 @@ class ProjectViewsController extends Controller
      */
     public function index()
     {
-        $projects = Project::all();
-
-        return view('projects.index')->withProjects($projects);
-    }
-
-    public function internal($id)
-    {
-        $project = Project::findOrFail($id);
-
-        return view('projects.internal')->withProject($project);
-    }
-
-    public function external($id)
-    {
-        $project = Project::findOrFail($id);
-
-        return view('projects.external')->withProject($project);
+        //
     }
 
     /**
@@ -44,7 +26,7 @@ class ProjectViewsController extends Controller
      */
     public function create()
     {
-        return view('projects.create');
+        //
     }
 
     /**
@@ -55,15 +37,7 @@ class ProjectViewsController extends Controller
      */
     public function store(Request $request)
     {
-        $validator = $this->validate($request, [
-            'name' => 'required'
-        ]);
-
-        $name = $request->input('name');
-
-        $project = Project::create(compact('name'));
-
-        return redirect()->route('projects.show', $project->id);
+        //
     }
 
     /**
@@ -74,9 +48,11 @@ class ProjectViewsController extends Controller
      */
     public function show($id)
     {
-        $project = Project::findOrFail($id);
+        $checklist = \App\Entities\Checklist::findOrFail($id);
 
-        return view('projects.show')->withProject($project);
+        $checkitems = $checklist->checkitems;
+
+        return response()->json(compact('checklist', 'checkitems'));
     }
 
     /**
