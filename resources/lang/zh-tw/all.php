@@ -23,6 +23,7 @@ return [
 
     'order' => '順序',
     'name' => '名稱',
+    'title' => '項次',
     'detail' => '細項',
     'amount' => '數量',
     'unit_price' => '單價',

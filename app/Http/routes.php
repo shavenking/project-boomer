@@ -15,6 +15,9 @@ Route::group(['prefix' => 'api/v1'], function () {
     resource('works.work-items', Works\WorkItemsController::class);
 
     resource('projects.works', Projects\WorksController::class);
+
+    resource('checklists.checkitems', Checklists\CheckitemsController::class);
+    resource('checklists', Checklists\ChecklistsController::class);
 });
 
 Route::group(['middleware' => ['csrftoken', 'localize']], function () {
