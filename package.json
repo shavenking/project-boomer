@@ -11,8 +11,7 @@
     "vue-html-loader": "^1.1.0",
     "vue-loader": "^8.0.2",
     "vue-style-loader": "^1.0.0",
-    "webpack": "^1.12.11",
-    "webpack-notifier": "^1.2.1"
+    "webpack": "^1.12.11"
   },
   "dependencies": {
     "bootstrap-sass": "^3.0.0",

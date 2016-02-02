@@ -1,5 +1,4 @@
 var webpack = require('webpack')
-var WebpackNotifierPlugin = require('webpack-notifier')
 
 module.exports = {
     entry: {
@@ -29,7 +28,6 @@ module.exports = {
         }
     },
     plugins: [
-        new WebpackNotifierPlugin(),
         new webpack.optimize.CommonsChunkPlugin("vendor", "vendor.bundle.js")
     ]
 }
