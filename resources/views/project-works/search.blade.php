@@ -12,8 +12,10 @@
 
     <div class="ui raised segment">
         <form method="GET" action="{{ route('projects.bid.works', $project->id)}}" class="ui inline form">
-            <div id="flowtype-select"></div>
-
+            <div class="field">
+                <label>{{ trans('all.select_type_order') }}</label>
+                <flowtype-select></flowtype-select>
+            </div>
             <button class="ui primary button" type="submit">{{ trans('all.search') }}</button>
         </form>
     </div>
