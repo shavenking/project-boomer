@@ -56,28 +56,25 @@ class WorksController extends Controller
     public function store($projectId, Request $request)
     {
         $this->validate($request, [
-            'detailingflow_type_id' => 'required',
-            'work_id' => 'required',
-            'name' => 'required',
-            'amount' => 'required',
-            'unit_price' => 'required'
+            'work_ids' => 'required'
         ]);
 
-        $referencedWork = \App\Entities\Work::findOrFail($request->input('work_id'));
+        $workIds = explode(',', $request->input('work_ids'));
+
+        $works = \App\Entities\Work::findOrFail($workIds);
 
         $project = \App\Entities\Project::findOrFail($projectId);
 
-        $work = $project->works()->create(array_merge($referencedWork->toArray(), [
-            'name' => $request->input('name'),
-            'amount' => $request->input('amount')
-        ]));
+        $works->each(function ($work) use ($project) {
+            $projectWork = $project->works()->create($work->toArray());
 
-        foreach ($referencedWork->items as $workitem) {
-            $work->workitems()->create($workitem->toArray());
-        }
+            $work->items->each(function ($item) use ($projectWork) {
+                $projectWork->workitems()->create($item->toArray());
+            });
+        });
 
         if ($request->ajax()) {
-            return response()->json(compact('work'));
+            return response()->json();
         }
 
         return redirect()->route('projects.bid.works', $projectId);

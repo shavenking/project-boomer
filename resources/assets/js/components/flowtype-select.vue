@@ -37,6 +37,8 @@
     export default {
         components: { DropdownSelect },
 
+        props: ['onSelected'],
+
         methods: {
             onMainflowTypeSelected(mainflowTypeId) {
                 getDetailingflowTypes(mainflowTypeId).then(response => {
@@ -50,6 +52,10 @@
                 return false
             },
             onDetailingflowTypeSelected(detailingflowTypeId) {
+                if (this.onSelected) {
+                    this.onSelected(detailingflowTypeId)
+                }
+                
                 return false
             }
         },

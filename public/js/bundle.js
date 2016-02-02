@@ -36,6 +36,10 @@ webpackJsonp([0],[
 
 	var _checklist2 = _interopRequireDefault(_checklist);
 
+	var _flowtypeWorkSelect = __webpack_require__(115);
+
+	var _flowtypeWorkSelect2 = _interopRequireDefault(_flowtypeWorkSelect);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	new _vue2.default({
@@ -47,7 +51,8 @@ webpackJsonp([0],[
 	        UnitSelect: _unitSelect2.default,
 	        WorkflowSelect: _workflowSelect2.default,
 	        WorkitemList: _workitemList2.default,
-	        Checklist: _checklist2.default
+	        Checklist: _checklist2.default,
+	        FlowtypeWorkSelect: _flowtypeWorkSelect2.default
 	    }
 	});
 
@@ -10038,6 +10043,8 @@ webpackJsonp([0],[
 	exports.default = {
 	    components: { DropdownSelect: _dropdownSelect2.default },
 
+	    props: ['onSelected'],
+
 	    methods: {
 	        onMainflowTypeSelected: function onMainflowTypeSelected(mainflowTypeId) {
 	            var _this = this;
@@ -10053,6 +10060,10 @@ webpackJsonp([0],[
 	            return false;
 	        },
 	        onDetailingflowTypeSelected: function onDetailingflowTypeSelected(detailingflowTypeId) {
+	            if (this.onSelected) {
+	                this.onSelected(detailingflowTypeId);
+	            }
+
 	            return false;
 	        }
 	    },
@@ -26740,6 +26751,126 @@ webpackJsonp([0],[
 /***/ function(module, exports) {
 
 	module.exports = "\n<table class=\"ui celled structured table\">\n    <thead>\n        <tr>\n            <th class=\"four wide center aligned\">{{ titleLabel }}</th>\n            <th class=\"twelve wide\">{{ detailLabel }}</th>\n        </tr>\n    </thead>\n    <tbody v-for=\"(title, items) in groupedItems\">\n        <tr v-for=\"(idx, item) in items\">\n            <td :rowspan=\"items.length\" v-if=\"0 === idx\" class=\"top aligned center aligned\">{{ title }}</td>\n            <td v-if=\"item.detail\">{{ item.detail }}</td>\n            <td v-if=\"!item.detail\">\n                <div class=\"ui fluid icon input\">\n                    <input type=\"text\" @keypress.enter=\"onSubmit(title, $event)\">\n                    <i class=\"plus icon\"></i>\n                </div>\n            </td>\n        </tr>\n    </tbody>\n</table>\n";
+
+/***/ },
+/* 115 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var __vue_script__, __vue_template__
+	__vue_script__ = __webpack_require__(116)
+	if (__vue_script__ &&
+	    __vue_script__.__esModule &&
+	    Object.keys(__vue_script__).length > 1) {
+	  console.warn("[vue-loader] resources/assets/js/components/flowtype-work-select.vue: named exports in *.vue files are ignored.")}
+	__vue_template__ = __webpack_require__(117)
+	module.exports = __vue_script__ || {}
+	if (module.exports.__esModule) module.exports = module.exports.default
+	if (__vue_template__) {
+	(typeof module.exports === "function" ? (module.exports.options || (module.exports.options = {})) : module.exports).template = __vue_template__
+	}
+	if (false) {(function () {  module.hot.accept()
+	  var hotAPI = require("vue-hot-reload-api")
+	  hotAPI.install(require("vue"), true)
+	  if (!hotAPI.compatible) return
+	  var id = "/home/vagrant/Code/project-boomer/resources/assets/js/components/flowtype-work-select.vue"
+	  if (!module.hot.data) {
+	    hotAPI.createRecord(id, module.exports)
+	  } else {
+	    hotAPI.update(id, module.exports, __vue_template__)
+	  }
+	})()}
+
+/***/ },
+/* 116 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+
+	var _flowtypeSelect = __webpack_require__(9);
+
+	var _flowtypeSelect2 = _interopRequireDefault(_flowtypeSelect);
+
+	var _dropdownSelect = __webpack_require__(5);
+
+	var _dropdownSelect2 = _interopRequireDefault(_dropdownSelect);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	// <template>
+	//     <div class="field">
+	//         <label>{{ selectTypeOrderLabel }}</label>
+	//         <flowtype-select :on-selected.once="onFlowtypeSelected"></flowtype-select>
+	//     </div>
+	//     <div class="field">
+	//         <label>{{ selectWorkLabel }}</label>
+	//         <dropdown-select
+	//             input-name="work_ids"
+	//             :options="works"
+	//             option-value-name="id"
+	//             option-text-name="name"
+	//             :multiple.once="true"
+	//             v-ref:work-select
+	//         ></dropdown-select>
+	//     </div>
+	// </template>
+	//
+	// <script>
+
+	function getWorks(detailingflowTypeId) {
+	    if (!detailingflowTypeId) {
+	        return window.$.getJSON('/api/v1/works');
+	    }
+
+	    return window.$.getJSON('/api/v1/works?detailingflow_type_id=' + detailingflowTypeId);
+	}
+
+	exports.default = {
+	    props: ['selectTypeOrderLabel', 'selectWorkLabel'],
+
+	    components: { FlowtypeSelect: _flowtypeSelect2.default, DropdownSelect: _dropdownSelect2.default },
+
+	    methods: {
+	        onFlowtypeSelected: function onFlowtypeSelected(detailingflowTypeId) {
+	            var _this = this;
+
+	            if (!detailingflowTypeId) {
+	                return false;
+	            }
+
+	            getWorks(detailingflowTypeId).then(function (response) {
+	                _this.works = response.works;
+
+	                _this.$nextTick(function () {
+	                    _this.$refs.workSelect.$emit('optionsUpdated');
+	                });
+	            });
+	        }
+	    },
+
+	    data: function data() {
+	        return {
+	            works: []
+	        };
+	    },
+	    ready: function ready() {
+	        var _this2 = this;
+
+	        getWorks().then(function (response) {
+	            _this2.works = response.works;
+	        });
+	    }
+	};
+	// </script>
+
+/***/ },
+/* 117 */
+/***/ function(module, exports) {
+
+	module.exports = "\n<div class=\"field\">\n    <label>{{ selectTypeOrderLabel }}</label>\n    <flowtype-select :on-selected.once=\"onFlowtypeSelected\"></flowtype-select>\n</div>\n<div class=\"field\">\n    <label>{{ selectWorkLabel }}</label>\n    <dropdown-select\n        input-name=\"work_ids\"\n        :options=\"works\"\n        option-value-name=\"id\"\n        option-text-name=\"name\"\n        :multiple.once=\"true\"\n        v-ref:work-select\n    ></dropdown-select>\n</div>\n";
 
 /***/ }
 ]);
