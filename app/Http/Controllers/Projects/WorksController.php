@@ -14,16 +14,30 @@ class WorksController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request)
+    public function index($projectId, Request $request)
     {
+        $mainflowTypeId = $request->query('mainflow_type_id');
         $detailingflowTypeId = $request->query('detailingflow_type_id');
 
-        // if ($detailingflowTypeId) {
-        //     $workIds = \App\Entities\Work::whereDetailingflowTypeId($detailingflowTypeId)->lists('id');
-        //     $works = \App\Entities\ProjectWork::whereIn('work_id', $workIds)->get();
-        // } else {
-            $works = \App\Entities\ProjectWork::all();
-        // }
+        $project = \App\Entities\Project::findOrFail($projectId);
+
+        $query = \App\Entities\ProjectWork::query();
+
+        if (!empty($mainflowTypeId)) {
+            $query->whereHas('detailingflowType', function ($query) use ($mainflowTypeId) {
+                $query->whereMainflowTypeId($mainflowTypeId);
+            });
+
+            $mainflowTypeName = \App\Entities\MainflowType::findOrFail($mainflowTypeId)->name;
+        }
+
+        if (!empty($detailingflowTypeId)) {
+            $query->whereDetailingflowTypeId($detailingflowTypeId);
+
+            $detailingflowTypeName = \App\Entities\DetailingflowType::findOrFail($detailingflowTypeId)->name;
+        }
+
+        $works = $query->with('detailingflowType.mainflowType', 'unit')->get();
 
         return response()->json(compact('works'));
     }

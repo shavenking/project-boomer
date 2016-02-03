@@ -40,6 +40,10 @@ webpackJsonp([0],[
 
 	var _flowtypeWorkSelect2 = _interopRequireDefault(_flowtypeWorkSelect);
 
+	var _tableProjectWorks = __webpack_require__(174);
+
+	var _tableProjectWorks2 = _interopRequireDefault(_tableProjectWorks);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	new _vue2.default({
@@ -52,7 +56,8 @@ webpackJsonp([0],[
 	        WorkflowSelect: _workflowSelect2.default,
 	        WorkitemList: _workitemList2.default,
 	        Checklist: _checklist2.default,
-	        FlowtypeWorkSelect: _flowtypeWorkSelect2.default
+	        FlowtypeWorkSelect: _flowtypeWorkSelect2.default,
+	        TableProjectWorks: _tableProjectWorks2.default
 	    }
 	});
 
@@ -26871,6 +26876,206 @@ webpackJsonp([0],[
 /***/ function(module, exports) {
 
 	module.exports = "\n<div class=\"field\">\n    <label>{{ selectTypeOrderLabel }}</label>\n    <flowtype-select :on-selected.once=\"onFlowtypeSelected\"></flowtype-select>\n</div>\n<div class=\"field\">\n    <label>{{ selectWorkLabel }}</label>\n    <dropdown-select\n        input-name=\"work_ids\"\n        :options=\"works\"\n        option-value-name=\"id\"\n        option-text-name=\"name\"\n        :multiple.once=\"true\"\n        v-ref:work-select\n    ></dropdown-select>\n</div>\n";
+
+/***/ },
+/* 118 */,
+/* 119 */,
+/* 120 */,
+/* 121 */,
+/* 122 */,
+/* 123 */,
+/* 124 */,
+/* 125 */,
+/* 126 */,
+/* 127 */,
+/* 128 */,
+/* 129 */,
+/* 130 */,
+/* 131 */,
+/* 132 */,
+/* 133 */,
+/* 134 */,
+/* 135 */,
+/* 136 */,
+/* 137 */,
+/* 138 */,
+/* 139 */,
+/* 140 */,
+/* 141 */,
+/* 142 */,
+/* 143 */,
+/* 144 */,
+/* 145 */,
+/* 146 */,
+/* 147 */,
+/* 148 */,
+/* 149 */,
+/* 150 */,
+/* 151 */,
+/* 152 */,
+/* 153 */,
+/* 154 */,
+/* 155 */,
+/* 156 */,
+/* 157 */,
+/* 158 */,
+/* 159 */,
+/* 160 */,
+/* 161 */,
+/* 162 */,
+/* 163 */,
+/* 164 */,
+/* 165 */,
+/* 166 */,
+/* 167 */,
+/* 168 */,
+/* 169 */,
+/* 170 */,
+/* 171 */,
+/* 172 */,
+/* 173 */,
+/* 174 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var __vue_script__, __vue_template__
+	__vue_script__ = __webpack_require__(175)
+	if (__vue_script__ &&
+	    __vue_script__.__esModule &&
+	    Object.keys(__vue_script__).length > 1) {
+	  console.warn("[vue-loader] resources/assets/js/components/table-project-works.vue: named exports in *.vue files are ignored.")}
+	__vue_template__ = __webpack_require__(176)
+	module.exports = __vue_script__ || {}
+	if (module.exports.__esModule) module.exports = module.exports.default
+	if (__vue_template__) {
+	(typeof module.exports === "function" ? (module.exports.options || (module.exports.options = {})) : module.exports).template = __vue_template__
+	}
+	if (false) {(function () {  module.hot.accept()
+	  var hotAPI = require("vue-hot-reload-api")
+	  hotAPI.install(require("vue"), true)
+	  if (!hotAPI.compatible) return
+	  var id = "/home/vagrant/Code/project-boomer/resources/assets/js/components/table-project-works.vue"
+	  if (!module.hot.data) {
+	    hotAPI.createRecord(id, module.exports)
+	  } else {
+	    hotAPI.update(id, module.exports, __vue_template__)
+	  }
+	})()}
+
+/***/ },
+/* 175 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+
+	var _lodash = __webpack_require__(112);
+
+	var _lodash2 = _interopRequireDefault(_lodash);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function getProjectWorks(projectId, queries) {
+	    var queryArray = [];
+
+	    if (queries.mainflow_type_id) {
+	        queryArray.push('mainflow_type_id=' + queries.mainflow_type_id);
+	    }
+
+	    if (queries.detailingflow_type_id) {
+	        queryArray.push('detailingflow_type_id=' + queries.detailingflow_type_id);
+	    }
+
+	    var queryString = queryArray.join('&');
+
+	    return window.$.getJSON('/api/v1/projects/' + projectId + '/works?' + queryString);
+	} // <template>
+	//     <table class="ui table">
+	//         <thead>
+	//             <tr>
+	//                 <th class="four wide center aligned">{{ typeOrderLabel }}</th>
+	//                 <th>{{ nameLabel }}</th>
+	//                 <th>{{ unitLabel }}</th>
+	//                 <th>{{ unitPriceLabel }}</th>
+	//                 <th>{{ amountLabel }}</th>
+	//                 <th>{{ totalPriceLabel }}</th>
+	//                 <th>
+	//                 </th>
+	//             </tr>
+	//         </thead>       
+	//         <tbody v-for="(detailingflowTypeId, works) in groupedWorks">
+	//             <tr v-for="(idx, work) in works">
+	//                 <td :rowspan="works.length" v-if="0 === idx" class="top aligned center aligned">
+	//                     {{ work.detailingflow_type.mainflow_type.name }}
+	//                     <br>
+	//                     {{ work.detailingflow_type.name }}
+	//                 </td>
+	//                 <td>{{ work.name }}</td>
+	//                 <td>{{ work.unit.name }}</td>
+	//                 <td>{{ work.unit_price | currency}}</td>
+	//                 <td>{{ work.amount }}</td>
+	//                 <td>{{ work.unit_price * work.amount | currency }}</td>
+	//                 <td><a href="{{ '/projects/' + projectId + '/works/' + work.id }}">{{ workitemsLabel }}</a></td>
+	//             </tr>
+	//         </tbody>
+	//         <tfoot>
+	//             <tr>
+	//                 <th></th>
+	//                 <th></th>
+	//                 <th></th>
+	//                 <th></th>
+	//                 <th></th>
+	//                 <th>{{ totalWorkPrice | currency }}</th>
+	//                 <th></th>
+	//             </tr>
+	//         </tfoot>
+	//     </table>
+	// </template>
+	//
+	// <script>
+
+	exports.default = {
+	    props: ['projectId', 'query', 'unitLabel', 'nameLabel', 'amountLabel', 'workitemsLabel', 'unitPriceLabel', 'totalPriceLabel', 'typeOrderLabel'],
+
+	    computed: {
+	        queries: function queries() {
+	            return JSON.parse(this.query);
+	        },
+	        totalWorkPrice: function totalWorkPrice() {
+	            var sum = 0;
+	            _lodash2.default.forEach(this.works, function (work) {
+	                sum += work.amount * work.unit_price;
+	            });
+
+	            return sum;
+	        },
+	        groupedWorks: function groupedWorks() {
+	            return _lodash2.default.groupBy(this.works, 'detailingflow_type_id');
+	        }
+	    },
+
+	    data: function data() {
+	        return {
+	            works: []
+	        };
+	    },
+	    ready: function ready() {
+	        var _this = this;
+
+	        getProjectWorks(this.projectId, this.queries).then(function (response) {
+	            _this.works = response.works;
+	        });
+	    }
+	};
+	// </script>
+
+/***/ },
+/* 176 */
+/***/ function(module, exports) {
+
+	module.exports = "\n<table class=\"ui table\">\n    <thead>\n        <tr>\n            <th class=\"four wide center aligned\">{{ typeOrderLabel }}</th>\n            <th>{{ nameLabel }}</th>\n            <th>{{ unitLabel }}</th>\n            <th>{{ unitPriceLabel }}</th>\n            <th>{{ amountLabel }}</th>\n            <th>{{ totalPriceLabel }}</th>\n            <th>\n            </th>\n        </tr>\n    </thead>        \n    <tbody v-for=\"(detailingflowTypeId, works) in groupedWorks\">\n        <tr v-for=\"(idx, work) in works\">\n            <td :rowspan=\"works.length\" v-if=\"0 === idx\" class=\"top aligned center aligned\">\n                {{ work.detailingflow_type.mainflow_type.name }}\n                <br>\n                {{ work.detailingflow_type.name }}\n            </td>\n            <td>{{ work.name }}</td>\n            <td>{{ work.unit.name }}</td>\n            <td>{{ work.unit_price | currency}}</td>\n            <td>{{ work.amount }}</td>\n            <td>{{ work.unit_price * work.amount | currency }}</td>\n            <td><a href=\"{{ '/projects/' + projectId + '/works/' + work.id }}\">{{ workitemsLabel }}</a></td>\n        </tr>\n    </tbody>\n    <tfoot>\n        <tr>\n            <th></th>\n            <th></th>\n            <th></th>\n            <th></th>\n            <th></th>\n            <th>{{ totalWorkPrice | currency }}</th>\n            <th></th>\n        </tr>\n    </tfoot>\n</table>\n";
 
 /***/ }
 ]);

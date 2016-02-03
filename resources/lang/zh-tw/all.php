@@ -16,11 +16,13 @@ return [
     'fault_improvements' => '缺失改善表|缺失改善表列表',
     'bid' => '標單',
     'search' => '搜尋',
+    'clear_search' => '清除搜尋',
 
     'unchecked' => '未審核',
     'passes' => '通過',
     'failed' => '缺失',
 
+    'type_order' => '工程類別、順序',
     'order' => '順序',
     'name' => '名稱',
     'title' => '項次',

@@ -16,11 +16,13 @@ return [
     'fault_improvements' => 'Fault Improvement|Fault Improvements',
     'bid' => 'Bid',
     'search' => 'Search',
+    'clear_search' => 'Clear Search',
 
     'unchecked' => 'Unchecked',
     'passes' => 'Passes',
     'failed' => 'Failed',
 
+    'type_order' => 'Types & Order',
     'order' => 'Order',
     'name' => 'Name',
     'title' => 'Title',
