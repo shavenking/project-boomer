@@ -2,7 +2,7 @@
     trans_choice('all.projects', 2) => route('projects.index'),
     "{$project->name}" => route('projects.show', $project->id),
     trans('all.bid') => route('projects.bid.index', $project->id),
-    trans('all.works') => null
+    trans_choice('all.works', 2) => null
 ] /* --}}
 
 @extends('layouts.project')
