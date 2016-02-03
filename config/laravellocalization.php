@@ -292,6 +292,7 @@ return [
         // 'zh'          => ['name' => 'Chinese (Simplified)',   'script' => 'Hans', 'native' => '简体中文'],
         // 'zh-Hant'     => ['name' => 'Chinese (Traditional)',  'script' => 'Hant', 'native' => '繁體中文'],
         'zh-tw'     => ['name' => 'Chinese (Traditional)',  'script' => 'Hant', 'native' => '繁體中文'],
+        'zh-TW'     => ['name' => 'Chinese (Traditional)',  'script' => 'Hant', 'native' => '繁體中文'],
         // 'ii'          => ['name' => 'Sichuan Yi',             'script' => 'Yiii', 'native' => 'ꆈꌠꉙ'],
         // 'vai'         => ['name' => 'Vai (Vai)',              'script' => 'Vaii', 'native' => 'ꕙꔤ'],
         // 'jv-Java'     => ['name' => 'Javanese (Javanese)',    'script' => 'Java', 'native' => 'ꦧꦱꦗꦮ'],
