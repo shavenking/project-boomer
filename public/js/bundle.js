@@ -48,6 +48,10 @@ webpackJsonp([0],[
 
 	var _tableWorkitems2 = _interopRequireDefault(_tableWorkitems);
 
+	var _statisticsWorkitems = __webpack_require__(124);
+
+	var _statisticsWorkitems2 = _interopRequireDefault(_statisticsWorkitems);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	new _vue2.default({
@@ -62,7 +66,8 @@ webpackJsonp([0],[
 	        Checklist: _checklist2.default,
 	        FlowtypeWorkSelect: _flowtypeWorkSelect2.default,
 	        TableProjectWorks: _tableProjectWorks2.default,
-	        TableWorkitems: _tableWorkitems2.default
+	        TableWorkitems: _tableWorkitems2.default,
+	        StatisticsWorkitems: _statisticsWorkitems2.default
 	    }
 	});
 
@@ -27146,6 +27151,129 @@ webpackJsonp([0],[
 /***/ function(module, exports) {
 
 	module.exports = "\n<table class=\"ui table\">\n    <thead>\n        <tr>\n            <th>{{ costTypeLabel }}</th>\n            <th>{{ nameLabel }}</th>\n            <th>{{ unitLabel }}</th>\n            <th>{{ unitPriceLabel }}</th>\n            <th>{{ amountLabel }}</th>\n            <th>{{ totalPriceLabel }}</th>\n        </tr>\n    </thead>\n    <tbody v-for=\"items in groupedItems\">\n        <tr v-for=\"(idx, item) in items\">\n            <td :rowspan=\"items.length\" v-if=\"0 === idx\" class=\"top aligned collapsing\">\n                {{ item.cost_type.name }}\n            </td>\n            <td>{{ item.name }}</td>\n            <td>{{ item.unit.name }}</td>\n            <td>{{ item.unit_price | currency }}</td>\n            <td>{{ item.amount }}</td>\n            <td>{{ item.unit_price * item.amount | currency }}</td>\n        </tr>\n    </tbody>\n    <tfoot>\n        <th></th>\n        <th></th>\n        <th></th>\n        <th></th>\n        <th></th>\n        <th>{{ totalPrice | currency }}</th>\n    </tfoot>\n</table>\n";
+
+/***/ },
+/* 124 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var __vue_script__, __vue_template__
+	__vue_script__ = __webpack_require__(125)
+	if (__vue_script__ &&
+	    __vue_script__.__esModule &&
+	    Object.keys(__vue_script__).length > 1) {
+	  console.warn("[vue-loader] resources/assets/js/components/statistics-workitems.vue: named exports in *.vue files are ignored.")}
+	__vue_template__ = __webpack_require__(126)
+	module.exports = __vue_script__ || {}
+	if (module.exports.__esModule) module.exports = module.exports.default
+	if (__vue_template__) {
+	(typeof module.exports === "function" ? (module.exports.options || (module.exports.options = {})) : module.exports).template = __vue_template__
+	}
+	if (false) {(function () {  module.hot.accept()
+	  var hotAPI = require("vue-hot-reload-api")
+	  hotAPI.install(require("vue"), true)
+	  if (!hotAPI.compatible) return
+	  var id = "/Users/shavenking/Code/project-boomer/resources/assets/js/components/statistics-workitems.vue"
+	  if (!module.hot.data) {
+	    hotAPI.createRecord(id, module.exports)
+	  } else {
+	    hotAPI.update(id, module.exports, __vue_template__)
+	  }
+	})()}
+
+/***/ },
+/* 125 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+
+	var _lodash = __webpack_require__(112);
+
+	var _lodash2 = _interopRequireDefault(_lodash);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function getItems(workId) {
+	    return window.$.getJSON('/api/v1/works/' + workId + '/work-items');
+	} // <template>
+	//     <div class="ui mini five statistics">
+	//         <div class="statistic">
+	//             <div class="label">{{ totalPriceLabel }}</div>
+	//             <div class="value">{{ totalPrice | currency }}</div>
+	//         </div>
+	//         <div class="statistic" v-for="(costTypeId, totalPrice) in totalPriceByTypes">
+	//             <div class="label">{{ costTypes[costTypeId] }}</div>
+	//             <div class="value">{{ totalPrice | currency }}</div>
+	//         </div>
+	//     </div>
+	// </template>
+	//
+	// <script>
+
+	function getTypes() {
+	    return window.$.getJSON('/api/v1/cost-types');
+	}
+
+	exports.default = {
+	    props: ['workId', 'totalPriceLabel'],
+
+	    computed: {
+	        totalPrice: function totalPrice() {
+	            var sum = 0;
+	            _lodash2.default.forEach(this.items, function (item) {
+	                sum += item.amount * item.unit_price;
+	            });
+
+	            return sum;
+	        },
+	        totalPriceByTypes: function totalPriceByTypes() {
+	            var totals = {};
+
+	            _lodash2.default.forEach(this.costTypes, function (name, typeId) {
+	                totals[typeId] = 0;
+	            });
+
+	            _lodash2.default.forEach(_lodash2.default.groupBy(this.items, 'cost_type_id'), function (items, costTypeId) {
+	                _lodash2.default.forEach(items, function (item) {
+	                    totals[costTypeId] += item.amount * item.unit_price;
+	                });
+	            });
+
+	            return totals;
+	        },
+	        groupedItems: function groupedItems() {
+	            return _lodash2.default.groupBy(this.items, 'cost_type_id');
+	        }
+	    },
+
+	    data: function data() {
+	        return {
+	            items: [],
+	            costTypes: []
+	        };
+	    },
+	    ready: function ready() {
+	        var _this = this;
+
+	        getItems(this.workId).then(function (response) {
+	            _this.items = response.work_items;
+	        });
+
+	        getTypes().then(function (response) {
+	            _this.costTypes = _lodash2.default.zipObject(_lodash2.default.pluck(response.cost_types, 'id'), _lodash2.default.pluck(response.cost_types, 'name'));
+	        });
+	    }
+	};
+	// </script>
+
+/***/ },
+/* 126 */
+/***/ function(module, exports) {
+
+	module.exports = "\n<div class=\"ui mini five statistics\">\n    <div class=\"statistic\">\n        <div class=\"label\">{{ totalPriceLabel }}</div>\n        <div class=\"value\">{{ totalPrice | currency }}</div>\n    </div>\n    <div class=\"statistic\" v-for=\"(costTypeId, totalPrice) in totalPriceByTypes\">\n        <div class=\"label\">{{ costTypes[costTypeId] }}</div>\n        <div class=\"value\">{{ totalPrice | currency }}</div>\n    </div>\n</div>\n";
 
 /***/ }
 ]);
