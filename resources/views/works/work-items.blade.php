@@ -18,7 +18,7 @@
     <table-workitems 
         work-id="{{ $work->id }}"
         cost-type-label="{{ trans('all.type') }}"
-        unit-label="{{ trans('all.select_unit') }}"
+        unit-label="{{ trans('all.unit') }}"
         name-label="{{ trans('all.name') }}"
         amount-label="{{ trans('all.amount') }}"
         unit-price-label="{{ trans('all.unit_price') }}"
