@@ -43,6 +43,7 @@ Route::group(['middleware' => ['csrftoken', 'localize']], function () {
     resource('projects.works.workitems', Projects\WorkitemsController::class);
     resource('projects.works', Projects\WorksController::class);
     put('projects/{project}/checklists/{checklist}/checkresults', Projects\ChecklistsController::class . '@updateCheckitemsResults')->name('projects.checklists.checkresults.update');
+    resource('projects.fault-improvements', Projects\FaultImprovementsController::class);
     resource('projects.checklists', Projects\ChecklistsController::class);
     resource('projects', Projects\ProjectViewsController::class);
 

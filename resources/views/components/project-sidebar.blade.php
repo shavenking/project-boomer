@@ -2,7 +2,7 @@
     @include('components.internal-sidebar')
 @endif
 
-@if (preg_match('/projects\.(external|checklists).*/', request()->route()->getName()))
+@if (preg_match('/projects\.(external|checklists|fault-improvements).*/', request()->route()->getName()))
     @include('components.external-sidebar')
 @endif
 

@@ -14,9 +14,15 @@ class FaultImprovementsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index($projectId)
     {
-        //
+        $project = \App\Entities\Project::findOrFail($projectId);
+
+        $checklists = $project->checklists()->has('checkitems.faultImprovement')->get();
+
+        return view('project-fault-improvements.index')
+            ->withProject($project)
+            ->withChecklists($checklists);
     }
 
     /**
