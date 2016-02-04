@@ -5,6 +5,7 @@ return [
     'system_name' => '施工流程管理系統',
 
     'internal' => '內部作業',
+    'bid' => '標單',
     'p_bid' => '工程工料分類估價',
     'p_schedule' => '工程進度管理',
     'p_preparation' => '工程施工前準備',
