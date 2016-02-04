@@ -13046,6 +13046,9 @@ webpackJsonp([0],[
 	//             </div>
 	//         </div>
 	//         <div class="row">
+	//             <div class="seven wide column">
+	//                 <workitem-form :labels.once="labels" class="sticky" id="vue-workitem-form-{{ _uid }}" v-ref:form></workitem-form>
+	//             </div>
 	//             <div class="nine wide column">
 	//                 <div class="ui cards">
 	//                     <price-card
@@ -13055,9 +13058,6 @@ webpackJsonp([0],[
 	//                         :unit-price-text.once="unitPriceText"
 	//                     ></price-card>
 	//                 </div>
-	//             </div>
-	//             <div class="seven wide column">
-	//                 <workitem-form :labels.once="labels" class="sticky" id="vue-workitem-form-{{ _uid }}" v-ref:form></workitem-form>
 	//             </div>
 	//         </div>
 	//     </div>
@@ -14269,7 +14269,7 @@ webpackJsonp([0],[
 /* 109 */
 /***/ function(module, exports) {
 
-	module.exports = "\n<div class=\"ui grid\">\n    <div class=\"row\">\n        <div class=\"sixteen wide column\">\n            <div class=\"ui raised segment\">\n                <div class=\"ui mini five statistics\">\n                    <div class=\"statistic\">\n                        <div class=\"label\">{{ totalPriceLabel }}</div>\n                        <div class=\"value\">{{ total | currency }}</div>\n                    </div>\n                    <div class=\"statistic\" v-for=\"(key, typeTotal) in typeTotals\">\n                        <div class=\"label\">{{ costTypes[key] }}</div>\n                        <div class=\"value\">{{ typeTotal | currency }}</div>\n                    </div>\n                </div>\n            </div>\n        </div>\n    </div>\n    <div class=\"row\">\n        <div class=\"nine wide column\">\n            <div class=\"ui cards\">\n                <price-card\n                    v-for=\"item in items | orderBy 'order'\"\n                    :item.once=\"item\"\n                    :amount-text.once=\"amountText\"\n                    :unit-price-text.once=\"unitPriceText\"\n                ></price-card>\n            </div>\n        </div>\n        <div class=\"seven wide column\">\n            <workitem-form :labels.once=\"labels\" class=\"sticky\" id=\"vue-workitem-form-{{ _uid }}\" v-ref:form></workitem-form>\n        </div>\n    </div>\n</div>\n";
+	module.exports = "\n<div class=\"ui grid\">\n    <div class=\"row\">\n        <div class=\"sixteen wide column\">\n            <div class=\"ui raised segment\">\n                <div class=\"ui mini five statistics\">\n                    <div class=\"statistic\">\n                        <div class=\"label\">{{ totalPriceLabel }}</div>\n                        <div class=\"value\">{{ total | currency }}</div>\n                    </div>\n                    <div class=\"statistic\" v-for=\"(key, typeTotal) in typeTotals\">\n                        <div class=\"label\">{{ costTypes[key] }}</div>\n                        <div class=\"value\">{{ typeTotal | currency }}</div>\n                    </div>\n                </div>\n            </div>\n        </div>\n    </div>\n    <div class=\"row\">\n        <div class=\"seven wide column\">\n            <workitem-form :labels.once=\"labels\" class=\"sticky\" id=\"vue-workitem-form-{{ _uid }}\" v-ref:form></workitem-form>\n        </div>\n        <div class=\"nine wide column\">\n            <div class=\"ui cards\">\n                <price-card\n                    v-for=\"item in items | orderBy 'order'\"\n                    :item.once=\"item\"\n                    :amount-text.once=\"amountText\"\n                    :unit-price-text.once=\"unitPriceText\"\n                ></price-card>\n            </div>\n        </div>\n    </div>\n</div>\n";
 
 /***/ },
 /* 110 */

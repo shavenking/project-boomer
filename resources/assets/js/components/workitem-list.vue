@@ -17,6 +17,9 @@
             </div>
         </div>
         <div class="row">
+            <div class="seven wide column">
+                <workitem-form :labels.once="labels" class="sticky" id="vue-workitem-form-{{ _uid }}" v-ref:form></workitem-form>
+            </div>
             <div class="nine wide column">
                 <div class="ui cards">
                     <price-card
@@ -26,9 +29,6 @@
                         :unit-price-text.once="unitPriceText"
                     ></price-card>
                 </div>
-            </div>
-            <div class="seven wide column">
-                <workitem-form :labels.once="labels" class="sticky" id="vue-workitem-form-{{ _uid }}" v-ref:form></workitem-form>
             </div>
         </div>
     </div>
