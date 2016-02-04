@@ -15,22 +15,13 @@
         <a href="{{ route('works.checklist', $work->id) }}" class="item">{{ trans_choice('all.checklists', 1) }}</a>
     </div>
 
-        <workitem-list
-            work-id="{{ $work->id }}"
-            unit-label="{{ trans('all.select_unit') }}"
-            cost-type-label="{{ trans('all.select_cost_type') }}"
-            order-label="{{ trans('all.order') }}"
-            name-label="{{ trans('all.name') }}"
-            amount-label="{{ trans('all.amount') }}"
-            create-label="{{ trans('all.create') }}"
-            clear-label="{{ trans('all.clear') }}"
-            update-label="{{ trans('all.save') }}"
-            cancel-label="{{ trans('all.cancel') }}"
-            total-price-label="{{ trans('all.total_price') }}"
-            edit-text="{{ trans('all.edit') }}"
-            delete-text="{{ trans('all.delete') }}"
-            amount-text="{{ trans('all.amount') }}"
-            unit-price-text="{{ trans('all.unit_price') }}"
-        ></workitem-list>
-
+    <table-workitems 
+        work-id="{{ $work->id }}"
+        cost-type-label="{{ trans('all.type') }}"
+        unit-label="{{ trans('all.select_unit') }}"
+        name-label="{{ trans('all.name') }}"
+        amount-label="{{ trans('all.amount') }}"
+        unit-price-label="{{ trans('all.unit_price') }}"
+        total-price-label="{{ trans('all.total_price') }}"
+    ></table-workitems>
 @stop

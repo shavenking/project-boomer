@@ -8,6 +8,7 @@ import WorkitemList from './components/workitem-list.vue'
 import Checklist from './components/checklist.vue'
 import FlowtypeWorkSelect from './components/flowtype-work-select.vue'
 import TableProjectWorks from './components/table-project-works.vue'
+import TableWorkitems from './components/table-workitems.vue'
 
 new Vue({
     el: 'body',
@@ -20,6 +21,7 @@ new Vue({
         WorkitemList,
         Checklist,
         FlowtypeWorkSelect,
-        TableProjectWorks
+        TableProjectWorks,
+        TableWorkitems
     }
 })

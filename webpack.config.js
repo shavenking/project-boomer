@@ -1,9 +1,6 @@
 var webpack = require('webpack')
 
 module.exports = {
-    watchOptions: {
-        poll: true
-    },
     entry: {
         main: './resources/assets/js/main.js',
         vendor: './resources/assets/js/vendor.js'

@@ -40,9 +40,13 @@ webpackJsonp([0],[
 
 	var _flowtypeWorkSelect2 = _interopRequireDefault(_flowtypeWorkSelect);
 
-	var _tableProjectWorks = __webpack_require__(174);
+	var _tableProjectWorks = __webpack_require__(118);
 
 	var _tableProjectWorks2 = _interopRequireDefault(_tableProjectWorks);
+
+	var _tableWorkitems = __webpack_require__(121);
+
+	var _tableWorkitems2 = _interopRequireDefault(_tableWorkitems);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -57,7 +61,8 @@ webpackJsonp([0],[
 	        WorkitemList: _workitemList2.default,
 	        Checklist: _checklist2.default,
 	        FlowtypeWorkSelect: _flowtypeWorkSelect2.default,
-	        TableProjectWorks: _tableProjectWorks2.default
+	        TableProjectWorks: _tableProjectWorks2.default,
+	        TableWorkitems: _tableWorkitems2.default
 	    }
 	});
 
@@ -9776,7 +9781,7 @@ webpackJsonp([0],[
 	  var hotAPI = require("vue-hot-reload-api")
 	  hotAPI.install(require("vue"), true)
 	  if (!hotAPI.compatible) return
-	  var id = "/home/vagrant/Code/project-boomer/resources/assets/js/components/work-select.vue"
+	  var id = "/Users/shavenking/Code/project-boomer/resources/assets/js/components/work-select.vue"
 	  if (!module.hot.data) {
 	    hotAPI.createRecord(id, module.exports)
 	  } else {
@@ -9852,7 +9857,7 @@ webpackJsonp([0],[
 	  var hotAPI = require("vue-hot-reload-api")
 	  hotAPI.install(require("vue"), true)
 	  if (!hotAPI.compatible) return
-	  var id = "/home/vagrant/Code/project-boomer/resources/assets/js/components/dropdown-select.vue"
+	  var id = "/Users/shavenking/Code/project-boomer/resources/assets/js/components/dropdown-select.vue"
 	  if (!module.hot.data) {
 	    hotAPI.createRecord(id, module.exports)
 	  } else {
@@ -9983,7 +9988,7 @@ webpackJsonp([0],[
 	  var hotAPI = require("vue-hot-reload-api")
 	  hotAPI.install(require("vue"), true)
 	  if (!hotAPI.compatible) return
-	  var id = "/home/vagrant/Code/project-boomer/resources/assets/js/components/flowtype-select.vue"
+	  var id = "/Users/shavenking/Code/project-boomer/resources/assets/js/components/flowtype-select.vue"
 	  if (!module.hot.data) {
 	    hotAPI.createRecord(id, module.exports)
 	  } else {
@@ -10115,7 +10120,7 @@ webpackJsonp([0],[
 	  var hotAPI = require("vue-hot-reload-api")
 	  hotAPI.install(require("vue"), true)
 	  if (!hotAPI.compatible) return
-	  var id = "/home/vagrant/Code/project-boomer/resources/assets/js/components/unit-select.vue"
+	  var id = "/Users/shavenking/Code/project-boomer/resources/assets/js/components/unit-select.vue"
 	  if (!module.hot.data) {
 	    hotAPI.createRecord(id, module.exports)
 	  } else {
@@ -10206,7 +10211,7 @@ webpackJsonp([0],[
 	  var hotAPI = require("vue-hot-reload-api")
 	  hotAPI.install(require("vue"), true)
 	  if (!hotAPI.compatible) return
-	  var id = "/home/vagrant/Code/project-boomer/resources/assets/js/components/workflow-select.vue"
+	  var id = "/Users/shavenking/Code/project-boomer/resources/assets/js/components/workflow-select.vue"
 	  if (!module.hot.data) {
 	    hotAPI.createRecord(id, module.exports)
 	  } else {
@@ -10294,7 +10299,7 @@ webpackJsonp([0],[
 	  var hotAPI = require("vue-hot-reload-api")
 	  hotAPI.install(require("vue"), true)
 	  if (!hotAPI.compatible) return
-	  var id = "/home/vagrant/Code/project-boomer/resources/assets/js/components/workflow-nodes.vue"
+	  var id = "/Users/shavenking/Code/project-boomer/resources/assets/js/components/workflow-nodes.vue"
 	  if (!module.hot.data) {
 	    hotAPI.createRecord(id, module.exports)
 	  } else {
@@ -10435,7 +10440,7 @@ webpackJsonp([0],[
 	  var hotAPI = require("vue-hot-reload-api")
 	  hotAPI.install(require("vue"), true)
 	  if (!hotAPI.compatible) return
-	  var id = "/home/vagrant/Code/project-boomer/resources/assets/js/components/order-title-input.vue"
+	  var id = "/Users/shavenking/Code/project-boomer/resources/assets/js/components/order-title-input.vue"
 	  if (!module.hot.data) {
 	    hotAPI.createRecord(id, module.exports)
 	  } else {
@@ -10537,7 +10542,7 @@ webpackJsonp([0],[
 	  var hotAPI = require("vue-hot-reload-api")
 	  hotAPI.install(require("vue"), true)
 	  if (!hotAPI.compatible) return
-	  var id = "/home/vagrant/Code/project-boomer/resources/assets/js/components/workflow-node-list.vue"
+	  var id = "/Users/shavenking/Code/project-boomer/resources/assets/js/components/workflow-node-list.vue"
 	  if (!module.hot.data) {
 	    hotAPI.createRecord(id, module.exports)
 	  } else {
@@ -12975,7 +12980,7 @@ webpackJsonp([0],[
 	  var hotAPI = require("vue-hot-reload-api")
 	  hotAPI.install(require("vue"), true)
 	  if (!hotAPI.compatible) return
-	  var id = "/home/vagrant/Code/project-boomer/resources/assets/js/components/workitem-list.vue"
+	  var id = "/Users/shavenking/Code/project-boomer/resources/assets/js/components/workitem-list.vue"
 	  if (!module.hot.data) {
 	    hotAPI.createRecord(id, module.exports)
 	  } else {
@@ -13212,7 +13217,7 @@ webpackJsonp([0],[
 	  var hotAPI = require("vue-hot-reload-api")
 	  hotAPI.install(require("vue"), true)
 	  if (!hotAPI.compatible) return
-	  var id = "/home/vagrant/Code/project-boomer/resources/assets/js/components/price-card.vue"
+	  var id = "/Users/shavenking/Code/project-boomer/resources/assets/js/components/price-card.vue"
 	  if (!module.hot.data) {
 	    hotAPI.createRecord(id, module.exports)
 	  } else {
@@ -13307,7 +13312,7 @@ webpackJsonp([0],[
 	  var hotAPI = require("vue-hot-reload-api")
 	  hotAPI.install(require("vue"), true)
 	  if (!hotAPI.compatible) return
-	  var id = "/home/vagrant/Code/project-boomer/resources/assets/js/components/workitem-form.vue"
+	  var id = "/Users/shavenking/Code/project-boomer/resources/assets/js/components/workitem-form.vue"
 	  if (!module.hot.data) {
 	    hotAPI.createRecord(id, module.exports)
 	  } else {
@@ -13465,7 +13470,7 @@ webpackJsonp([0],[
 	  var hotAPI = require("vue-hot-reload-api")
 	  hotAPI.install(require("vue"), true)
 	  if (!hotAPI.compatible) return
-	  var id = "/home/vagrant/Code/project-boomer/resources/assets/js/components/cost-type-select.vue"
+	  var id = "/Users/shavenking/Code/project-boomer/resources/assets/js/components/cost-type-select.vue"
 	  if (!module.hot.data) {
 	    hotAPI.createRecord(id, module.exports)
 	  } else {
@@ -14281,7 +14286,7 @@ webpackJsonp([0],[
 	  var hotAPI = require("vue-hot-reload-api")
 	  hotAPI.install(require("vue"), true)
 	  if (!hotAPI.compatible) return
-	  var id = "/home/vagrant/Code/project-boomer/resources/assets/js/components/checklist.vue"
+	  var id = "/Users/shavenking/Code/project-boomer/resources/assets/js/components/checklist.vue"
 	  if (!module.hot.data) {
 	    hotAPI.createRecord(id, module.exports)
 	  } else {
@@ -26777,7 +26782,7 @@ webpackJsonp([0],[
 	  var hotAPI = require("vue-hot-reload-api")
 	  hotAPI.install(require("vue"), true)
 	  if (!hotAPI.compatible) return
-	  var id = "/home/vagrant/Code/project-boomer/resources/assets/js/components/flowtype-work-select.vue"
+	  var id = "/Users/shavenking/Code/project-boomer/resources/assets/js/components/flowtype-work-select.vue"
 	  if (!module.hot.data) {
 	    hotAPI.createRecord(id, module.exports)
 	  } else {
@@ -26878,72 +26883,16 @@ webpackJsonp([0],[
 	module.exports = "\n<div class=\"field\">\n    <label>{{ selectTypeOrderLabel }}</label>\n    <flowtype-select :on-selected.once=\"onFlowtypeSelected\"></flowtype-select>\n</div>\n<div class=\"field\">\n    <label>{{ selectWorkLabel }}</label>\n    <dropdown-select\n        input-name=\"work_ids\"\n        :options=\"works\"\n        option-value-name=\"id\"\n        option-text-name=\"name\"\n        :multiple.once=\"true\"\n        v-ref:work-select\n    ></dropdown-select>\n</div>\n";
 
 /***/ },
-/* 118 */,
-/* 119 */,
-/* 120 */,
-/* 121 */,
-/* 122 */,
-/* 123 */,
-/* 124 */,
-/* 125 */,
-/* 126 */,
-/* 127 */,
-/* 128 */,
-/* 129 */,
-/* 130 */,
-/* 131 */,
-/* 132 */,
-/* 133 */,
-/* 134 */,
-/* 135 */,
-/* 136 */,
-/* 137 */,
-/* 138 */,
-/* 139 */,
-/* 140 */,
-/* 141 */,
-/* 142 */,
-/* 143 */,
-/* 144 */,
-/* 145 */,
-/* 146 */,
-/* 147 */,
-/* 148 */,
-/* 149 */,
-/* 150 */,
-/* 151 */,
-/* 152 */,
-/* 153 */,
-/* 154 */,
-/* 155 */,
-/* 156 */,
-/* 157 */,
-/* 158 */,
-/* 159 */,
-/* 160 */,
-/* 161 */,
-/* 162 */,
-/* 163 */,
-/* 164 */,
-/* 165 */,
-/* 166 */,
-/* 167 */,
-/* 168 */,
-/* 169 */,
-/* 170 */,
-/* 171 */,
-/* 172 */,
-/* 173 */,
-/* 174 */
+/* 118 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __vue_script__, __vue_template__
-	__vue_script__ = __webpack_require__(175)
+	__vue_script__ = __webpack_require__(119)
 	if (__vue_script__ &&
 	    __vue_script__.__esModule &&
 	    Object.keys(__vue_script__).length > 1) {
 	  console.warn("[vue-loader] resources/assets/js/components/table-project-works.vue: named exports in *.vue files are ignored.")}
-	__vue_template__ = __webpack_require__(176)
+	__vue_template__ = __webpack_require__(120)
 	module.exports = __vue_script__ || {}
 	if (module.exports.__esModule) module.exports = module.exports.default
 	if (__vue_template__) {
@@ -26953,7 +26902,7 @@ webpackJsonp([0],[
 	  var hotAPI = require("vue-hot-reload-api")
 	  hotAPI.install(require("vue"), true)
 	  if (!hotAPI.compatible) return
-	  var id = "/home/vagrant/Code/project-boomer/resources/assets/js/components/table-project-works.vue"
+	  var id = "/Users/shavenking/Code/project-boomer/resources/assets/js/components/table-project-works.vue"
 	  if (!module.hot.data) {
 	    hotAPI.createRecord(id, module.exports)
 	  } else {
@@ -26962,7 +26911,7 @@ webpackJsonp([0],[
 	})()}
 
 /***/ },
-/* 175 */
+/* 119 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -27072,10 +27021,131 @@ webpackJsonp([0],[
 	// </script>
 
 /***/ },
-/* 176 */
+/* 120 */
 /***/ function(module, exports) {
 
 	module.exports = "\n<table class=\"ui table\">\n    <thead>\n        <tr>\n            <th class=\"four wide center aligned\">{{ typeOrderLabel }}</th>\n            <th>{{ nameLabel }}</th>\n            <th>{{ unitLabel }}</th>\n            <th>{{ unitPriceLabel }}</th>\n            <th>{{ amountLabel }}</th>\n            <th>{{ totalPriceLabel }}</th>\n            <th>\n            </th>\n        </tr>\n    </thead>        \n    <tbody v-for=\"(detailingflowTypeId, works) in groupedWorks\">\n        <tr v-for=\"(idx, work) in works\">\n            <td :rowspan=\"works.length\" v-if=\"0 === idx\" class=\"top aligned center aligned\">\n                {{ work.detailingflow_type.mainflow_type.name }}\n                <br>\n                {{ work.detailingflow_type.name }}\n            </td>\n            <td>{{ work.name }}</td>\n            <td>{{ work.unit.name }}</td>\n            <td>{{ work.unit_price | currency}}</td>\n            <td>{{ work.amount }}</td>\n            <td>{{ work.unit_price * work.amount | currency }}</td>\n            <td><a href=\"{{ '/projects/' + projectId + '/works/' + work.id }}\">{{ workitemsLabel }}</a></td>\n        </tr>\n    </tbody>\n    <tfoot>\n        <tr>\n            <th></th>\n            <th></th>\n            <th></th>\n            <th></th>\n            <th></th>\n            <th>{{ totalWorkPrice | currency }}</th>\n            <th></th>\n        </tr>\n    </tfoot>\n</table>\n";
+
+/***/ },
+/* 121 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var __vue_script__, __vue_template__
+	__vue_script__ = __webpack_require__(122)
+	if (__vue_script__ &&
+	    __vue_script__.__esModule &&
+	    Object.keys(__vue_script__).length > 1) {
+	  console.warn("[vue-loader] resources/assets/js/components/table-workitems.vue: named exports in *.vue files are ignored.")}
+	__vue_template__ = __webpack_require__(123)
+	module.exports = __vue_script__ || {}
+	if (module.exports.__esModule) module.exports = module.exports.default
+	if (__vue_template__) {
+	(typeof module.exports === "function" ? (module.exports.options || (module.exports.options = {})) : module.exports).template = __vue_template__
+	}
+	if (false) {(function () {  module.hot.accept()
+	  var hotAPI = require("vue-hot-reload-api")
+	  hotAPI.install(require("vue"), true)
+	  if (!hotAPI.compatible) return
+	  var id = "/Users/shavenking/Code/project-boomer/resources/assets/js/components/table-workitems.vue"
+	  if (!module.hot.data) {
+	    hotAPI.createRecord(id, module.exports)
+	  } else {
+	    hotAPI.update(id, module.exports, __vue_template__)
+	  }
+	})()}
+
+/***/ },
+/* 122 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+
+	var _lodash = __webpack_require__(112);
+
+	var _lodash2 = _interopRequireDefault(_lodash);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function getItems(workId) {
+	    return window.$.getJSON('/api/v1/works/' + workId + '/work-items');
+	} // <template>
+	//     <table class="ui table">
+	//         <thead>
+	//             <tr>
+	//                 <th>{{ costTypeLabel }}</th>
+	//                 <th>{{ nameLabel }}</th>
+	//                 <th>{{ unitLabel }}</th>
+	//                 <th>{{ unitPriceLabel }}</th>
+	//                 <th>{{ amountLabel }}</th>
+	//                 <th>{{ totalPriceLabel }}</th>
+	//             </tr>
+	//         </thead>
+	//         <tbody v-for="items in groupedItems">
+	//             <tr v-for="(idx, item) in items">
+	//                 <td :rowspan="items.length" v-if="0 === idx" class="top aligned collapsing">
+	//                     {{ item.cost_type.name }}
+	//                 </td>
+	//                 <td>{{ item.name }}</td>
+	//                 <td>{{ item.unit.name }}</td>
+	//                 <td>{{ item.unit_price | currency }}</td>
+	//                 <td>{{ item.amount }}</td>
+	//                 <td>{{ item.unit_price * item.amount | currency }}</td>
+	//             </tr>
+	//         </tbody>
+	//         <tfoot>
+	//             <th></th>
+	//             <th></th>
+	//             <th></th>
+	//             <th></th>
+	//             <th></th>
+	//             <th>{{ totalPrice | currency }}</th>
+	//         </tfoot>
+	//     </table>
+	// </template>
+	//
+	// <script>
+
+	exports.default = {
+	    props: ['workId', 'unitLabel', 'nameLabel', 'amountLabel', 'costTypeLabel', 'unitPriceLabel', 'totalPriceLabel'],
+
+	    computed: {
+	        totalPrice: function totalPrice() {
+	            var sum = 0;
+	            _lodash2.default.forEach(this.items, function (item) {
+	                sum += item.amount * item.unit_price;
+	            });
+
+	            return sum;
+	        },
+	        groupedItems: function groupedItems() {
+	            return _lodash2.default.groupBy(this.items, 'cost_type_id');
+	        }
+	    },
+
+	    data: function data() {
+	        return {
+	            items: []
+	        };
+	    },
+	    ready: function ready() {
+	        var _this = this;
+
+	        getItems(this.workId).then(function (response) {
+	            _this.items = response.work_items;
+	        });
+	    }
+	};
+	// </script>
+
+/***/ },
+/* 123 */
+/***/ function(module, exports) {
+
+	module.exports = "\n<table class=\"ui table\">\n    <thead>\n        <tr>\n            <th>{{ costTypeLabel }}</th>\n            <th>{{ nameLabel }}</th>\n            <th>{{ unitLabel }}</th>\n            <th>{{ unitPriceLabel }}</th>\n            <th>{{ amountLabel }}</th>\n            <th>{{ totalPriceLabel }}</th>\n        </tr>\n    </thead>\n    <tbody v-for=\"items in groupedItems\">\n        <tr v-for=\"(idx, item) in items\">\n            <td :rowspan=\"items.length\" v-if=\"0 === idx\" class=\"top aligned collapsing\">\n                {{ item.cost_type.name }}\n            </td>\n            <td>{{ item.name }}</td>\n            <td>{{ item.unit.name }}</td>\n            <td>{{ item.unit_price | currency }}</td>\n            <td>{{ item.amount }}</td>\n            <td>{{ item.unit_price * item.amount | currency }}</td>\n        </tr>\n    </tbody>\n    <tfoot>\n        <th></th>\n        <th></th>\n        <th></th>\n        <th></th>\n        <th></th>\n        <th>{{ totalPrice | currency }}</th>\n    </tfoot>\n</table>\n";
 
 /***/ }
 ]);
