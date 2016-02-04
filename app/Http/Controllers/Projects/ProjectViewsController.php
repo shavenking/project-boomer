@@ -117,6 +117,8 @@ class ProjectViewsController extends Controller
      */
     public function destroy($id)
     {
-        //
+        \App\Entities\Project::destroy($id);
+
+        return redirect()->route('projects.index');
     }
 }

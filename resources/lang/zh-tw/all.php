@@ -18,7 +18,10 @@ return [
     'finance' => '財務管理',
     'p_cost' => '工程成本控制',
     'p_estimation' => '工程進度估驗計價',
+
     'settings' => '設定',
+    'subcontractor' => '協力廠商管理',
+    'personal' => '個人資料管理',
     'projects' => '專案|專案列表',
     'workflows' => '施工流程管理|施工流程列表',
     'workflow_nodes' => '流程項目|流程項目',
@@ -26,8 +29,6 @@ return [
     'workitems' => '工料項目|工料項目列表',
     'checklists' => '自主檢查表管理|自主檢查表列表',
     'checkitems' => '檢查項目|檢查項目列表',
-    'subcontractor' => '協力廠商管理',
-    'personal' => '個人資料管理',
     'fault_improvements' => '缺失改善表|缺失改善表列表',
 
     'con',
