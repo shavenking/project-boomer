@@ -13246,7 +13246,7 @@ webpackJsonp([0],[
 	//                 <div class="right floated">
 	//                     {{ item.amount * item.unit_price | currency }}
 	//                 </div>
-	//                 {{ item.order }}.&nbsp;{{ item.name }}
+	//                 {{ item.name }}
 	//             </div>
 	//             <div class="meta">
 	//                 <span>{{ item.cost_type_name }}</span>
@@ -13295,7 +13295,7 @@ webpackJsonp([0],[
 /* 87 */
 /***/ function(module, exports) {
 
-	module.exports = "\n<div class=\"ui fluid card\">\n    <div class=\"content\">\n        <div class=\"header\">\n            <div class=\"right floated\">\n                {{ item.amount * item.unit_price | currency }}\n            </div>\n            {{ item.order }}.&nbsp;{{ item.name }}\n        </div>\n        <div class=\"meta\">\n            <span>{{ item.cost_type_name }}</span>\n            <span>{{ item.unit_name }}</span>\n        </div>\n    </div>\n    <div class=\"extra content middle aligned\">\n        <div class=\"ui tiny compact right floated icon buttons\">\n            <button class=\"ui button\" @click=\"editItem\">\n                <i class=\"pencil icon\"></i>\n            </button>\n            <button class=\"ui button\" @click=\"deleteItem\">\n                <i class=\"trash icon\"></i>\n            </button>\n        </div>\n        <div class=\"ui labels\">\n            <div class=\"ui label\">{{ unitPriceText }}&nbsp;{{ item.unit_price | currency }}</div>\n            <div class=\"ui label\">{{ amountText }}&nbsp;{{ item.amount }}</div>\n        </div>\n    </div>\n</div>\n";
+	module.exports = "\n<div class=\"ui fluid card\">\n    <div class=\"content\">\n        <div class=\"header\">\n            <div class=\"right floated\">\n                {{ item.amount * item.unit_price | currency }}\n            </div>\n            {{ item.name }}\n        </div>\n        <div class=\"meta\">\n            <span>{{ item.cost_type_name }}</span>\n            <span>{{ item.unit_name }}</span>\n        </div>\n    </div>\n    <div class=\"extra content middle aligned\">\n        <div class=\"ui tiny compact right floated icon buttons\">\n            <button class=\"ui button\" @click=\"editItem\">\n                <i class=\"pencil icon\"></i>\n            </button>\n            <button class=\"ui button\" @click=\"deleteItem\">\n                <i class=\"trash icon\"></i>\n            </button>\n        </div>\n        <div class=\"ui labels\">\n            <div class=\"ui label\">{{ unitPriceText }}&nbsp;{{ item.unit_price | currency }}</div>\n            <div class=\"ui label\">{{ amountText }}&nbsp;{{ item.amount }}</div>\n        </div>\n    </div>\n</div>\n";
 
 /***/ },
 /* 88 */
@@ -13377,7 +13377,9 @@ webpackJsonp([0],[
 	        onSubmit: function onSubmit() {
 	            var inputs = this._form.serializeArray();
 
-	            var item = (0, _zipObject2.default)((0, _pluck2.default)(inputs, 'name'), (0, _pluck2.default)(inputs, 'value'));
+	            var item = (0, _merge2.default)((0, _zipObject2.default)((0, _pluck2.default)(inputs, 'name'), (0, _pluck2.default)(inputs, 'value')), {
+	                order: 1
+	            });
 
 	            if (this.isEditing) {
 	                this.$parent.$emit('update', (0, _merge2.default)(item, {
@@ -13430,10 +13432,6 @@ webpackJsonp([0],[
 	//         <div class="field">
 	//             <label>{{ labels.costType }}</label>
 	//             <cost-type-select v-ref:cost-type-select></cost-type-select>
-	//         </div>
-	//         <div class="field">
-	//             <label>{{ labels.order }}</label>
-	//             <input type="text" name="order" v-model="item.order">
 	//         </div>
 	//         <div class="field">
 	//             <label>{{ labels.name }}</label>
@@ -14263,7 +14261,7 @@ webpackJsonp([0],[
 /* 108 */
 /***/ function(module, exports) {
 
-	module.exports = "\n<form class=\"ui form\" @submit.prevent=\"onSubmit\">\n    <div class=\"ui dividing header\">{{ isEditing ? item.name : labels.create }}</div>\n    <div class=\"field\">\n        <label>{{ labels.unit }}</label>\n        <unit-select v-ref:unit-select></unit-select>\n    </div>\n    <div class=\"field\">\n        <label>{{ labels.costType }}</label>\n        <cost-type-select v-ref:cost-type-select></cost-type-select>\n    </div>\n    <div class=\"field\">\n        <label>{{ labels.order }}</label>\n        <input type=\"text\" name=\"order\" v-model=\"item.order\">\n    </div>\n    <div class=\"field\">\n        <label>{{ labels.name }}</label>\n        <input type=\"text\" name=\"name\" v-model=\"item.name\">\n    </div>\n    <div class=\"field\">\n        <label>{{ labels.amount }}</label>\n        <input type=\"text\" name=\"amount\" v-model=\"item.amount\">\n    </div>\n    <div class=\"field\">\n        <label>{{ labels.unitPrice }}</label>\n        <input type=\"text\" name=\"unit_price\" v-model=\"item.unit_price\">\n    </div>\n\n    <button type=\"submit\" class=\"ui primary button\">{{ isEditing ? labels.update : labels.create }}</button>\n    <button type=\"button\" class=\"ui button\" @click=\"clearForm\">{{ isEditing ? labels.cancel : labels.clear }}</button>\n</form>\n";
+	module.exports = "\n<form class=\"ui form\" @submit.prevent=\"onSubmit\">\n    <div class=\"ui dividing header\">{{ isEditing ? item.name : labels.create }}</div>\n    <div class=\"field\">\n        <label>{{ labels.unit }}</label>\n        <unit-select v-ref:unit-select></unit-select>\n    </div>\n    <div class=\"field\">\n        <label>{{ labels.costType }}</label>\n        <cost-type-select v-ref:cost-type-select></cost-type-select>\n    </div>\n    <div class=\"field\">\n        <label>{{ labels.name }}</label>\n        <input type=\"text\" name=\"name\" v-model=\"item.name\">\n    </div>\n    <div class=\"field\">\n        <label>{{ labels.amount }}</label>\n        <input type=\"text\" name=\"amount\" v-model=\"item.amount\">\n    </div>\n    <div class=\"field\">\n        <label>{{ labels.unitPrice }}</label>\n        <input type=\"text\" name=\"unit_price\" v-model=\"item.unit_price\">\n    </div>\n\n    <button type=\"submit\" class=\"ui primary button\">{{ isEditing ? labels.update : labels.create }}</button>\n    <button type=\"button\" class=\"ui button\" @click=\"clearForm\">{{ isEditing ? labels.cancel : labels.clear }}</button>\n</form>\n";
 
 /***/ },
 /* 109 */

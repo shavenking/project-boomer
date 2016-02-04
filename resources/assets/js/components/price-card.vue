@@ -5,7 +5,7 @@
                 <div class="right floated">
                     {{ item.amount * item.unit_price | currency }}
                 </div>
-                {{ item.order }}.&nbsp;{{ item.name }}
+                {{ item.name }}
             </div>
             <div class="meta">
                 <span>{{ item.cost_type_name }}</span>

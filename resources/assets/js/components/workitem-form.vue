@@ -10,10 +10,6 @@
             <cost-type-select v-ref:cost-type-select></cost-type-select>
         </div>
         <div class="field">
-            <label>{{ labels.order }}</label>
-            <input type="text" name="order" v-model="item.order">
-        </div>
-        <div class="field">
             <label>{{ labels.name }}</label>
             <input type="text" name="name" v-model="item.name">
         </div>
@@ -58,7 +54,9 @@
             onSubmit() {
                 const inputs = this._form.serializeArray()
 
-                const item = zipObject(pluck(inputs, 'name'), pluck(inputs, 'value'))
+                const item = merge(zipObject(pluck(inputs, 'name'), pluck(inputs, 'value')), {
+                    order: 1
+                })
 
                 if (this.isEditing) {
                     this.$parent.$emit('update', merge(item, {
