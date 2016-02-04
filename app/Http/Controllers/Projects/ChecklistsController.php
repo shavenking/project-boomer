@@ -22,7 +22,13 @@ class ChecklistsController extends Controller
     {
         $project = Project::findOrFail($projectId);
 
-        return view('project-checklists.index')->withProject($project);
+        $checklists = $project->checklists()->whereHas('checkitems', function ($q) {
+            $q->wherePasses(null);
+        })->get();
+
+        return view('project-checklists.index')
+            ->withProject($project)
+            ->withChecklists($checklists);
     }
 
     /**

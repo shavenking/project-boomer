@@ -14,7 +14,7 @@
 
     <div class="ui raised segment">
         <ol class="ui relaxed list">
-            @foreach ($project->checklists as $checklist)
+            @foreach ($checklists as $checklist)
                 <li><a href="{{ route('projects.checklists.show', [$project->id, $checklist->id]) }}" class="header">{{ $checklist->name }}</a></li>
             @endforeach
         </ol>
