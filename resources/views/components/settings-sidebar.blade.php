@@ -19,4 +19,14 @@
     >
         {{ trans_choice('all.checklists', 2) }}
     </a>
+    <a
+        href="#"
+        class="item">
+        {{ trans('all.subcontractor') }}
+    </a>
+    <a
+        href="#"
+        class="item">
+        {{ trans('all.personal') }}
+    </a>
 </div>

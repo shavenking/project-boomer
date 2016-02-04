@@ -1,7 +1,7 @@
 <div class="ui borderless inverted menu">
 
     <a href="{{ route('index') }}" class="header item">
-        {{ trans('all.company_name') }}
+        {{ trans('all.system_name') }}
     </a>
 
     <div class="right menu">

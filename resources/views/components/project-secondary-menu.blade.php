@@ -1,4 +1,4 @@
-<div class="ui two item menu">
+<div class="ui three item menu">
     <a
         href="{{ route('projects.internal.index', $project->id) }}"
         class="@if (preg_match('/projects\.(internal|bid|works).*/', request()->route()->getName())) active @endif item"
@@ -10,5 +10,11 @@
         class="@if (preg_match('/projects\.(external|checklists).*/', request()->route()->getName())) active @endif item"
     >
         {{ trans('all.external') }}
+    </a>
+    <a
+        href="#"
+        class="item"
+    >
+        {{ trans('all.finance') }}
     </a>
 </div>

@@ -2,7 +2,7 @@
 
 return [
     'index' => 'Index',
-    'company_name' => 'Company Name',
+    'system_name' => 'System Name',
     'internal' => 'Internal',
     'external' => 'External',
     'settings' => 'Settings',
