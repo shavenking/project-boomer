@@ -37,6 +37,13 @@ class ProjectViewsController extends Controller
         return view('projects.external')->withProject($project);
     }
 
+    public function finance($id)
+    {
+        $project = Project::findOrFail($id);
+
+        return view('projects.finance')->withProject($project);
+    }
+
     /**
      * Show the form for creating a new resource.
      *

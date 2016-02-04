@@ -12,8 +12,8 @@
         {{ trans('all.external') }}
     </a>
     <a
-        href="#"
-        class="item"
+        href="{{ route('projects.finance.index', $project->id) }}"
+        class="@if (preg_match('/projects\.(finance).*/', request()->route()->getName())) active @endif item"
     >
         {{ trans('all.finance') }}
     </a>

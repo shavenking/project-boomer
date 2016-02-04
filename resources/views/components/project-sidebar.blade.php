@@ -5,3 +5,7 @@
 @if (preg_match('/projects\.(external|checklists).*/', request()->route()->getName()))
     @include('components.external-sidebar')
 @endif
+
+@if (preg_match('/projects\.(finance).*/', request()->route()->getName()))
+    @include('components.finance-sidebar')
+@endif

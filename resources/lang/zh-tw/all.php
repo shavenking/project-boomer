@@ -3,9 +3,20 @@
 return [
     'index' => '首頁',
     'system_name' => '施工流程管理系統',
+
     'internal' => '內部作業',
+    'p_bid' => '工程工料分類估價',
+    'p_schedule' => '工程進度管理',
+    'p_preparation' => '工程施工前準備',
+
     'external' => '外部作業',
+    'p_checklists' => '施工進度自主檢查',
+    'p_fault_improvements' => '工程施工改善',
+    'p_construction_dailys' => '施工進度日報表',
+
     'finance' => '財務管理',
+    'p_cost' => '工程成本控制',
+    'p_estimation' => '工程進度估驗計價',
     'settings' => '設定',
     'projects' => '專案|專案列表',
     'workflows' => '施工流程管理|施工流程列表',
@@ -16,13 +27,8 @@ return [
     'checkitems' => '檢查項目|檢查項目列表',
     'subcontractor' => '協力廠商管理',
     'personal' => '個人資料管理',
-    'p_checklists' => '施工進度自主檢查',
-    'p_fault_improvements' => '工程施工改善',
-    'p_construction_dailys' => '施工進度日報表',
     'fault_improvements' => '缺失改善表|缺失改善表列表',
-    'p_bid' => '工程工料分類估價',
-    'p_schedule' => '工程進度管理',
-    'p_preparation' => '工程施工前準備',
+
     'con',
     'search' => '搜尋',
     'clear_search' => '清除搜尋',
