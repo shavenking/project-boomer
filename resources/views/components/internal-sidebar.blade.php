@@ -4,6 +4,11 @@
         class="@if (preg_match('/projects\.(bid|works).*/', request()->route()->getName())) active @endif item">
         {{ trans('all.p_bid') }}
     </a>
+        <a
+        href="#"
+        class="item">
+        {{ trans('all.p_cost') }}
+    </a>
     <a
         href="#"
         class="item">
