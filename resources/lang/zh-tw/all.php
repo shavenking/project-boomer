@@ -13,7 +13,7 @@ return [
     'external' => '外部作業',
     'p_checklists' => '施工進度自主檢查',
     'p_fault_improvements' => '工程施工改善',
-    'p_construction_dailys' => '施工進度日報表',
+    'p_construction_dailies' => '施工進度日報表',
 
     'finance' => '財務管理',
     'p_cost' => '工程成本控制',

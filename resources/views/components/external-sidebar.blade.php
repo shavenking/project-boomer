@@ -3,7 +3,7 @@
         href="#"
         class="item"
     >
-        {{ trans('all.p_construction_dailys') }}
+        {{ trans('all.p_construction_dailies') }}
     </a>
     <a
         href="{{ route('projects.checklists.index', $project->id) }}"
