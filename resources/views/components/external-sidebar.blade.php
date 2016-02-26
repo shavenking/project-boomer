@@ -1,7 +1,7 @@
 <div class="ui vertical pointing menu">
     <a
-        href="#"
-        class="item"
+        href="{{ route('projects.construction-dailies.index', $project->id) }}"
+        class="@if (preg_match('/projects\.(construction-dailies).*/', request()->route()->getName())) active @endif item"
     >
         {{ trans('all.p_construction_dailies') }}
     </a>
@@ -11,7 +11,7 @@
     >
         {{ trans('all.p_checklists') }}
     </a>
-        <a
+    <a
         href="{{ route('projects.fault-improvements.index', $project->id) }}"
         class="@if (preg_match('/projects\.(fault-improvements).*/', request()->route()->getName())) active @endif item"
     >

@@ -40,6 +40,7 @@ Route::group(['middleware' => ['csrftoken', 'localize']], function () {
     get('projects/{project}/bid/works', Bids\BidViewsController::class . '@works')->name('projects.bid.works');
     get('projects/{project}/works/search', Projects\WorksController::class . '@search')->name('projects.works.search');
     resource('projects.fault-improvements', Projects\FaultImprovementsController::class);
+    resource('projects.construction-dailies', Projects\ConstructionDailiesController::class);
     resource('projects.works.workitems', Projects\WorkitemsController::class);
     resource('projects.works', Projects\WorksController::class);
     put('projects/{project}/checklists/{checklist}/checkresults', Projects\ChecklistsController::class . '@updateCheckitemsResults')->name('projects.checklists.checkresults.update');

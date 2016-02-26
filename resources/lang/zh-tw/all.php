@@ -66,6 +66,7 @@ return [
     'create_workitem' => '新增工料項目',
     'create_project' => '新增專案',
     'create_work' => '新增工作項目',
+    'create_constructiondaily' => '新增施工進度日報表',
 
     'delete' => '刪除',
 

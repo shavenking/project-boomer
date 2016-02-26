@@ -49,6 +49,7 @@ return [
     'create_workitem' => 'Create Workitem',
     'create_project' => 'Create Project',
     'create_work' => 'Create Work',
+    'create_constructiondaily' => 'Create Constructiondaily',
 
     'delete' => 'Delete',
 
