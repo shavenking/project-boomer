@@ -7,7 +7,7 @@
     </a>
     <a
         href="{{ route('projects.external.index', $project->id) }}"
-        class="@if (preg_match('/projects\.(external|checklists).*/', request()->route()->getName())) active @endif item"
+        class="@if (preg_match('/projects\.(external|checklists|construction-dailies|fault-improvements).*/', request()->route()->getName())) active @endif item"
     >
         {{ trans('all.external') }}
     </a>
