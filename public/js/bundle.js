@@ -52,6 +52,10 @@ webpackJsonp([0],[
 
 	var _statisticsWorkitems2 = _interopRequireDefault(_statisticsWorkitems);
 
+	var _projectWorkitemList = __webpack_require__(124);
+
+	var _projectWorkitemList2 = _interopRequireDefault(_projectWorkitemList);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	new _vue2.default({
@@ -67,7 +71,8 @@ webpackJsonp([0],[
 	        FlowtypeWorkSelect: _flowtypeWorkSelect2.default,
 	        TableProjectWorks: _tableProjectWorks2.default,
 	        TableWorkitems: _tableWorkitems2.default,
-	        StatisticsWorkitems: _statisticsWorkitems2.default
+	        StatisticsWorkitems: _statisticsWorkitems2.default,
+	        ProjectWorkitemList: _projectWorkitemList2.default
 	    }
 	});
 
@@ -27151,6 +27156,225 @@ webpackJsonp([0],[
 /***/ function(module, exports) {
 
 	module.exports = "\n<div class=\"ui mini five statistics\">\n    <div class=\"statistic\">\n        <div class=\"label\">{{ totalPriceLabel }}</div>\n        <div class=\"value\">{{ totalPrice | currency }}</div>\n    </div>\n    <div class=\"statistic\" v-for=\"(costTypeId, totalPrice) in totalPriceByTypes\">\n        <div class=\"label\">{{ costTypes[costTypeId] }}</div>\n        <div class=\"value\">{{ totalPrice | currency }}</div>\n    </div>\n</div>\n";
+
+/***/ },
+/* 124 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var __vue_script__, __vue_template__
+	__vue_script__ = __webpack_require__(125)
+	if (__vue_script__ &&
+	    __vue_script__.__esModule &&
+	    Object.keys(__vue_script__).length > 1) {
+	  console.warn("[vue-loader] resources/assets/js/components/project-workitem-list.vue: named exports in *.vue files are ignored.")}
+	__vue_template__ = __webpack_require__(126)
+	module.exports = __vue_script__ || {}
+	if (module.exports.__esModule) module.exports = module.exports.default
+	if (__vue_template__) {
+	(typeof module.exports === "function" ? (module.exports.options || (module.exports.options = {})) : module.exports).template = __vue_template__
+	}
+	if (false) {(function () {  module.hot.accept()
+	  var hotAPI = require("vue-hot-reload-api")
+	  hotAPI.install(require("vue"), true)
+	  if (!hotAPI.compatible) return
+	  var id = "/Users/shavenking/Code/project-boomer/resources/assets/js/components/project-workitem-list.vue"
+	  if (!module.hot.data) {
+	    hotAPI.createRecord(id, module.exports)
+	  } else {
+	    hotAPI.update(id, module.exports, __vue_template__)
+	  }
+	})()}
+
+/***/ },
+/* 125 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+
+	var _workitemForm = __webpack_require__(85);
+
+	var _workitemForm2 = _interopRequireDefault(_workitemForm);
+
+	var _tableWorkitems = __webpack_require__(106);
+
+	var _tableWorkitems2 = _interopRequireDefault(_tableWorkitems);
+
+	var _zipObject = __webpack_require__(93);
+
+	var _zipObject2 = _interopRequireDefault(_zipObject);
+
+	var _pluck = __webpack_require__(90);
+
+	var _pluck2 = _interopRequireDefault(_pluck);
+
+	var _merge = __webpack_require__(94);
+
+	var _merge2 = _interopRequireDefault(_merge);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function getItems(projectId, workId) {
+	    return window.$.getJSON('/api/v1/projects/' + projectId + '/works/' + workId + '/workitems');
+	} // <template>
+	//     <div class="ui grid">
+	//         <div class="row">
+	//             <div class="sixteen wide column">
+	//                 <div class="ui raised segment">
+	//                     <div class="ui mini five statistics">
+	//                         <div class="statistic">
+	//                             <div class="label">總價</div>
+	//                             <div class="value">{{ total | currency }}</div>
+	//                         </div>
+	//                         <div class="statistic" v-for="(key, typeTotal) in typeTotals">
+	//                             <div class="label">{{ costTypes[key] }}</div>
+	//                             <div class="value">{{ typeTotal | currency }}</div>
+	//                         </div>
+	//                     </div>
+	//                 </div>
+	//             </div>
+	//         </div>
+	//         <div class="row">
+	//             <div class="sixteen wide column">
+	//                 <table-workitems
+	//                     :items="items"
+	//                 ></table-workitems>
+	//             </div>
+	//         </div>
+	//         <div class="row">
+	//             <div class="sixteen wide column">
+	//                 <workitem-form v-ref:form></workitem-form>
+	//             </div>
+	//         </div>
+	//     </div>
+	// </template>
+	//
+	// <script>
+
+	function getTypes() {
+	    return window.$.getJSON('/api/v1/cost-types');
+	}
+
+	function createItem(projectId, workId, item) {
+	    return window.$.post('/api/v1/projects/' + projectId + '/works/' + workId + '/workitems', item);
+	}
+
+	function updateItem(projectId, workId, item) {
+	    return window.$.post('/api/v1/projects/' + projectId + '/works/' + workId + '/workitems/' + item.id, (0, _merge2.default)(item, {
+	        _method: 'PUT'
+	    }));
+	}
+
+	function deleteItem(projectId, workId, item) {
+	    return window.$.post('/api/v1/projects/' + projectId + '/works/' + workId + '/workitems/' + item.id, {
+	        _method: 'DELETE'
+	    });
+	}
+
+	exports.default = {
+	    components: { WorkitemForm: _workitemForm2.default, TableWorkitems: _tableWorkitems2.default },
+
+	    props: ['projectId', 'workId'],
+
+	    computed: {
+	        total: function total() {
+	            var sum = 0;
+
+	            (0, _pluck2.default)(this.items, 'total_price').forEach(function (price) {
+	                sum += price;
+	            });
+
+	            return sum;
+	        },
+	        typeTotals: function typeTotals() {
+	            var sum = {
+	                1: 0,
+	                2: 0,
+	                3: 0,
+	                4: 0
+	            };
+
+	            this.items.forEach(function (item) {
+	                sum[item.cost_type_id] += item.total_price;
+	            });
+
+	            return sum;
+	        }
+	    },
+
+	    methods: {},
+
+	    events: {
+	        edit: function edit(item) {
+	            this.$refs.form.$emit('edit', item);
+	        },
+	        create: function create(item) {
+	            var _this = this;
+
+	            createItem(this.projectId, this.workId, item).then(function (response) {
+	                _this.items.push(response.workitem);
+
+	                _this.$refs.form.$emit('created', response.workitem);
+	            });
+	        },
+	        update: function update(item) {
+	            var _this2 = this;
+
+	            updateItem(this.projectId, this.workId, item).then(function (response) {
+	                var item = response.workitem;
+
+	                var items = _this2.items.map(function (candidate) {
+	                    if (candidate.id == item.id) {
+	                        return item;
+	                    }
+
+	                    return candidate;
+	                });
+
+	                _this2.items = items;
+
+	                _this2.$refs.form.$emit('updated', response.workitem);
+	            });
+	        },
+	        delete: function _delete(item) {
+	            var _this3 = this;
+
+	            deleteItem(this.projectId, this.workId, item).then(function (response) {
+	                _this3.items = _this3.items.filter(function (candidate) {
+	                    return candidate.id != item.id;
+	                });
+	            });
+	        }
+	    },
+
+	    data: function data() {
+	        return {
+	            items: [],
+	            costTypes: {}
+	        };
+	    },
+	    ready: function ready() {
+	        var _this4 = this;
+
+	        getItems(this.projectId, this.workId).then(function (response) {
+	            _this4.items = response.workitems;
+	        });
+
+	        getTypes().then(function (response) {
+	            _this4.costTypes = (0, _zipObject2.default)((0, _pluck2.default)(response.cost_types, 'id'), (0, _pluck2.default)(response.cost_types, 'name'));
+	        });
+	    }
+	};
+	// </script>
+
+/***/ },
+/* 126 */
+/***/ function(module, exports) {
+
+	module.exports = "\n<div class=\"ui grid\">\n    <div class=\"row\">\n        <div class=\"sixteen wide column\">\n            <div class=\"ui raised segment\">\n                <div class=\"ui mini five statistics\">\n                    <div class=\"statistic\">\n                        <div class=\"label\">總價</div>\n                        <div class=\"value\">{{ total | currency }}</div>\n                    </div>\n                    <div class=\"statistic\" v-for=\"(key, typeTotal) in typeTotals\">\n                        <div class=\"label\">{{ costTypes[key] }}</div>\n                        <div class=\"value\">{{ typeTotal | currency }}</div>\n                    </div>\n                </div>\n            </div>\n        </div>\n    </div>\n    <div class=\"row\">\n        <div class=\"sixteen wide column\">\n            <table-workitems\n                :items=\"items\"\n            ></table-workitems>\n        </div>\n    </div>\n    <div class=\"row\">\n        <div class=\"sixteen wide column\">\n            <workitem-form v-ref:form></workitem-form>\n        </div>\n    </div>\n</div>\n";
 
 /***/ }
 ]);

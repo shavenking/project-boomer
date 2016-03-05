@@ -10,6 +10,7 @@ import FlowtypeWorkSelect from './components/flowtype-work-select.vue'
 import TableProjectWorks from './components/table-project-works.vue'
 import TableWorkitems from './components/table-workitems.vue'
 import StatisticsWorkitems from './components/statistics-workitems.vue'
+import ProjectWorkitemList from './components/project-workitem-list.vue'
 
 new Vue({
     el: 'body',
@@ -24,6 +25,7 @@ new Vue({
         FlowtypeWorkSelect,
         TableProjectWorks,
         TableWorkitems,
-        StatisticsWorkitems
+        StatisticsWorkitems,
+        ProjectWorkitemList
     }
 })

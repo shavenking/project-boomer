@@ -14,6 +14,7 @@ Route::group(['prefix' => 'api/v1'], function () {
     resource('works', Works\WorksController::class);
     resource('works.work-items', Works\WorkItemsController::class);
 
+    resource('projects.works.workitems', Projects\WorkitemsController::class);
     resource('projects.works', Projects\WorksController::class);
 
     resource('checklists.checkitems', Checklists\CheckitemsController::class);
