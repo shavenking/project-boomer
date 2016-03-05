@@ -1,29 +1,29 @@
 <template>
     <form class="ui form" @submit.prevent="onSubmit">
-        <div class="ui dividing header">{{ isEditing ? item.name : labels.create }}</div>
+        <div class="ui dividing header">{{ isEditing ? item.name : '新增' }}</div>
         <div class="field">
-            <label>{{ labels.unit }}</label>
+            <label>單位</label>
             <unit-select v-ref:unit-select></unit-select>
         </div>
         <div class="field">
-            <label>{{ labels.costType }}</label>
+            <label>費用分類</label>
             <cost-type-select v-ref:cost-type-select></cost-type-select>
         </div>
         <div class="field">
-            <label>{{ labels.name }}</label>
+            <label>名稱</label>
             <input type="text" name="name" v-model="item.name">
         </div>
         <div class="field">
-            <label>{{ labels.amount }}</label>
+            <label>數量</label>
             <input type="text" name="amount" v-model="item.amount">
         </div>
         <div class="field">
-            <label>{{ labels.unitPrice }}</label>
+            <label>單價</label>
             <input type="text" name="unit_price" v-model="item.unit_price">
         </div>
 
-        <button type="submit" class="ui primary button">{{ isEditing ? labels.update : labels.create }}</button>
-        <button type="button" class="ui button" @click="clearForm">{{ isEditing ? labels.cancel : labels.clear }}</button>
+        <button type="submit" class="ui primary button">{{ isEditing ? '儲存' : '新增' }}</button>
+        <button type="button" class="ui button" @click="clearForm">{{ isEditing ? '取消' : '重填' }}</button>
     </form>
 </template>
 
@@ -36,13 +36,6 @@
 
     export default {
         components: { UnitSelect, CostTypeSelect },
-
-        props: {
-            labels: {
-                required: true,
-                type: Object
-            }
-        },
 
         computed: {
             isEditing() {

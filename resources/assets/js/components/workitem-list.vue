@@ -5,7 +5,7 @@
                 <div class="ui raised segment">
                     <div class="ui mini five statistics">
                         <div class="statistic">
-                            <div class="label">{{ totalPriceLabel }}</div>
+                            <div class="label">總價</div>
                             <div class="value">{{ total | currency }}</div>
                         </div>
                         <div class="statistic" v-for="(key, typeTotal) in typeTotals">
@@ -17,26 +17,23 @@
             </div>
         </div>
         <div class="row">
-            <div class="seven wide column">
-                <workitem-form :labels.once="labels" class="sticky" id="vue-workitem-form-{{ _uid }}" v-ref:form></workitem-form>
+            <div class="sixteen wide column">
+                <table-workitems
+                    :items="items"
+                ></table-workitems>
             </div>
-            <div class="nine wide column">
-                <div class="ui cards">
-                    <price-card
-                        v-for="item in items | orderBy 'order'"
-                        :item.once="item"
-                        :amount-text.once="amountText"
-                        :unit-price-text.once="unitPriceText"
-                    ></price-card>
-                </div>
+        </div>
+        <div class="row">
+            <div class="sixteen wide column">
+                <workitem-form v-ref:form></workitem-form>
             </div>
         </div>
     </div>
 </template>
 
 <script>
-    import PriceCard from './price-card.vue'
     import WorkitemForm from './workitem-form.vue'
+    import TableWorkitems from './table-workitems.vue'
     import zipObject from 'lodash/array/zipObject'
     import pluck from 'lodash/collection/pluck'
     import merge from 'lodash/object/merge'
@@ -66,41 +63,13 @@
     }
 
     export default {
-        components: { PriceCard, WorkitemForm },
+        components: { WorkitemForm, TableWorkitems },
 
         props: [
-            'workId',
-            'unitLabel',
-            'costTypeLabel',
-            'orderLabel',
-            'nameLabel',
-            'amountLabel',
-            'createLabel',
-            'clearLabel',
-            'updateLabel',
-            'cancelLabel',
-            'editText',
-            'deleteText',
-            'amountText',
-            'unitPriceText',
-            'totalPriceLabel'
+            'workId'
         ],
 
         computed: {
-            labels() {
-                return {
-                    unit: this.unitLabel,
-                    costType: this.costTypeLabel,
-                    order: this.orderLabel,
-                    name: this.nameLabel,
-                    amount: this.amountLabel,
-                    unitPrice: this.unitPriceText,
-                    create: this.createLabel,
-                    update: this.updateLabel,
-                    cancel: this.cancelLabel,
-                    clear: this.clearLabel
-                }
-            },
             total() {
                 let sum = 0
 
@@ -175,13 +144,6 @@
         ready() {
             getItems(this.workId).then(response => {
                 this.items = response.work_items
-
-                this.$nextTick(() => {
-                    window.$(`#vue-workitem-form-${this._uid}`).sticky({
-                        offset: 20,
-                        bottomOffset: 20
-                    })
-                })
             })
 
             getTypes().then(response => {
