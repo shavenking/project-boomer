@@ -14212,25 +14212,25 @@ webpackJsonp([0],[
 	//     <table class="ui table">
 	//         <thead>
 	//             <tr>
-	//                 <th>費用類別</th>
 	//                 <th>名稱</th>
 	//                 <th>單位</th>
-	//                 <th>單價</th>
 	//                 <th>數量</th>
+	//                 <th>單價</th>
 	//                 <th>總價</th>
+	//                 <th>費用類別</th>
 	//                 <th></th>
 	//             </tr>
 	//         </thead>
 	//         <tbody v-for="items in groupedItems">
 	//             <tr v-for="(idx, item) in items">
+	//                 <td>{{ item.name }}</td>
+	//                 <td>{{ item.unit.name }}</td>
+	//                 <td>{{ item.amount }}</td>
+	//                 <td>{{ item.unit_price | currency }}</td>
+	//                 <td class="collapsing">{{ item.unit_price * item.amount | currency }}</td>
 	//                 <td :rowspan="items.length" v-if="0 === idx" class="top aligned collapsing">
 	//                     {{ item.cost_type.name }}
 	//                 </td>
-	//                 <td>{{ item.name }}</td>
-	//                 <td>{{ item.unit.name }}</td>
-	//                 <td>{{ item.unit_price | currency }}</td>
-	//                 <td>{{ item.amount }}</td>
-	//                 <td>{{ item.unit_price * item.amount | currency }}</td>
 	//                 <td class="collapsing">
 	//                     <div class="ui tiny compact right floated icon buttons">
 	//                         <button class="ui button" @click="editItem(item)">
@@ -14248,8 +14248,8 @@ webpackJsonp([0],[
 	//             <th></th>
 	//             <th></th>
 	//             <th></th>
-	//             <th></th>
 	//             <th>{{ totalPrice | currency }}</th>
+	//             <th></th>
 	//             <th></th>
 	//         </tfoot>
 	//     </table>
@@ -26620,7 +26620,7 @@ webpackJsonp([0],[
 /* 110 */
 /***/ function(module, exports) {
 
-	module.exports = "\n<table class=\"ui table\">\n    <thead>\n        <tr>\n            <th>費用類別</th>\n            <th>名稱</th>\n            <th>單位</th>\n            <th>單價</th>\n            <th>數量</th>\n            <th>總價</th>\n            <th></th>\n        </tr>\n    </thead>\n    <tbody v-for=\"items in groupedItems\">\n        <tr v-for=\"(idx, item) in items\">\n            <td :rowspan=\"items.length\" v-if=\"0 === idx\" class=\"top aligned collapsing\">\n                {{ item.cost_type.name }}\n            </td>\n            <td>{{ item.name }}</td>\n            <td>{{ item.unit.name }}</td>\n            <td>{{ item.unit_price | currency }}</td>\n            <td>{{ item.amount }}</td>\n            <td>{{ item.unit_price * item.amount | currency }}</td>\n            <td class=\"collapsing\">\n                <div class=\"ui tiny compact right floated icon buttons\">\n                    <button class=\"ui button\" @click=\"editItem(item)\">\n                        <i class=\"pencil icon\"></i>\n                    </button>\n                    <button class=\"ui button\" @click=\"deleteItem(item)\">\n                        <i class=\"trash icon\"></i>\n                    </button>\n                </div>\n            </td>\n        </tr>\n    </tbody>\n    <tfoot>\n        <th></th>\n        <th></th>\n        <th></th>\n        <th></th>\n        <th></th>\n        <th>{{ totalPrice | currency }}</th>\n        <th></th>\n    </tfoot>\n</table>\n";
+	module.exports = "\n<table class=\"ui table\">\n    <thead>\n        <tr>\n            <th>名稱</th>\n            <th>單位</th>\n            <th>數量</th>\n            <th>單價</th>\n            <th>總價</th>\n            <th>費用類別</th>\n            <th></th>\n        </tr>\n    </thead>\n    <tbody v-for=\"items in groupedItems\">\n        <tr v-for=\"(idx, item) in items\">\n            <td>{{ item.name }}</td>\n            <td>{{ item.unit.name }}</td>\n            <td>{{ item.amount }}</td>\n            <td>{{ item.unit_price | currency }}</td>\n            <td class=\"collapsing\">{{ item.unit_price * item.amount | currency }}</td>\n            <td :rowspan=\"items.length\" v-if=\"0 === idx\" class=\"top aligned collapsing\">\n                {{ item.cost_type.name }}\n            </td>\n            <td class=\"collapsing\">\n                <div class=\"ui tiny compact right floated icon buttons\">\n                    <button class=\"ui button\" @click=\"editItem(item)\">\n                        <i class=\"pencil icon\"></i>\n                    </button>\n                    <button class=\"ui button\" @click=\"deleteItem(item)\">\n                        <i class=\"trash icon\"></i>\n                    </button>\n                </div>\n            </td>\n        </tr>\n    </tbody>\n    <tfoot>\n        <th></th>\n        <th></th>\n        <th></th>\n        <th></th>\n        <th>{{ totalPrice | currency }}</th>\n        <th></th>\n        <th></th>\n    </tfoot>\n</table>\n";
 
 /***/ },
 /* 111 */

@@ -2,25 +2,25 @@
     <table class="ui table">
         <thead>
             <tr>
-                <th>費用類別</th>
                 <th>名稱</th>
                 <th>單位</th>
-                <th>單價</th>
                 <th>數量</th>
+                <th>單價</th>
                 <th>總價</th>
+                <th>費用類別</th>
                 <th></th>
             </tr>
         </thead>
         <tbody v-for="items in groupedItems">
             <tr v-for="(idx, item) in items">
+                <td>{{ item.name }}</td>
+                <td>{{ item.unit.name }}</td>
+                <td>{{ item.amount }}</td>
+                <td>{{ item.unit_price | currency }}</td>
+                <td class="collapsing">{{ item.unit_price * item.amount | currency }}</td>
                 <td :rowspan="items.length" v-if="0 === idx" class="top aligned collapsing">
                     {{ item.cost_type.name }}
                 </td>
-                <td>{{ item.name }}</td>
-                <td>{{ item.unit.name }}</td>
-                <td>{{ item.unit_price | currency }}</td>
-                <td>{{ item.amount }}</td>
-                <td>{{ item.unit_price * item.amount | currency }}</td>
                 <td class="collapsing">
                     <div class="ui tiny compact right floated icon buttons">
                         <button class="ui button" @click="editItem(item)">
@@ -38,8 +38,8 @@
             <th></th>
             <th></th>
             <th></th>
-            <th></th>
             <th>{{ totalPrice | currency }}</th>
+            <th></th>
             <th></th>
         </tfoot>
     </table>
