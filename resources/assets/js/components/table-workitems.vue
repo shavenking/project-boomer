@@ -11,14 +11,14 @@
                 <th></th>
             </tr>
         </thead>
-        <tbody v-for="items in groupedItems">
-            <tr v-for="(idx, item) in items">
+        <tbody>
+            <tr v-for="item in items">
                 <td>{{ item.name }}</td>
                 <td>{{ item.unit.name }}</td>
                 <td>{{ item.amount }}</td>
                 <td>{{ item.unit_price | currency }}</td>
                 <td class="collapsing">{{ item.unit_price * item.amount | currency }}</td>
-                <td :rowspan="items.length" v-if="0 === idx" class="top aligned collapsing">
+                <td>
                     {{ item.cost_type.name }}
                 </td>
                 <td class="collapsing">
