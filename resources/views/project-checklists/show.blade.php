@@ -18,10 +18,10 @@
             <table class="ui celled table">
                 <thead>
                     <tr>
-                        <th>name</th>
-                        <th>detail</th>
-                        <th>fault improvements</th>
-                        <th>actions</th>
+                        <th>項目名稱</th>
+                        <th>檢查標準</th>
+                        <th class="collapsing">缺失改善表</th>
+                        <th><!-- Buttons --></th>
                     </tr>
                 </thead>
                 <tbody>
