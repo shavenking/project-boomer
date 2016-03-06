@@ -6,7 +6,7 @@
     <link rel="stylesheet" href="/css/semantic.min.css">
 </head>
 <body>
-    <div class="ui grid container">
+    <div class="ui stackable grid container">
 
         <div class="sixteen wide column">
             @include('components.navbar')
