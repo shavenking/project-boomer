@@ -67,7 +67,8 @@ class ChecklistsController extends Controller
         $checklist = $project->checklists()->create(
             array_merge(
                 $referencedChecklist->toArray(), [
-                    'name' => $request->input('name')
+                    'name' => $request->input('name'),
+                    'passes_amount' => 0
                 ]
             )
         );
@@ -125,6 +126,10 @@ class ChecklistsController extends Controller
     public function updateCheckitemsResults($projectId, $checklistId, Request $request)
     {
         $checklist = ProjectChecklist::findOrFail($checklistId);
+
+        $checklist->update([
+            'passes_amount' => $request->passes_amount
+        ]);
 
         $checklist->checkitems->each(function ($checkitem) use ($request) {
             $checkitem->update([
