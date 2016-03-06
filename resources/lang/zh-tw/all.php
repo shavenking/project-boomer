@@ -11,7 +11,7 @@ return [
     'p_preparation' => '工程施工前準備',
 
     'external' => '外部作業',
-    'p_checklists' => '施工進度自主檢查',
+    'p_checklists' => '施工流程自主檢查表',
     'p_fault_improvements' => '工程施工改善',
     'p_construction_dailies' => '施工進度日報表',
 

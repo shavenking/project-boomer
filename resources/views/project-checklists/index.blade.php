@@ -12,12 +12,23 @@
         <i class="plus icon"></i>{{ trans('all.create_checklist') }}
     </a>
 
-    <div class="ui raised segment">
-        <ol class="ui relaxed list">
+    <table class="ui celled table">
+        <thead>
+            <tr>
+                <th>名稱</th>
+                <th>數量</th>
+            </tr>
+        </thead>
+        <tbody>
             @foreach ($checklists as $checklist)
-                <li><a href="{{ route('projects.checklists.show', [$project->id, $checklist->id]) }}" class="header">{{ $checklist->name }}</a></li>
+                <tr>
+                    <td class="selectable">
+                        <a href="{{ route('projects.checklists.show', [$project->id, $checklist->id]) }}">{{ $checklist->name }}</a>
+                    </td>
+                    <td>{{ $checklist->passes_amount }}</td>
+                </tr>
             @endforeach
-        </ol>
-    </div>
+        </tbody>
+    </table>
 
 @stop

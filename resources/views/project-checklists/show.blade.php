@@ -71,8 +71,13 @@
                         </tr>
                     @endforeach
                     <tfoot>
-                        <th colspan="4">
-                            <button class="ui right floated primary button" type="submit">{{ trans('all.save') }}</button>
+                        <th colspan="4" class="right aligned">
+                             <div class="inline field">
+                                <label>完成數量</label>
+                                <input type="text" class="ui fluid" name="passes_amount" value="{{ $checklist->passes_amount }}"></input>
+                                <button class="ui primary button" type="submit">{{ trans('all.save') }}</button>
+                            </div>
+
                         </th>
                     </tfoot>
                 </tbody>
