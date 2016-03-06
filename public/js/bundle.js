@@ -32,7 +32,7 @@ webpackJsonp([0],[
 
 	var _workitemList2 = _interopRequireDefault(_workitemList);
 
-	var _checklist = __webpack_require__(110);
+	var _checklist = __webpack_require__(112);
 
 	var _checklist2 = _interopRequireDefault(_checklist);
 
@@ -44,13 +44,17 @@ webpackJsonp([0],[
 
 	var _tableProjectWorks2 = _interopRequireDefault(_tableProjectWorks);
 
-	var _tableWorkitems = __webpack_require__(121);
+	var _tableWorkitems = __webpack_require__(106);
 
 	var _tableWorkitems2 = _interopRequireDefault(_tableWorkitems);
 
-	var _statisticsWorkitems = __webpack_require__(124);
+	var _statisticsWorkitems = __webpack_require__(121);
 
 	var _statisticsWorkitems2 = _interopRequireDefault(_statisticsWorkitems);
+
+	var _projectWorkitemList = __webpack_require__(124);
+
+	var _projectWorkitemList2 = _interopRequireDefault(_projectWorkitemList);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -67,7 +71,8 @@ webpackJsonp([0],[
 	        FlowtypeWorkSelect: _flowtypeWorkSelect2.default,
 	        TableProjectWorks: _tableProjectWorks2.default,
 	        TableWorkitems: _tableWorkitems2.default,
-	        StatisticsWorkitems: _statisticsWorkitems2.default
+	        StatisticsWorkitems: _statisticsWorkitems2.default,
+	        ProjectWorkitemList: _projectWorkitemList2.default
 	    }
 	});
 
@@ -12975,7 +12980,7 @@ webpackJsonp([0],[
 	    __vue_script__.__esModule &&
 	    Object.keys(__vue_script__).length > 1) {
 	  console.warn("[vue-loader] resources/assets/js/components/workitem-list.vue: named exports in *.vue files are ignored.")}
-	__vue_template__ = __webpack_require__(109)
+	__vue_template__ = __webpack_require__(111)
 	module.exports = __vue_script__ || {}
 	if (module.exports.__esModule) module.exports = module.exports.default
 	if (__vue_template__) {
@@ -13003,23 +13008,23 @@ webpackJsonp([0],[
 	    value: true
 	});
 
-	var _priceCard = __webpack_require__(85);
-
-	var _priceCard2 = _interopRequireDefault(_priceCard);
-
-	var _workitemForm = __webpack_require__(88);
+	var _workitemForm = __webpack_require__(85);
 
 	var _workitemForm2 = _interopRequireDefault(_workitemForm);
 
-	var _zipObject = __webpack_require__(96);
+	var _tableWorkitems = __webpack_require__(106);
+
+	var _tableWorkitems2 = _interopRequireDefault(_tableWorkitems);
+
+	var _zipObject = __webpack_require__(93);
 
 	var _zipObject2 = _interopRequireDefault(_zipObject);
 
-	var _pluck = __webpack_require__(93);
+	var _pluck = __webpack_require__(90);
 
 	var _pluck2 = _interopRequireDefault(_pluck);
 
-	var _merge = __webpack_require__(97);
+	var _merge = __webpack_require__(94);
 
 	var _merge2 = _interopRequireDefault(_merge);
 
@@ -13034,7 +13039,7 @@ webpackJsonp([0],[
 	//                 <div class="ui raised segment">
 	//                     <div class="ui mini five statistics">
 	//                         <div class="statistic">
-	//                             <div class="label">{{ totalPriceLabel }}</div>
+	//                             <div class="label">總價</div>
 	//                             <div class="value">{{ total | currency }}</div>
 	//                         </div>
 	//                         <div class="statistic" v-for="(key, typeTotal) in typeTotals">
@@ -13046,18 +13051,15 @@ webpackJsonp([0],[
 	//             </div>
 	//         </div>
 	//         <div class="row">
-	//             <div class="seven wide column">
-	//                 <workitem-form :labels.once="labels" class="sticky" id="vue-workitem-form-{{ _uid }}" v-ref:form></workitem-form>
+	//             <div class="sixteen wide column">
+	//                 <table-workitems
+	//                     :items="items"
+	//                 ></table-workitems>
 	//             </div>
-	//             <div class="nine wide column">
-	//                 <div class="ui cards">
-	//                     <price-card
-	//                         v-for="item in items | orderBy 'order'"
-	//                         :item.once="item"
-	//                         :amount-text.once="amountText"
-	//                         :unit-price-text.once="unitPriceText"
-	//                     ></price-card>
-	//                 </div>
+	//         </div>
+	//         <div class="row">
+	//             <div class="sixteen wide column">
+	//                 <workitem-form v-ref:form></workitem-form>
 	//             </div>
 	//         </div>
 	//     </div>
@@ -13086,25 +13088,11 @@ webpackJsonp([0],[
 	}
 
 	exports.default = {
-	    components: { PriceCard: _priceCard2.default, WorkitemForm: _workitemForm2.default },
+	    components: { WorkitemForm: _workitemForm2.default, TableWorkitems: _tableWorkitems2.default },
 
-	    props: ['workId', 'unitLabel', 'costTypeLabel', 'orderLabel', 'nameLabel', 'amountLabel', 'createLabel', 'clearLabel', 'updateLabel', 'cancelLabel', 'editText', 'deleteText', 'amountText', 'unitPriceText', 'totalPriceLabel'],
+	    props: ['workId'],
 
 	    computed: {
-	        labels: function labels() {
-	            return {
-	                unit: this.unitLabel,
-	                costType: this.costTypeLabel,
-	                order: this.orderLabel,
-	                name: this.nameLabel,
-	                amount: this.amountLabel,
-	                unitPrice: this.unitPriceText,
-	                create: this.createLabel,
-	                update: this.updateLabel,
-	                cancel: this.cancelLabel,
-	                clear: this.clearLabel
-	            };
-	        },
 	        total: function total() {
 	            var sum = 0;
 
@@ -13186,13 +13174,6 @@ webpackJsonp([0],[
 
 	        getItems(this.workId).then(function (response) {
 	            _this4.items = response.work_items;
-
-	            _this4.$nextTick(function () {
-	                window.$('#vue-workitem-form-' + _this4._uid).sticky({
-	                    offset: 20,
-	                    bottomOffset: 20
-	                });
-	            });
 	        });
 
 	        getTypes().then(function (response) {
@@ -13211,103 +13192,8 @@ webpackJsonp([0],[
 	if (__vue_script__ &&
 	    __vue_script__.__esModule &&
 	    Object.keys(__vue_script__).length > 1) {
-	  console.warn("[vue-loader] resources/assets/js/components/price-card.vue: named exports in *.vue files are ignored.")}
-	__vue_template__ = __webpack_require__(87)
-	module.exports = __vue_script__ || {}
-	if (module.exports.__esModule) module.exports = module.exports.default
-	if (__vue_template__) {
-	(typeof module.exports === "function" ? (module.exports.options || (module.exports.options = {})) : module.exports).template = __vue_template__
-	}
-	if (false) {(function () {  module.hot.accept()
-	  var hotAPI = require("vue-hot-reload-api")
-	  hotAPI.install(require("vue"), true)
-	  if (!hotAPI.compatible) return
-	  var id = "/Users/shavenking/Code/project-boomer/resources/assets/js/components/price-card.vue"
-	  if (!module.hot.data) {
-	    hotAPI.createRecord(id, module.exports)
-	  } else {
-	    hotAPI.update(id, module.exports, __vue_template__)
-	  }
-	})()}
-
-/***/ },
-/* 86 */
-/***/ function(module, exports) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
-	// <template>
-	//     <div class="ui fluid card">
-	//         <div class="content">
-	//             <div class="header">
-	//                 <div class="right floated">
-	//                     {{ item.amount * item.unit_price | currency }}
-	//                 </div>
-	//                 {{ item.name }}
-	//             </div>
-	//             <div class="meta">
-	//                 <span>{{ item.cost_type_name }}</span>
-	//                 <span>{{ item.unit_name }}</span>
-	//             </div>
-	//         </div>
-	//         <div class="extra content middle aligned">
-	//             <div class="ui tiny compact right floated icon buttons">
-	//                 <button class="ui button" @click="editItem">
-	//                     <i class="pencil icon"></i>
-	//                 </button>
-	//                 <button class="ui button" @click="deleteItem">
-	//                     <i class="trash icon"></i>
-	//                 </button>
-	//             </div>
-	//             <div class="ui labels">
-	//                 <div class="ui label">{{ unitPriceText }}&nbsp;{{ item.unit_price | currency }}</div>
-	//                 <div class="ui label">{{ amountText }}&nbsp;{{ item.amount }}</div>
-	//             </div>
-	//         </div>
-	//     </div>
-	// </template>
-	//
-	// <script>
-	exports.default = {
-
-	    props: ['item', 'amountText', 'unitPriceText'],
-
-	    computed: {},
-
-	    methods: {
-	        editItem: function editItem() {
-	            this.$parent.$emit('edit', this.item);
-	        },
-	        deleteItem: function deleteItem() {
-	            this.$parent.$emit('delete', this.item);
-	        }
-	    },
-
-	    data: function data() {},
-	    ready: function ready() {}
-	};
-	// </script>
-
-/***/ },
-/* 87 */
-/***/ function(module, exports) {
-
-	module.exports = "\n<div class=\"ui fluid card\">\n    <div class=\"content\">\n        <div class=\"header\">\n            <div class=\"right floated\">\n                {{ item.amount * item.unit_price | currency }}\n            </div>\n            {{ item.name }}\n        </div>\n        <div class=\"meta\">\n            <span>{{ item.cost_type_name }}</span>\n            <span>{{ item.unit_name }}</span>\n        </div>\n    </div>\n    <div class=\"extra content middle aligned\">\n        <div class=\"ui tiny compact right floated icon buttons\">\n            <button class=\"ui button\" @click=\"editItem\">\n                <i class=\"pencil icon\"></i>\n            </button>\n            <button class=\"ui button\" @click=\"deleteItem\">\n                <i class=\"trash icon\"></i>\n            </button>\n        </div>\n        <div class=\"ui labels\">\n            <div class=\"ui label\">{{ unitPriceText }}&nbsp;{{ item.unit_price | currency }}</div>\n            <div class=\"ui label\">{{ amountText }}&nbsp;{{ item.amount }}</div>\n        </div>\n    </div>\n</div>\n";
-
-/***/ },
-/* 88 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var __vue_script__, __vue_template__
-	__vue_script__ = __webpack_require__(89)
-	if (__vue_script__ &&
-	    __vue_script__.__esModule &&
-	    Object.keys(__vue_script__).length > 1) {
 	  console.warn("[vue-loader] resources/assets/js/components/workitem-form.vue: named exports in *.vue files are ignored.")}
-	__vue_template__ = __webpack_require__(108)
+	__vue_template__ = __webpack_require__(105)
 	module.exports = __vue_script__ || {}
 	if (module.exports.__esModule) module.exports = module.exports.default
 	if (__vue_template__) {
@@ -13326,7 +13212,7 @@ webpackJsonp([0],[
 	})()}
 
 /***/ },
-/* 89 */
+/* 86 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -13339,19 +13225,19 @@ webpackJsonp([0],[
 
 	var _unitSelect2 = _interopRequireDefault(_unitSelect);
 
-	var _costTypeSelect = __webpack_require__(90);
+	var _costTypeSelect = __webpack_require__(87);
 
 	var _costTypeSelect2 = _interopRequireDefault(_costTypeSelect);
 
-	var _pluck = __webpack_require__(93);
+	var _pluck = __webpack_require__(90);
 
 	var _pluck2 = _interopRequireDefault(_pluck);
 
-	var _zipObject = __webpack_require__(96);
+	var _zipObject = __webpack_require__(93);
 
 	var _zipObject2 = _interopRequireDefault(_zipObject);
 
-	var _merge = __webpack_require__(97);
+	var _merge = __webpack_require__(94);
 
 	var _merge2 = _interopRequireDefault(_merge);
 
@@ -13359,13 +13245,6 @@ webpackJsonp([0],[
 
 	exports.default = {
 	    components: { UnitSelect: _unitSelect2.default, CostTypeSelect: _costTypeSelect2.default },
-
-	    props: {
-	        labels: {
-	            required: true,
-	            type: Object
-	        }
-	    },
 
 	    computed: {
 	        isEditing: function isEditing() {
@@ -13424,46 +13303,46 @@ webpackJsonp([0],[
 	// </script>
 	// <template>
 	//     <form class="ui form" @submit.prevent="onSubmit">
-	//         <div class="ui dividing header">{{ isEditing ? item.name : labels.create }}</div>
+	//         <div class="ui dividing header">{{ isEditing ? item.name : '新增' }}</div>
 	//         <div class="field">
-	//             <label>{{ labels.unit }}</label>
+	//             <label>單位</label>
 	//             <unit-select v-ref:unit-select></unit-select>
 	//         </div>
 	//         <div class="field">
-	//             <label>{{ labels.costType }}</label>
+	//             <label>費用分類</label>
 	//             <cost-type-select v-ref:cost-type-select></cost-type-select>
 	//         </div>
 	//         <div class="field">
-	//             <label>{{ labels.name }}</label>
+	//             <label>名稱</label>
 	//             <input type="text" name="name" v-model="item.name">
 	//         </div>
 	//         <div class="field">
-	//             <label>{{ labels.amount }}</label>
+	//             <label>數量</label>
 	//             <input type="text" name="amount" v-model="item.amount">
 	//         </div>
 	//         <div class="field">
-	//             <label>{{ labels.unitPrice }}</label>
+	//             <label>單價</label>
 	//             <input type="text" name="unit_price" v-model="item.unit_price">
 	//         </div>
 	//
-	//         <button type="submit" class="ui primary button">{{ isEditing ? labels.update : labels.create }}</button>
-	//         <button type="button" class="ui button" @click="clearForm">{{ isEditing ? labels.cancel : labels.clear }}</button>
+	//         <button type="submit" class="ui primary button">{{ isEditing ? '儲存' : '新增' }}</button>
+	//         <button type="button" class="ui button" @click="clearForm">{{ isEditing ? '取消' : '重填' }}</button>
 	//     </form>
 	// </template>
 	//
 	// <script>
 
 /***/ },
-/* 90 */
+/* 87 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __vue_script__, __vue_template__
-	__vue_script__ = __webpack_require__(91)
+	__vue_script__ = __webpack_require__(88)
 	if (__vue_script__ &&
 	    __vue_script__.__esModule &&
 	    Object.keys(__vue_script__).length > 1) {
 	  console.warn("[vue-loader] resources/assets/js/components/cost-type-select.vue: named exports in *.vue files are ignored.")}
-	__vue_template__ = __webpack_require__(92)
+	__vue_template__ = __webpack_require__(89)
 	module.exports = __vue_script__ || {}
 	if (module.exports.__esModule) module.exports = module.exports.default
 	if (__vue_template__) {
@@ -13482,7 +13361,7 @@ webpackJsonp([0],[
 	})()}
 
 /***/ },
-/* 91 */
+/* 88 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -13539,16 +13418,16 @@ webpackJsonp([0],[
 	// </script>
 
 /***/ },
-/* 92 */
+/* 89 */
 /***/ function(module, exports) {
 
 	module.exports = "\n<dropdown-select\n    input-name=\"cost_type_id\"\n    :options=\"costTypes\"\n    option-value-name=\"id\"\n    option-text-name=\"name\"\n    v-ref:dropdown\n></dropdown-select>\n";
 
 /***/ },
-/* 93 */
+/* 90 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var map = __webpack_require__(94),
+	var map = __webpack_require__(91),
 	    property = __webpack_require__(68);
 
 	/**
@@ -13582,10 +13461,10 @@ webpackJsonp([0],[
 
 
 /***/ },
-/* 94 */
+/* 91 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var arrayMap = __webpack_require__(95),
+	var arrayMap = __webpack_require__(92),
 	    baseCallback = __webpack_require__(30),
 	    baseMap = __webpack_require__(70),
 	    isArray = __webpack_require__(51);
@@ -13656,7 +13535,7 @@ webpackJsonp([0],[
 
 
 /***/ },
-/* 95 */
+/* 92 */
 /***/ function(module, exports) {
 
 	/**
@@ -13683,7 +13562,7 @@ webpackJsonp([0],[
 
 
 /***/ },
-/* 96 */
+/* 93 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var isArray = __webpack_require__(51);
@@ -13732,11 +13611,11 @@ webpackJsonp([0],[
 
 
 /***/ },
-/* 97 */
+/* 94 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var baseMerge = __webpack_require__(98),
-	    createAssigner = __webpack_require__(106);
+	var baseMerge = __webpack_require__(95),
+	    createAssigner = __webpack_require__(103);
 
 	/**
 	 * Recursively merges own enumerable properties of the source object(s), that
@@ -13792,11 +13671,11 @@ webpackJsonp([0],[
 
 
 /***/ },
-/* 98 */
+/* 95 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var arrayEach = __webpack_require__(99),
-	    baseMergeDeep = __webpack_require__(100),
+	var arrayEach = __webpack_require__(96),
+	    baseMergeDeep = __webpack_require__(97),
 	    isArray = __webpack_require__(51),
 	    isArrayLike = __webpack_require__(45),
 	    isObject = __webpack_require__(43),
@@ -13854,7 +13733,7 @@ webpackJsonp([0],[
 
 
 /***/ },
-/* 99 */
+/* 96 */
 /***/ function(module, exports) {
 
 	/**
@@ -13882,16 +13761,16 @@ webpackJsonp([0],[
 
 
 /***/ },
-/* 100 */
+/* 97 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var arrayCopy = __webpack_require__(101),
+	var arrayCopy = __webpack_require__(98),
 	    isArguments = __webpack_require__(50),
 	    isArray = __webpack_require__(51),
 	    isArrayLike = __webpack_require__(45),
-	    isPlainObject = __webpack_require__(102),
+	    isPlainObject = __webpack_require__(99),
 	    isTypedArray = __webpack_require__(54),
-	    toPlainObject = __webpack_require__(104);
+	    toPlainObject = __webpack_require__(101);
 
 	/**
 	 * A specialized version of `baseMerge` for arrays and objects which performs
@@ -13955,7 +13834,7 @@ webpackJsonp([0],[
 
 
 /***/ },
-/* 101 */
+/* 98 */
 /***/ function(module, exports) {
 
 	/**
@@ -13981,10 +13860,10 @@ webpackJsonp([0],[
 
 
 /***/ },
-/* 102 */
+/* 99 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var baseForIn = __webpack_require__(103),
+	var baseForIn = __webpack_require__(100),
 	    isArguments = __webpack_require__(50),
 	    isObjectLike = __webpack_require__(44);
 
@@ -14058,7 +13937,7 @@ webpackJsonp([0],[
 
 
 /***/ },
-/* 103 */
+/* 100 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var baseFor = __webpack_require__(73),
@@ -14081,10 +13960,10 @@ webpackJsonp([0],[
 
 
 /***/ },
-/* 104 */
+/* 101 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var baseCopy = __webpack_require__(105),
+	var baseCopy = __webpack_require__(102),
 	    keysIn = __webpack_require__(53);
 
 	/**
@@ -14118,7 +13997,7 @@ webpackJsonp([0],[
 
 
 /***/ },
-/* 105 */
+/* 102 */
 /***/ function(module, exports) {
 
 	/**
@@ -14147,12 +14026,12 @@ webpackJsonp([0],[
 
 
 /***/ },
-/* 106 */
+/* 103 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var bindCallback = __webpack_require__(66),
 	    isIterateeCall = __webpack_require__(79),
-	    restParam = __webpack_require__(107);
+	    restParam = __webpack_require__(104);
 
 	/**
 	 * Creates a `_.assign`, `_.defaults`, or `_.merge` function.
@@ -14194,7 +14073,7 @@ webpackJsonp([0],[
 
 
 /***/ },
-/* 107 */
+/* 104 */
 /***/ function(module, exports) {
 
 	/** Used as the `TypeError` message for "Functions" methods. */
@@ -14258,28 +14137,22 @@ webpackJsonp([0],[
 
 
 /***/ },
-/* 108 */
+/* 105 */
 /***/ function(module, exports) {
 
-	module.exports = "\n<form class=\"ui form\" @submit.prevent=\"onSubmit\">\n    <div class=\"ui dividing header\">{{ isEditing ? item.name : labels.create }}</div>\n    <div class=\"field\">\n        <label>{{ labels.unit }}</label>\n        <unit-select v-ref:unit-select></unit-select>\n    </div>\n    <div class=\"field\">\n        <label>{{ labels.costType }}</label>\n        <cost-type-select v-ref:cost-type-select></cost-type-select>\n    </div>\n    <div class=\"field\">\n        <label>{{ labels.name }}</label>\n        <input type=\"text\" name=\"name\" v-model=\"item.name\">\n    </div>\n    <div class=\"field\">\n        <label>{{ labels.amount }}</label>\n        <input type=\"text\" name=\"amount\" v-model=\"item.amount\">\n    </div>\n    <div class=\"field\">\n        <label>{{ labels.unitPrice }}</label>\n        <input type=\"text\" name=\"unit_price\" v-model=\"item.unit_price\">\n    </div>\n\n    <button type=\"submit\" class=\"ui primary button\">{{ isEditing ? labels.update : labels.create }}</button>\n    <button type=\"button\" class=\"ui button\" @click=\"clearForm\">{{ isEditing ? labels.cancel : labels.clear }}</button>\n</form>\n";
+	module.exports = "\n<form class=\"ui form\" @submit.prevent=\"onSubmit\">\n    <div class=\"ui dividing header\">{{ isEditing ? item.name : '新增' }}</div>\n    <div class=\"field\">\n        <label>單位</label>\n        <unit-select v-ref:unit-select></unit-select>\n    </div>\n    <div class=\"field\">\n        <label>費用分類</label>\n        <cost-type-select v-ref:cost-type-select></cost-type-select>\n    </div>\n    <div class=\"field\">\n        <label>名稱</label>\n        <input type=\"text\" name=\"name\" v-model=\"item.name\">\n    </div>\n    <div class=\"field\">\n        <label>數量</label>\n        <input type=\"text\" name=\"amount\" v-model=\"item.amount\">\n    </div>\n    <div class=\"field\">\n        <label>單價</label>\n        <input type=\"text\" name=\"unit_price\" v-model=\"item.unit_price\">\n    </div>\n\n    <button type=\"submit\" class=\"ui primary button\">{{ isEditing ? '儲存' : '新增' }}</button>\n    <button type=\"button\" class=\"ui button\" @click=\"clearForm\">{{ isEditing ? '取消' : '重填' }}</button>\n</form>\n";
 
 /***/ },
-/* 109 */
-/***/ function(module, exports) {
-
-	module.exports = "\n<div class=\"ui grid\">\n    <div class=\"row\">\n        <div class=\"sixteen wide column\">\n            <div class=\"ui raised segment\">\n                <div class=\"ui mini five statistics\">\n                    <div class=\"statistic\">\n                        <div class=\"label\">{{ totalPriceLabel }}</div>\n                        <div class=\"value\">{{ total | currency }}</div>\n                    </div>\n                    <div class=\"statistic\" v-for=\"(key, typeTotal) in typeTotals\">\n                        <div class=\"label\">{{ costTypes[key] }}</div>\n                        <div class=\"value\">{{ typeTotal | currency }}</div>\n                    </div>\n                </div>\n            </div>\n        </div>\n    </div>\n    <div class=\"row\">\n        <div class=\"seven wide column\">\n            <workitem-form :labels.once=\"labels\" class=\"sticky\" id=\"vue-workitem-form-{{ _uid }}\" v-ref:form></workitem-form>\n        </div>\n        <div class=\"nine wide column\">\n            <div class=\"ui cards\">\n                <price-card\n                    v-for=\"item in items | orderBy 'order'\"\n                    :item.once=\"item\"\n                    :amount-text.once=\"amountText\"\n                    :unit-price-text.once=\"unitPriceText\"\n                ></price-card>\n            </div>\n        </div>\n    </div>\n</div>\n";
-
-/***/ },
-/* 110 */
+/* 106 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __vue_script__, __vue_template__
-	__vue_script__ = __webpack_require__(111)
+	__vue_script__ = __webpack_require__(107)
 	if (__vue_script__ &&
 	    __vue_script__.__esModule &&
 	    Object.keys(__vue_script__).length > 1) {
-	  console.warn("[vue-loader] resources/assets/js/components/checklist.vue: named exports in *.vue files are ignored.")}
-	__vue_template__ = __webpack_require__(114)
+	  console.warn("[vue-loader] resources/assets/js/components/table-workitems.vue: named exports in *.vue files are ignored.")}
+	__vue_template__ = __webpack_require__(110)
 	module.exports = __vue_script__ || {}
 	if (module.exports.__esModule) module.exports = module.exports.default
 	if (__vue_template__) {
@@ -14289,7 +14162,7 @@ webpackJsonp([0],[
 	  var hotAPI = require("vue-hot-reload-api")
 	  hotAPI.install(require("vue"), true)
 	  if (!hotAPI.compatible) return
-	  var id = "/Users/shavenking/Code/project-boomer/resources/assets/js/components/checklist.vue"
+	  var id = "/Users/shavenking/Code/project-boomer/resources/assets/js/components/table-workitems.vue"
 	  if (!module.hot.data) {
 	    hotAPI.createRecord(id, module.exports)
 	  } else {
@@ -14298,7 +14171,7 @@ webpackJsonp([0],[
 	})()}
 
 /***/ },
-/* 111 */
+/* 107 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -14307,101 +14180,90 @@ webpackJsonp([0],[
 	    value: true
 	});
 
-	var _lodash = __webpack_require__(112);
+	var _lodash = __webpack_require__(108);
 
 	var _lodash2 = _interopRequireDefault(_lodash);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-	function getChecklist(checklistId) {
-	    return window.$.getJSON('/api/v1/checklists/' + checklistId);
-	} // <template>
-	//     <table class="ui celled structured table">
+	exports.default = {
+	    props: ['items'],
+
+	    computed: {
+	        totalPrice: function totalPrice() {
+	            var sum = 0;
+	            _lodash2.default.forEach(this.items, function (item) {
+	                sum += item.amount * item.unit_price;
+	            });
+
+	            return sum;
+	        },
+	        groupedItems: function groupedItems() {
+	            return _lodash2.default.groupBy(this.items, 'cost_type_id');
+	        }
+	    },
+
+	    methods: {
+	        editItem: function editItem(item) {
+	            this.$parent.$emit('edit', item);
+	        },
+	        deleteItem: function deleteItem(item) {
+	            this.$parent.$emit('delete', item);
+	        }
+	    }
+	};
+	// </script>
+	// <template>
+	//     <table class="ui table">
 	//         <thead>
 	//             <tr>
-	//                 <th class="four wide center aligned">{{ titleLabel }}</th>
-	//                 <th class="twelve wide">{{ detailLabel }}</th>
+	//                 <th>名稱</th>
+	//                 <th>單位</th>
+	//                 <th>數量</th>
+	//                 <th>單價</th>
+	//                 <th>總價</th>
+	//                 <th>費用類別</th>
+	//                 <th></th>
 	//             </tr>
 	//         </thead>
-	//         <tbody v-for="(title, items) in groupedItems">
+	//         <tbody v-for="items in groupedItems">
 	//             <tr v-for="(idx, item) in items">
-	//                 <td :rowspan="items.length" v-if="0 === idx" class="top aligned center aligned">{{ title }}</td>
-	//                 <td v-if="item.detail">{{ item.detail }}</td>
-	//                 <td v-if="!item.detail">
-	//                     <div class="ui fluid icon input">
-	//                         <input type="text" @keypress.enter="onSubmit(title, $event)">
-	//                         <i class="plus icon"></i>
+	//                 <td>{{ item.name }}</td>
+	//                 <td>{{ item.unit.name }}</td>
+	//                 <td>{{ item.amount }}</td>
+	//                 <td>{{ item.unit_price | currency }}</td>
+	//                 <td class="collapsing">{{ item.unit_price * item.amount | currency }}</td>
+	//                 <td :rowspan="items.length" v-if="0 === idx" class="top aligned collapsing">
+	//                     {{ item.cost_type.name }}
+	//                 </td>
+	//                 <td class="collapsing">
+	//                     <div class="ui tiny compact right floated icon buttons">
+	//                         <button class="ui button" @click="editItem(item)">
+	//                             <i class="pencil icon"></i>
+	//                         </button>
+	//                         <button class="ui button" @click="deleteItem(item)">
+	//                             <i class="trash icon"></i>
+	//                         </button>
 	//                     </div>
 	//                 </td>
 	//             </tr>
 	//         </tbody>
+	//         <tfoot>
+	//             <th></th>
+	//             <th></th>
+	//             <th></th>
+	//             <th></th>
+	//             <th>{{ totalPrice | currency }}</th>
+	//             <th></th>
+	//             <th></th>
+	//         </tfoot>
 	//     </table>
 	// </template>
 	//
 	// <script>
 
-	function createCheckitem(checklistId, title, detail) {
-	    return window.$.post('/api/v1/checklists/' + checklistId + '/checkitems', { title: title, detail: detail });
-	}
-
-	function getNodes(workflowId) {
-	    return window.$.getJSON('/api/v1/workflows/' + workflowId + '/nodes');
-	}
-
-	exports.default = {
-	    props: ['checklistId', 'titleLabel', 'detailLabel'],
-
-	    computed: {
-	        groupedItems: function groupedItems() {
-	            return (0, _lodash2.default)(this.items).map(function (item) {
-	                return {
-	                    title: item.name,
-	                    detail: item.detail
-	                };
-	            }).concat((0, _lodash2.default)(this.nodes).pluck('title').map(function (title) {
-	                return { title: title };
-	            }).value()).groupBy('title').value();
-	        }
-	    },
-
-	    methods: {
-	        onSubmit: function onSubmit(title, e) {
-	            var _this = this;
-
-	            e.preventDefault();
-
-	            var detail = e.target.value;
-
-	            createCheckitem(this.checklistId, title, detail).then(function (response) {
-	                _this.items.push(response.checkitem);
-
-	                e.target.value = '';
-	            });
-	        }
-	    },
-
-	    data: function data() {
-	        return {
-	            items: [],
-	            nodes: []
-	        };
-	    },
-	    ready: function ready() {
-	        var _this2 = this;
-
-	        getChecklist(this.checklistId).then(function (response) {
-	            _this2.items = response.checkitems;
-
-	            getNodes(response.checklist.workflow_id).then(function (response) {
-	                _this2.nodes = response.nodes;
-	            });
-	        });
-	    }
-	};
-	// </script>
-
 /***/ },
-/* 112 */
+/* 108 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_RESULT__;/* WEBPACK VAR INJECTION */(function(module, global) {/**
@@ -26756,10 +26618,153 @@ webpackJsonp([0],[
 	  }
 	}.call(this));
 
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(113)(module), (function() { return this; }())))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(109)(module), (function() { return this; }())))
 
 /***/ },
-/* 113 */,
+/* 109 */,
+/* 110 */
+/***/ function(module, exports) {
+
+	module.exports = "\n<table class=\"ui table\">\n    <thead>\n        <tr>\n            <th>名稱</th>\n            <th>單位</th>\n            <th>數量</th>\n            <th>單價</th>\n            <th>總價</th>\n            <th>費用類別</th>\n            <th></th>\n        </tr>\n    </thead>\n    <tbody v-for=\"items in groupedItems\">\n        <tr v-for=\"(idx, item) in items\">\n            <td>{{ item.name }}</td>\n            <td>{{ item.unit.name }}</td>\n            <td>{{ item.amount }}</td>\n            <td>{{ item.unit_price | currency }}</td>\n            <td class=\"collapsing\">{{ item.unit_price * item.amount | currency }}</td>\n            <td :rowspan=\"items.length\" v-if=\"0 === idx\" class=\"top aligned collapsing\">\n                {{ item.cost_type.name }}\n            </td>\n            <td class=\"collapsing\">\n                <div class=\"ui tiny compact right floated icon buttons\">\n                    <button class=\"ui button\" @click=\"editItem(item)\">\n                        <i class=\"pencil icon\"></i>\n                    </button>\n                    <button class=\"ui button\" @click=\"deleteItem(item)\">\n                        <i class=\"trash icon\"></i>\n                    </button>\n                </div>\n            </td>\n        </tr>\n    </tbody>\n    <tfoot>\n        <th></th>\n        <th></th>\n        <th></th>\n        <th></th>\n        <th>{{ totalPrice | currency }}</th>\n        <th></th>\n        <th></th>\n    </tfoot>\n</table>\n";
+
+/***/ },
+/* 111 */
+/***/ function(module, exports) {
+
+	module.exports = "\n<div class=\"ui grid\">\n    <div class=\"row\">\n        <div class=\"sixteen wide column\">\n            <div class=\"ui raised segment\">\n                <div class=\"ui mini five statistics\">\n                    <div class=\"statistic\">\n                        <div class=\"label\">總價</div>\n                        <div class=\"value\">{{ total | currency }}</div>\n                    </div>\n                    <div class=\"statistic\" v-for=\"(key, typeTotal) in typeTotals\">\n                        <div class=\"label\">{{ costTypes[key] }}</div>\n                        <div class=\"value\">{{ typeTotal | currency }}</div>\n                    </div>\n                </div>\n            </div>\n        </div>\n    </div>\n    <div class=\"row\">\n        <div class=\"sixteen wide column\">\n            <table-workitems\n                :items=\"items\"\n            ></table-workitems>\n        </div>\n    </div>\n    <div class=\"row\">\n        <div class=\"sixteen wide column\">\n            <workitem-form v-ref:form></workitem-form>\n        </div>\n    </div>\n</div>\n";
+
+/***/ },
+/* 112 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var __vue_script__, __vue_template__
+	__vue_script__ = __webpack_require__(113)
+	if (__vue_script__ &&
+	    __vue_script__.__esModule &&
+	    Object.keys(__vue_script__).length > 1) {
+	  console.warn("[vue-loader] resources/assets/js/components/checklist.vue: named exports in *.vue files are ignored.")}
+	__vue_template__ = __webpack_require__(114)
+	module.exports = __vue_script__ || {}
+	if (module.exports.__esModule) module.exports = module.exports.default
+	if (__vue_template__) {
+	(typeof module.exports === "function" ? (module.exports.options || (module.exports.options = {})) : module.exports).template = __vue_template__
+	}
+	if (false) {(function () {  module.hot.accept()
+	  var hotAPI = require("vue-hot-reload-api")
+	  hotAPI.install(require("vue"), true)
+	  if (!hotAPI.compatible) return
+	  var id = "/Users/shavenking/Code/project-boomer/resources/assets/js/components/checklist.vue"
+	  if (!module.hot.data) {
+	    hotAPI.createRecord(id, module.exports)
+	  } else {
+	    hotAPI.update(id, module.exports, __vue_template__)
+	  }
+	})()}
+
+/***/ },
+/* 113 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+
+	var _lodash = __webpack_require__(108);
+
+	var _lodash2 = _interopRequireDefault(_lodash);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function getChecklist(checklistId) {
+	    return window.$.getJSON('/api/v1/checklists/' + checklistId);
+	} // <template>
+	//     <table class="ui celled structured table">
+	//         <thead>
+	//             <tr>
+	//                 <th class="four wide center aligned">{{ titleLabel }}</th>
+	//                 <th class="twelve wide">{{ detailLabel }}</th>
+	//             </tr>
+	//         </thead>
+	//         <tbody v-for="(title, items) in groupedItems">
+	//             <tr v-for="(idx, item) in items">
+	//                 <td :rowspan="items.length" v-if="0 === idx" class="top aligned center aligned">{{ title }}</td>
+	//                 <td v-if="item.detail">{{ item.detail }}</td>
+	//                 <td v-if="!item.detail">
+	//                     <div class="ui fluid icon input">
+	//                         <input type="text" @keypress.enter="onSubmit(title, $event)">
+	//                         <i class="plus icon"></i>
+	//                     </div>
+	//                 </td>
+	//             </tr>
+	//         </tbody>
+	//     </table>
+	// </template>
+	//
+	// <script>
+
+	function createCheckitem(checklistId, title, detail) {
+	    return window.$.post('/api/v1/checklists/' + checklistId + '/checkitems', { title: title, detail: detail });
+	}
+
+	function getNodes(workflowId) {
+	    return window.$.getJSON('/api/v1/workflows/' + workflowId + '/nodes');
+	}
+
+	exports.default = {
+	    props: ['checklistId', 'titleLabel', 'detailLabel'],
+
+	    computed: {
+	        groupedItems: function groupedItems() {
+	            return (0, _lodash2.default)(this.items).map(function (item) {
+	                return {
+	                    title: item.name,
+	                    detail: item.detail
+	                };
+	            }).concat((0, _lodash2.default)(this.nodes).pluck('title').map(function (title) {
+	                return { title: title };
+	            }).value()).groupBy('title').value();
+	        }
+	    },
+
+	    methods: {
+	        onSubmit: function onSubmit(title, e) {
+	            var _this = this;
+
+	            e.preventDefault();
+
+	            var detail = e.target.value;
+
+	            createCheckitem(this.checklistId, title, detail).then(function (response) {
+	                _this.items.push(response.checkitem);
+
+	                e.target.value = '';
+	            });
+	        }
+	    },
+
+	    data: function data() {
+	        return {
+	            items: [],
+	            nodes: []
+	        };
+	    },
+	    ready: function ready() {
+	        var _this2 = this;
+
+	        getChecklist(this.checklistId).then(function (response) {
+	            _this2.items = response.checkitems;
+
+	            getNodes(response.checklist.workflow_id).then(function (response) {
+	                _this2.nodes = response.nodes;
+	            });
+	        });
+	    }
+	};
+	// </script>
+
+/***/ },
 /* 114 */
 /***/ function(module, exports) {
 
@@ -26923,7 +26928,7 @@ webpackJsonp([0],[
 	    value: true
 	});
 
-	var _lodash = __webpack_require__(112);
+	var _lodash = __webpack_require__(108);
 
 	var _lodash2 = _interopRequireDefault(_lodash);
 
@@ -27038,129 +27043,8 @@ webpackJsonp([0],[
 	if (__vue_script__ &&
 	    __vue_script__.__esModule &&
 	    Object.keys(__vue_script__).length > 1) {
-	  console.warn("[vue-loader] resources/assets/js/components/table-workitems.vue: named exports in *.vue files are ignored.")}
-	__vue_template__ = __webpack_require__(123)
-	module.exports = __vue_script__ || {}
-	if (module.exports.__esModule) module.exports = module.exports.default
-	if (__vue_template__) {
-	(typeof module.exports === "function" ? (module.exports.options || (module.exports.options = {})) : module.exports).template = __vue_template__
-	}
-	if (false) {(function () {  module.hot.accept()
-	  var hotAPI = require("vue-hot-reload-api")
-	  hotAPI.install(require("vue"), true)
-	  if (!hotAPI.compatible) return
-	  var id = "/Users/shavenking/Code/project-boomer/resources/assets/js/components/table-workitems.vue"
-	  if (!module.hot.data) {
-	    hotAPI.createRecord(id, module.exports)
-	  } else {
-	    hotAPI.update(id, module.exports, __vue_template__)
-	  }
-	})()}
-
-/***/ },
-/* 122 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
-
-	var _lodash = __webpack_require__(112);
-
-	var _lodash2 = _interopRequireDefault(_lodash);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	function getItems(workId) {
-	    return window.$.getJSON('/api/v1/works/' + workId + '/work-items');
-	} // <template>
-	//     <table class="ui table">
-	//         <thead>
-	//             <tr>
-	//                 <th>{{ costTypeLabel }}</th>
-	//                 <th>{{ nameLabel }}</th>
-	//                 <th>{{ unitLabel }}</th>
-	//                 <th>{{ unitPriceLabel }}</th>
-	//                 <th>{{ amountLabel }}</th>
-	//                 <th>{{ totalPriceLabel }}</th>
-	//             </tr>
-	//         </thead>
-	//         <tbody v-for="items in groupedItems">
-	//             <tr v-for="(idx, item) in items">
-	//                 <td :rowspan="items.length" v-if="0 === idx" class="top aligned collapsing">
-	//                     {{ item.cost_type.name }}
-	//                 </td>
-	//                 <td>{{ item.name }}</td>
-	//                 <td>{{ item.unit.name }}</td>
-	//                 <td>{{ item.unit_price | currency }}</td>
-	//                 <td>{{ item.amount }}</td>
-	//                 <td>{{ item.unit_price * item.amount | currency }}</td>
-	//             </tr>
-	//         </tbody>
-	//         <tfoot>
-	//             <th></th>
-	//             <th></th>
-	//             <th></th>
-	//             <th></th>
-	//             <th></th>
-	//             <th>{{ totalPrice | currency }}</th>
-	//         </tfoot>
-	//     </table>
-	// </template>
-	//
-	// <script>
-
-	exports.default = {
-	    props: ['workId', 'unitLabel', 'nameLabel', 'amountLabel', 'costTypeLabel', 'unitPriceLabel', 'totalPriceLabel'],
-
-	    computed: {
-	        totalPrice: function totalPrice() {
-	            var sum = 0;
-	            _lodash2.default.forEach(this.items, function (item) {
-	                sum += item.amount * item.unit_price;
-	            });
-
-	            return sum;
-	        },
-	        groupedItems: function groupedItems() {
-	            return _lodash2.default.groupBy(this.items, 'cost_type_id');
-	        }
-	    },
-
-	    data: function data() {
-	        return {
-	            items: []
-	        };
-	    },
-	    ready: function ready() {
-	        var _this = this;
-
-	        getItems(this.workId).then(function (response) {
-	            _this.items = response.work_items;
-	        });
-	    }
-	};
-	// </script>
-
-/***/ },
-/* 123 */
-/***/ function(module, exports) {
-
-	module.exports = "\n<table class=\"ui table\">\n    <thead>\n        <tr>\n            <th>{{ costTypeLabel }}</th>\n            <th>{{ nameLabel }}</th>\n            <th>{{ unitLabel }}</th>\n            <th>{{ unitPriceLabel }}</th>\n            <th>{{ amountLabel }}</th>\n            <th>{{ totalPriceLabel }}</th>\n        </tr>\n    </thead>\n    <tbody v-for=\"items in groupedItems\">\n        <tr v-for=\"(idx, item) in items\">\n            <td :rowspan=\"items.length\" v-if=\"0 === idx\" class=\"top aligned collapsing\">\n                {{ item.cost_type.name }}\n            </td>\n            <td>{{ item.name }}</td>\n            <td>{{ item.unit.name }}</td>\n            <td>{{ item.unit_price | currency }}</td>\n            <td>{{ item.amount }}</td>\n            <td>{{ item.unit_price * item.amount | currency }}</td>\n        </tr>\n    </tbody>\n    <tfoot>\n        <th></th>\n        <th></th>\n        <th></th>\n        <th></th>\n        <th></th>\n        <th>{{ totalPrice | currency }}</th>\n    </tfoot>\n</table>\n";
-
-/***/ },
-/* 124 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var __vue_script__, __vue_template__
-	__vue_script__ = __webpack_require__(125)
-	if (__vue_script__ &&
-	    __vue_script__.__esModule &&
-	    Object.keys(__vue_script__).length > 1) {
 	  console.warn("[vue-loader] resources/assets/js/components/statistics-workitems.vue: named exports in *.vue files are ignored.")}
-	__vue_template__ = __webpack_require__(126)
+	__vue_template__ = __webpack_require__(123)
 	module.exports = __vue_script__ || {}
 	if (module.exports.__esModule) module.exports = module.exports.default
 	if (__vue_template__) {
@@ -27179,7 +27063,7 @@ webpackJsonp([0],[
 	})()}
 
 /***/ },
-/* 125 */
+/* 122 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -27188,7 +27072,7 @@ webpackJsonp([0],[
 	    value: true
 	});
 
-	var _lodash = __webpack_require__(112);
+	var _lodash = __webpack_require__(108);
 
 	var _lodash2 = _interopRequireDefault(_lodash);
 
@@ -27268,10 +27152,229 @@ webpackJsonp([0],[
 	// </script>
 
 /***/ },
-/* 126 */
+/* 123 */
 /***/ function(module, exports) {
 
 	module.exports = "\n<div class=\"ui mini five statistics\">\n    <div class=\"statistic\">\n        <div class=\"label\">{{ totalPriceLabel }}</div>\n        <div class=\"value\">{{ totalPrice | currency }}</div>\n    </div>\n    <div class=\"statistic\" v-for=\"(costTypeId, totalPrice) in totalPriceByTypes\">\n        <div class=\"label\">{{ costTypes[costTypeId] }}</div>\n        <div class=\"value\">{{ totalPrice | currency }}</div>\n    </div>\n</div>\n";
+
+/***/ },
+/* 124 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var __vue_script__, __vue_template__
+	__vue_script__ = __webpack_require__(125)
+	if (__vue_script__ &&
+	    __vue_script__.__esModule &&
+	    Object.keys(__vue_script__).length > 1) {
+	  console.warn("[vue-loader] resources/assets/js/components/project-workitem-list.vue: named exports in *.vue files are ignored.")}
+	__vue_template__ = __webpack_require__(126)
+	module.exports = __vue_script__ || {}
+	if (module.exports.__esModule) module.exports = module.exports.default
+	if (__vue_template__) {
+	(typeof module.exports === "function" ? (module.exports.options || (module.exports.options = {})) : module.exports).template = __vue_template__
+	}
+	if (false) {(function () {  module.hot.accept()
+	  var hotAPI = require("vue-hot-reload-api")
+	  hotAPI.install(require("vue"), true)
+	  if (!hotAPI.compatible) return
+	  var id = "/Users/shavenking/Code/project-boomer/resources/assets/js/components/project-workitem-list.vue"
+	  if (!module.hot.data) {
+	    hotAPI.createRecord(id, module.exports)
+	  } else {
+	    hotAPI.update(id, module.exports, __vue_template__)
+	  }
+	})()}
+
+/***/ },
+/* 125 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+
+	var _workitemForm = __webpack_require__(85);
+
+	var _workitemForm2 = _interopRequireDefault(_workitemForm);
+
+	var _tableWorkitems = __webpack_require__(106);
+
+	var _tableWorkitems2 = _interopRequireDefault(_tableWorkitems);
+
+	var _zipObject = __webpack_require__(93);
+
+	var _zipObject2 = _interopRequireDefault(_zipObject);
+
+	var _pluck = __webpack_require__(90);
+
+	var _pluck2 = _interopRequireDefault(_pluck);
+
+	var _merge = __webpack_require__(94);
+
+	var _merge2 = _interopRequireDefault(_merge);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function getItems(projectId, workId) {
+	    return window.$.getJSON('/api/v1/projects/' + projectId + '/works/' + workId + '/workitems');
+	} // <template>
+	//     <div class="ui grid">
+	//         <div class="row">
+	//             <div class="sixteen wide column">
+	//                 <div class="ui raised segment">
+	//                     <div class="ui mini five statistics">
+	//                         <div class="statistic">
+	//                             <div class="label">總價</div>
+	//                             <div class="value">{{ total | currency }}</div>
+	//                         </div>
+	//                         <div class="statistic" v-for="(key, typeTotal) in typeTotals">
+	//                             <div class="label">{{ costTypes[key] }}</div>
+	//                             <div class="value">{{ typeTotal | currency }}</div>
+	//                         </div>
+	//                     </div>
+	//                 </div>
+	//             </div>
+	//         </div>
+	//         <div class="row">
+	//             <div class="sixteen wide column">
+	//                 <table-workitems
+	//                     :items="items"
+	//                 ></table-workitems>
+	//             </div>
+	//         </div>
+	//         <div class="row">
+	//             <div class="sixteen wide column">
+	//                 <workitem-form v-ref:form></workitem-form>
+	//             </div>
+	//         </div>
+	//     </div>
+	// </template>
+	//
+	// <script>
+
+	function getTypes() {
+	    return window.$.getJSON('/api/v1/cost-types');
+	}
+
+	function createItem(projectId, workId, item) {
+	    return window.$.post('/api/v1/projects/' + projectId + '/works/' + workId + '/workitems', item);
+	}
+
+	function updateItem(projectId, workId, item) {
+	    return window.$.post('/api/v1/projects/' + projectId + '/works/' + workId + '/workitems/' + item.id, (0, _merge2.default)(item, {
+	        _method: 'PUT'
+	    }));
+	}
+
+	function deleteItem(projectId, workId, item) {
+	    return window.$.post('/api/v1/projects/' + projectId + '/works/' + workId + '/workitems/' + item.id, {
+	        _method: 'DELETE'
+	    });
+	}
+
+	exports.default = {
+	    components: { WorkitemForm: _workitemForm2.default, TableWorkitems: _tableWorkitems2.default },
+
+	    props: ['projectId', 'workId'],
+
+	    computed: {
+	        total: function total() {
+	            var sum = 0;
+
+	            (0, _pluck2.default)(this.items, 'total_price').forEach(function (price) {
+	                sum += price;
+	            });
+
+	            return sum;
+	        },
+	        typeTotals: function typeTotals() {
+	            var sum = {
+	                1: 0,
+	                2: 0,
+	                3: 0,
+	                4: 0
+	            };
+
+	            this.items.forEach(function (item) {
+	                sum[item.cost_type_id] += item.total_price;
+	            });
+
+	            return sum;
+	        }
+	    },
+
+	    methods: {},
+
+	    events: {
+	        edit: function edit(item) {
+	            this.$refs.form.$emit('edit', item);
+	        },
+	        create: function create(item) {
+	            var _this = this;
+
+	            createItem(this.projectId, this.workId, item).then(function (response) {
+	                _this.items.push(response.workitem);
+
+	                _this.$refs.form.$emit('created', response.workitem);
+	            });
+	        },
+	        update: function update(item) {
+	            var _this2 = this;
+
+	            updateItem(this.projectId, this.workId, item).then(function (response) {
+	                var item = response.workitem;
+
+	                var items = _this2.items.map(function (candidate) {
+	                    if (candidate.id == item.id) {
+	                        return item;
+	                    }
+
+	                    return candidate;
+	                });
+
+	                _this2.items = items;
+
+	                _this2.$refs.form.$emit('updated', response.workitem);
+	            });
+	        },
+	        delete: function _delete(item) {
+	            var _this3 = this;
+
+	            deleteItem(this.projectId, this.workId, item).then(function (response) {
+	                _this3.items = _this3.items.filter(function (candidate) {
+	                    return candidate.id != item.id;
+	                });
+	            });
+	        }
+	    },
+
+	    data: function data() {
+	        return {
+	            items: [],
+	            costTypes: {}
+	        };
+	    },
+	    ready: function ready() {
+	        var _this4 = this;
+
+	        getItems(this.projectId, this.workId).then(function (response) {
+	            _this4.items = response.workitems;
+	        });
+
+	        getTypes().then(function (response) {
+	            _this4.costTypes = (0, _zipObject2.default)((0, _pluck2.default)(response.cost_types, 'id'), (0, _pluck2.default)(response.cost_types, 'name'));
+	        });
+	    }
+	};
+	// </script>
+
+/***/ },
+/* 126 */
+/***/ function(module, exports) {
+
+	module.exports = "\n<div class=\"ui grid\">\n    <div class=\"row\">\n        <div class=\"sixteen wide column\">\n            <div class=\"ui raised segment\">\n                <div class=\"ui mini five statistics\">\n                    <div class=\"statistic\">\n                        <div class=\"label\">總價</div>\n                        <div class=\"value\">{{ total | currency }}</div>\n                    </div>\n                    <div class=\"statistic\" v-for=\"(key, typeTotal) in typeTotals\">\n                        <div class=\"label\">{{ costTypes[key] }}</div>\n                        <div class=\"value\">{{ typeTotal | currency }}</div>\n                    </div>\n                </div>\n            </div>\n        </div>\n    </div>\n    <div class=\"row\">\n        <div class=\"sixteen wide column\">\n            <table-workitems\n                :items=\"items\"\n            ></table-workitems>\n        </div>\n    </div>\n    <div class=\"row\">\n        <div class=\"sixteen wide column\">\n            <workitem-form v-ref:form></workitem-form>\n        </div>\n    </div>\n</div>\n";
 
 /***/ }
 ]);

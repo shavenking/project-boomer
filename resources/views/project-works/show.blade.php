@@ -10,26 +10,9 @@
 
 @section('content')
 
-    <div class="ui grid">
-
-        <div class="sixteen wide column">
-            <a
-                href="{{ route('projects.works.workitems.create', [$project->id, $work->id]) }}"
-                class="ui primary button"
-            >
-                <i class="plus icon"></i>
-                {{ trans('all.create_workitem') }}
-            </a>
-        </div>
-
-        @foreach ($work->workitems->sortBy('order') as $workitem)
-            <div class="eight wide column">
-                @include('components.workitem')
-            </div>
-        @endforeach
-
-    </div>
-
-
+    <project-workitem-list
+        project-id="{{ $project->id }}"
+        work-id="{{ $work->id }}"
+    ></project-workitem-list>
 
 @stop

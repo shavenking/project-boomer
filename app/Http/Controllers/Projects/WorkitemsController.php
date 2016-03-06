@@ -14,9 +14,11 @@ class WorkitemsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index($projectId, $workId)
     {
-        //
+        $workitems = \App\Entities\ProjectWorkitem::whereProjectWorkId($workId)->get();
+
+        return response()->json(compact('workitems'));
     }
 
     /**
@@ -52,8 +54,12 @@ class WorkitemsController extends Controller
 
         $work = \App\Entities\ProjectWork::findOrFail($workId);
 
-        $work->workitems()->create($request->all());
+        $workitem = $work->workitems()->create($request->all());
         $work->reCalculateUnitPrice();
+
+        if ($request->ajax()) {
+            return response()->json(compact('workitem'));
+        }
 
         return redirect()->route('projects.works.show', [$projectId, $workId]);
     }
@@ -108,6 +114,10 @@ class WorkitemsController extends Controller
 
         $workitem->work->recalculateUnitPrice();
 
+        if ($request->ajax()) {
+            return response()->json(compact('workitem'));
+        }
+
         return redirect()->route('projects.works.show', [$projectId, $workitem->work->id]);
     }
 
@@ -117,7 +127,7 @@ class WorkitemsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($projectId, $workId, $workitemId)
+    public function destroy($projectId, $workId, $workitemId, Request $request)
     {
         $workitem = \App\Entities\ProjectWorkitem::findOrFail($workitemId);
 
@@ -125,6 +135,10 @@ class WorkitemsController extends Controller
 
         $workitem->delete();
         $work->reCalculateUnitPrice();
+
+        if ($request->ajax()) {
+            return response()->json();
+        }
 
         return redirect()->route('projects.works.show', [$projectId, $work->id]);
     }

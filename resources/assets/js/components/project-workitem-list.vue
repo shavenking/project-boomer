@@ -38,26 +38,26 @@
     import pluck from 'lodash/collection/pluck'
     import merge from 'lodash/object/merge'
 
-    function getItems(workId) {
-        return window.$.getJSON(`/api/v1/works/${workId}/work-items`)
+    function getItems(projectId, workId) {
+        return window.$.getJSON(`/api/v1/projects/${projectId}/works/${workId}/workitems`)
     }
 
     function getTypes() {
         return window.$.getJSON('/api/v1/cost-types')
     }
 
-    function createItem(workId, item) {
-        return window.$.post(`/api/v1/works/${workId}/work-items`, item)
+    function createItem(projectId, workId, item) {
+        return window.$.post(`/api/v1/projects/${projectId}/works/${workId}/workitems`, item)
     }
 
-    function updateItem(workId, item) {
-        return window.$.post(`/api/v1/works/${workId}/work-items/${item.id}`, merge(item, {
+    function updateItem(projectId, workId, item) {
+        return window.$.post(`/api/v1/projects/${projectId}/works/${workId}/workitems/${item.id}`, merge(item, {
             _method: 'PUT'
         }))
     }
 
-    function deleteItem(item) {
-        return window.$.post(`/api/v1/works/${item.work_id}/work-items/${item.id}`, {
+    function deleteItem(projectId, workId, item) {
+        return window.$.post(`/api/v1/projects/${projectId}/works/${workId}/workitems/${item.id}`, {
             _method: 'DELETE'
         })
     }
@@ -66,6 +66,7 @@
         components: { WorkitemForm, TableWorkitems },
 
         props: [
+            'projectId',
             'workId'
         ],
 
@@ -102,15 +103,15 @@
                 this.$refs.form.$emit('edit', item)
             },
             create(item) {
-                createItem(this.workId, item).then(response => {
-                    this.items.push(response.work_item)
+                createItem(this.projectId, this.workId, item).then(response => {
+                    this.items.push(response.workitem)
 
-                    this.$refs.form.$emit('created', response.work_item)
+                    this.$refs.form.$emit('created', response.workitem)
                 })
             },
             update(item) {
-                updateItem(this.workId, item).then(response => {
-                    const item = response.work_item
+                updateItem(this.projectId, this.workId, item).then(response => {
+                    const item = response.workitem
 
                     let items = this.items.map(candidate => {
                         if (candidate.id == item.id) {
@@ -122,11 +123,11 @@
 
                     this.items = items
 
-                    this.$refs.form.$emit('updated', response.work_item)
+                    this.$refs.form.$emit('updated', response.workitem)
                 })
             },
             delete(item) {
-                deleteItem(item).then(response => {
+                deleteItem(this.projectId, this.workId, item).then(response => {
                     this.items = this.items.filter(candidate => {
                         return candidate.id != item.id
                     })
@@ -142,8 +143,8 @@
         },
 
         ready() {
-            getItems(this.workId).then(response => {
-                this.items = response.work_items
+            getItems(this.projectId, this.workId).then(response => {
+                this.items = response.workitems
             })
 
             getTypes().then(response => {
