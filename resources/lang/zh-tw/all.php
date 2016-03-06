@@ -2,7 +2,7 @@
 
 return [
     'index' => '首頁',
-    'system_name' => '施工流程管理系統',
+    'system_name' => '建築施工流程管理系統',
 
     'internal' => '內部作業',
     'bid' => '標單',
