@@ -1,4 +1,4 @@
-<div class="ui vertical pointing menu">
+<div class="ui fluid vertical pointing menu">
     <a
         href="#"
         class="item">

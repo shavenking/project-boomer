@@ -1,4 +1,4 @@
-<div class="ui vertical pointing menu">
+<div class="ui fluid vertical pointing menu">
     <a
         href="{{ route('workflows.index') }}"
         class="@if (str_is('workflows*', request()->route()->getName())) active @endif item"
