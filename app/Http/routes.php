@@ -19,6 +19,8 @@ Route::group(['prefix' => 'api/v1'], function () {
 
     resource('checklists.checkitems', Checklists\CheckitemsController::class);
     resource('checklists', Checklists\ChecklistsController::class);
+
+     resource('subcontractors', Subconstractors\SubconstractorsController::class);
 });
 
 Route::group(['middleware' => ['csrftoken', 'localize']], function () {
