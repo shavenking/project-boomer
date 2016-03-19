@@ -8,6 +8,7 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
 use App\Entities\Workflow;
+use App\Entities\WorkflowNode;
 
 class WorkflowsController extends Controller
 {
@@ -59,7 +60,11 @@ class WorkflowsController extends Controller
      */
     public function destroy($id)
     {
-        Workflow::findOrFail($id)->delete();
+        $workflow = Workflow::findOrFail($id);
+
+        WorkflowNode::destroy($workflow->nodes()->lists('id')->all());
+
+        $workflow->delete();
 
         return response()->json();
     }

@@ -11,6 +11,15 @@
     </div>
 
     <div class="extra content">
+        <form class="ui form right floated" action="{{ route('workflows.destroy', $workflow->id) }}" method="POST">
+            {{ csrf_field() }}
+            {{ method_field('DELETE')}}
+
+            <div class="ui labels">
+                <button type="submit" class="ui right floated red label">刪除</button>
+            </div>
+        </form>
+
         <div class="ui labels">
             <a href="{{ route('workflows.show', $workflow->id) }}" class="ui label">
                 {{ $workflow->nodes->count() }} {{ trans_choice('all.workflow_nodes', $workflow->nodes->count()) }}
