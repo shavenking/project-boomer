@@ -9,7 +9,7 @@ Route::group(['middleware' => ['csrftoken', 'localize']], function () {
         return view('settings.index');
     })->name('settings.index');
 
-    get('projects/{project}/internal', Projects\ProjectViewsController::class . '@internal')->name('projects.internal.index');
-    get('projects/{project}/external', Projects\ProjectViewsController::class . '@external')->name('projects.external.index');
-    get('projects/{project}/finance', Projects\ProjectViewsController::class . '@finance')->name('projects.finance.index');
+    get('projects/{project}/internal', ProjectsController::class . '@internal')->name('projects.internal.index');
+    get('projects/{project}/external', ProjectsController::class . '@external')->name('projects.external.index');
+    get('projects/{project}/finance', ProjectsController::class . '@finance')->name('projects.finance.index');
 });
