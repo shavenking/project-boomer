@@ -1,13 +1,13 @@
 <?php
 
 Route::group(['prefix' => 'api/v1'], function () {
-    resource('checklists.checkitems', Checklists\CheckitemsController::class);
-    resource('checklists', Checklists\ChecklistsController::class);
+    post('checklists/{checklists}/checkitems', ChecklistsController::class . '@storeCheckitem');
+    resource('checklists', ChecklistsController::class);
 });
 
 Route::group(['middleware' => ['csrftoken', 'localize']], function () {
-    get('checklists/{checklist}/works', Checklists\ChecklistsViewController::class . '@works')->name('checklists.works');
-    get('checklist/{checklist}/workflow', Checklists\ChecklistsViewController::class . '@workflow')->name('checklists.workflow');
-    resource('checklists.checkitems', Checklists\CheckitemsViewController::class);
-    resource('checklists', Checklists\ChecklistsViewController::class);
+    get('checklists/{checklist}/works', ChecklistsController::class . '@works')->name('checklists.works');
+    get('checklist/{checklist}/workflow', ChecklistsController::class . '@workflow')->name('checklists.workflow');
+    post('checklists/{checklists}/checkitems', ChecklistsController::class . '@storeCheckitem')->name('checklists.checkitems.store');
+    resource('checklists', ChecklistsController::class);
 });
