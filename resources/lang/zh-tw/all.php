@@ -23,7 +23,7 @@ return [
     'subcontractor' => '協力廠商管理',
     'personal' => '個人資料管理',
     'projects' => '專案|專案列表',
-    'workflows' => '施工流程管理|施工流程列表',
+    'workflows' => '施工流程管理|施工流程列表|施工流程圖',
     'workflow_nodes' => '流程項目|流程項目',
     'works' => '工作項目管理|工作項目列表',
     'workitems' => '工料項目|工料項目列表',

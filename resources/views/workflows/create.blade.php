@@ -1,7 +1,7 @@
 {{-- */ $breadcrumbs = [
     trans('all.settings') => route('settings.index'),
     trans_choice('all.workflows', 2) => route('workflows.index'),
-    trans('all.create') => null
+    trans('all.create_workflow') => null
 ] /* --}}
 
 @extends('layouts.settings')
@@ -17,10 +17,7 @@
                 <input type="text" name="name">
             </div>
 
-            <div class="field">
-                <label>{{ trans_choice('all.works', 2) }}</label>
-                <work-select></work-select>
-            </div>
+
 
             @if ($errors->has('name'))
                 <div class="ui error message">
