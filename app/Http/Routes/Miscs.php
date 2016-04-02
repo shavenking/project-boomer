@@ -1,6 +1,6 @@
 <?php
 
-Route::group(['middleware' => ['csrftoken', 'localize']], function () {
+Route::group(['middleware' => ['csrftoken']], function () {
     get('/', function () {
         return view('index');
     })->name('index');

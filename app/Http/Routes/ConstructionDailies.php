@@ -1,5 +1,5 @@
 <?php
 
-Route::group(['middleware' => ['csrftoken', 'localize']], function () {
+Route::group(['middleware' => ['csrftoken']], function () {
     resource('projects.construction-dailies', ConstructionDailiesController::class);
 });
