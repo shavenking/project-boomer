@@ -8,7 +8,7 @@ Route::group(['prefix' => 'api/v1'], function () {
     resource('workflows', WorkflowsController::class);
 });
 
-Route::group(['middleware' => ['csrftoken', 'localize']], function () {
+Route::group(['middleware' => ['csrftoken']], function () {
     get('workflows/{workflow}/checklist', WorkflowsController::class . '@checklist')->name('workflows.checklist');
     get('workflows/{workflow}/works', WorkflowsController::class . '@works')->name('workflows.works');
     resource('workflows', WorkflowsController::class);
