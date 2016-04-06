@@ -148,6 +148,13 @@ class ProjectWorksController extends Controller
             ->withWork($work);
     }
 
+    public function update($projectId, $workId, Request $request)
+    {
+        \App\Entities\ProjectWork::findOrFail($workId)->update(array_only($request->all(), 'amount'));
+
+        return response()->json();
+    }
+
     public function destroy($projectId, $workId)
     {
         $work = \App\Entities\ProjectWork::findOrFail($workId);

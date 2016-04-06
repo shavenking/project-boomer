@@ -39,7 +39,7 @@ class FaultImprovementsController extends Controller
 
         foreach ($photoKeys as $photoKey) {
             if ($request->hasFile($photoKey)) {
-                $photo = $request->file($photoKey)->move(public_path('images', rand()));
+                $photo = $request->file($photoKey3)->move(public_path('images', rand()));
 
                 $collection[$photoKey] = $photo->getFileName();
             }

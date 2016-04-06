@@ -1,6 +1,6 @@
 <div class="ui fluid vertical pointing menu">
     <a
-        href="{{ route('projects.bid.index', $project->id) }}"
+        href="{{ route('projects.bid.works', $project->id) }}"
         class="@if (preg_match('/projects\.(bid|works).*/', request()->route()->getName())) active @endif item">
         {{ trans('all.p_bid') }}
     </a>

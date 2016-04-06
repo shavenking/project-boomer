@@ -9,8 +9,7 @@
 @section('content')
 
     <div class="ui secondary pointing menu">
-        <a href="{{ route('projects.bid.index', $project->id) }}" class="active item">{{ trans('all.bid') }}</a>
-        <a href="{{ route('projects.bid.works', $project->id) }}" class="item">{{ trans_choice('all.works', 2) }}</a>
+        <a href="{{ route('projects.bid.works', $project->id) }}" class="item">{{ trans('all.create_bid') }}</a>
     </div>
 
     <p>{{ trans('all.bid') }}</p>

@@ -11,7 +11,7 @@
                 <th>
                 </th>
             </tr>
-        </thead>        
+        </thead>
         <tbody v-for="(detailingflowTypeId, works) in groupedWorks">
             <tr v-for="(idx, work) in works">
                 <td :rowspan="works.length" v-if="0 === idx" class="top aligned center aligned">
@@ -22,7 +22,11 @@
                 <td>{{ work.name }}</td>
                 <td>{{ work.unit.name }}</td>
                 <td>{{ work.unit_price | currency}}</td>
-                <td>{{ work.amount }}</td>
+                <td>
+                    <div class="ui input">
+                        <input type="text" name="work_amount" v-model="work.amount" @keyup="updateWork($index)">
+                    </div>
+                </td>
                 <td>{{ work.unit_price * work.amount | currency }}</td>
                 <td><a href="{{ '/projects/' + projectId + '/works/' + work.id }}">{{ workitemsLabel }}</a></td>
             </tr>
@@ -60,6 +64,13 @@
         return window.$.getJSON(`/api/v1/projects/${projectId}/works?${queryString}`)
     }
 
+    function updateWork(work) {
+        return window.$.post(`/api/v1/projects/${work.project_id}/works/${work.id}`, {
+            _method: 'PUT',
+            amount: work.amount
+        })
+    }
+
     export default {
         props: ['projectId', 'query', 'unitLabel', 'nameLabel', 'amountLabel', 'workitemsLabel', 'unitPriceLabel', 'totalPriceLabel', 'typeOrderLabel'],
 
@@ -85,6 +96,12 @@
         data() {
             return {
                 works: []
+            }
+        },
+
+        methods: {
+            updateWork($index) {
+                updateWork(this.works[$index])
             }
         },
 

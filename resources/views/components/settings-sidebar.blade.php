@@ -22,11 +22,11 @@
     <a
         href="#"
         class="item">
-        {{ trans('all.subcontractor') }}
+        {{ trans('all.subcontractors') }}
     </a>
     <a
         href="#"
         class="item">
-        {{ trans('all.personal') }}
+        {{ trans('all.personals') }}
     </a>
 </div>

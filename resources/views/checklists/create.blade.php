@@ -12,14 +12,13 @@
             {{ csrf_field() }}
 
             <div class="field">
-                <label>{{ trans('all.select_workflow') }}&nbsp;{{ trans('all.or') }}&nbsp;<a href="{{ route('workflows.create') }}">{{ trans('all.create_workflow') }}</a></label>
-                <workflow-select default-value="{{ request()->query('workflow_id') }}"></workflow-select>
-            </div>
-
-
-            <div class="field">
                 <label>{{ trans('all.name') }}</label>
                 <input type="text" name="name">
+            </div>
+
+            <div class="field">
+                <label>{{ trans('all.select_workflow') }}&nbsp;{{ trans('all.or') }}&nbsp;<a href="{{ route('workflows.create') }}">{{ trans('all.create_workflow') }}</a></label>
+                <workflow-select default-value="{{ request()->query('workflow_id') }}"></workflow-select>
             </div>
 
             <button class="ui primary button" type="submit">{{ trans('all.create') }}</button>

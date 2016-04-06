@@ -1,0 +1,14 @@
+//暫存
+
+//設定>>施工流程管理>>新增施工流程頁面的（對應工作項目管理下拉選單）
+<div class="field">
+    <label>{{ trans_choice('all.works', 2) }}</label>
+    <work-select></work-select>
+</div>
+
+//設定>>施工流程管理>>施工流程圖（原本切換施工流程、對應工作項目、對應自主檢查表）
+    <div class="ui secondary pointing menu">
+        <a href="{{ route('workflows.show', $workflow->id) }}" class="active item">{{ trans_choice('all.workflow', 1) }}</a>
+        <a href="{{ route('workflows.works', $workflow->id) }}" class="item">{{ trans_choice('all.works', 1) }}</a>
+        <a href="{{ route('workflows.checklist', $workflow->id) }}" class="item">{{ trans_choice('all.checklists', 1) }}</a>
+    </div>
