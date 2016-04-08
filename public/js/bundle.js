@@ -10349,6 +10349,8 @@ webpackJsonp([0],[
 	//                     <label>{{ labelText }}</label>
 	//                     <order-title-input v-on:valid="onValid" v-on:invalid="onInvalid"></order-title-input>
 	//                 </div>
+	//                 <a href="{{ '/workflows/' + workflowId + '/works' }}" class="ui primary button"><i class="plus icon"></i>設定工作項目</a>
+	//                 <a href="{{ '/workflows/' + workflowId + '/checklist' }}" class="ui primary button"><i class="plus icon"></i>設定自主檢查表</a>
 	//             </div>
 	//         </div>
 	//     </div>
@@ -12968,7 +12970,7 @@ webpackJsonp([0],[
 /* 82 */
 /***/ function(module, exports) {
 
-	module.exports = "\n<div class=\"ui grid\">\n    <div class=\"nine wide center aligned column\">\n        <workflow-node-list :nodes.sync=\"nodes\"></workflow-node-list>\n    </div>\n\n    <div class=\"seven wide column\">\n        <div class=\"ui sticky form\" id=\"vue-order-title-input-{{ _uid }}\">\n            <div class=\"field\">\n                <label>{{ labelText }}</label>\n                <order-title-input v-on:valid=\"onValid\" v-on:invalid=\"onInvalid\"></order-title-input>\n            </div>\n        </div>\n    </div>\n</div>\n";
+	module.exports = "\n<div class=\"ui grid\">\n    <div class=\"nine wide center aligned column\">\n        <workflow-node-list :nodes.sync=\"nodes\"></workflow-node-list>\n    </div>\n\n    <div class=\"seven wide column\">\n        <div class=\"ui sticky form\" id=\"vue-order-title-input-{{ _uid }}\">\n            <div class=\"field\">\n                <label>{{ labelText }}</label>\n                <order-title-input v-on:valid=\"onValid\" v-on:invalid=\"onInvalid\"></order-title-input>\n            </div>\n            <a href=\"{{ '/workflows/' + workflowId + '/works' }}\" class=\"ui primary button\"><i class=\"plus icon\"></i>設定工作項目</a>\n            <a href=\"{{ '/workflows/' + workflowId + '/checklist' }}\" class=\"ui primary button\"><i class=\"plus icon\"></i>設定自主檢查表</a>\n        </div>\n    </div>\n</div>\n";
 
 /***/ },
 /* 83 */

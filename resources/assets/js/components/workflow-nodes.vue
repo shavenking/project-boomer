@@ -10,6 +10,8 @@
                     <label>{{ labelText }}</label>
                     <order-title-input v-on:valid="onValid" v-on:invalid="onInvalid"></order-title-input>
                 </div>
+                <a href="{{ '/workflows/' + workflowId + '/works' }}" class="ui primary button"><i class="plus icon"></i>設定工作項目</a>
+                <a href="{{ '/workflows/' + workflowId + '/checklist' }}" class="ui primary button"><i class="plus icon"></i>設定自主檢查表</a>
             </div>
         </div>
     </div>
