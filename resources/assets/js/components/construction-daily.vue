@@ -9,7 +9,7 @@
         </thead>
         <tbody>
             <tr v-for="checklist in checklists">
-                <td>{{ checklist.name }}</td>
+                <td><a href="/projects/{{ projectId }}/works/{{ checklist.project_work.id }}">{{ checklist.project_work.name }}</a></td>
                 <td>{{ checklist.seat }}</td>
             </tr>
         </tbody>

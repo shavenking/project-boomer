@@ -64,7 +64,7 @@ webpackJsonp([0],[
 
 	var _modalCreateProjectChecklist2 = _interopRequireDefault(_modalCreateProjectChecklist);
 
-	var _constructionDaily = __webpack_require__(191);
+	var _constructionDaily = __webpack_require__(135);
 
 	var _constructionDaily2 = _interopRequireDefault(_constructionDaily);
 
@@ -27893,7 +27893,7 @@ webpackJsonp([0],[
 	    __vue_script__.__esModule &&
 	    Object.keys(__vue_script__).length > 1) {
 	  console.warn("[vue-loader] resources/assets/js/components/modal-create-project-checklist.vue: named exports in *.vue files are ignored.")}
-	__vue_template__ = __webpack_require__(133)
+	__vue_template__ = __webpack_require__(134)
 	module.exports = __vue_script__ || {}
 	if (module.exports.__esModule) module.exports = module.exports.default
 	if (__vue_template__) {
@@ -27921,7 +27921,7 @@ webpackJsonp([0],[
 	    value: true
 	});
 
-	var _projectChecklists = __webpack_require__(190);
+	var _projectChecklists = __webpack_require__(133);
 
 	var _projectFlowtypeWorkSelect = __webpack_require__(127);
 
@@ -28020,68 +28020,6 @@ webpackJsonp([0],[
 /* 133 */
 /***/ function(module, exports) {
 
-	module.exports = "\n<a href=\"#\" class=\"ui primary button\" @click=\"openModal\">\n    <i class=\"plus icon\"></i>新增本日工作項目\n</a>\n\n<div class=\"ui basic modal\" v-el:modal>\n    <div class=\"content\">\n        <form action=\"#\" method=\"POST\" class=\"ui inverted form\" v-el:form>\n            <h4 class=\"ui inverted dividing header\">選擇施工工項</h4>\n            <project-flowtype-work-select :project-id.once=\"projectId\"></project-flowtype-work-select>\n\n            <h4 class=\"ui inverted dividing header\">自定檢查表名稱</h4>\n            <div class=\"field\">\n                <input type=\"text\" name=\"name\">\n            </div>\n\n            <h4 class=\"ui inverted dividing header\">施工部位</h4>\n            <div class=\"field\">\n                <input type=\"text\" name=\"seat\">\n            </div>\n        </form>\n    </div>\n    <div class=\"actions\">\n        <div class=\"ui green inverted ok button\">\n            <i class=\"checkmark icon\"></i>\n            送出\n        </div>\n        <div class=\"ui inverted cancel button\">\n            <i class=\"remove icon\"></i>\n            取消\n        </div>\n    </div>\n</div>\n";
-
-/***/ },
-/* 134 */,
-/* 135 */,
-/* 136 */,
-/* 137 */,
-/* 138 */,
-/* 139 */,
-/* 140 */,
-/* 141 */,
-/* 142 */,
-/* 143 */,
-/* 144 */,
-/* 145 */,
-/* 146 */,
-/* 147 */,
-/* 148 */,
-/* 149 */,
-/* 150 */,
-/* 151 */,
-/* 152 */,
-/* 153 */,
-/* 154 */,
-/* 155 */,
-/* 156 */,
-/* 157 */,
-/* 158 */,
-/* 159 */,
-/* 160 */,
-/* 161 */,
-/* 162 */,
-/* 163 */,
-/* 164 */,
-/* 165 */,
-/* 166 */,
-/* 167 */,
-/* 168 */,
-/* 169 */,
-/* 170 */,
-/* 171 */,
-/* 172 */,
-/* 173 */,
-/* 174 */,
-/* 175 */,
-/* 176 */,
-/* 177 */,
-/* 178 */,
-/* 179 */,
-/* 180 */,
-/* 181 */,
-/* 182 */,
-/* 183 */,
-/* 184 */,
-/* 185 */,
-/* 186 */,
-/* 187 */,
-/* 188 */,
-/* 189 */,
-/* 190 */
-/***/ function(module, exports) {
-
 	'use strict';
 
 	Object.defineProperty(exports, "__esModule", {
@@ -28108,16 +28046,22 @@ webpackJsonp([0],[
 	}
 
 /***/ },
-/* 191 */
+/* 134 */
+/***/ function(module, exports) {
+
+	module.exports = "\n<a href=\"#\" class=\"ui primary button\" @click=\"openModal\">\n    <i class=\"plus icon\"></i>新增本日工作項目\n</a>\n\n<div class=\"ui basic modal\" v-el:modal>\n    <div class=\"content\">\n        <form action=\"#\" method=\"POST\" class=\"ui inverted form\" v-el:form>\n            <h4 class=\"ui inverted dividing header\">選擇施工工項</h4>\n            <project-flowtype-work-select :project-id.once=\"projectId\"></project-flowtype-work-select>\n\n            <h4 class=\"ui inverted dividing header\">自定檢查表名稱</h4>\n            <div class=\"field\">\n                <input type=\"text\" name=\"name\">\n            </div>\n\n            <h4 class=\"ui inverted dividing header\">施工部位</h4>\n            <div class=\"field\">\n                <input type=\"text\" name=\"seat\">\n            </div>\n        </form>\n    </div>\n    <div class=\"actions\">\n        <div class=\"ui green inverted ok button\">\n            <i class=\"checkmark icon\"></i>\n            送出\n        </div>\n        <div class=\"ui inverted cancel button\">\n            <i class=\"remove icon\"></i>\n            取消\n        </div>\n    </div>\n</div>\n";
+
+/***/ },
+/* 135 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __vue_script__, __vue_template__
-	__vue_script__ = __webpack_require__(192)
+	__vue_script__ = __webpack_require__(136)
 	if (__vue_script__ &&
 	    __vue_script__.__esModule &&
 	    Object.keys(__vue_script__).length > 1) {
 	  console.warn("[vue-loader] resources/assets/js/components/construction-daily.vue: named exports in *.vue files are ignored.")}
-	__vue_template__ = __webpack_require__(193)
+	__vue_template__ = __webpack_require__(137)
 	module.exports = __vue_script__ || {}
 	if (module.exports.__esModule) module.exports = module.exports.default
 	if (__vue_template__) {
@@ -28136,7 +28080,7 @@ webpackJsonp([0],[
 	})()}
 
 /***/ },
-/* 192 */
+/* 136 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -28149,7 +28093,7 @@ webpackJsonp([0],[
 
 	var _modalCreateProjectChecklist2 = _interopRequireDefault(_modalCreateProjectChecklist);
 
-	var _projectChecklists = __webpack_require__(190);
+	var _projectChecklists = __webpack_require__(133);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -28164,7 +28108,7 @@ webpackJsonp([0],[
 	//         </thead>
 	//         <tbody>
 	//             <tr v-for="checklist in checklists">
-	//                 <td>{{ checklist.name }}</td>
+	//                 <td><a href="/projects/{{ projectId }}/works/{{ checklist.project_work.id }}">{{ checklist.project_work.name }}</a></td>
 	//                 <td>{{ checklist.seat }}</td>
 	//             </tr>
 	//         </tbody>
@@ -28207,10 +28151,10 @@ webpackJsonp([0],[
 	// </script>
 
 /***/ },
-/* 193 */
+/* 137 */
 /***/ function(module, exports) {
 
-	module.exports = "\n<modal-create-project-checklist :project-id.once=\"projectId\" :on-success.once=\"onSuccess\"></modal-create-project-checklist>\n<table class=\"ui table\">\n    <thead>\n        <tr>\n            <th>施工項目</th>\n            <th>施工位置</th>\n        </tr>\n    </thead>\n    <tbody>\n        <tr v-for=\"checklist in checklists\">\n            <td>{{ checklist.name }}</td>\n            <td>{{ checklist.seat }}</td>\n        </tr>\n    </tbody>\n</table>\n";
+	module.exports = "\n<modal-create-project-checklist :project-id.once=\"projectId\" :on-success.once=\"onSuccess\"></modal-create-project-checklist>\n<table class=\"ui table\">\n    <thead>\n        <tr>\n            <th>施工項目</th>\n            <th>施工位置</th>\n        </tr>\n    </thead>\n    <tbody>\n        <tr v-for=\"checklist in checklists\">\n            <td><a href=\"/projects/{{ projectId }}/works/{{ checklist.project_work.id }}\">{{ checklist.project_work.name }}</a></td>\n            <td>{{ checklist.seat }}</td>\n        </tr>\n    </tbody>\n</table>\n";
 
 /***/ }
 ]);

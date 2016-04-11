@@ -8,6 +8,7 @@ class ProjectChecklist extends Model
 {
     protected $fillable = [
         'project_id',
+        'project_work_id',
         'name',
         'passes_amount',
         'seat'
@@ -17,8 +18,21 @@ class ProjectChecklist extends Model
         'passes_amount' => 'integer'
     ];
 
+    protected $appends = [
+        'project_work'
+    ];
+
+    public function getProjectWorkAttribute() {
+        return $this->projectWork()->first();
+    }
+
     public function checkitems()
     {
         return $this->hasMany(ProjectCheckitem::class);
+    }
+
+    public function projectWork()
+    {
+        return $this->belongsTo(ProjectWork::class);
     }
 }

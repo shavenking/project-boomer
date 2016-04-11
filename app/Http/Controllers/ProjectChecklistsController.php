@@ -62,6 +62,7 @@ class ProjectChecklistsController extends Controller
         $referencedChecklist = $projectWork->workflow->checklist;
 
         $checklist = $project->checklists()->create([
+            'project_work_id' => $projectWork->id,
             'name' => $request->name,
             'seat' => $request->seat,
             'passes_amount' => 0

@@ -15,6 +15,7 @@ class CreateProjectChecklistsTable extends Migration
         Schema::create('project_checklists', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('project_id')->unsigned();
+            $table->integer('project_work_id')->unsigned();
             $table->string('name');
             $table->string('seat');
             $table->integer('passes_amount')->unsigned();
