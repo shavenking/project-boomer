@@ -33,7 +33,7 @@ return [
     'checkitems' => '流程檢查項目',
     'fault_improvements' => '缺失改善表',
 
-    'set_workflows' => '設定施工流程圖',
+    'set_workflows' => '設定施工流程',
     'set_checklists' => '設定自主檢查表',
     'set_works' => '設定工作項目',
 
@@ -55,6 +55,10 @@ return [
     'create_constructiondaily' => '新增施工進度日報表',
     'create_bid' => '新增標單',
 
+    'fs_works' => '已設定工作項目',
+
+    'back_workflows' => '返回施工流程',
+
     'con',
     'search' => '搜尋',
     'clear_search' => '清除搜尋',
@@ -66,7 +70,7 @@ return [
     'type_order' => '工程類別、順序',
     'order' => '順序',
     'name' => '名稱',
-    'title' => '項次',
+    'title' => '流程檢查項目',
     'detail' => '細項',
     'amount' => '數量',
     'unit_price' => '單價',

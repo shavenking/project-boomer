@@ -13,7 +13,6 @@
     </div>
 
     <workflow-nodes label-text="{{ trans('all.create_node') }}" workflow-id="{{ $workflow->id }}"
-    button="{{ route('workflows.works', $workflow->id) }}"
-    ></workflow-nodes>
+    button="{{ route('workflows.works', $workflow->id) }}"></workflow-nodes>
 
 @stop

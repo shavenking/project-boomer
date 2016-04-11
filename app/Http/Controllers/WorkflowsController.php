@@ -8,6 +8,7 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
 use App\Entities\Work;
+use App\Entities\Checklist;
 use App\Entities\Workflow;
 use App\Entities\WorkflowNode;
 
@@ -136,15 +137,30 @@ class WorkflowsController extends Controller
         return response()->json();
     }
 
-    public function checklist($workflowId)
+    public function checklist($workflowId, Request $request)
     {
         $workflow = app(\App\Entities\Workflow::class)->findOrFail($workflowId);
 
+        // $checklist = app(\App\Entities\Checklist::class)->whereWorkflowId($workflow->id)->get();
+
+        //return view('workflows.checklists')->withWorkflow($workflow)->withChecklist($checklist);
+
         if (!$workflow->checklist) {
-            return redirect()->route('checklists.create', ['workflow_id' => $workflow->id]);
+            $checklist = Checklist::create([
+                'workflow_id' => $workflow->id,
+                'name' => $workflow->name
+            ] );
+        } else {
+            $checklist = $workflow->checklist;
         }
 
-        return redirect()->route('checklists.show', $workflow->checklist->id);
+        return view('workflows.checklists', compact('workflow', 'checklist'));
+
+        //if (!$workflow->checklist) {
+        //    return redirect()->route('checklists.create', ['workflow_id' => $workflow->id]);
+        //}
+
+        //return redirect()->route('checklists.show', $workflow->checklist->id);
     }
 
     public function works($id)
