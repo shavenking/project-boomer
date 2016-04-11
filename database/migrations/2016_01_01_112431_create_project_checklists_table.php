@@ -16,6 +16,7 @@ class CreateProjectChecklistsTable extends Migration
             $table->increments('id');
             $table->integer('project_id')->unsigned();
             $table->string('name');
+            $table->string('seat');
             $table->integer('passes_amount')->unsigned();
             $table->timestamps();
         });

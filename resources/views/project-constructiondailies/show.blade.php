@@ -8,7 +8,7 @@
 
 @section('content')
 
-    <a href="{{ route('projects.construction-dailies.show', [$project->id, 'today']) }}" class="ui primary button">
-        本日施工日報表
-    </a>
+    <construction-daily project-id="1" date="today"></construction-daily>
+
+
 @stop

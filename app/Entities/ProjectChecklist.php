@@ -6,7 +6,12 @@ use Illuminate\Database\Eloquent\Model;
 
 class ProjectChecklist extends Model
 {
-    protected $fillable = ['project_id', 'name', 'passes_amount'];
+    protected $fillable = [
+        'project_id',
+        'name',
+        'passes_amount',
+        'seat'
+    ];
 
     protected $casts = [
         'passes_amount' => 'integer'

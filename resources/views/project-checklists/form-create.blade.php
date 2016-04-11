@@ -1,20 +1,18 @@
 {{-- $project, $checklists --}}
 <form action="{{ route('projects.checklists.store', $project->id) }}" method="POST" class="ui form">
-    {{ csrf_field() }}
+    <h4 class="ui dividing header">施工工項</h4>
+    <project-flowtype-work-select project-id="{{ $project->id }}"></project-flowtype-work-select>
 
+    <h4 class="ui dividing header">自定檢查表名稱</h4>
     <div class="field">
-        <label>{{ trans('all.referenced_checklist') }}</label>
-        <select name="checklist_id" class="ui selection dropdown">
-            @foreach ($checklists as $checklist)
-                <option value="{{ $checklist->id }}">{{ $checklist->name }}</option>
-            @endforeach
-        </select>
-    </div>
-
-    <div class="field">
-        <label>{{ trans('all.custom_name') }}</label>
         <input type="text" name="name">
     </div>
 
+    <h4 class="ui dividing header">施工部位</h4>
+    <div class="field">
+        <input type="text" name="seat">
+    </div>
+
+    {{ csrf_field() }}
     <button class="ui primary button" type="submit">{{ trans('all.create') }}</button>
 </form>
