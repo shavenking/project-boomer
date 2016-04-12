@@ -6,16 +6,27 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
+use Carbon\Carbon;
 
-use App\Entities\Project;
-use App\Entities\Checklist;
-use App\Entities\ProjectChecklist;
+use App\Entities\{ Project, ProjectWork, Checklist, ProjectChecklist };
 
 class ProjectChecklistsController extends Controller
 {
-    public function index($projectId)
+    public function index($projectId, Request $request)
     {
         $project = Project::findOrFail($projectId);
+
+        if ($request->ajax()) {
+            $query = $project->checklists();
+
+            if ($request->query('date')) {
+                $query->whereDate('created_at', '=', new Carbon($request->query('date')));
+            }
+
+            $checklists = $query->get();
+
+            return response()->json(compact('checklists'));
+        }
 
         $checklists = $project->checklists()->whereHas('checkitems', function ($q) {
             $q->wherePasses(null);
@@ -40,28 +51,34 @@ class ProjectChecklistsController extends Controller
     public function store($projectId, Request $request)
     {
         $this->validate($request, [
-            'checklist_id' => 'required',
-            'name' => 'required'
+            'work_id' => 'required',
+            'name' => 'required',
+            'seat' => 'required'
         ]);
 
         $project = Project::findOrFail($projectId);
 
-        $referencedChecklist = Checklist::findOrFail($request->input('checklist_id'));
+        $projectWork = ProjectWork::findOrFail($request->input('work_id'));
+        $referencedChecklist = $projectWork->workflow->checklist;
 
-        $checklist = $project->checklists()->create(
-            array_merge(
-                $referencedChecklist->toArray(), [
-                    'name' => $request->input('name'),
-                    'passes_amount' => 0
-                ]
-            )
-        );
+        $checklist = $project->checklists()->create([
+            'project_work_id' => $projectWork->id,
+            'name' => $request->name,
+            'seat' => $request->seat,
+            'passes_amount' => 0
+        ]);
 
-        foreach ($referencedChecklist->checkitems as $checkitem) {
-            $checklist->checkitems()->create([
-                'name' => $checkitem->name,
-                'detail' => $checkitem->detail
-            ]);
+        if ($referencedChecklist) {
+            foreach ($referencedChecklist->checkitems as $checkitem) {
+                $checklist->checkitems()->create([
+                    'name' => $checkitem->name,
+                    'detail' => $checkitem->detail
+                ]);
+            }
+        }
+
+        if ($request->ajax()) {
+            return response()->json(compact('checklist'));
         }
 
         return redirect()->route('projects.checklists.show', [$projectId, $checklist->id]);

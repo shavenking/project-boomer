@@ -17,10 +17,10 @@ class ConstructionDailiesController extends Controller
             ->withProject($project);
     }
 
-    public function show($projectId, $faultImprovementId)
+    public function show($projectId, $date)
     {
         $project = \App\Entities\Project::findOrFail($projectId);
 
-        return view('constructiondailies.show', compact('project'));
+        return view('project-constructiondailies.show', compact('project'));
     }
 }

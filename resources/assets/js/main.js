@@ -11,6 +11,9 @@ import TableProjectWorks from './components/table-project-works.vue'
 import TableWorkitems from './components/table-workitems.vue'
 import StatisticsWorkitems from './components/statistics-workitems.vue'
 import ProjectWorkitemList from './components/project-workitem-list.vue'
+import ProjectFlowtypeWorkSelect from './components/project-flowtype-work-select.vue'
+import ModalCreateProjectChecklist from './components/modal-create-project-checklist.vue'
+import ConstructionDaily from './components/construction-daily.vue'
 
 new Vue({
     el: 'body',
@@ -26,6 +29,9 @@ new Vue({
         TableProjectWorks,
         TableWorkitems,
         StatisticsWorkitems,
-        ProjectWorkitemList
+        ProjectWorkitemList,
+        ProjectFlowtypeWorkSelect,
+        ModalCreateProjectChecklist,
+        ConstructionDaily
     }
 })

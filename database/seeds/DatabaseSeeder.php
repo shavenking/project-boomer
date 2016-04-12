@@ -37,6 +37,8 @@ class DatabaseSeeder extends Seeder
         $this->seedUnits();
         $this->seedCostTypes();
 
+        $this->call(TestDataSeeder::class);
+
         Model::reguard();
     }
 
