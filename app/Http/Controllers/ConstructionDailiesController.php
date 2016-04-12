@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
+use Carbon\Carbon;
 
 class ConstructionDailiesController extends Controller
 {
@@ -21,6 +22,6 @@ class ConstructionDailiesController extends Controller
     {
         $project = \App\Entities\Project::findOrFail($projectId);
 
-        return view('project-constructiondailies.show', compact('project'));
+        return view('project-constructiondailies.show', compact('project', 'date'));
     }
 }

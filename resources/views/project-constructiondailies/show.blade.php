@@ -8,7 +8,6 @@
 
 @section('content')
 
-    <construction-daily project-id="1" date="today"></construction-daily>
-
+    <construction-daily project-id="{{ $project->id }}" date="{{ $date }}"></construction-daily>
 
 @stop
