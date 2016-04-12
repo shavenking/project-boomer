@@ -4,7 +4,7 @@
 
         <div class="header">
             <div class="ui right floated">$ {{ $work->total_price }}</div>
-            <a href="{{ route('works.work-items.index', $work->id) }}">{{ $work->name }}</a>
+            <a href="{{ route('works.show', $work->id) }}">{{ $work->name }}</a>
         </div>
 
         <div class="meta">
@@ -20,6 +20,15 @@
 
             <div class="ui labels">
                 <button type="submit" class="ui right floated red label" href="{{ route('works.work-items.index', $work->id) }}">刪除</button>
+            </div>
+        </form>
+
+        <form class="ui form right floated" action="{{ route('works.edit', $work->id) }}" method="POST">
+            {{ csrf_field() }}
+            {{ method_field('EDIT')}}
+
+            <div class="ui labels">
+                <button type="submit" class="ui right floated blue label" href="{{ route('works.work-items.index', $work->id) }}">編輯</button>
             </div>
         </form>
 

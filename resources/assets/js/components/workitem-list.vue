@@ -25,7 +25,10 @@
         </div>
         <div class="row">
             <div class="sixteen wide column">
-                <workitem-form v-ref:form></workitem-form>
+                <workitem-form v-ref:form>
+                    <a href="{{ '/works/' + workId+ '/workflow' }}" class="ui primary button">參考施工流程圖</a>
+                    <a href="{{ '/works/' + workId }}" class="ui primary button">返回</a>
+                </workitem-form>
             </div>
         </div>
     </div>

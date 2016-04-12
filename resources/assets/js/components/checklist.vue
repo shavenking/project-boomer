@@ -10,7 +10,7 @@
             <tr v-for="(idx, item) in items">
                 <td :rowspan="items.length" v-if="0 === idx" class="top aligned center aligned">{{ title }}</td>
                 <td v-if="item.detail">{{ item.detail }}</td>
-                <td v-if="!item.detail">
+                <td v-if="!item.detail" >
                     <div class="ui fluid icon input">
                         <input type="text" @keypress.enter="onSubmit(title, $event)">
                         <i class="plus icon"></i>

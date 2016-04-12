@@ -12,3 +12,15 @@
         <a href="{{ route('workflows.works', $workflow->id) }}" class="item">{{ trans_choice('all.works', 1) }}</a>
         <a href="{{ route('workflows.checklist', $workflow->id) }}" class="item">{{ trans_choice('all.checklists', 1) }}</a>
     </div>
+//設定>>工作項目管理>>title
+        <a href="{{ route('works.show', $work->id) }}" class="item">{{ trans_choice('all.works', 2) }}</a>
+        <a href="{{ route('works.checklist', $work->id) }}" class="item">{{ trans('all.set_checklists') }}</a>
+        <a href="{{ route('works.workflow', $work->id) }}" class="item">{{ trans('all.workflow') }}</a>
+
+//設定>>自主檢查表>>title
+    <div class="ui secondary pointing menu">
+        <a href="{{ route('checklists.show', $checklist->id) }}" class="active item">{{ $checklist->name  }}</a>
+        <a href="{{ route('checklists.workflow', $checklist->id) }}" class="item">{{ trans('all.workflows') }}</a>
+        <a href="{{ route('checklists.works', $checklist->id) }}" class="item">{{ trans_choice('all.works', 1) }}</a>
+    </div>
+

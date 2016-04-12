@@ -13413,7 +13413,10 @@ webpackJsonp([0],[
 	//         </div>
 	//         <div class="row">
 	//             <div class="sixteen wide column">
-	//                 <workitem-form v-ref:form></workitem-form>
+	//                 <workitem-form v-ref:form>
+	//                     <a href="{{ '/works/' + workId+ '/workflow' }}" class="ui primary button">參考施工流程圖</a>
+	//                     <a href="{{ '/works/' + workId }}" class="ui primary button">返回</a>
+	//                 </workitem-form>
 	//             </div>
 	//         </div>
 	//     </div>
@@ -13679,9 +13682,9 @@ webpackJsonp([0],[
 	//             <label>費用分類</label>
 	//             <cost-type-select v-ref:cost-type-select></cost-type-select>
 	//         </div>
-	//
-	//         <button type="submit" class="ui primary button">{{ isEditing ? '儲存' : '新增' }}</button>
+	//         <button type="submit" class="ui primary button"><i class="plus icon"></i>{{ isEditing ? '儲存' : '新增' }}</button>
 	//         <button type="button" class="ui button" @click="clearForm">{{ isEditing ? '取消' : '重填' }}</button>
+	//         <slot></slot>
 	//     </form>
 	// </template>
 	//
@@ -14496,7 +14499,7 @@ webpackJsonp([0],[
 /* 105 */
 /***/ function(module, exports) {
 
-	module.exports = "\n<form class=\"ui form\" @submit.prevent=\"onSubmit\">\n    <div class=\"ui dividing header\">{{ isEditing ? item.name : '新增工料項目' }}</div>\n    <div class=\"field\">\n        <label>名稱</label>\n        <input type=\"text\" name=\"name\" v-model=\"item.name\">\n    </div>\n    <div class=\"field\">\n        <label>數量</label>\n        <input type=\"text\" name=\"amount\" v-model=\"item.amount\">\n    </div>\n    <div class=\"field\">\n        <label>單價</label>\n        <input type=\"text\" name=\"unit_price\" v-model=\"item.unit_price\">\n    </div>\n    <div class=\"field\">\n        <label>單位</label>\n        <unit-select v-ref:unit-select></unit-select>\n    </div>\n    <div class=\"field\">\n        <label>費用分類</label>\n        <cost-type-select v-ref:cost-type-select></cost-type-select>\n    </div>\n\n    <button type=\"submit\" class=\"ui primary button\">{{ isEditing ? '儲存' : '新增' }}</button>\n    <button type=\"button\" class=\"ui button\" @click=\"clearForm\">{{ isEditing ? '取消' : '重填' }}</button>\n</form>\n";
+	module.exports = "\n<form class=\"ui form\" @submit.prevent=\"onSubmit\">\n    <div class=\"ui dividing header\">{{ isEditing ? item.name : '新增工料項目' }}</div>\n    <div class=\"field\">\n        <label>名稱</label>\n        <input type=\"text\" name=\"name\" v-model=\"item.name\">\n    </div>\n    <div class=\"field\">\n        <label>數量</label>\n        <input type=\"text\" name=\"amount\" v-model=\"item.amount\">\n    </div>\n    <div class=\"field\">\n        <label>單價</label>\n        <input type=\"text\" name=\"unit_price\" v-model=\"item.unit_price\">\n    </div>\n    <div class=\"field\">\n        <label>單位</label>\n        <unit-select v-ref:unit-select></unit-select>\n    </div>\n    <div class=\"field\">\n        <label>費用分類</label>\n        <cost-type-select v-ref:cost-type-select></cost-type-select>\n    </div>\n    <button type=\"submit\" class=\"ui primary button\"><i class=\"plus icon\"></i>{{ isEditing ? '儲存' : '新增' }}</button>\n    <button type=\"button\" class=\"ui button\" @click=\"clearForm\">{{ isEditing ? '取消' : '重填' }}</button>\n    <slot></slot>\n</form>\n";
 
 /***/ },
 /* 106 */
@@ -26987,7 +26990,7 @@ webpackJsonp([0],[
 /* 111 */
 /***/ function(module, exports) {
 
-	module.exports = "\n<div class=\"ui grid\">\n    <div class=\"row\">\n        <div class=\"sixteen wide column\">\n            <div class=\"ui raised segment\">\n                <div class=\"ui mini five statistics\">\n                    <div class=\"statistic\">\n                        <div class=\"label\">總價</div>\n                        <div class=\"value\">{{ total | currency }}</div>\n                    </div>\n                    <div class=\"statistic\" v-for=\"(key, typeTotal) in typeTotals\">\n                        <div class=\"label\">{{ costTypes[key] }}</div>\n                        <div class=\"value\">{{ typeTotal | currency }}</div>\n                    </div>\n                </div>\n            </div>\n        </div>\n    </div>\n    <div class=\"row\">\n        <div class=\"sixteen wide column\">\n            <table-workitems\n                :items=\"items\"\n            ></table-workitems>\n        </div>\n    </div>\n    <div class=\"row\">\n        <div class=\"sixteen wide column\">\n            <workitem-form v-ref:form></workitem-form>\n        </div>\n    </div>\n</div>\n";
+	module.exports = "\n<div class=\"ui grid\">\n    <div class=\"row\">\n        <div class=\"sixteen wide column\">\n            <div class=\"ui raised segment\">\n                <div class=\"ui mini five statistics\">\n                    <div class=\"statistic\">\n                        <div class=\"label\">總價</div>\n                        <div class=\"value\">{{ total | currency }}</div>\n                    </div>\n                    <div class=\"statistic\" v-for=\"(key, typeTotal) in typeTotals\">\n                        <div class=\"label\">{{ costTypes[key] }}</div>\n                        <div class=\"value\">{{ typeTotal | currency }}</div>\n                    </div>\n                </div>\n            </div>\n        </div>\n    </div>\n    <div class=\"row\">\n        <div class=\"sixteen wide column\">\n            <table-workitems\n                :items=\"items\"\n            ></table-workitems>\n        </div>\n    </div>\n    <div class=\"row\">\n        <div class=\"sixteen wide column\">\n            <workitem-form v-ref:form>\n                <a href=\"{{ '/works/' + workId+ '/workflow' }}\" class=\"ui primary button\">參考施工流程圖</a>\n                <a href=\"{{ '/works/' + workId }}\" class=\"ui primary button\">返回</a>\n            </workitem-form>\n        </div>\n    </div>\n</div>\n";
 
 /***/ },
 /* 112 */
@@ -27047,7 +27050,7 @@ webpackJsonp([0],[
 	//             <tr v-for="(idx, item) in items">
 	//                 <td :rowspan="items.length" v-if="0 === idx" class="top aligned center aligned">{{ title }}</td>
 	//                 <td v-if="item.detail">{{ item.detail }}</td>
-	//                 <td v-if="!item.detail">
+	//                 <td v-if="!item.detail" >
 	//                     <div class="ui fluid icon input">
 	//                         <input type="text" @keypress.enter="onSubmit(title, $event)">
 	//                         <i class="plus icon"></i>
@@ -27125,7 +27128,7 @@ webpackJsonp([0],[
 /* 114 */
 /***/ function(module, exports) {
 
-	module.exports = "\n<table class=\"ui celled structured table\">\n    <thead>\n        <tr>\n            <th class=\"four wide center aligned\">{{ titleLabel }}</th>\n            <th class=\"twelve wide\">{{ detailLabel }}</th>\n        </tr>\n    </thead>\n    <tbody v-for=\"(title, items) in groupedItems\">\n        <tr v-for=\"(idx, item) in items\">\n            <td :rowspan=\"items.length\" v-if=\"0 === idx\" class=\"top aligned center aligned\">{{ title }}</td>\n            <td v-if=\"item.detail\">{{ item.detail }}</td>\n            <td v-if=\"!item.detail\">\n                <div class=\"ui fluid icon input\">\n                    <input type=\"text\" @keypress.enter=\"onSubmit(title, $event)\">\n                    <i class=\"plus icon\"></i>\n                </div>\n            </td>\n        </tr>\n    </tbody>\n</table>\n";
+	module.exports = "\n<table class=\"ui celled structured table\">\n    <thead>\n        <tr>\n            <th class=\"four wide center aligned\">{{ titleLabel }}</th>\n            <th class=\"twelve wide\">{{ detailLabel }}</th>\n        </tr>\n    </thead>\n    <tbody v-for=\"(title, items) in groupedItems\">\n        <tr v-for=\"(idx, item) in items\">\n            <td :rowspan=\"items.length\" v-if=\"0 === idx\" class=\"top aligned center aligned\">{{ title }}</td>\n            <td v-if=\"item.detail\">{{ item.detail }}</td>\n            <td v-if=\"!item.detail\" >\n                <div class=\"ui fluid icon input\">\n                    <input type=\"text\" @keypress.enter=\"onSubmit(title, $event)\">\n                    <i class=\"plus icon\"></i>\n                </div>\n            </td>\n        </tr>\n    </tbody>\n</table>\n";
 
 /***/ },
 /* 115 */

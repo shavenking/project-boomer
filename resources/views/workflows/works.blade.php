@@ -36,6 +36,6 @@
     </table>
 
     <a href="{{ route('works.create') }}" class="ui primary button"><i class="plus icon"></i>{{ trans('all.create_work') }}</a>
-    <a href="{{ route('workflows.show', $workflow->id) }}" class="ui primary button"><i class="plus icon"></i>{{ trans('all.back_workflows') }}</a>
+    <a href="{{ route('workflows.show', $workflow->id) }}" class="ui primary button">{{ trans('all.back_workflows') }}</a>
 
 @stop

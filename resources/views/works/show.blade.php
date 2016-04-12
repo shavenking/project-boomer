@@ -1,6 +1,6 @@
 {{-- */ $breadcrumbs = [
     trans('all.settings') => route('settings.index'),
-    trans_choice('all.works', 2) => route('works.index'),
+    trans('all.works') => route('works.index'),
     "{$work->name}" => null
 ] /* --}}
 
@@ -9,12 +9,12 @@
 @section('content')
 
     <div class="ui secondary pointing menu">
-        <a href="{{ route('works.show', $work->id) }}" class="active item">{{ trans_choice('all.works', 1) }}</a>
-        <a href="{{ route('works.work-items.index', $work->id) }}" class="item">{{ trans_choice('all.workitems', 2) }}</a>
-        <a href="{{ route('works.workflow', $work->id) }}" class="item">{{ trans_choice('all.workflows', 1) }}</a>
-        <a href="{{ route('works.checklist', $work->id) }}" class="item">{{ trans_choice('all.checklists', 1) }}</a>
+        <a href="{{ route('works.show', $work->id) }}" class="active item">{{ trans('all.work') }}</a>
     </div>
 
     @include('works._card', $work)
 
+    <a href="{{ route('works.work-items.index', $work->id) }}" class="ui primary button"><i class="plus icon"></i>{{ trans('all.unit_price_analysis') }}</a>
+    <a href="{{ route('works.index', $work->id) }}" class="ui primary button">{{ trans('all.back_works') }}</a>
 @stop
+

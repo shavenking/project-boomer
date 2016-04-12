@@ -21,9 +21,9 @@
             <label>費用分類</label>
             <cost-type-select v-ref:cost-type-select></cost-type-select>
         </div>
-
-        <button type="submit" class="ui primary button">{{ isEditing ? '儲存' : '新增' }}</button>
+        <button type="submit" class="ui primary button"><i class="plus icon"></i>{{ isEditing ? '儲存' : '新增' }}</button>
         <button type="button" class="ui button" @click="clearForm">{{ isEditing ? '取消' : '重填' }}</button>
+        <slot></slot>
     </form>
 </template>
 

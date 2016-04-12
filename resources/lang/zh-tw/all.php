@@ -27,6 +27,7 @@ return [
     'workflow' => '施工流程圖',
     'workflow_nodes' => '流程項目',
     'works' => '工作項目管理',
+    'work' => '工作項目',
     'workitems' => '工料項目',
     'unit_price_analysis' => '工料單價分析',
     'checklists' => '自主檢查表管理',
@@ -58,6 +59,8 @@ return [
     'fs_works' => '已設定工作項目',
 
     'back_workflows' => '返回施工流程',
+    'back_works' => '返回工作項目管理',
+    'back' => '返回',
 
     'con',
     'search' => '搜尋',
@@ -78,7 +81,9 @@ return [
     'unit' => '單位',
     'type' => '類型',
     'referenced_checklist' => '參考的自主檢查表',
+    'referenced_workflow' => '參考施工流程圖',
     'custom_name' => '自定義名稱',
+
 
     'delete' => '刪除',
 
