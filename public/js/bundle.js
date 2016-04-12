@@ -28061,7 +28061,7 @@ webpackJsonp([0],[
 	    __vue_script__.__esModule &&
 	    Object.keys(__vue_script__).length > 1) {
 	  console.warn("[vue-loader] resources/assets/js/components/construction-daily.vue: named exports in *.vue files are ignored.")}
-	__vue_template__ = __webpack_require__(137)
+	__vue_template__ = __webpack_require__(157)
 	module.exports = __vue_script__ || {}
 	if (module.exports.__esModule) module.exports = module.exports.default
 	if (__vue_template__) {
@@ -28093,13 +28093,71 @@ webpackJsonp([0],[
 
 	var _modalCreateProjectChecklist2 = _interopRequireDefault(_modalCreateProjectChecklist);
 
+	var _modalCreateDailyMaterial = __webpack_require__(137);
+
+	var _modalCreateDailyMaterial2 = _interopRequireDefault(_modalCreateDailyMaterial);
+
+	var _dailyMaterials = __webpack_require__(141);
+
 	var _projectChecklists = __webpack_require__(133);
+
+	var _lodash = __webpack_require__(108);
+
+	var _lodash2 = _interopRequireDefault(_lodash);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+	exports.default = {
+	    props: ['projectId', 'date'],
+
+	    components: { ModalCreateProjectChecklist: _modalCreateProjectChecklist2.default, ModalCreateDailyMaterial: _modalCreateDailyMaterial2.default },
+
+	    methods: {
+	        onSuccess: function onSuccess() {
+	            var _this = this;
+
+	            (0, _projectChecklists.get)(this.projectId, {
+	                date: this.date
+	            }).then(function (rep) {
+	                _this.checklists = rep.checklists;
+	            });
+
+	            (0, _dailyMaterials.get)(this.projectId, {
+	                date: 'today'
+	            }).then(function (rep) {
+	                _this.dailyMaterials = rep.daily_materials;
+	            });
+	        }
+	    },
+
+	    data: function data() {
+	        return {
+	            checklists: [],
+	            dailyMaterials: []
+	        };
+	    },
+	    ready: function ready() {
+	        var _this2 = this;
+
+	        (0, _projectChecklists.get)(this.projectId, {
+	            date: this.date
+	        }).then(function (rep) {
+	            _this2.checklists = rep.checklists;
+	        });
+
+	        (0, _dailyMaterials.get)(this.projectId, {
+	            date: 'today'
+	        }).then(function (rep) {
+	            _this2.dailyMaterials = rep.daily_materials;
+	        });
+	    }
+	};
+	// </script>
 	// <template>
 	//     <modal-create-project-checklist :project-id.once="projectId" :on-success.once="onSuccess"></modal-create-project-checklist>
-	//     <table class="ui table">
+	//     <modal-create-daily-material :project-id.once="projectId" :on-success.once="onSuccess"></modal-create-daily-material>
+	//
+	//     <table class="ui table" v-if="checklists.length">
 	//         <thead>
 	//             <tr>
 	//                 <th>施工項目</th>
@@ -28113,48 +28171,830 @@ webpackJsonp([0],[
 	//             </tr>
 	//         </tbody>
 	//     </table>
+	//
+	//     <table class="ui table" v-if="dailyMaterials.length">
+	//         <thead>
+	//             <tr>
+	//                 <th>材料名稱</th>
+	//                 <th>本日使用數量</th>
+	//             </tr>
+	//         </thead>
+	//         <tbody>
+	//             <tr v-for="dailyMaterial in dailyMaterials">
+	//                 <td>{{ dailyMaterial.name }}</td>
+	//                 <td>{{ dailyMaterial.amount }}</td>
+	//             </tr>
+	//         </tbody>
+	//     </table>
 	// </template>
 	//
 	// <script>
-	exports.default = {
-	    props: ['projectId', 'date'],
 
-	    components: { ModalCreateProjectChecklist: _modalCreateProjectChecklist2.default },
+/***/ },
+/* 137 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var __vue_script__, __vue_template__
+	__webpack_require__(138)
+	__vue_script__ = __webpack_require__(140)
+	if (__vue_script__ &&
+	    __vue_script__.__esModule &&
+	    Object.keys(__vue_script__).length > 1) {
+	  console.warn("[vue-loader] resources/assets/js/components/modal-create-daily-material.vue: named exports in *.vue files are ignored.")}
+	__vue_template__ = __webpack_require__(156)
+	module.exports = __vue_script__ || {}
+	if (module.exports.__esModule) module.exports = module.exports.default
+	if (__vue_template__) {
+	(typeof module.exports === "function" ? (module.exports.options || (module.exports.options = {})) : module.exports).template = __vue_template__
+	}
+	if (false) {(function () {  module.hot.accept()
+	  var hotAPI = require("vue-hot-reload-api")
+	  hotAPI.install(require("vue"), true)
+	  if (!hotAPI.compatible) return
+	  var id = "/Users/shavenking/Code/project-boomer/resources/assets/js/components/modal-create-daily-material.vue"
+	  if (!module.hot.data) {
+	    hotAPI.createRecord(id, module.exports)
+	  } else {
+	    hotAPI.update(id, module.exports, __vue_template__)
+	  }
+	})()}
+
+/***/ },
+/* 138 */
+/***/ function(module, exports, __webpack_require__) {
+
+	// style-loader: Adds some css to the DOM by adding a <style> tag
+
+	// load the styles
+	var content = __webpack_require__(139);
+	if(typeof content === 'string') content = [[module.id, content, '']];
+	// add the styles to the DOM
+	var update = __webpack_require__(27)(content, {});
+	if(content.locals) module.exports = content.locals;
+	// Hot Module Replacement
+	if(false) {
+		// When the styles change, update the <style> tags
+		if(!content.locals) {
+			module.hot.accept("!!./../../../../node_modules/css-loader/index.js!./../../../../node_modules/vue-loader/lib/style-rewriter.js!./../../../../node_modules/vue-loader/lib/selector.js?type=style&index=0!./modal-create-daily-material.vue", function() {
+				var newContent = require("!!./../../../../node_modules/css-loader/index.js!./../../../../node_modules/vue-loader/lib/style-rewriter.js!./../../../../node_modules/vue-loader/lib/selector.js?type=style&index=0!./modal-create-daily-material.vue");
+				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+				update(newContent);
+			});
+		}
+		// When the module is disposed, remove the <style> tags
+		module.hot.dispose(function() { update(); });
+	}
+
+/***/ },
+/* 139 */
+/***/ function(module, exports, __webpack_require__) {
+
+	exports = module.exports = __webpack_require__(26)();
+	// imports
+
+
+	// module
+	exports.push([module.id, "\n.hidden {\n    display: none;\n}\n", ""]);
+
+	// exports
+
+
+/***/ },
+/* 140 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+
+	var _dailyMaterials = __webpack_require__(141);
+
+	var _projectFlowtypeWorkSelect = __webpack_require__(127);
+
+	var _projectFlowtypeWorkSelect2 = _interopRequireDefault(_projectFlowtypeWorkSelect);
+
+	var _pluck = __webpack_require__(90);
+
+	var _pluck2 = _interopRequireDefault(_pluck);
+
+	var _zipObject = __webpack_require__(93);
+
+	var _zipObject2 = _interopRequireDefault(_zipObject);
+
+	var _merge = __webpack_require__(94);
+
+	var _merge2 = _interopRequireDefault(_merge);
+
+	var _omit = __webpack_require__(142);
+
+	var _omit2 = _interopRequireDefault(_omit);
+
+	var _isEmpty = __webpack_require__(154);
+
+	var _isEmpty2 = _interopRequireDefault(_isEmpty);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	exports.default = {
+	    props: ['projectId', 'onSuccess', 'onCancel'],
+
+	    components: { ProjectFlowtypeWorkSelect: _projectFlowtypeWorkSelect2.default },
 
 	    methods: {
-	        onSuccess: function onSuccess() {
+	        openModal: function openModal() {
+	            this.$modal.modal('show');
+	        },
+	        onSubmit: function onSubmit(e) {
+	            e.preventDefault();
+
+	            this.onApprove();
+
+	            window.$(this.$els.modal).modal('hide');
+	        },
+	        onApprove: function onApprove() {
 	            var _this = this;
 
-	            (0, _projectChecklists.get)(this.projectId, {
-	                date: this.date
-	            }).then(function (rep) {
-	                _this.checklists = rep.checklists;
+	            var inputs = window.$(this.$els.form).serializeArray();
+
+	            var values = (0, _omit2.default)((0, _merge2.default)((0, _zipObject2.default)((0, _pluck2.default)(inputs, 'name'), (0, _pluck2.default)(inputs, 'value')), { name: this.name }), _isEmpty2.default);
+
+	            (0, _dailyMaterials.create)(this.projectId, values).then(function (response) {
+	                if (values.name) {
+	                    (0, _dailyMaterials.getAll)().then(function (response) {
+	                        _this.dailyMaterials = response.daily_materials;
+	                    });
+	                }
+
+	                _this.$els.form.reset();
+
+	                if (_this.onSuccess) {
+	                    _this.onSuccess();
+	                }
 	            });
+	        },
+	        onDeny: function onDeny() {
+	            this.$els.form.reset();
+
+	            if (this.onCancel) {
+	                this.onCancel();
+	            }
+	        },
+	        onNoResults: function onNoResults(val) {
+	            this.name = val;
+
+	            window.$(this.$els.dropdown).dropdown('clear').dropdown('set text', val);
+	        },
+	        onChange: function onChange(val) {
+	            this.name = '';
 	        }
 	    },
 
 	    data: function data() {
 	        return {
-	            checklists: []
+	            'dailyMaterials': []
 	        };
 	    },
 	    ready: function ready() {
 	        var _this2 = this;
 
-	        (0, _projectChecklists.get)(this.projectId, {
-	            date: this.date
-	        }).then(function (rep) {
-	            _this2.checklists = rep.checklists;
+	        (0, _dailyMaterials.getAll)().then(function (response) {
+	            _this2.dailyMaterials = response.daily_materials;
+	        });
+
+	        this.$modal = window.$(this.$els.modal).modal({
+	            closable: false,
+	            onApprove: this.onApprove,
+	            onDeny: this.onDeny
+	        });
+
+	        window.$(this.$els.dropdown).dropdown({
+	            fullTextSearch: true,
+	            forceSelection: true,
+	            onChange: this.onChange,
+	            onNoResults: this.onNoResults,
+	            message: {
+	                noResults: '新增 {term}'
+	            }
 	        });
 	    }
 	};
 	// </script>
+	// <template>
+	//     <a href="#" class="ui primary button" @click="openModal">
+	//         <i class="plus icon"></i>新增今日使用材料
+	//     </a>
+	//
+	//     <div class="ui basic modal" v-el:modal>
+	//         <div class="content">
+	//             <form action="#" method="POST" class="ui inverted form" @submit.prevent="onSubmit" v-el:form>
+	//                 <div class="two fields">
+	//                     <div class="field">
+	//                         <div class="label">材料名稱</div>
+	//                         <div class="ui search fluid selection dropdown" v-el:dropdown>
+	//                             <input type="hidden" name="daily_material_id">
+	//                             <i class="dropdown icon"></i>
+	//                             <div class="default text"></div>
+	//                             <div class="menu">
+	//                                 <div class="item" v-for="dailyMaterial in dailyMaterials" :data-value="dailyMaterial.id">{{ dailyMaterial.name }}</div>
+	//                             </div>
+	//                         </div>
+	//                     </div>
+	//                     <div class="field">
+	//                         <div class="label">材料數量</div>
+	//                         <input type="text" name="amount">
+	//                     </div>
+	//                 </div>
+	//                 <button type="submit" class="hidden"></button>
+	//             </form>
+	//         </div>
+	//         <div class="actions">
+	//             <div class="ui green inverted ok button">
+	//                 <i class="checkmark icon"></i>
+	//                 送出
+	//             </div>
+	//             <div class="ui inverted cancel button">
+	//                 <i class="remove icon"></i>
+	//                 取消
+	//             </div>
+	//         </div>
+	//     </div>
+	// </template>
+	//
+	// <style>
+	//     .hidden {
+	//         display: none;
+	//     }
+	// </style>
+	//
+	// <script>
 
 /***/ },
-/* 137 */
+/* 141 */
 /***/ function(module, exports) {
 
-	module.exports = "\n<modal-create-project-checklist :project-id.once=\"projectId\" :on-success.once=\"onSuccess\"></modal-create-project-checklist>\n<table class=\"ui table\">\n    <thead>\n        <tr>\n            <th>施工項目</th>\n            <th>施工位置</th>\n        </tr>\n    </thead>\n    <tbody>\n        <tr v-for=\"checklist in checklists\">\n            <td><a href=\"/projects/{{ projectId }}/works/{{ checklist.project_work.id }}\">{{ checklist.project_work.name }}</a></td>\n            <td>{{ checklist.seat }}</td>\n        </tr>\n    </tbody>\n</table>\n";
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	exports.getAll = getAll;
+	exports.get = get;
+	exports.create = create;
+	function getAll() {
+	    return window.$.getJSON('/api/v1/daily-materials');
+	}
+
+	function get(projectId) {
+	    var queries = arguments.length <= 1 || arguments[1] === undefined ? {} : arguments[1];
+
+	    var queryArray = [];
+
+	    if (queries.date) {
+	        queryArray.push('date=' + queries.date);
+	    }
+
+	    var queryString = queryArray.join('&');
+
+	    return window.$.getJSON('/api/v1/projects/' + projectId + '/daily-materials?' + queryString);
+	}
+
+	function create(projectId, values) {
+	    return window.$.post('/api/v1/projects/' + projectId + '/daily-materials', values);
+	}
+
+/***/ },
+/* 142 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var arrayMap = __webpack_require__(92),
+	    baseDifference = __webpack_require__(143),
+	    baseFlatten = __webpack_require__(150),
+	    bindCallback = __webpack_require__(66),
+	    keysIn = __webpack_require__(53),
+	    pickByArray = __webpack_require__(152),
+	    pickByCallback = __webpack_require__(153),
+	    restParam = __webpack_require__(104);
+
+	/**
+	 * The opposite of `_.pick`; this method creates an object composed of the
+	 * own and inherited enumerable properties of `object` that are not omitted.
+	 *
+	 * @static
+	 * @memberOf _
+	 * @category Object
+	 * @param {Object} object The source object.
+	 * @param {Function|...(string|string[])} [predicate] The function invoked per
+	 *  iteration or property names to omit, specified as individual property
+	 *  names or arrays of property names.
+	 * @param {*} [thisArg] The `this` binding of `predicate`.
+	 * @returns {Object} Returns the new object.
+	 * @example
+	 *
+	 * var object = { 'user': 'fred', 'age': 40 };
+	 *
+	 * _.omit(object, 'age');
+	 * // => { 'user': 'fred' }
+	 *
+	 * _.omit(object, _.isNumber);
+	 * // => { 'user': 'fred' }
+	 */
+	var omit = restParam(function(object, props) {
+	  if (object == null) {
+	    return {};
+	  }
+	  if (typeof props[0] != 'function') {
+	    var props = arrayMap(baseFlatten(props), String);
+	    return pickByArray(object, baseDifference(keysIn(object), props));
+	  }
+	  var predicate = bindCallback(props[0], props[1], 3);
+	  return pickByCallback(object, function(value, key, object) {
+	    return !predicate(value, key, object);
+	  });
+	});
+
+	module.exports = omit;
+
+
+/***/ },
+/* 143 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var baseIndexOf = __webpack_require__(144),
+	    cacheIndexOf = __webpack_require__(146),
+	    createCache = __webpack_require__(147);
+
+	/** Used as the size to enable large array optimizations. */
+	var LARGE_ARRAY_SIZE = 200;
+
+	/**
+	 * The base implementation of `_.difference` which accepts a single array
+	 * of values to exclude.
+	 *
+	 * @private
+	 * @param {Array} array The array to inspect.
+	 * @param {Array} values The values to exclude.
+	 * @returns {Array} Returns the new array of filtered values.
+	 */
+	function baseDifference(array, values) {
+	  var length = array ? array.length : 0,
+	      result = [];
+
+	  if (!length) {
+	    return result;
+	  }
+	  var index = -1,
+	      indexOf = baseIndexOf,
+	      isCommon = true,
+	      cache = (isCommon && values.length >= LARGE_ARRAY_SIZE) ? createCache(values) : null,
+	      valuesLength = values.length;
+
+	  if (cache) {
+	    indexOf = cacheIndexOf;
+	    isCommon = false;
+	    values = cache;
+	  }
+	  outer:
+	  while (++index < length) {
+	    var value = array[index];
+
+	    if (isCommon && value === value) {
+	      var valuesIndex = valuesLength;
+	      while (valuesIndex--) {
+	        if (values[valuesIndex] === value) {
+	          continue outer;
+	        }
+	      }
+	      result.push(value);
+	    }
+	    else if (indexOf(values, value, 0) < 0) {
+	      result.push(value);
+	    }
+	  }
+	  return result;
+	}
+
+	module.exports = baseDifference;
+
+
+/***/ },
+/* 144 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var indexOfNaN = __webpack_require__(145);
+
+	/**
+	 * The base implementation of `_.indexOf` without support for binary searches.
+	 *
+	 * @private
+	 * @param {Array} array The array to search.
+	 * @param {*} value The value to search for.
+	 * @param {number} fromIndex The index to search from.
+	 * @returns {number} Returns the index of the matched value, else `-1`.
+	 */
+	function baseIndexOf(array, value, fromIndex) {
+	  if (value !== value) {
+	    return indexOfNaN(array, fromIndex);
+	  }
+	  var index = fromIndex - 1,
+	      length = array.length;
+
+	  while (++index < length) {
+	    if (array[index] === value) {
+	      return index;
+	    }
+	  }
+	  return -1;
+	}
+
+	module.exports = baseIndexOf;
+
+
+/***/ },
+/* 145 */
+/***/ function(module, exports) {
+
+	/**
+	 * Gets the index at which the first occurrence of `NaN` is found in `array`.
+	 *
+	 * @private
+	 * @param {Array} array The array to search.
+	 * @param {number} fromIndex The index to search from.
+	 * @param {boolean} [fromRight] Specify iterating from right to left.
+	 * @returns {number} Returns the index of the matched `NaN`, else `-1`.
+	 */
+	function indexOfNaN(array, fromIndex, fromRight) {
+	  var length = array.length,
+	      index = fromIndex + (fromRight ? 0 : -1);
+
+	  while ((fromRight ? index-- : ++index < length)) {
+	    var other = array[index];
+	    if (other !== other) {
+	      return index;
+	    }
+	  }
+	  return -1;
+	}
+
+	module.exports = indexOfNaN;
+
+
+/***/ },
+/* 146 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var isObject = __webpack_require__(43);
+
+	/**
+	 * Checks if `value` is in `cache` mimicking the return signature of
+	 * `_.indexOf` by returning `0` if the value is found, else `-1`.
+	 *
+	 * @private
+	 * @param {Object} cache The cache to search.
+	 * @param {*} value The value to search for.
+	 * @returns {number} Returns `0` if `value` is found, else `-1`.
+	 */
+	function cacheIndexOf(cache, value) {
+	  var data = cache.data,
+	      result = (typeof value == 'string' || isObject(value)) ? data.set.has(value) : data.hash[value];
+
+	  return result ? 0 : -1;
+	}
+
+	module.exports = cacheIndexOf;
+
+
+/***/ },
+/* 147 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* WEBPACK VAR INJECTION */(function(global) {var SetCache = __webpack_require__(148),
+	    getNative = __webpack_require__(40);
+
+	/** Native method references. */
+	var Set = getNative(global, 'Set');
+
+	/* Native method references for those with the same name as other `lodash` methods. */
+	var nativeCreate = getNative(Object, 'create');
+
+	/**
+	 * Creates a `Set` cache object to optimize linear searches of large arrays.
+	 *
+	 * @private
+	 * @param {Array} [values] The values to cache.
+	 * @returns {null|Object} Returns the new cache object if `Set` is supported, else `null`.
+	 */
+	function createCache(values) {
+	  return (nativeCreate && Set) ? new SetCache(values) : null;
+	}
+
+	module.exports = createCache;
+
+	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }())))
+
+/***/ },
+/* 148 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* WEBPACK VAR INJECTION */(function(global) {var cachePush = __webpack_require__(149),
+	    getNative = __webpack_require__(40);
+
+	/** Native method references. */
+	var Set = getNative(global, 'Set');
+
+	/* Native method references for those with the same name as other `lodash` methods. */
+	var nativeCreate = getNative(Object, 'create');
+
+	/**
+	 *
+	 * Creates a cache object to store unique values.
+	 *
+	 * @private
+	 * @param {Array} [values] The values to cache.
+	 */
+	function SetCache(values) {
+	  var length = values ? values.length : 0;
+
+	  this.data = { 'hash': nativeCreate(null), 'set': new Set };
+	  while (length--) {
+	    this.push(values[length]);
+	  }
+	}
+
+	// Add functions to the `Set` cache.
+	SetCache.prototype.push = cachePush;
+
+	module.exports = SetCache;
+
+	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }())))
+
+/***/ },
+/* 149 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var isObject = __webpack_require__(43);
+
+	/**
+	 * Adds `value` to the cache.
+	 *
+	 * @private
+	 * @name push
+	 * @memberOf SetCache
+	 * @param {*} value The value to cache.
+	 */
+	function cachePush(value) {
+	  var data = this.data;
+	  if (typeof value == 'string' || isObject(value)) {
+	    data.set.add(value);
+	  } else {
+	    data.hash[value] = true;
+	  }
+	}
+
+	module.exports = cachePush;
+
+
+/***/ },
+/* 150 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var arrayPush = __webpack_require__(151),
+	    isArguments = __webpack_require__(50),
+	    isArray = __webpack_require__(51),
+	    isArrayLike = __webpack_require__(45),
+	    isObjectLike = __webpack_require__(44);
+
+	/**
+	 * The base implementation of `_.flatten` with added support for restricting
+	 * flattening and specifying the start index.
+	 *
+	 * @private
+	 * @param {Array} array The array to flatten.
+	 * @param {boolean} [isDeep] Specify a deep flatten.
+	 * @param {boolean} [isStrict] Restrict flattening to arrays-like objects.
+	 * @param {Array} [result=[]] The initial result value.
+	 * @returns {Array} Returns the new flattened array.
+	 */
+	function baseFlatten(array, isDeep, isStrict, result) {
+	  result || (result = []);
+
+	  var index = -1,
+	      length = array.length;
+
+	  while (++index < length) {
+	    var value = array[index];
+	    if (isObjectLike(value) && isArrayLike(value) &&
+	        (isStrict || isArray(value) || isArguments(value))) {
+	      if (isDeep) {
+	        // Recursively flatten arrays (susceptible to call stack limits).
+	        baseFlatten(value, isDeep, isStrict, result);
+	      } else {
+	        arrayPush(result, value);
+	      }
+	    } else if (!isStrict) {
+	      result[result.length] = value;
+	    }
+	  }
+	  return result;
+	}
+
+	module.exports = baseFlatten;
+
+
+/***/ },
+/* 151 */
+/***/ function(module, exports) {
+
+	/**
+	 * Appends the elements of `values` to `array`.
+	 *
+	 * @private
+	 * @param {Array} array The array to modify.
+	 * @param {Array} values The values to append.
+	 * @returns {Array} Returns `array`.
+	 */
+	function arrayPush(array, values) {
+	  var index = -1,
+	      length = values.length,
+	      offset = array.length;
+
+	  while (++index < length) {
+	    array[offset + index] = values[index];
+	  }
+	  return array;
+	}
+
+	module.exports = arrayPush;
+
+
+/***/ },
+/* 152 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var toObject = __webpack_require__(55);
+
+	/**
+	 * A specialized version of `_.pick` which picks `object` properties specified
+	 * by `props`.
+	 *
+	 * @private
+	 * @param {Object} object The source object.
+	 * @param {string[]} props The property names to pick.
+	 * @returns {Object} Returns the new object.
+	 */
+	function pickByArray(object, props) {
+	  object = toObject(object);
+
+	  var index = -1,
+	      length = props.length,
+	      result = {};
+
+	  while (++index < length) {
+	    var key = props[index];
+	    if (key in object) {
+	      result[key] = object[key];
+	    }
+	  }
+	  return result;
+	}
+
+	module.exports = pickByArray;
+
+
+/***/ },
+/* 153 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var baseForIn = __webpack_require__(100);
+
+	/**
+	 * A specialized version of `_.pick` which picks `object` properties `predicate`
+	 * returns truthy for.
+	 *
+	 * @private
+	 * @param {Object} object The source object.
+	 * @param {Function} predicate The function invoked per iteration.
+	 * @returns {Object} Returns the new object.
+	 */
+	function pickByCallback(object, predicate) {
+	  var result = {};
+	  baseForIn(object, function(value, key, object) {
+	    if (predicate(value, key, object)) {
+	      result[key] = value;
+	    }
+	  });
+	  return result;
+	}
+
+	module.exports = pickByCallback;
+
+
+/***/ },
+/* 154 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var isArguments = __webpack_require__(50),
+	    isArray = __webpack_require__(51),
+	    isArrayLike = __webpack_require__(45),
+	    isFunction = __webpack_require__(42),
+	    isObjectLike = __webpack_require__(44),
+	    isString = __webpack_require__(155),
+	    keys = __webpack_require__(39);
+
+	/**
+	 * Checks if `value` is empty. A value is considered empty unless it's an
+	 * `arguments` object, array, string, or jQuery-like collection with a length
+	 * greater than `0` or an object with own enumerable properties.
+	 *
+	 * @static
+	 * @memberOf _
+	 * @category Lang
+	 * @param {Array|Object|string} value The value to inspect.
+	 * @returns {boolean} Returns `true` if `value` is empty, else `false`.
+	 * @example
+	 *
+	 * _.isEmpty(null);
+	 * // => true
+	 *
+	 * _.isEmpty(true);
+	 * // => true
+	 *
+	 * _.isEmpty(1);
+	 * // => true
+	 *
+	 * _.isEmpty([1, 2, 3]);
+	 * // => false
+	 *
+	 * _.isEmpty({ 'a': 1 });
+	 * // => false
+	 */
+	function isEmpty(value) {
+	  if (value == null) {
+	    return true;
+	  }
+	  if (isArrayLike(value) && (isArray(value) || isString(value) || isArguments(value) ||
+	      (isObjectLike(value) && isFunction(value.splice)))) {
+	    return !value.length;
+	  }
+	  return !keys(value).length;
+	}
+
+	module.exports = isEmpty;
+
+
+/***/ },
+/* 155 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var isObjectLike = __webpack_require__(44);
+
+	/** `Object#toString` result references. */
+	var stringTag = '[object String]';
+
+	/** Used for native method references. */
+	var objectProto = Object.prototype;
+
+	/**
+	 * Used to resolve the [`toStringTag`](http://ecma-international.org/ecma-262/6.0/#sec-object.prototype.tostring)
+	 * of values.
+	 */
+	var objToString = objectProto.toString;
+
+	/**
+	 * Checks if `value` is classified as a `String` primitive or object.
+	 *
+	 * @static
+	 * @memberOf _
+	 * @category Lang
+	 * @param {*} value The value to check.
+	 * @returns {boolean} Returns `true` if `value` is correctly classified, else `false`.
+	 * @example
+	 *
+	 * _.isString('abc');
+	 * // => true
+	 *
+	 * _.isString(1);
+	 * // => false
+	 */
+	function isString(value) {
+	  return typeof value == 'string' || (isObjectLike(value) && objToString.call(value) == stringTag);
+	}
+
+	module.exports = isString;
+
+
+/***/ },
+/* 156 */
+/***/ function(module, exports) {
+
+	module.exports = "\n<a href=\"#\" class=\"ui primary button\" @click=\"openModal\">\n    <i class=\"plus icon\"></i>新增今日使用材料\n</a>\n\n<div class=\"ui basic modal\" v-el:modal>\n    <div class=\"content\">\n        <form action=\"#\" method=\"POST\" class=\"ui inverted form\" @submit.prevent=\"onSubmit\" v-el:form>\n            <div class=\"two fields\">\n                <div class=\"field\">\n                    <div class=\"label\">材料名稱</div>\n                    <div class=\"ui search fluid selection dropdown\" v-el:dropdown>\n                        <input type=\"hidden\" name=\"daily_material_id\">\n                        <i class=\"dropdown icon\"></i>\n                        <div class=\"default text\"></div>\n                        <div class=\"menu\">\n                            <div class=\"item\" v-for=\"dailyMaterial in dailyMaterials\" :data-value=\"dailyMaterial.id\">{{ dailyMaterial.name }}</div>\n                        </div>\n                    </div>\n                </div>\n                <div class=\"field\">\n                    <div class=\"label\">材料數量</div>\n                    <input type=\"text\" name=\"amount\">\n                </div>\n            </div>\n            <button type=\"submit\" class=\"hidden\"></button>\n        </form>\n    </div>\n    <div class=\"actions\">\n        <div class=\"ui green inverted ok button\">\n            <i class=\"checkmark icon\"></i>\n            送出\n        </div>\n        <div class=\"ui inverted cancel button\">\n            <i class=\"remove icon\"></i>\n            取消\n        </div>\n    </div>\n</div>\n";
+
+/***/ },
+/* 157 */
+/***/ function(module, exports) {
+
+	module.exports = "\n<modal-create-project-checklist :project-id.once=\"projectId\" :on-success.once=\"onSuccess\"></modal-create-project-checklist>\n<modal-create-daily-material :project-id.once=\"projectId\" :on-success.once=\"onSuccess\"></modal-create-daily-material>\n\n<table class=\"ui table\" v-if=\"checklists.length\">\n    <thead>\n        <tr>\n            <th>施工項目</th>\n            <th>施工位置</th>\n        </tr>\n    </thead>\n    <tbody>\n        <tr v-for=\"checklist in checklists\">\n            <td><a href=\"/projects/{{ projectId }}/works/{{ checklist.project_work.id }}\">{{ checklist.project_work.name }}</a></td>\n            <td>{{ checklist.seat }}</td>\n        </tr>\n    </tbody>\n</table>\n\n<table class=\"ui table\" v-if=\"dailyMaterials.length\">\n    <thead>\n        <tr>\n            <th>材料名稱</th>\n            <th>本日使用數量</th>\n        </tr>\n    </thead>\n    <tbody>\n        <tr v-for=\"dailyMaterial in dailyMaterials\">\n            <td>{{ dailyMaterial.name }}</td>\n            <td>{{ dailyMaterial.amount }}</td>\n        </tr>\n    </tbody>\n</table>\n";
 
 /***/ }
 ]);

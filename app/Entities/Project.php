@@ -8,6 +8,13 @@ class Project extends Model
 {
     protected $fillable = ['name'];
 
+    public function dailyMaterials()
+    {
+        return $this->belongsToMany(DailyMaterial::class, 'project_daily_material', 'project_id', 'daily_material_id')
+            ->withPivot('id', 'amount')
+            ->withTimestamps();
+    }
+
     public function works()
     {
         return $this->hasMany(ProjectWork::class);
