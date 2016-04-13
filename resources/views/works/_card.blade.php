@@ -19,7 +19,7 @@
             {{ method_field('DELETE')}}
 
             <div class="ui labels">
-                <button type="submit" class="ui right floated red label" href="{{ route('works.work-items.index', $work->id) }}">刪除</button>
+                <button type="submit" class="ui right floated red label">刪除</button>
             </div>
         </form>
 
