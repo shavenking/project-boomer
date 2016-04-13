@@ -10518,6 +10518,8 @@ webpackJsonp([0],[
 
 
 	exports.default = {
+	    props: ['default'],
+
 	    components: { DropdownSelect: _dropdownSelect2.default },
 
 	    methods: {
@@ -10539,6 +10541,12 @@ webpackJsonp([0],[
 
 	        getUnits().then(function (response) {
 	            _this.units = response.units;
+
+	            _this.$nextTick(function () {
+	                if (_this.default) {
+	                    _this.select(_this.default);
+	                }
+	            });
 	        });
 	    }
 	};
@@ -10612,7 +10620,7 @@ webpackJsonp([0],[
 	exports.default = {
 	    components: { DropdownSelect: _dropdownSelect2.default },
 
-	    props: ['defaultValue'],
+	    props: ['default'],
 
 	    data: function data() {
 	        return {
@@ -10625,9 +10633,11 @@ webpackJsonp([0],[
 	        getWorkflows().then(function (response) {
 	            _this.workflows = response.workflows;
 
-	            _this.$nextTick(function () {
-	                _this.$refs.dropdown.select(_this.defaultValue);
-	            });
+	            if (_this.default) {
+	                _this.$nextTick(function () {
+	                    _this.$refs.dropdown.select(_this.default);
+	                });
+	            }
 	        });
 	    }
 	};

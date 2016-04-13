@@ -19,16 +19,8 @@
             {{ method_field('DELETE')}}
 
             <div class="ui labels">
-                <button type="submit" class="ui right floated red label" href="{{ route('works.work-items.index', $work->id) }}">刪除</button>
-            </div>
-        </form>
-
-        <form class="ui form right floated" action="{{ route('works.edit', $work->id) }}" method="POST">
-            {{ csrf_field() }}
-            {{ method_field('EDIT')}}
-
-            <div class="ui labels">
-                <button type="submit" class="ui right floated blue label" href="{{ route('works.work-items.index', $work->id) }}">編輯</button>
+                <button type="submit" class="ui right floated red label">刪除</button>
+                <a href="{{ route('works.edit', $work->id) }}" class="ui right floated blue label">編輯</a>
             </div>
         </form>
 

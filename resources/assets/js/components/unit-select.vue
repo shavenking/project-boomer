@@ -16,6 +16,8 @@
     }
 
     export default {
+        props: ['default'],
+
         components: { DropdownSelect },
 
         methods: {
@@ -34,8 +36,16 @@
         },
 
         ready() {
+
+
             getUnits().then(response => {
                 this.units = response.units
+
+                this.$nextTick(() => {
+                    if (this.default) {
+                        this.select(this.default)
+                    }
+                })
             })
         }
     }

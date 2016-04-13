@@ -103,6 +103,22 @@ class WorksController extends Controller
         return view('works.show')->withWork($work);
     }
 
+    public function edit($workId)
+    {
+        $work = Work::findOrFail($workId);
+
+        return view('works.edit')->withWork($work);
+    }
+
+    public function update($workId, Request $request)
+    {
+        $work = Work::findOrFail($workId);
+
+        $work->update(array_filter($request->all()));
+
+        return redirect()->route('works.index');
+    }
+
     public function updateOfWorkitems($workId, $itemId, Request $request)
     {
         $this->validate($request, [
