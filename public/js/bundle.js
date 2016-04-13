@@ -10291,7 +10291,6 @@ webpackJsonp([0],[
 	        optionsUpdated: function optionsUpdated() {
 	            this._dropdown.dropdown('refresh');
 	            this._dropdown.dropdown('clear');
-	            this._dropdown.dropdown('show');
 	        }
 	    },
 
@@ -10382,6 +10381,7 @@ webpackJsonp([0],[
 	//                 option-value-name="id"
 	//                 option-text-name="name"
 	//                 @selected="onMainflowTypeSelected"
+	//                 v-ref:mainflow-type-select
 	//             ></dropdown-select>
 	//         </div>
 	//         <div class="field">
@@ -10411,7 +10411,7 @@ webpackJsonp([0],[
 	exports.default = {
 	    components: { DropdownSelect: _dropdownSelect2.default },
 
-	    props: ['onSelected'],
+	    props: ['onSelected', 'mainDefault', 'detailDefault'],
 
 	    methods: {
 	        onMainflowTypeSelected: function onMainflowTypeSelected(mainflowTypeId) {
@@ -10420,8 +10420,14 @@ webpackJsonp([0],[
 	            getDetailingflowTypes(mainflowTypeId).then(function (response) {
 	                _this.detailingflowTypes = response.detailingflow_types;
 
-	                _vue2.default.nextTick(function () {
+	                _this.$nextTick(function () {
 	                    _this.$refs.detailingflowTypeSelect.$emit('optionsUpdated');
+
+	                    if (_this.detailDefault) {
+	                        _this.$nextTick(function () {
+	                            _this.$refs.detailingflowTypeSelect.select(_this.detailDefault);
+	                        });
+	                    }
 	                });
 	            });
 
@@ -10447,6 +10453,12 @@ webpackJsonp([0],[
 
 	        getMainflowTypes().then(function (response) {
 	            _this2.mainflowTypes = response.mainflow_types;
+
+	            if (_this2.mainDefault) {
+	                _this2.$nextTick(function () {
+	                    _this2.$refs.mainflowTypeSelect.select(_this2.mainDefault);
+	                });
+	            }
 	        });
 	    }
 	};
@@ -10456,7 +10468,7 @@ webpackJsonp([0],[
 /* 11 */
 /***/ function(module, exports) {
 
-	module.exports = "\n<div class=\"two fields\">\n    <div class=\"field\">\n        <dropdown-select\n            input-name=\"mainflow_type_id\"\n            :options=\"mainflowTypes\"\n            option-value-name=\"id\"\n            option-text-name=\"name\"\n            @selected=\"onMainflowTypeSelected\"\n        ></dropdown-select>\n    </div>\n    <div class=\"field\">\n        <dropdown-select\n            input-name=\"detailingflow_type_id\"\n            :options=\"detailingflowTypes\"\n            option-value-name=\"id\"\n            option-text-name=\"name\"\n            @selected=\"onDetailingflowTypeSelected\"\n            v-ref:detailingflow-type-select\n        ></dropdown-select>\n    </div>\n</div>\n";
+	module.exports = "\n<div class=\"two fields\">\n    <div class=\"field\">\n        <dropdown-select\n            input-name=\"mainflow_type_id\"\n            :options=\"mainflowTypes\"\n            option-value-name=\"id\"\n            option-text-name=\"name\"\n            @selected=\"onMainflowTypeSelected\"\n            v-ref:mainflow-type-select\n        ></dropdown-select>\n    </div>\n    <div class=\"field\">\n        <dropdown-select\n            input-name=\"detailingflow_type_id\"\n            :options=\"detailingflowTypes\"\n            option-value-name=\"id\"\n            option-text-name=\"name\"\n            @selected=\"onDetailingflowTypeSelected\"\n            v-ref:detailingflow-type-select\n        ></dropdown-select>\n    </div>\n</div>\n";
 
 /***/ },
 /* 12 */
