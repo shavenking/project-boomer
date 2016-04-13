@@ -7,6 +7,7 @@
                 option-value-name="id"
                 option-text-name="name"
                 @selected="onMainflowTypeSelected"
+                v-ref:mainflow-type-select
             ></dropdown-select>
         </div>
         <div class="field">
@@ -37,15 +38,21 @@
     export default {
         components: { DropdownSelect },
 
-        props: ['onSelected'],
+        props: ['onSelected', 'mainDefault', 'detailDefault'],
 
         methods: {
             onMainflowTypeSelected(mainflowTypeId) {
                 getDetailingflowTypes(mainflowTypeId).then(response => {
                     this.detailingflowTypes = response.detailingflow_types
 
-                    Vue.nextTick(() => {
+                    this.$nextTick(() => {
                         this.$refs.detailingflowTypeSelect.$emit('optionsUpdated')
+
+                        if (this.detailDefault) {
+                            this.$nextTick(() => {
+                                this.$refs.detailingflowTypeSelect.select(this.detailDefault)
+                            })
+                        }
                     })
                 })
 
@@ -70,6 +77,12 @@
         ready() {
             getMainflowTypes().then(response => {
                 this.mainflowTypes = response.mainflow_types
+
+                if (this.mainDefault) {
+                    this.$nextTick(() => {
+                        this.$refs.mainflowTypeSelect.select(this.mainDefault)
+                    })
+                }
             })
         }
     }
