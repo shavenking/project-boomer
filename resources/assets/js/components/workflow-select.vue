@@ -18,7 +18,7 @@
     export default {
         components: { DropdownSelect },
 
-        props: ['defaultValue'],
+        props: ['default'],
 
         data() {
             return {
@@ -30,9 +30,11 @@
             getWorkflows().then(response => {
                 this.workflows = response.workflows
 
-                this.$nextTick(() => {
-                    this.$refs.dropdown.select(this.defaultValue)
-                })
+                if (this.default) {
+                    this.$nextTick(() => {
+                        this.$refs.dropdown.select(this.default)
+                    })
+                }
             })
         }
     }

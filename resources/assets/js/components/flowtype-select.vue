@@ -55,7 +55,7 @@
                 if (this.onSelected) {
                     this.onSelected(detailingflowTypeId)
                 }
-                
+
                 return false
             }
         },
