@@ -97,6 +97,22 @@ class WorkflowsController extends Controller
         return response()->json(compact('node'));
     }
 
+    public function edit($id)
+    {
+        $workflow = Workflow::findOrFail($id);
+
+        return view('workflows.edit')->withWorkflow($workflow);
+    }
+
+        public function update($id)
+    {
+        $workflow = Workflow::findOrFail($id);
+
+        return view('workflows.edit')->withWork($workflow);
+    }
+
+
+
     public function updateOfNodes($workflowId, $id, Request $request)
     {
         $node = WorkflowNode::whereWorkflowId($workflowId)

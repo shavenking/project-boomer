@@ -17,6 +17,7 @@
 
             <div class="ui labels">
                 <button type="submit" class="ui right floated red label">刪除</button>
+                <a href="{{ route('workflows.edit', $workflow->id) }}" class="ui right floated blue label">編輯</a>
             </div>
         </form>
 
