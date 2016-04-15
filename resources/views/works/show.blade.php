@@ -8,9 +8,7 @@
 
 @section('content')
 
-    <div class="ui secondary pointing menu">
-        <a href="{{ route('works.show', $work->id) }}" class="active item">{{ trans('all.work') }}</a>
-    </div>
+
 
     @include('works._card', $work)
 

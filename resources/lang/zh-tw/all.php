@@ -14,6 +14,7 @@ return [
     'p_checklist' => '施工流程自主檢查',
     'p_fault_improvement' => '工程施工改善',
     'p_construction_daily' => '施工進度日報',
+    'construction_daily' => '施工進度日報表',
 
     'finance' => '財務管理',
     'p_cost' => '工程成本控制',
@@ -58,8 +59,9 @@ return [
 
     'fs_works' => '已設定工作項目',
 
-    'back_workflows' => '返回施工流程',
+    'back_workflows' => '返回施工流程圖',
     'back_works' => '返回工作項目管理',
+    'back_checklists' => '返回自主檢查表管理',
     'back' => '返回',
 
     'con',
@@ -74,7 +76,7 @@ return [
     'order' => '順序',
     'name' => '名稱',
     'title' => '流程檢查項目',
-    'detail' => '細項',
+    'detail' => '檢查標準',
     'amount' => '數量',
     'unit_price' => '單價',
     'total_price' => '總價',

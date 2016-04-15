@@ -9,10 +9,6 @@
 
 @section('content')
 
-    <div class="ui secondary pointing menu">
-        <a href="{{ route('workflows.show', $workflow->id) }}" class="item">{{ trans('all.workflow') }}</a>
-        <a href="{{ route('workflows.checklist', $workflow->id) }}" class="active item">{{ trans('all.set_checklists') }}</a>
-    </div>
 
     <checklist checklist-id="{{ $checklist->id }}" title-label="{{ trans('all.title') }}" detail-label="{{ trans('all.detail') }}"></checklist>
 

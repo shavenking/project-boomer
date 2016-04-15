@@ -45,5 +45,6 @@
         @endif
 
         <button class="ui primary button" type="submit">{{ trans('all.create') }}</button>
+        <a href="{{ route('works.index') }}" class="ui primary button">{{ trans('all.back') }}</a>
     </div>
 @stop

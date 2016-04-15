@@ -9,10 +9,6 @@
 
 @section('content')
 
-    <div class="ui secondary pointing menu">
-        <a href="{{ route('workflows.show', $workflow->id) }}" class="item">{{ trans('all.workflow') }}</a>
-        <a href="{{ route('workflows.works', $workflow->id) }}" class="active item">{{ trans('all.set_works') }}</a>
-    </div>
 
     <table class="ui celled table">
         <thead>

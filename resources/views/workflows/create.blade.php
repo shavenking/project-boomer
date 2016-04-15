@@ -27,6 +27,7 @@
             @endif
 
             <button class="ui primary button" type="submit">{{ trans('all.create') }}</button>
+            <a href="{{ route('workflows.index') }}" class="ui primary button">{{ trans('all.back') }}</a>
         </form>
     </div>
 

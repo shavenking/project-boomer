@@ -13,9 +13,17 @@
         <a href="{{ route('workflows.checklist', $workflow->id) }}" class="item">{{ trans_choice('all.checklists', 1) }}</a>
     </div>
 //設定>>工作項目管理>>title
+    <div class="ui secondary pointing menu">
+        <a href="{{ route('works.show', $work->id) }}" class="active item">{{ trans('all.work') }}</a>
+    </div>
         <a href="{{ route('works.show', $work->id) }}" class="item">{{ trans_choice('all.works', 2) }}</a>
         <a href="{{ route('works.checklist', $work->id) }}" class="item">{{ trans('all.set_checklists') }}</a>
         <a href="{{ route('works.workflow', $work->id) }}" class="item">{{ trans('all.workflow') }}</a>
+設定工料單價分析
+    <div class="ui secondary pointing menu">
+        <a href="{{ route('works.show', $work->id) }}" class="item">{{ trans('all.work') }}</a>
+        <a href="{{ route('works.work-items.index', $work->id) }}" class="active item">{{ trans('all.unit_price_analysis') }}</a>
+    </div>
 
 //設定>>自主檢查表>>title
     <div class="ui secondary pointing menu">
@@ -24,3 +32,9 @@
         <a href="{{ route('checklists.works', $checklist->id) }}" class="item">{{ trans_choice('all.works', 1) }}</a>
     </div>
 
+//設定>>施工流程管理>>works（title)、checklists(title)
+    <a href="{{ route('workflows.show', $workflow->id) }}" class="item">{{ trans('all.workflow') }}</a>
+    <a href="{{ route('workflows.works', $workflow->id) }}" class="active item">{{ trans('all.set_works') }}</a>
+
+    <a href="{{ route('workflows.show', $workflow->id) }}" class="item">{{ trans('all.workflow') }}</a>
+    <a href="{{ route('workflows.checklist', $workflow->id) }}" class="active item">{{ trans('all.set_checklists') }}</a>

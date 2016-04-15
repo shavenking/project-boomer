@@ -22,6 +22,7 @@
             </div>
 
             <button class="ui primary button" type="submit">{{ trans('all.create') }}</button>
+            <a href="{{ route('checklists.index') }}" class="ui primary button">{{ trans('all.back') }}</a>
         </form>
     </div>
 @stop
