@@ -38,3 +38,11 @@
 
     <a href="{{ route('workflows.show', $workflow->id) }}" class="item">{{ trans('all.workflow') }}</a>
     <a href="{{ route('workflows.checklist', $workflow->id) }}" class="active item">{{ trans('all.set_checklists') }}</a>
+
+//專案>>新增標單
+    <div class="ui secondary pointing menu">
+        <a href="{{ route('projects.bid.works', $project->id) }}" class="item">{{ trans('all.create_bid') }}</a>
+    </div>
+    <div class="ui secondary pointing menu">
+        <a href="{{ route('projects.bid.works', $project->id) }}" class="item">{{ trans('all.create_bid') }}</a>
+    </div>

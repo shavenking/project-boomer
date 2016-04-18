@@ -6,6 +6,7 @@ return [
 
     'internal' => '內部作業',
     'bid' => '標單',
+    'bids' => '工程專案標單',
     'p_bid' => '工程工料分類估價',
     'p_schedule' => '工程進度管理',
     'p_preparation' => '工程施工前準備',
@@ -40,7 +41,7 @@ return [
     'set_works' => '設定工作項目',
 
     'select_workflow' => '選擇流程',
-    'select_works'=> '選擇工作項目',
+    'select_work'=> '選擇工作項目',
     'select_type_order' => '選擇工程順序與類別',
     'select_unit' => '選擇單位',
     'select_cost_type' => '選擇費用分類',

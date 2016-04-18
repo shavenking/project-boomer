@@ -1,17 +1,13 @@
 {{-- */ $breadcrumbs = [
     trans_choice('all.projects', 2) => route('projects.index'),
     "{$project->name}" => route('projects.show', $project->id),
-    trans('all.bid') => route('projects.bid.index', $project->id),
-    trans('all.create_bid') => null
+    trans('all.p_bid') => route('projects.bid.works', $project->id),
+    trans('all.bids') => null
 ] /* --}}
 
 @extends('layouts.project')
 
 @section('content')
-
-    <div class="ui secondary pointing menu">
-        <a href="{{ route('projects.bid.works', $project->id) }}" class="item">{{ trans('all.create_bid') }}</a>
-    </div>
 
     <div class="ui grid">
         <div class="sixteen wide column">
@@ -38,7 +34,6 @@
                         <i class="remove icon"></i>{{ trans('all.clear_search') }}
                     </a>
                 </div>
-
             @else
                 <a href="{{ route('projects.works.search', [$project->id]) }}" class="ui button">
                     <i class="search icon"></i>{{ trans('all.search') }}

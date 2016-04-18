@@ -1,9 +1,8 @@
 {{-- */ $breadcrumbs = [
     trans_choice('all.projects', 2) => route('projects.index'),
     "{$project->name}" => route('projects.show', $project->id),
-    trans('all.bid') => route('projects.bid.index', $project->id),
-    trans('all.create_bid') => route('projects.bid.works', $project->id),
-    trans('all.create') => null
+    trans('all.p_bid') => route('projects.bid.works', $project->id),
+    trans('all.create_bid') => null,
 ] /* --}}
 
 @extends('layouts.project')
@@ -27,6 +26,7 @@
             ></flowtype-work-select>
 
             <button class="ui primary button" type="submit">{{ trans('all.create') }}</button>
+            <a href="{{ route('projects.bid.works', $project->id) }}" class="ui primary button">{{ trans('all.back') }}</a>
         </form>
     </div>
 
