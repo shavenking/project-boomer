@@ -63,6 +63,7 @@ return [
     'back_workflows' => '返回施工流程圖',
     'back_works' => '返回工作項目管理',
     'back_checklists' => '返回自主檢查表管理',
+    'back_unit_price' => '返回工料單價分析',
     'back' => '返回',
 
     'con',

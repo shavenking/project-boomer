@@ -9,7 +9,6 @@
 
 @section('content')
     <div class="ui secondary pointing menu">
-        <a href="{{ route('works.show', $work->id) }}" class="item">{{ trans('all.work') }}</a>
         <a href="{{ route('works.workflow', $work->id) }}" class="active item">{{ trans('all.workflow') }}</a>
     </div>
 
@@ -17,4 +16,6 @@
         label-text="{{ trans('all.create_node') }}"
         workflow-id="{{ $work->workflow->id }}"
     ></workflow-nodes>
+
+    <a href="{{ route('works.work-items.index', $work->id) }}" class="ui primary button">{{ trans('all.back_unit_price') }}</a>
 @stop

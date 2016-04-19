@@ -25,7 +25,9 @@
         </div>
         <div class="row">
             <div class="sixteen wide column">
-                <workitem-form v-ref:form></workitem-form>
+                <workitem-form v-ref:form>
+                    <a href="{{ '/projects/' + projectId + '/bid' + '/works'}}" class="ui primary button">返回</a>
+                </workitem-form>
             </div>
         </div>
     </div>
