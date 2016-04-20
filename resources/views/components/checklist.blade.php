@@ -27,7 +27,7 @@
                 </a>
 
                 <a href="{{ route('checklists.works', $checklist->id) }}" class="ui label">
-                    {{ $checklist->workflow->works->count() }} {{ trans_choice('all.works', $checklist->workflow->works->count()) }}
+                    {{ $checklist->workflow->works->count() }} {{ trans_choice('all.work', $checklist->workflow->works->count()) }}
                 </a>
             @endif
 
