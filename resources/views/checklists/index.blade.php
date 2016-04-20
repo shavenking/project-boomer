@@ -10,7 +10,7 @@
 
         <div class="sixteen wide column">
             <a href="{{ route('checklists.create') }}" class="ui primary button">
-                <i class="plus icon"></i>{{ trans('all.create_checklist') }}
+                <i class="plus icon"></i>{{ trans('all.create_standard_checklist') }}
             </a>
         </div>
 

@@ -10,7 +10,7 @@
 
         <div class="sixteen wide column">
             <a href="{{ route('works.create') }}" class="ui primary button">
-                <i class="plus icon"></i>{{ trans('all.create_work') }}
+                <i class="plus icon"></i>{{ trans('all.create_standard_work') }}
             </a>
         </div>
 

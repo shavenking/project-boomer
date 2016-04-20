@@ -1,8 +1,9 @@
 {{-- */ $breadcrumbs = [
     trans_choice('all.projects', 2) => route('projects.index'),
     "{$project->name}" => route('projects.show', $project->id),
+    trans('all.internal') => route('projects.internal.index', $project->id),
     trans('all.p_bid') => route('projects.bid.works', $project->id),
-    trans('all.create_bid') => null,
+    trans('all.create_work') => null,
 ] /* --}}
 
 @extends('layouts.project')
@@ -27,6 +28,7 @@
 
             <button class="ui primary button" type="submit">{{ trans('all.create') }}</button>
             <a href="{{ route('projects.bid.works', $project->id) }}" class="ui primary button">{{ trans('all.back') }}</a>
+            <a href="{{ route('works.create') }}" class="ui primary button">{{ trans('all.create_standard_work') }}</a>
         </form>
     </div>
 

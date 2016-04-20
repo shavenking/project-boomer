@@ -9,7 +9,7 @@
     <div class="ui grid">
 
         <div class="sixteen wide column">
-            <a href="{{ route('workflows.create') }}" class="ui primary button"><i class="plus icon"></i>{{ trans('all.create_workflow') }}</a>
+            <a href="{{ route('workflows.create') }}" class="ui primary button"><i class="plus icon"></i>{{ trans('all.create_standard_workflow') }}</a>
         </div>
 
         @if (count($workflows))
