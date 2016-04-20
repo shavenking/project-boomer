@@ -33,6 +33,7 @@ return [
     'workitems' => '工料項目',
     'unit_price_analysis' => '工料單價分析',
     'checklists' => '自主檢查表管理',
+    'checklist' => '自主檢查表',
     'checkitems' => '流程檢查項目',
     'fault_improvements' => '缺失改善表',
 

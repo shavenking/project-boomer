@@ -27,12 +27,12 @@
             </a>
 
             <a href="{{ route('workflows.works', $workflow->id) }}" class="ui label">
-                {{ $workflow->works->count() }} {{ trans_choice('all.works', $workflow->works->count()) }}
+                {{ $workflow->works->count() }} {{ trans_choice('all.work', $workflow->works->count()) }}
             </a>
 
             @if (!is_null($workflow->checklist))
                 <a href="{{ route('workflows.checklist', $workflow->id) }}" class="ui label">
-                    {{ trans_choice('all.checklists', 1) }}
+                    {{ trans('all.checklist') }}
                 </a>
             @endif
         </div>
