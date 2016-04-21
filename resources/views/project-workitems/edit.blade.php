@@ -1,5 +1,5 @@
 {{-- */ $breadcrumbs = [
-    trans_choice('all.projects', 2) => route('projects.index'),
+    trans('all.projects') => route('projects.index'),
     "{$project->name}" => route('projects.show', $project->id),
     trans_choice('all.works', 2) => route('projects.bid.works', $project->id),
     "{$work->name}" => route('projects.works.show', [$project->id, $work->id]),

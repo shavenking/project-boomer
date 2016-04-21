@@ -9,6 +9,8 @@
 
 @section('content')
 
+    <h3>標單</h3>
+
     <div class="ui grid">
         <div class="sixteen wide column">
             <a href="{{ route('projects.works.create', [$project->id, 'mainflow_type_id' => request()->query('mainflow_type_id'), 'detailingflow_type_id' => request()->query('detailingflow_type_id')]) }}" class="ui primary labeled icon button">

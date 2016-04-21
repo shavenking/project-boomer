@@ -1,14 +1,16 @@
 {{-- */ $breadcrumbs = [
-    trans_choice('all.projects', 2) => route('projects.index'),
+    trans('all.projects') => route('projects.index'),
     "{$project->name}" => route('projects.show', $project->id),
     trans('all.internal') => route('projects.internal.index', $project->id),
     trans('all.p_bid') => route('projects.bid.works', $project->id),
-    "{$work->name}" => null
+    "{$work->name}"  => null
 ] /* --}}
 
 @extends('layouts.project')
 
 @section('content')
+
+    <h3>工料單價分析表</h3>
 
     <project-workitem-list
         project-id="{{ $project->id }}"
