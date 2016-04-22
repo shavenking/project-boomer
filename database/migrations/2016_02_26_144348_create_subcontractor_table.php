@@ -12,7 +12,7 @@ class CreateSubcontractorTable extends Migration
      */
     public function up()
     {
-        Schema::create('subcontractor', function (Blueprint $table) {
+        Schema::create('subcontractors', function (Blueprint $table) {
             $table->increments('id');
 
             $table->string('name');
@@ -28,6 +28,6 @@ class CreateSubcontractorTable extends Migration
      */
     public function down()
     {
-        Schema::drop('subcontractor');
+        Schema::drop('subcontractors');
     }
 }

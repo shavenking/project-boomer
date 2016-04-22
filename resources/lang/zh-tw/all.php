@@ -60,6 +60,8 @@ return [
     'create_work' => '新增工作項目',
     'create_constructiondaily' => '新增施工進度日報表',
     'create_bid' => '新增標單',
+    'create_subcontractor' => '新增協力廠商',
+
 
     'fs_works' => '已設定工作項目',
 

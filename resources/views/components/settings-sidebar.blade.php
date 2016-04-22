@@ -20,7 +20,7 @@
         {{ trans_choice('all.checklists', 2) }}
     </a>
     <a
-        href="#"
+        href="{{ route('subcontractors.index') }}"
         class="item">
         {{ trans('all.subcontractors') }}
     </a>
