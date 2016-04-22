@@ -104,11 +104,13 @@ class WorkflowsController extends Controller
         return view('workflows.edit')->withWorkflow($workflow);
     }
 
-        public function update($id)
+    public function update($id, Request $request)
     {
         $workflow = Workflow::findOrFail($id);
 
-        return view('workflows.edit')->withWork($workflow);
+        $workflow->update(array_only($request->all(), 'name'));
+
+        return redirect()->route('workflows.index');
     }
 
 
