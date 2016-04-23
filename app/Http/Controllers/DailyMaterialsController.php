@@ -52,16 +52,19 @@ class DailyMaterialsController extends Controller
             'amount' => 'required'
         ]);
 
-        if ($request->has('daily_material_id')) {
-            $dailyMaterial = DailyMaterial::findOrFail($request->input('daily_material_id'));
+        $dailyMaterial = DailyMaterial::find($request->input('daily_material_id'));
 
-            $project->dailyMaterials()->attach(
-                $dailyMaterial->id,
-                ['amount' => $request->amount]
-            );
+        if (is_null($dailyMaterial)) {
+            $dailyMaterial = DailyMaterial::create(['name' => $request->input('name')]);
+        }
+
+        $projectDailyMaterial = $project->dailyMaterials()->find($dailyMaterial->id);
+
+        if ($projectDailyMaterial) {
+            $project->dailyMaterials()->updateExistingPivot($dailyMaterial->id, ['amount' => $request->input('amount')]);
         } else {
-            $project->dailyMaterials()->create(
-                ['name' => $request->name],
+            $project->dailyMaterials()->attach(
+                $dailyMaterial,
                 ['amount' => $request->amount]
             );
         }
