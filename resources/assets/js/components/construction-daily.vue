@@ -1,6 +1,7 @@
 <template>
     <modal-create-project-checklist :project-id.once="projectId" :on-success.once="onSuccess" :disabled.once="disabled"></modal-create-project-checklist>
     <modal-create-daily-material :project-id.once="projectId" :on-success.once="onSuccess" :disabled.once="disabled"></modal-create-daily-material>
+    <modal-create-daily-labor :project-id.once="projectId" :on-success.once="onSuccess" :disabled.once="disabled"></modal-create-daily-labor>
 
     <table class="ui table" v-if="checklists.length">
         <thead>
@@ -33,12 +34,31 @@
             </tr>
         </tbody>
     </table>
+
+    <table class="ui table" v-if="dailyLabors.length">
+        <thead>
+            <tr>
+                <th>工別</th>
+                <th>人數</th>
+                <th>累積人數</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr v-for="dailyLabor in dailyLabors">
+                <td>{{ dailyLabor.name }}</td>
+                <td>{{ dailyLabor.amount }}</td>
+                <td>{{ laborTotalAmount[dailyLabor.labor_id] }}</td>
+            </tr>
+        </tbody>
+    </table>
 </template>
 
 <script>
     import ModalCreateProjectChecklist from './modal-create-project-checklist.vue'
     import ModalCreateDailyMaterial from './modal-create-daily-material.vue'
+    import ModalCreateDailyLabor from './modal-create-daily-labor.vue'
     import { get as getDailyMaterialsByDate, getTotalAmount } from '../query-helpers/daily-materials'
+    import { get as getDailyLaborsByDate, getTotalAmount as getLaborTotalAmount } from '../query-helpers/daily-labors'
     import { get } from '../query-helpers/project-checklists'
     import _ from 'lodash'
     import moment from 'moment'
@@ -46,7 +66,7 @@
     export default {
         props: ['projectId', 'date'],
 
-        components: { ModalCreateProjectChecklist, ModalCreateDailyMaterial },
+        components: { ModalCreateProjectChecklist, ModalCreateDailyMaterial, ModalCreateDailyLabor },
 
         computed: {
             disabled() {
@@ -78,6 +98,16 @@
                 getTotalAmount(this.projectId).then(rep => {
                     this.totalAmount = rep.total_amount
                 })
+
+                getDailyLaborsByDate(this.projectId, {
+                    date: this.date
+                }).then(rep => {
+                    this.dailyLabors = rep.daily_labors
+                })
+
+                getLaborTotalAmount(this.projectId).then(rep => {
+                    this.laborTotalAmount = rep.total_amount
+                })
             }
         },
 
@@ -85,7 +115,9 @@
             return {
                 checklists: [],
                 dailyMaterials: [],
-                totalAmount: {}
+                dailyLabors: [],
+                totalAmount: {},
+                laborTotalAmount: {}
             }
         },
 
@@ -104,6 +136,16 @@
 
             getTotalAmount(this.projectId).then(rep => {
                 this.totalAmount = rep.total_amount
+            })
+
+            getDailyLaborsByDate(this.projectId, {
+                date: this.date
+            }).then(rep => {
+                this.dailyLabors = rep.daily_labors
+            })
+
+            getLaborTotalAmount(this.projectId).then(rep => {
+                this.laborTotalAmount = rep.total_amount
             })
         }
     }

@@ -10,6 +10,7 @@ require(app_path('Http/Routes/ConstructionDailies.php'));
 require(app_path('Http/Routes/FaultImprovements.php'));
 require(app_path('Http/Routes/Bids.php'));
 require(app_path('Http/Routes/DailyMaterials.php'));
+require(app_path('Http/Routes/DailyLabors.php'));
 require(app_path('Http/Routes/Projects.php'));
 require(app_path('Http/Routes/Subcontractors.php'));
 require(app_path('Http/Routes/Supports.php'));
