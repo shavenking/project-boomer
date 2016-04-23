@@ -1,5 +1,5 @@
 <template>
-    <a href="#" class="ui primary button" @click="openModal">
+    <a href="#" class="ui primary button" :class="{ disabled: disabled }" @click="openModal">
         <i class="plus icon"></i>新增今日使用材料
     </a>
 
@@ -55,7 +55,7 @@
     import isEmpty from 'lodash/lang/isEmpty'
 
     export default {
-        props: ['projectId', 'onSuccess', 'onCancel'],
+        props: ['projectId', 'onSuccess', 'onCancel', 'disabled'],
 
         components: { ProjectFlowtypeWorkSelect },
 
