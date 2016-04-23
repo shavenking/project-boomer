@@ -28183,12 +28183,14 @@ webpackJsonp([0],[
 	//             <tr>
 	//                 <th>材料名稱</th>
 	//                 <th>本日使用數量</th>
+	//                 <th>累積使用數量</th>
 	//             </tr>
 	//         </thead>
 	//         <tbody>
 	//             <tr v-for="dailyMaterial in dailyMaterials">
 	//                 <td>{{ dailyMaterial.name }}</td>
 	//                 <td>{{ dailyMaterial.amount }}</td>
+	//                 <td>{{ totalAmount[dailyMaterial.material_id] }}</td>
 	//             </tr>
 	//         </tbody>
 	//     </table>
@@ -28225,13 +28227,18 @@ webpackJsonp([0],[
 	            }).then(function (rep) {
 	                _this.dailyMaterials = rep.daily_materials;
 	            });
+
+	            (0, _dailyMaterials.getTotalAmount)(this.projectId).then(function (rep) {
+	                _this.totalAmount = rep.total_amount;
+	            });
 	        }
 	    },
 
 	    data: function data() {
 	        return {
 	            checklists: [],
-	            dailyMaterials: []
+	            dailyMaterials: [],
+	            totalAmount: {}
 	        };
 	    },
 	    ready: function ready() {
@@ -28247,6 +28254,10 @@ webpackJsonp([0],[
 	            date: this.date
 	        }).then(function (rep) {
 	            _this2.dailyMaterials = rep.daily_materials;
+	        });
+
+	        (0, _dailyMaterials.getTotalAmount)(this.projectId).then(function (rep) {
+	            _this2.totalAmount = rep.total_amount;
 	        });
 	    }
 	};
@@ -28503,6 +28514,7 @@ webpackJsonp([0],[
 	});
 	exports.getAll = getAll;
 	exports.get = get;
+	exports.getTotalAmount = getTotalAmount;
 	exports.create = create;
 	function getAll() {
 	    return window.$.getJSON('/api/v1/daily-materials');
@@ -28520,6 +28532,10 @@ webpackJsonp([0],[
 	    var queryString = queryArray.join('&');
 
 	    return window.$.getJSON('/api/v1/projects/' + projectId + '/daily-materials?' + queryString);
+	}
+
+	function getTotalAmount(projectId) {
+	    return window.$.getJSON('/api/v1/projects/' + projectId + '/daily-materials/total-amount');
 	}
 
 	function create(projectId, values) {
@@ -42833,7 +42849,7 @@ webpackJsonp([0],[
 /* 259 */
 /***/ function(module, exports) {
 
-	module.exports = "\n<modal-create-project-checklist :project-id.once=\"projectId\" :on-success.once=\"onSuccess\" :disabled.once=\"disabled\"></modal-create-project-checklist>\n<modal-create-daily-material :project-id.once=\"projectId\" :on-success.once=\"onSuccess\" :disabled.once=\"disabled\"></modal-create-daily-material>\n\n<table class=\"ui table\" v-if=\"checklists.length\">\n    <thead>\n        <tr>\n            <th>施工項目</th>\n            <th>施工位置</th>\n        </tr>\n    </thead>\n    <tbody>\n        <tr v-for=\"checklist in checklists\">\n            <td><a href=\"/projects/{{ projectId }}/works/{{ checklist.project_work.id }}\">{{ checklist.project_work.name }}</a></td>\n            <td>{{ checklist.seat }}</td>\n        </tr>\n    </tbody>\n</table>\n\n<table class=\"ui table\" v-if=\"dailyMaterials.length\">\n    <thead>\n        <tr>\n            <th>材料名稱</th>\n            <th>本日使用數量</th>\n        </tr>\n    </thead>\n    <tbody>\n        <tr v-for=\"dailyMaterial in dailyMaterials\">\n            <td>{{ dailyMaterial.name }}</td>\n            <td>{{ dailyMaterial.amount }}</td>\n        </tr>\n    </tbody>\n</table>\n";
+	module.exports = "\n<modal-create-project-checklist :project-id.once=\"projectId\" :on-success.once=\"onSuccess\" :disabled.once=\"disabled\"></modal-create-project-checklist>\n<modal-create-daily-material :project-id.once=\"projectId\" :on-success.once=\"onSuccess\" :disabled.once=\"disabled\"></modal-create-daily-material>\n\n<table class=\"ui table\" v-if=\"checklists.length\">\n    <thead>\n        <tr>\n            <th>施工項目</th>\n            <th>施工位置</th>\n        </tr>\n    </thead>\n    <tbody>\n        <tr v-for=\"checklist in checklists\">\n            <td><a href=\"/projects/{{ projectId }}/works/{{ checklist.project_work.id }}\">{{ checklist.project_work.name }}</a></td>\n            <td>{{ checklist.seat }}</td>\n        </tr>\n    </tbody>\n</table>\n\n<table class=\"ui table\" v-if=\"dailyMaterials.length\">\n    <thead>\n        <tr>\n            <th>材料名稱</th>\n            <th>本日使用數量</th>\n            <th>累積使用數量</th>\n        </tr>\n    </thead>\n    <tbody>\n        <tr v-for=\"dailyMaterial in dailyMaterials\">\n            <td>{{ dailyMaterial.name }}</td>\n            <td>{{ dailyMaterial.amount }}</td>\n            <td>{{ totalAmount[dailyMaterial.material_id] }}</td>\n        </tr>\n    </tbody>\n</table>\n";
 
 /***/ }
 ]);

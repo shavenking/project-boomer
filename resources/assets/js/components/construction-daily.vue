@@ -22,12 +22,14 @@
             <tr>
                 <th>材料名稱</th>
                 <th>本日使用數量</th>
+                <th>累積使用數量</th>
             </tr>
         </thead>
         <tbody>
             <tr v-for="dailyMaterial in dailyMaterials">
                 <td>{{ dailyMaterial.name }}</td>
                 <td>{{ dailyMaterial.amount }}</td>
+                <td>{{ totalAmount[dailyMaterial.material_id] }}</td>
             </tr>
         </tbody>
     </table>
@@ -36,7 +38,7 @@
 <script>
     import ModalCreateProjectChecklist from './modal-create-project-checklist.vue'
     import ModalCreateDailyMaterial from './modal-create-daily-material.vue'
-    import { get as getDailyMaterialsByDate } from '../query-helpers/daily-materials'
+    import { get as getDailyMaterialsByDate, getTotalAmount } from '../query-helpers/daily-materials'
     import { get } from '../query-helpers/project-checklists'
     import _ from 'lodash'
     import moment from 'moment'
@@ -72,13 +74,18 @@
                 }).then(rep => {
                     this.dailyMaterials = rep.daily_materials
                 })
+
+                getTotalAmount(this.projectId).then(rep => {
+                    this.totalAmount = rep.total_amount
+                })
             }
         },
 
         data() {
             return {
                 checklists: [],
-                dailyMaterials: []
+                dailyMaterials: [],
+                totalAmount: {}
             }
         },
 
@@ -93,6 +100,10 @@
                 date: this.date
             }).then(rep => {
                 this.dailyMaterials = rep.daily_materials
+            })
+
+            getTotalAmount(this.projectId).then(rep => {
+                this.totalAmount = rep.total_amount
             })
         }
     }

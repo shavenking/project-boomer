@@ -88,6 +88,21 @@ class DailyMaterialsController extends Controller
     {
     }
 
+    public function getTotalAmount($projectId)
+    {
+        $project = Project::findOrFail($projectId);
+
+        $dailyMaterialSets = $project->dailyMaterials->groupBy('pivot.daily_material_id');
+
+        $totalAmountSet = $dailyMaterialSets->map(function ($dailyMaterials) {
+            return $dailyMaterials->sum('pivot.amount');
+        });
+
+        return response()->json([
+            'total_amount' => $totalAmountSet
+        ]);
+    }
+
     protected function getJsonTransformer()
     {
         return function (DailyMaterial $model) {
