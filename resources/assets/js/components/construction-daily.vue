@@ -1,6 +1,6 @@
 <template>
-    <modal-create-project-checklist :project-id.once="projectId" :on-success.once="onSuccess"></modal-create-project-checklist>
-    <modal-create-daily-material :project-id.once="projectId" :on-success.once="onSuccess"></modal-create-daily-material>
+    <modal-create-project-checklist :project-id.once="projectId" :on-success.once="onSuccess" :disabled.once="disabled"></modal-create-project-checklist>
+    <modal-create-daily-material :project-id.once="projectId" :on-success.once="onSuccess" :disabled.once="disabled"></modal-create-daily-material>
 
     <table class="ui table" v-if="checklists.length">
         <thead>
@@ -39,11 +39,25 @@
     import { get as getDailyMaterialsByDate } from '../query-helpers/daily-materials'
     import { get } from '../query-helpers/project-checklists'
     import _ from 'lodash'
+    import moment from 'moment'
 
     export default {
         props: ['projectId', 'date'],
 
         components: { ModalCreateProjectChecklist, ModalCreateDailyMaterial },
+
+        computed: {
+            disabled() {
+                if (
+                    'today' === this.date
+                    || moment().isSame(moment(this.date), 'day')
+                ) {
+                    return false
+                }
+
+                return true
+            }
+        },
 
         methods: {
             onSuccess() {
@@ -54,7 +68,7 @@
                 })
 
                 getDailyMaterialsByDate(this.projectId, {
-                    date: 'today'
+                    date: this.date
                 }).then(rep => {
                     this.dailyMaterials = rep.daily_materials
                 })
@@ -76,7 +90,7 @@
             })
 
             getDailyMaterialsByDate(this.projectId, {
-                date: 'today'
+                date: this.date
             }).then(rep => {
                 this.dailyMaterials = rep.daily_materials
             })

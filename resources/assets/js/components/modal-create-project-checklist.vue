@@ -1,5 +1,5 @@
 <template>
-    <a href="#" class="ui primary button" @click="openModal">
+    <a href="#" class="ui primary button" :class="{ disabled: disabled }" @click="openModal">
         <i class="plus icon"></i>新增本日工作項目
     </a>
 
@@ -40,7 +40,7 @@
     import zipObject from 'lodash/array/zipObject'
 
     export default {
-        props: ['projectId', 'onSuccess', 'onCancel'],
+        props: ['projectId', 'onSuccess', 'onCancel', 'disabled'],
 
         components: { ProjectFlowtypeWorkSelect },
 
