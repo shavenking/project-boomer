@@ -8,16 +8,16 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use Carbon\Carbon;
 
-use App\Entities\{ Project, DailyMaterial };
+use App\Entities\{ Project, DailyLabor };
 
-class DailyMaterialsController extends Controller
+class DailyLaborsController extends Controller
 {
     public function all()
     {
-        $dailyMaterials = DailyMaterial::all();
+        $dailyLabors = DailyLabor::all();
 
         return response()->json([
-            'daily_materials' => $dailyMaterials
+            'daily_labors' => $dailyLabors
         ]);
     }
 
@@ -25,21 +25,22 @@ class DailyMaterialsController extends Controller
     {
         $project = Project::findOrFail($projectId);
 
-        $query = $project->dailyMaterials();
+        $query = $project->dailyLabors();
 
         if ($request->has('date')) {
-            $query->whereDate($project->dailyMaterials()->getTable().'.created_at', '=', new Carbon($request->date));
+            $query->whereDate($project->dailyLabors()->getTable().'.created_at', '=', new Carbon($request->date));
         }
 
-        $dailyMaterials = $query->get()->map($this->getJsonTransformer());
+        $dailyLabors = $query->get()->map($this->getJsonTransformer());
 
         return response()->json([
-            'daily_materials' => $dailyMaterials
+            'daily_labors' => $dailyLabors
         ]);
     }
 
     public function create()
     {
+        //
     }
 
     public function store($projectId, Request $request)
@@ -47,24 +48,24 @@ class DailyMaterialsController extends Controller
         $project = Project::findOrFail($projectId);
 
         $this->validate($request, [
-            'name' => 'required_without:daily_material_id',
-            'daily_material_id' => 'required_without:name',
+            'name' => 'required_without:daily_labor_id',
+            'daily_labor_id' => 'required_without:name',
             'amount' => 'required'
         ]);
 
-        $dailyMaterial = DailyMaterial::find($request->input('daily_material_id'));
+        $dailyLabor = DailyLabor::find($request->input('daily_labor_id'));
 
-        if (is_null($dailyMaterial)) {
-            $dailyMaterial = DailyMaterial::create(['name' => $request->input('name')]);
+        if (is_null($dailyLabor)) {
+            $dailyLabor = DailyLabor::create(['name' => $request->input('name')]);
         }
 
-        $projectDailyMaterial = $project->dailyMaterials()->find($dailyMaterial->id);
+        $projectDailyLabor = $project->dailyLabors()->find($dailyLabor->id);
 
-        if ($projectDailyMaterial) {
-            $project->dailyMaterials()->updateExistingPivot($dailyMaterial->id, ['amount' => $request->input('amount')]);
+        if ($projectDailyLabor) {
+            $project->dailyLabors()->updateExistingPivot($dailyLabor->id, ['amount' => $request->input('amount')]);
         } else {
-            $project->dailyMaterials()->attach(
-                $dailyMaterial,
+            $project->dailyLabors()->attach(
+                $dailyLabor,
                 ['amount' => $request->amount]
             );
         }
@@ -74,28 +75,32 @@ class DailyMaterialsController extends Controller
 
     public function show($id)
     {
+        //
     }
 
     public function edit($id)
     {
+        //
     }
 
     public function update(Request $request, $id)
     {
+        //
     }
 
     public function destroy($id)
     {
+        //
     }
 
     public function getTotalAmount($projectId)
     {
         $project = Project::findOrFail($projectId);
 
-        $dailyMaterialSets = $project->dailyMaterials->groupBy('pivot.daily_material_id');
+        $dailyLaborSets = $project->dailyLabors->groupBy('pivot.daily_labor_id');
 
-        $totalAmountSet = $dailyMaterialSets->map(function ($dailyMaterials) {
-            return $dailyMaterials->sum('pivot.amount');
+        $totalAmountSet = $dailyLaborSets->map(function ($dailyLabors) {
+            return $dailyLabors->sum('pivot.amount');
         });
 
         return response()->json([
@@ -105,10 +110,10 @@ class DailyMaterialsController extends Controller
 
     protected function getJsonTransformer()
     {
-        return function (DailyMaterial $model) {
+        return function (DailyLabor $model) {
             return [
                 'id' => $model->pivot->id,
-                'material_id' => $model->id,
+                'labor_id' => $model->id,
                 'project_id' => $model->pivot->project_id,
                 'name' => $model->name,
                 'amount' => $model->pivot->amount,

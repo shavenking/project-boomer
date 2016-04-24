@@ -8,16 +8,16 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use Carbon\Carbon;
 
-use App\Entities\{ Project, DailyMaterial };
+use App\Entities\{ Project, DailyAppliance };
 
-class DailyMaterialsController extends Controller
+class DailyAppliancesController extends Controller
 {
     public function all()
     {
-        $dailyMaterials = DailyMaterial::all();
+        $dailyAppliances = DailyAppliance::all();
 
         return response()->json([
-            'daily_materials' => $dailyMaterials
+            'daily_appliances' => $dailyAppliances
         ]);
     }
 
@@ -25,21 +25,22 @@ class DailyMaterialsController extends Controller
     {
         $project = Project::findOrFail($projectId);
 
-        $query = $project->dailyMaterials();
+        $query = $project->dailyAppliances();
 
         if ($request->has('date')) {
-            $query->whereDate($project->dailyMaterials()->getTable().'.created_at', '=', new Carbon($request->date));
+            $query->whereDate($project->dailyAppliances()->getTable().'.created_at', '=', new Carbon($request->date));
         }
 
-        $dailyMaterials = $query->get()->map($this->getJsonTransformer());
+        $dailyAppliances = $query->get()->map($this->getJsonTransformer());
 
         return response()->json([
-            'daily_materials' => $dailyMaterials
+            'daily_appliances' => $dailyAppliances
         ]);
     }
 
     public function create()
     {
+        //
     }
 
     public function store($projectId, Request $request)
@@ -47,24 +48,24 @@ class DailyMaterialsController extends Controller
         $project = Project::findOrFail($projectId);
 
         $this->validate($request, [
-            'name' => 'required_without:daily_material_id',
-            'daily_material_id' => 'required_without:name',
+            'name' => 'required_without:daily_appliance_id',
+            'daily_appliance_id' => 'required_without:name',
             'amount' => 'required'
         ]);
 
-        $dailyMaterial = DailyMaterial::find($request->input('daily_material_id'));
+        $dailyAppliance = DailyAppliance::find($request->input('daily_appliance_id'));
 
-        if (is_null($dailyMaterial)) {
-            $dailyMaterial = DailyMaterial::create(['name' => $request->input('name')]);
+        if (is_null($dailyAppliance)) {
+            $dailyAppliance = DailyAppliance::create(['name' => $request->input('name')]);
         }
 
-        $projectDailyMaterial = $project->dailyMaterials()->find($dailyMaterial->id);
+        $projectDailyAppliance = $project->dailyAppliances()->find($dailyAppliance->id);
 
-        if ($projectDailyMaterial) {
-            $project->dailyMaterials()->updateExistingPivot($dailyMaterial->id, ['amount' => $request->input('amount')]);
+        if ($projectDailyAppliance) {
+            $project->dailyAppliances()->updateExistingPivot($dailyAppliance->id, ['amount' => $request->input('amount')]);
         } else {
-            $project->dailyMaterials()->attach(
-                $dailyMaterial,
+            $project->dailyAppliances()->attach(
+                $dailyAppliance,
                 ['amount' => $request->amount]
             );
         }
@@ -74,28 +75,32 @@ class DailyMaterialsController extends Controller
 
     public function show($id)
     {
+        //
     }
 
     public function edit($id)
     {
+        //
     }
 
     public function update(Request $request, $id)
     {
+        //
     }
 
     public function destroy($id)
     {
+        //
     }
 
     public function getTotalAmount($projectId)
     {
         $project = Project::findOrFail($projectId);
 
-        $dailyMaterialSets = $project->dailyMaterials->groupBy('pivot.daily_material_id');
+        $dailyApplianceSets = $project->dailyAppliances->groupBy('pivot.daily_appliance_id');
 
-        $totalAmountSet = $dailyMaterialSets->map(function ($dailyMaterials) {
-            return $dailyMaterials->sum('pivot.amount');
+        $totalAmountSet = $dailyApplianceSets->map(function ($dailyAppliances) {
+            return $dailyAppliances->sum('pivot.amount');
         });
 
         return response()->json([
@@ -105,10 +110,10 @@ class DailyMaterialsController extends Controller
 
     protected function getJsonTransformer()
     {
-        return function (DailyMaterial $model) {
+        return function (DailyAppliance $model) {
             return [
                 'id' => $model->pivot->id,
-                'material_id' => $model->id,
+                'appliance_id' => $model->id,
                 'project_id' => $model->pivot->project_id,
                 'name' => $model->name,
                 'amount' => $model->pivot->amount,
