@@ -28149,9 +28149,15 @@ webpackJsonp([0],[
 
 	var _modalCreateDailyLabor2 = _interopRequireDefault(_modalCreateDailyLabor);
 
+	var _modalCreateDailyAppliance = __webpack_require__(322);
+
+	var _modalCreateDailyAppliance2 = _interopRequireDefault(_modalCreateDailyAppliance);
+
 	var _dailyMaterials = __webpack_require__(141);
 
 	var _dailyLabors = __webpack_require__(161);
+
+	var _dailyAppliances = __webpack_require__(327);
 
 	var _projectChecklists = __webpack_require__(133);
 
@@ -28169,6 +28175,7 @@ webpackJsonp([0],[
 	//     <modal-create-project-checklist :project-id.once="projectId" :on-success.once="onSuccess" :disabled.once="disabled"></modal-create-project-checklist>
 	//     <modal-create-daily-material :project-id.once="projectId" :on-success.once="onSuccess" :disabled.once="disabled"></modal-create-daily-material>
 	//     <modal-create-daily-labor :project-id.once="projectId" :on-success.once="onSuccess" :disabled.once="disabled"></modal-create-daily-labor>
+	//     <modal-create-daily-appliance :project-id.once="projectId" :on-success.once="onSuccess" :disabled.once="disabled"></modal-create-daily-appliance>
 	//
 	//     <table class="ui table" v-if="checklists.length">
 	//         <thead>
@@ -28218,13 +28225,30 @@ webpackJsonp([0],[
 	//             </tr>
 	//         </tbody>
 	//     </table>
+	//
+	//     <table class="ui table" v-if="dailyAppliances.length">
+	//         <thead>
+	//             <tr>
+	//                 <th>機具</th>
+	//                 <th>數量</th>
+	//                 <th>累積數量</th>
+	//             </tr>
+	//         </thead>
+	//         <tbody>
+	//             <tr v-for="dailyAppliance in dailyAppliances">
+	//                 <td>{{ dailyAppliance.name }}</td>
+	//                 <td>{{ dailyAppliance.amount }}</td>
+	//                 <td>{{ applianceTotalAmount[dailyAppliance.appliance_id] }}</td>
+	//             </tr>
+	//         </tbody>
+	//     </table>
 	// </template>
 	//
 	// <script>
 	exports.default = {
 	    props: ['projectId', 'date'],
 
-	    components: { ModalCreateProjectChecklist: _modalCreateProjectChecklist2.default, ModalCreateDailyMaterial: _modalCreateDailyMaterial2.default, ModalCreateDailyLabor: _modalCreateDailyLabor2.default },
+	    components: { ModalCreateProjectChecklist: _modalCreateProjectChecklist2.default, ModalCreateDailyMaterial: _modalCreateDailyMaterial2.default, ModalCreateDailyLabor: _modalCreateDailyLabor2.default, ModalCreateDailyAppliance: _modalCreateDailyAppliance2.default },
 
 	    computed: {
 	        disabled: function disabled() {
@@ -28265,6 +28289,16 @@ webpackJsonp([0],[
 	            (0, _dailyLabors.getTotalAmount)(this.projectId).then(function (rep) {
 	                _this.laborTotalAmount = rep.total_amount;
 	            });
+
+	            (0, _dailyAppliances.get)(this.projectId, {
+	                date: this.date
+	            }).then(function (rep) {
+	                _this.dailyAppliances = rep.daily_appliances;
+	            });
+
+	            (0, _dailyAppliances.getTotalAmount)(this.projectId).then(function (rep) {
+	                _this.applianceTotalAmount = rep.total_amount;
+	            });
 	        }
 	    },
 
@@ -28273,8 +28307,10 @@ webpackJsonp([0],[
 	            checklists: [],
 	            dailyMaterials: [],
 	            dailyLabors: [],
+	            dailyAppliances: [],
 	            totalAmount: {},
-	            laborTotalAmount: {}
+	            laborTotalAmount: {},
+	            applianceTotalAmount: {}
 	        };
 	    },
 	    ready: function ready() {
@@ -28304,6 +28340,16 @@ webpackJsonp([0],[
 
 	        (0, _dailyLabors.getTotalAmount)(this.projectId).then(function (rep) {
 	            _this2.laborTotalAmount = rep.total_amount;
+	        });
+
+	        (0, _dailyAppliances.get)(this.projectId, {
+	            date: this.date
+	        }).then(function (rep) {
+	            _this2.dailyAppliances = rep.daily_appliances;
+	        });
+
+	        (0, _dailyAppliances.getTotalAmount)(this.projectId).then(function (rep) {
+	            _this2.applianceTotalAmount = rep.total_amount;
 	        });
 	    }
 	};
@@ -43180,7 +43226,342 @@ webpackJsonp([0],[
 /* 265 */
 /***/ function(module, exports) {
 
-	module.exports = "\n<modal-create-project-checklist :project-id.once=\"projectId\" :on-success.once=\"onSuccess\" :disabled.once=\"disabled\"></modal-create-project-checklist>\n<modal-create-daily-material :project-id.once=\"projectId\" :on-success.once=\"onSuccess\" :disabled.once=\"disabled\"></modal-create-daily-material>\n<modal-create-daily-labor :project-id.once=\"projectId\" :on-success.once=\"onSuccess\" :disabled.once=\"disabled\"></modal-create-daily-labor>\n\n<table class=\"ui table\" v-if=\"checklists.length\">\n    <thead>\n        <tr>\n            <th>施工項目</th>\n            <th>施工位置</th>\n        </tr>\n    </thead>\n    <tbody>\n        <tr v-for=\"checklist in checklists\">\n            <td><a href=\"/projects/{{ projectId }}/works/{{ checklist.project_work.id }}\">{{ checklist.project_work.name }}</a></td>\n            <td>{{ checklist.seat }}</td>\n        </tr>\n    </tbody>\n</table>\n\n<table class=\"ui table\" v-if=\"dailyMaterials.length\">\n    <thead>\n        <tr>\n            <th>材料名稱</th>\n            <th>本日使用數量</th>\n            <th>累積使用數量</th>\n        </tr>\n    </thead>\n    <tbody>\n        <tr v-for=\"dailyMaterial in dailyMaterials\">\n            <td>{{ dailyMaterial.name }}</td>\n            <td>{{ dailyMaterial.amount }}</td>\n            <td>{{ totalAmount[dailyMaterial.material_id] }}</td>\n        </tr>\n    </tbody>\n</table>\n\n<table class=\"ui table\" v-if=\"dailyLabors.length\">\n    <thead>\n        <tr>\n            <th>工別</th>\n            <th>人數</th>\n            <th>累積人數</th>\n        </tr>\n    </thead>\n    <tbody>\n        <tr v-for=\"dailyLabor in dailyLabors\">\n            <td>{{ dailyLabor.name }}</td>\n            <td>{{ dailyLabor.amount }}</td>\n            <td>{{ laborTotalAmount[dailyLabor.labor_id] }}</td>\n        </tr>\n    </tbody>\n</table>\n";
+	module.exports = "\n<modal-create-project-checklist :project-id.once=\"projectId\" :on-success.once=\"onSuccess\" :disabled.once=\"disabled\"></modal-create-project-checklist>\n<modal-create-daily-material :project-id.once=\"projectId\" :on-success.once=\"onSuccess\" :disabled.once=\"disabled\"></modal-create-daily-material>\n<modal-create-daily-labor :project-id.once=\"projectId\" :on-success.once=\"onSuccess\" :disabled.once=\"disabled\"></modal-create-daily-labor>\n<modal-create-daily-appliance :project-id.once=\"projectId\" :on-success.once=\"onSuccess\" :disabled.once=\"disabled\"></modal-create-daily-appliance>\n\n<table class=\"ui table\" v-if=\"checklists.length\">\n    <thead>\n        <tr>\n            <th>施工項目</th>\n            <th>施工位置</th>\n        </tr>\n    </thead>\n    <tbody>\n        <tr v-for=\"checklist in checklists\">\n            <td><a href=\"/projects/{{ projectId }}/works/{{ checklist.project_work.id }}\">{{ checklist.project_work.name }}</a></td>\n            <td>{{ checklist.seat }}</td>\n        </tr>\n    </tbody>\n</table>\n\n<table class=\"ui table\" v-if=\"dailyMaterials.length\">\n    <thead>\n        <tr>\n            <th>材料名稱</th>\n            <th>本日使用數量</th>\n            <th>累積使用數量</th>\n        </tr>\n    </thead>\n    <tbody>\n        <tr v-for=\"dailyMaterial in dailyMaterials\">\n            <td>{{ dailyMaterial.name }}</td>\n            <td>{{ dailyMaterial.amount }}</td>\n            <td>{{ totalAmount[dailyMaterial.material_id] }}</td>\n        </tr>\n    </tbody>\n</table>\n\n<table class=\"ui table\" v-if=\"dailyLabors.length\">\n    <thead>\n        <tr>\n            <th>工別</th>\n            <th>人數</th>\n            <th>累積人數</th>\n        </tr>\n    </thead>\n    <tbody>\n        <tr v-for=\"dailyLabor in dailyLabors\">\n            <td>{{ dailyLabor.name }}</td>\n            <td>{{ dailyLabor.amount }}</td>\n            <td>{{ laborTotalAmount[dailyLabor.labor_id] }}</td>\n        </tr>\n    </tbody>\n</table>\n\n<table class=\"ui table\" v-if=\"dailyAppliances.length\">\n    <thead>\n        <tr>\n            <th>機具</th>\n            <th>數量</th>\n            <th>累積數量</th>\n        </tr>\n    </thead>\n    <tbody>\n        <tr v-for=\"dailyAppliance in dailyAppliances\">\n            <td>{{ dailyAppliance.name }}</td>\n            <td>{{ dailyAppliance.amount }}</td>\n            <td>{{ applianceTotalAmount[dailyAppliance.appliance_id] }}</td>\n        </tr>\n    </tbody>\n</table>\n";
+
+/***/ },
+/* 266 */,
+/* 267 */,
+/* 268 */,
+/* 269 */,
+/* 270 */,
+/* 271 */,
+/* 272 */,
+/* 273 */,
+/* 274 */,
+/* 275 */,
+/* 276 */,
+/* 277 */,
+/* 278 */,
+/* 279 */,
+/* 280 */,
+/* 281 */,
+/* 282 */,
+/* 283 */,
+/* 284 */,
+/* 285 */,
+/* 286 */,
+/* 287 */,
+/* 288 */,
+/* 289 */,
+/* 290 */,
+/* 291 */,
+/* 292 */,
+/* 293 */,
+/* 294 */,
+/* 295 */,
+/* 296 */,
+/* 297 */,
+/* 298 */,
+/* 299 */,
+/* 300 */,
+/* 301 */,
+/* 302 */,
+/* 303 */,
+/* 304 */,
+/* 305 */,
+/* 306 */,
+/* 307 */,
+/* 308 */,
+/* 309 */,
+/* 310 */,
+/* 311 */,
+/* 312 */,
+/* 313 */,
+/* 314 */,
+/* 315 */,
+/* 316 */,
+/* 317 */,
+/* 318 */,
+/* 319 */,
+/* 320 */,
+/* 321 */,
+/* 322 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var __vue_script__, __vue_template__
+	__webpack_require__(323)
+	__vue_script__ = __webpack_require__(325)
+	if (__vue_script__ &&
+	    __vue_script__.__esModule &&
+	    Object.keys(__vue_script__).length > 1) {
+	  console.warn("[vue-loader] resources/assets/js/components/modal-create-daily-appliance.vue: named exports in *.vue files are ignored.")}
+	__vue_template__ = __webpack_require__(326)
+	module.exports = __vue_script__ || {}
+	if (module.exports.__esModule) module.exports = module.exports.default
+	if (__vue_template__) {
+	(typeof module.exports === "function" ? (module.exports.options || (module.exports.options = {})) : module.exports).template = __vue_template__
+	}
+	if (false) {(function () {  module.hot.accept()
+	  var hotAPI = require("vue-hot-reload-api")
+	  hotAPI.install(require("vue"), true)
+	  if (!hotAPI.compatible) return
+	  var id = "/Users/shavenking/Code/project-boomer/resources/assets/js/components/modal-create-daily-appliance.vue"
+	  if (!module.hot.data) {
+	    hotAPI.createRecord(id, module.exports)
+	  } else {
+	    hotAPI.update(id, module.exports, __vue_template__)
+	  }
+	})()}
+
+/***/ },
+/* 323 */
+/***/ function(module, exports, __webpack_require__) {
+
+	// style-loader: Adds some css to the DOM by adding a <style> tag
+
+	// load the styles
+	var content = __webpack_require__(324);
+	if(typeof content === 'string') content = [[module.id, content, '']];
+	// add the styles to the DOM
+	var update = __webpack_require__(27)(content, {});
+	if(content.locals) module.exports = content.locals;
+	// Hot Module Replacement
+	if(false) {
+		// When the styles change, update the <style> tags
+		if(!content.locals) {
+			module.hot.accept("!!./../../../../node_modules/css-loader/index.js!./../../../../node_modules/vue-loader/lib/style-rewriter.js!./../../../../node_modules/vue-loader/lib/selector.js?type=style&index=0!./modal-create-daily-appliance.vue", function() {
+				var newContent = require("!!./../../../../node_modules/css-loader/index.js!./../../../../node_modules/vue-loader/lib/style-rewriter.js!./../../../../node_modules/vue-loader/lib/selector.js?type=style&index=0!./modal-create-daily-appliance.vue");
+				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+				update(newContent);
+			});
+		}
+		// When the module is disposed, remove the <style> tags
+		module.hot.dispose(function() { update(); });
+	}
+
+/***/ },
+/* 324 */
+/***/ function(module, exports, __webpack_require__) {
+
+	exports = module.exports = __webpack_require__(26)();
+	// imports
+
+
+	// module
+	exports.push([module.id, "\n.hidden {\n    display: none;\n}\n", ""]);
+
+	// exports
+
+
+/***/ },
+/* 325 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+
+	var _dailyAppliances = __webpack_require__(327);
+
+	var _pluck = __webpack_require__(87);
+
+	var _pluck2 = _interopRequireDefault(_pluck);
+
+	var _zipObject = __webpack_require__(90);
+
+	var _zipObject2 = _interopRequireDefault(_zipObject);
+
+	var _merge = __webpack_require__(91);
+
+	var _merge2 = _interopRequireDefault(_merge);
+
+	var _omit = __webpack_require__(142);
+
+	var _omit2 = _interopRequireDefault(_omit);
+
+	var _isEmpty = __webpack_require__(154);
+
+	var _isEmpty2 = _interopRequireDefault(_isEmpty);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	// <template>
+	//     <a href="#" class="ui primary button" :class="{ disabled: disabled }" @click="openModal">
+	//         <i class="plus icon"></i>新增今日使用機具
+	//     </a>
+	//
+	//     <div class="ui basic modal" v-el:modal>
+	//         <div class="content">
+	//             <form action="#" method="POST" class="ui inverted form" @submit.prevent="onSubmit" v-el:form>
+	//                 <div class="two fields">
+	//                     <div class="field">
+	//                         <div class="label">機具名稱</div>
+	//                         <div class="ui search fluid selection dropdown" v-el:dropdown>
+	//                             <input type="hidden" name="daily_appliance_id">
+	//                             <i class="dropdown icon"></i>
+	//                             <div class="default text"></div>
+	//                             <div class="menu">
+	//                                 <div class="item" v-for="dailyAppliance in dailyAppliances" :data-value="dailyAppliance.id">{{ dailyAppliance.name }}</div>
+	//                             </div>
+	//                         </div>
+	//                     </div>
+	//                     <div class="field">
+	//                         <div class="label">數量</div>
+	//                         <input type="text" name="amount">
+	//                     </div>
+	//                 </div>
+	//                 <button type="submit" class="hidden"></button>
+	//             </form>
+	//         </div>
+	//         <div class="actions">
+	//             <div class="ui green inverted ok button">
+	//                 <i class="checkmark icon"></i>
+	//                 送出
+	//             </div>
+	//             <div class="ui inverted cancel button">
+	//                 <i class="remove icon"></i>
+	//                 取消
+	//             </div>
+	//         </div>
+	//     </div>
+	// </template>
+	//
+	// <style>
+	//     .hidden {
+	//         display: none;
+	//     }
+	// </style>
+	//
+	// <script>
+	exports.default = {
+	    props: ['projectId', 'onSuccess', 'onCancel', 'disabled'],
+
+	    methods: {
+	        openModal: function openModal() {
+	            this.$modal.modal('show');
+	        },
+	        onSubmit: function onSubmit(e) {
+	            e.preventDefault();
+
+	            this.onApprove();
+
+	            window.$(this.$els.modal).modal('hide');
+	        },
+	        onApprove: function onApprove() {
+	            var _this = this;
+
+	            var inputs = window.$(this.$els.form).serializeArray();
+
+	            var values = (0, _omit2.default)((0, _merge2.default)((0, _zipObject2.default)((0, _pluck2.default)(inputs, 'name'), (0, _pluck2.default)(inputs, 'value')), { name: this.name }), _isEmpty2.default);
+
+	            (0, _dailyAppliances.create)(this.projectId, values).then(function (response) {
+	                if (values.name) {
+	                    (0, _dailyAppliances.getAll)().then(function (response) {
+	                        _this.dailyAppliances = response.daily_appliances;
+	                    });
+	                }
+
+	                _this.$els.form.reset();
+
+	                if (_this.onSuccess) {
+	                    _this.onSuccess();
+	                }
+	            });
+	        },
+	        onDeny: function onDeny() {
+	            this.$els.form.reset();
+
+	            if (this.onCancel) {
+	                this.onCancel();
+	            }
+	        },
+	        onNoResults: function onNoResults(val) {
+	            this.name = val;
+
+	            window.$(this.$els.dropdown).dropdown('clear').dropdown('set text', val);
+	        },
+	        onChange: function onChange(val) {
+	            this.name = '';
+	        }
+	    },
+
+	    data: function data() {
+	        return {
+	            'dailyAppliances': []
+	        };
+	    },
+	    ready: function ready() {
+	        var _this2 = this;
+
+	        (0, _dailyAppliances.getAll)().then(function (response) {
+	            _this2.dailyAppliances = response.daily_appliances;
+	        });
+
+	        this.$modal = window.$(this.$els.modal).modal({
+	            closable: false,
+	            onApprove: this.onApprove,
+	            onDeny: this.onDeny
+	        });
+
+	        window.$(this.$els.dropdown).dropdown({
+	            fullTextSearch: true,
+	            forceSelection: true,
+	            onChange: this.onChange,
+	            onNoResults: this.onNoResults,
+	            message: {
+	                noResults: '新增 {term}'
+	            }
+	        });
+	    }
+	};
+	// </script>
+
+/***/ },
+/* 326 */
+/***/ function(module, exports) {
+
+	module.exports = "\n<a href=\"#\" class=\"ui primary button\" :class=\"{ disabled: disabled }\" @click=\"openModal\">\n    <i class=\"plus icon\"></i>新增今日使用機具\n</a>\n\n<div class=\"ui basic modal\" v-el:modal>\n    <div class=\"content\">\n        <form action=\"#\" method=\"POST\" class=\"ui inverted form\" @submit.prevent=\"onSubmit\" v-el:form>\n            <div class=\"two fields\">\n                <div class=\"field\">\n                    <div class=\"label\">機具名稱</div>\n                    <div class=\"ui search fluid selection dropdown\" v-el:dropdown>\n                        <input type=\"hidden\" name=\"daily_appliance_id\">\n                        <i class=\"dropdown icon\"></i>\n                        <div class=\"default text\"></div>\n                        <div class=\"menu\">\n                            <div class=\"item\" v-for=\"dailyAppliance in dailyAppliances\" :data-value=\"dailyAppliance.id\">{{ dailyAppliance.name }}</div>\n                        </div>\n                    </div>\n                </div>\n                <div class=\"field\">\n                    <div class=\"label\">數量</div>\n                    <input type=\"text\" name=\"amount\">\n                </div>\n            </div>\n            <button type=\"submit\" class=\"hidden\"></button>\n        </form>\n    </div>\n    <div class=\"actions\">\n        <div class=\"ui green inverted ok button\">\n            <i class=\"checkmark icon\"></i>\n            送出\n        </div>\n        <div class=\"ui inverted cancel button\">\n            <i class=\"remove icon\"></i>\n            取消\n        </div>\n    </div>\n</div>\n";
+
+/***/ },
+/* 327 */
+/***/ function(module, exports) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	exports.getAll = getAll;
+	exports.get = get;
+	exports.getTotalAmount = getTotalAmount;
+	exports.create = create;
+	function getAll() {
+	    return window.$.getJSON('/api/v1/daily-appliances');
+	}
+
+	function get(projectId) {
+	    var queries = arguments.length <= 1 || arguments[1] === undefined ? {} : arguments[1];
+
+	    var queryArray = [];
+
+	    if (queries.date) {
+	        queryArray.push('date=' + queries.date);
+	    }
+
+	    var queryString = queryArray.join('&');
+
+	    return window.$.getJSON('/api/v1/projects/' + projectId + '/daily-appliances?' + queryString);
+	}
+
+	function getTotalAmount(projectId) {
+	    return window.$.getJSON('/api/v1/projects/' + projectId + '/daily-appliances/total-amount');
+	}
+
+	function create(projectId, values) {
+	    return window.$.post('/api/v1/projects/' + projectId + '/daily-appliances', values);
+	}
 
 /***/ }
 ]);
