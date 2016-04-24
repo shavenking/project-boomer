@@ -1,11 +1,7 @@
 <template>
-    <a href="#" class="ui primary button" :class="{ disabled: disabled }" @click="openModal">
-        <i class="plus icon"></i>新增今日使用機具
-    </a>
-
     <div class="ui basic modal" v-el:modal>
         <div class="content">
-            <form action="#" method="POST" class="ui inverted form" @submit.prevent="onSubmit" v-el:form>
+            <form action="#" method="POST" class="ui inverted form" @submit="onSubmit" v-el:form>
                 <div class="two fields">
                     <div class="field">
                         <div class="label">機具名稱</div>
@@ -39,12 +35,6 @@
     </div>
 </template>
 
-<style>
-    .hidden {
-        display: none;
-    }
-</style>
-
 <script>
     import { getAll, create as createDailyAppliance } from '../query-helpers/daily-appliances'
     import pluck from 'lodash/collection/pluck'
@@ -54,7 +44,7 @@
     import isEmpty from 'lodash/lang/isEmpty'
 
     export default {
-        props: ['projectId', 'onSuccess', 'onCancel', 'disabled'],
+        props: ['projectId', 'onSuccess', 'onCancel'],
 
         methods: {
             openModal() {

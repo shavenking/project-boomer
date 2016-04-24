@@ -1,11 +1,7 @@
 <template>
-    <a href="#" class="ui primary button" :class="{ disabled: disabled }" @click="openModal">
-        <i class="plus icon"></i>新增本日工作項目
-    </a>
-
     <div class="ui basic modal" v-el:modal>
         <div class="content">
-            <form action="#" method="POST" class="ui inverted form" v-el:form>
+            <form action="#" method="POST" class="ui inverted form" @submit="onSubmit" v-el:form>
                 <h4 class="ui inverted dividing header">選擇施工工項</h4>
                 <project-flowtype-work-select :project-id.once="projectId"></project-flowtype-work-select>
 
@@ -18,6 +14,7 @@
                 <div class="field">
                     <input type="text" name="seat">
                 </div>
+                <button type="submit" class="hidden"></button>
             </form>
         </div>
         <div class="actions">
@@ -40,13 +37,20 @@
     import zipObject from 'lodash/array/zipObject'
 
     export default {
-        props: ['projectId', 'onSuccess', 'onCancel', 'disabled'],
+        props: ['projectId', 'onSuccess', 'onCancel'],
 
         components: { ProjectFlowtypeWorkSelect },
 
         methods: {
             openModal() {
                 this.$modal.modal('show')
+            },
+            onSubmit(e) {
+                e.preventDefault()
+
+                this.onApprove()
+
+                window.$(this.$els.modal).modal('hide')
             },
             onApprove() {
                 const inputs = window.$(this.$els.form).serializeArray()
