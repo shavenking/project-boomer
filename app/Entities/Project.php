@@ -29,6 +29,11 @@ class Project extends Model
             ->withTimestamps();
     }
 
+    public function dailyRecords()
+    {
+        return $this->hasMany(DailyRecord::class);
+    }
+
     public function works()
     {
         return $this->hasMany(ProjectWork::class);

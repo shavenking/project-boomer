@@ -3,6 +3,7 @@
     <modal-create-daily-material :project-id.once="projectId" :on-success.once="onSuccess" :disabled.once="disabled"></modal-create-daily-material>
     <modal-create-daily-labor :project-id.once="projectId" :on-success.once="onSuccess" :disabled.once="disabled"></modal-create-daily-labor>
     <modal-create-daily-appliance :project-id.once="projectId" :on-success.once="onSuccess" :disabled.once="disabled"></modal-create-daily-appliance>
+    <modal-create-daily-record :project-id.once="projectId" :on-success.once="onSuccess" :disabled.once="disabled"></modal-create-daily-record>
 
     <table class="ui table" v-if="checklists.length">
         <thead>
@@ -69,6 +70,19 @@
             </tr>
         </tbody>
     </table>
+
+    <table class="ui table" v-if="dailyRecords">
+        <thead>
+            <tr>
+                <th>檢查紀錄</th>
+                <th>重要紀錄</th>
+            </tr>
+        </thead>
+        <tbody>
+            <td>{{ dailyRecords['check_record'] }}</td>
+            <td>{{ dailyRecords['important_record'] }}</td>
+        </tbody>
+    </table>
 </template>
 
 <script>
@@ -76,9 +90,11 @@
     import ModalCreateDailyMaterial from './modal-create-daily-material.vue'
     import ModalCreateDailyLabor from './modal-create-daily-labor.vue'
     import ModalCreateDailyAppliance from './modal-create-daily-appliance.vue'
+    import ModalCreateDailyRecord from './modal-create-daily-record.vue'
     import { get as getDailyMaterialsByDate, getTotalAmount } from '../query-helpers/daily-materials'
     import { get as getDailyLaborsByDate, getTotalAmount as getLaborTotalAmount } from '../query-helpers/daily-labors'
     import { get as getDailyAppliancesByDate, getTotalAmount as getApplianceTotalAmount } from '../query-helpers/daily-appliances'
+    import { get as getDailyRecords } from '../query-helpers/daily-records'
     import { get } from '../query-helpers/project-checklists'
     import _ from 'lodash'
     import moment from 'moment'
@@ -86,7 +102,7 @@
     export default {
         props: ['projectId', 'date'],
 
-        components: { ModalCreateProjectChecklist, ModalCreateDailyMaterial, ModalCreateDailyLabor, ModalCreateDailyAppliance },
+        components: { ModalCreateProjectChecklist, ModalCreateDailyMaterial, ModalCreateDailyLabor, ModalCreateDailyAppliance, ModalCreateDailyRecord },
 
         computed: {
             disabled() {
@@ -138,6 +154,12 @@
                 getApplianceTotalAmount(this.projectId).then(rep => {
                     this.applianceTotalAmount = rep.total_amount
                 })
+
+                getDailyRecords(this.projectId, {
+                    date: this.date
+                }).then(rep => {
+                    this.dailyRecords = rep.daily_records
+                })
             }
         },
 
@@ -149,7 +171,8 @@
                 dailyAppliances: [],
                 totalAmount: {},
                 laborTotalAmount: {},
-                applianceTotalAmount: {}
+                applianceTotalAmount: {},
+                dailyRecords: {}
             }
         },
 
@@ -188,6 +211,12 @@
 
             getApplianceTotalAmount(this.projectId).then(rep => {
                 this.applianceTotalAmount = rep.total_amount
+            })
+
+            getDailyRecords(this.projectId, {
+                date: this.date
+            }).then(rep => {
+                this.dailyRecords = rep.daily_records
             })
         }
     }
