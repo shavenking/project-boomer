@@ -1,11 +1,3 @@
-@if (preg_match('/projects\.(internal|bid|works).*/', request()->route()->getName()))
-    @include('components.internal-sidebar')
-@endif
-
-@if (preg_match('/projects\.(external|checklists|fault-improvements|construction-dailies).*/', request()->route()->getName()))
-    @include('components.external-sidebar')
-@endif
-
-@if (preg_match('/projects\.(finance).*/', request()->route()->getName()))
-    @include('components.finance-sidebar')
-@endif
+@include('components.internal-sidebar')
+@include('components.external-sidebar')
+@include('components.finance-sidebar')
