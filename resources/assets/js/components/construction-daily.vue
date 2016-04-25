@@ -1,92 +1,203 @@
 <template>
-    <modal-create-project-checklist :project-id.once="projectId" :on-success.once="onSuccess" :disabled.once="disabled"></modal-create-project-checklist>
-    <modal-create-daily-material :project-id.once="projectId" :on-success.once="onSuccess" :disabled.once="disabled"></modal-create-daily-material>
-    <modal-create-daily-labor :project-id.once="projectId" :on-success.once="onSuccess" :disabled.once="disabled"></modal-create-daily-labor>
-    <modal-create-daily-appliance :project-id.once="projectId" :on-success.once="onSuccess" :disabled.once="disabled"></modal-create-daily-appliance>
+    <div class="ui large blue secondary menu" v-el:tabular-menu>
+      <a href="#" class="item active" data-tab="project-checklists">當日施工項目、位置</a>
+      <a href="#" class="item" data-tab="daily-materials">當日材料使用數量</a>
+      <a href="#" class="item" data-tab="daily-labors">當日出工人數</a>
+      <a href="#" class="item" data-tab="daily-appliances">當日機具使用情形</a>
+      <a href="#" class="item" data-tab="daily-records">紀錄</a>
+    </div>
 
-    <table class="ui table" v-if="checklists.length">
-        <thead>
-            <tr>
-                <th>施工項目</th>
-                <th>施工位置</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr v-for="checklist in checklists">
-                <td><a href="/projects/{{ projectId }}/works/{{ checklist.project_work.id }}">{{ checklist.project_work.name }}</a></td>
-                <td>{{ checklist.seat }}</td>
-            </tr>
-        </tbody>
-    </table>
+    <div class="ui tab active" data-tab="project-checklists">
+        <table class="ui table">
+            <thead>
+                <tr>
+                    <th>施工項目</th>
+                    <th>施工位置</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr v-if="!checklists.length">
+                    <td colspan="2">
+                        <empty-message></empty-message>
+                    </td>
+                </tr>
+                <tr v-for="checklist in checklists">
+                    <td><a href="/projects/{{ projectId }}/works/{{ checklist.project_work.id }}">{{ checklist.project_work.name }}</a></td>
+                    <td>{{ checklist.seat }}</td>
+                </tr>
+            </tbody>
+            <tfoot v-if="!disabled">
+                <tr>
+                    <th colspan="2">
+                        <button class="ui right floated primary button" @click="openModal('checklistModal')">
+                            <i class="plus icon"></i>新增
+                        </button>
+                    </th>
+                </tr>
+            </tfoot>
+        </table>
+    </div>
+    <div class="ui tab" data-tab="daily-materials">
+        <table class="ui table">
+            <thead>
+                <tr>
+                    <th>材料名稱</th>
+                    <th>本日使用數量</th>
+                    <th>累積使用數量</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr v-if="!dailyMaterials.length">
+                    <td colspan="3">
+                        <empty-message></empty-message>
+                    </td>
+                </tr>
+                <tr v-for="dailyMaterial in dailyMaterials">
+                    <td>{{ dailyMaterial.name }}</td>
+                    <td>{{ dailyMaterial.amount }}</td>
+                    <td>{{ totalAmount[dailyMaterial.material_id] }}</td>
+                </tr>
+            </tbody>
+            <tfoot v-if="!disabled">
+                <tr>
+                    <th colspan="3">
+                        <button class="ui right floated primary button" @click="openModal('dailyMaterialModal')">
+                            <i class="plus icon"></i>新增
+                        </button>
+                    </th>
+                </tr>
+            </tfoot>
+        </table>
+    </div>
+    <div class="ui tab" data-tab="daily-labors">
+        <table class="ui table">
+            <thead>
+                <tr>
+                    <th>工別</th>
+                    <th>人數</th>
+                    <th>累積人數</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr v-if="!dailyLabors.length">
+                    <td colspan="3">
+                        <empty-message></empty-message>
+                    </td>
+                </tr>
+                <tr v-for="dailyLabor in dailyLabors">
+                    <td>{{ dailyLabor.name }}</td>
+                    <td>{{ dailyLabor.amount }}</td>
+                    <td>{{ laborTotalAmount[dailyLabor.labor_id] }}</td>
+                </tr>
+            </tbody>
+            <tfoot v-if="!disabled">
+                <tr>
+                    <th colspan="3">
+                        <button class="ui right floated primary button" @click="openModal('dailyLaborModal')">
+                            <i class="plus icon"></i>新增
+                        </button>
+                    </th>
+                </tr>
+            </tfoot>
+        </table>
+    </div>
+    <div class="ui tab" data-tab="daily-appliances">
+        <table class="ui table">
+            <thead>
+                <tr>
+                    <th>機具</th>
+                    <th>數量</th>
+                    <th>累積數量</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr v-if="!dailyAppliances.length">
+                    <td colspan="3">
+                        <empty-message></empty-message>
+                    </td>
+                </tr>
+                <tr v-for="dailyAppliance in dailyAppliances">
+                    <td>{{ dailyAppliance.name }}</td>
+                    <td>{{ dailyAppliance.amount }}</td>
+                    <td>{{ applianceTotalAmount[dailyAppliance.appliance_id] }}</td>
+                </tr>
+            </tbody>
+            <tfoot v-if="!disabled">
+                <tr>
+                    <th colspan="3">
+                        <button class="ui right floated primary button" @click="openModal('dailyApplianceModal')">
+                            <i class="plus icon"></i>新增
+                        </button>
+                    </th>
+                </tr>
+            </tfoot>
+        </table>
+    </div>
+    <div class="ui tab" data-tab="daily-records">
+        <table class="ui table">
+            <thead>
+                <tr>
+                    <th>檢查紀錄</th>
+                    <th>重要紀錄</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr v-if="!dailyRecords">
+                    <td colspan="2">
+                        <empty-message></empty-message>
+                    </td>
+                </tr>
+                <tr v-if="dailyRecords">
+                    <td>{{ dailyRecords['check_record'] }}</td>
+                    <td>{{ dailyRecords['important_record'] }}</td>
+                </tr>
+            </tbody>
+            <tfoot v-if="!disabled">
+                <tr>
+                    <th colspan="2">
+                        <button class="ui right floated primary button" @click="openModal('dailyRecordModal')">
+                            <i class="plus icon"></i>新增
+                        </button>
+                    </th>
+                </tr>
+            </tfoot>
+        </table>
+    </div>
 
-    <table class="ui table" v-if="dailyMaterials.length">
-        <thead>
-            <tr>
-                <th>材料名稱</th>
-                <th>本日使用數量</th>
-                <th>累積使用數量</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr v-for="dailyMaterial in dailyMaterials">
-                <td>{{ dailyMaterial.name }}</td>
-                <td>{{ dailyMaterial.amount }}</td>
-                <td>{{ totalAmount[dailyMaterial.material_id] }}</td>
-            </tr>
-        </tbody>
-    </table>
-
-    <table class="ui table" v-if="dailyLabors.length">
-        <thead>
-            <tr>
-                <th>工別</th>
-                <th>人數</th>
-                <th>累積人數</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr v-for="dailyLabor in dailyLabors">
-                <td>{{ dailyLabor.name }}</td>
-                <td>{{ dailyLabor.amount }}</td>
-                <td>{{ laborTotalAmount[dailyLabor.labor_id] }}</td>
-            </tr>
-        </tbody>
-    </table>
-
-    <table class="ui table" v-if="dailyAppliances.length">
-        <thead>
-            <tr>
-                <th>機具</th>
-                <th>數量</th>
-                <th>累積數量</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr v-for="dailyAppliance in dailyAppliances">
-                <td>{{ dailyAppliance.name }}</td>
-                <td>{{ dailyAppliance.amount }}</td>
-                <td>{{ applianceTotalAmount[dailyAppliance.appliance_id] }}</td>
-            </tr>
-        </tbody>
-    </table>
+    <modal-create-project-checklist :project-id.once="projectId" :on-success.once="onSuccess" v-ref:checklist-modal></modal-create-project-checklist>
+    <modal-create-daily-material :project-id.once="projectId" :on-success.once="onSuccess" v-ref:daily-material-modal></modal-create-daily-material>
+    <modal-create-daily-labor :project-id.once="projectId" :on-success.once="onSuccess" v-ref:daily-labor-modal></modal-create-daily-labor>
+    <modal-create-daily-appliance :project-id.once="projectId" :on-success.once="onSuccess" v-ref:daily-appliance-modal></modal-create-daily-appliance>
+    <modal-create-daily-record :project-id.once="projectId" :on-success.once="onSuccess" v-ref:daily-record-modal></modal-create-daily-record>
 </template>
+
+<style>
+    .hidden {
+        position: absolute;
+        tabindex: -1;
+        left: -999999px;
+    }
+</style>
 
 <script>
     import ModalCreateProjectChecklist from './modal-create-project-checklist.vue'
     import ModalCreateDailyMaterial from './modal-create-daily-material.vue'
     import ModalCreateDailyLabor from './modal-create-daily-labor.vue'
     import ModalCreateDailyAppliance from './modal-create-daily-appliance.vue'
+    import ModalCreateDailyRecord from './modal-create-daily-record.vue'
     import { get as getDailyMaterialsByDate, getTotalAmount } from '../query-helpers/daily-materials'
     import { get as getDailyLaborsByDate, getTotalAmount as getLaborTotalAmount } from '../query-helpers/daily-labors'
     import { get as getDailyAppliancesByDate, getTotalAmount as getApplianceTotalAmount } from '../query-helpers/daily-appliances'
+    import { get as getDailyRecords } from '../query-helpers/daily-records'
     import { get } from '../query-helpers/project-checklists'
+    import EmptyMessage from '../presentation-layer/empty-message.vue'
     import _ from 'lodash'
     import moment from 'moment'
 
     export default {
         props: ['projectId', 'date'],
 
-        components: { ModalCreateProjectChecklist, ModalCreateDailyMaterial, ModalCreateDailyLabor, ModalCreateDailyAppliance },
+        components: { EmptyMessage, ModalCreateProjectChecklist, ModalCreateDailyMaterial, ModalCreateDailyLabor, ModalCreateDailyAppliance, ModalCreateDailyRecord },
 
         computed: {
             disabled() {
@@ -102,6 +213,9 @@
         },
 
         methods: {
+            openModal(target) {
+                this.$refs[target].openModal()
+            },
             onSuccess() {
                 get(this.projectId, {
                     date: this.date
@@ -138,6 +252,12 @@
                 getApplianceTotalAmount(this.projectId).then(rep => {
                     this.applianceTotalAmount = rep.total_amount
                 })
+
+                getDailyRecords(this.projectId, {
+                    date: this.date
+                }).then(rep => {
+                    this.dailyRecords = rep.daily_records
+                })
             }
         },
 
@@ -149,11 +269,14 @@
                 dailyAppliances: [],
                 totalAmount: {},
                 laborTotalAmount: {},
-                applianceTotalAmount: {}
+                applianceTotalAmount: {},
+                dailyRecords: {}
             }
         },
 
         ready() {
+            window.$(this.$els.tabularMenu).children('.item').tab()
+
             get(this.projectId, {
                 date: this.date
             }).then(rep => {
@@ -188,6 +311,12 @@
 
             getApplianceTotalAmount(this.projectId).then(rep => {
                 this.applianceTotalAmount = rep.total_amount
+            })
+
+            getDailyRecords(this.projectId, {
+                date: this.date
+            }).then(rep => {
+                this.dailyRecords = rep.daily_records
             })
         }
     }

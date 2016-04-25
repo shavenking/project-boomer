@@ -4,19 +4,12 @@
             <form action="#" method="POST" class="ui inverted form" @submit="onSubmit" v-el:form>
                 <div class="two fields">
                     <div class="field">
-                        <div class="label">機具名稱</div>
-                        <div class="ui search fluid selection dropdown" v-el:dropdown>
-                            <input type="hidden" name="daily_appliance_id">
-                            <i class="dropdown icon"></i>
-                            <div class="default text"></div>
-                            <div class="menu">
-                                <div class="item" v-for="dailyAppliance in dailyAppliances" :data-value="dailyAppliance.id">{{ dailyAppliance.name }}</div>
-                            </div>
-                        </div>
+                        <div class="label">檢查紀錄</div>
+                        <textarea name="check_record" id="" cols="30" rows="10"></textarea>
                     </div>
                     <div class="field">
-                        <div class="label">數量</div>
-                        <input type="text" name="amount">
+                        <div class="label">重要紀錄</div>
+                        <textarea name="important_record" id="" cols="30" rows="10"></textarea>
                     </div>
                 </div>
                 <button type="submit" class="hidden"></button>
@@ -36,7 +29,7 @@
 </template>
 
 <script>
-    import { getAll, create as createDailyAppliance } from '../query-helpers/daily-appliances'
+    import { create } from '../query-helpers/daily-records'
     import pluck from 'lodash/collection/pluck'
     import zipObject from 'lodash/array/zipObject'
     import merge from 'lodash/object/merge'
@@ -65,13 +58,7 @@
                     { name: this.name }
                 ), isEmpty);
 
-                createDailyAppliance(this.projectId, values).then(response => {
-                    if (values.name) {
-                        getAll().then(response => {
-                            this.dailyAppliances = response.daily_appliances
-                        })
-                    }
-
+                create(this.projectId, values).then(response => {
                     this.$els.form.reset()
 
                     if (this.onSuccess) {
@@ -85,42 +72,18 @@
                 if (this.onCancel) {
                     this.onCancel()
                 }
-            },
-            onNoResults(val) {
-                this.name = val
-
-                window.$(this.$els.dropdown).dropdown('clear').dropdown('set text', val)
-            },
-            onChange(val) {
-                this.name = ''
             }
         },
 
         data() {
-            return {
-                'dailyAppliances': []
-            }
+            return {}
         },
 
         ready() {
-            getAll().then(response => {
-                this.dailyAppliances = response.daily_appliances
-            })
-
             this.$modal = window.$(this.$els.modal).modal({
                 closable: false,
                 onApprove: this.onApprove,
                 onDeny: this.onDeny
-            })
-
-            window.$(this.$els.dropdown).dropdown({
-                fullTextSearch: true,
-                forceSelection: true,
-                onChange: this.onChange,
-                onNoResults: this.onNoResults,
-                message: {
-                    noResults: '新增 {term}'
-                }
             })
         }
     }
