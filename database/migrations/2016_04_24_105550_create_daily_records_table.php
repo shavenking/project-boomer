@@ -15,7 +15,7 @@ class CreateDailyRecordsTable extends Migration
         Schema::create('daily_records', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('project_id')->unsigned();
-            $table->text('check_record');
+            $table->text('inspection_record');
             $table->text('important_record');
             $table->timestamps();
         });

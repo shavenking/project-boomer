@@ -4,11 +4,11 @@
             <form action="#" method="POST" class="ui inverted form" @submit="onSubmit" v-el:form>
                 <div class="two fields">
                     <div class="field">
-                        <div class="label">檢查紀錄</div>
-                        <textarea name="check_record" id="" cols="30" rows="10"></textarea>
+                        <div class="label">主辦單位、監造單位指示</div>
+                        <textarea name="inspection_record" id="" cols="30" rows="10"></textarea>
                     </div>
                     <div class="field">
-                        <div class="label">重要紀錄</div>
+                        <div class="label">重要事項紀錄</div>
                         <textarea name="important_record" id="" cols="30" rows="10"></textarea>
                     </div>
                 </div>

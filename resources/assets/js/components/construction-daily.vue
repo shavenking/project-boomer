@@ -4,7 +4,7 @@
       <a href="#" class="item" data-tab="daily-materials">當日材料使用數量</a>
       <a href="#" class="item" data-tab="daily-labors">當日出工人數</a>
       <a href="#" class="item" data-tab="daily-appliances">當日機具使用情形</a>
-      <a href="#" class="item" data-tab="daily-records">紀錄</a>
+      <a href="#" class="item" data-tab="daily-records">備註</a>
     </div>
 
     <div class="ui tab active" data-tab="project-checklists">
@@ -137,8 +137,8 @@
         <table class="ui table">
             <thead>
                 <tr>
-                    <th>檢查紀錄</th>
-                    <th>重要紀錄</th>
+                    <th>主辦單位、監造單位指示</th>
+                    <th>重要事項紀錄</th>
                 </tr>
             </thead>
             <tbody>
@@ -148,7 +148,7 @@
                     </td>
                 </tr>
                 <tr v-if="dailyRecords">
-                    <td>{{ dailyRecords['check_record'] }}</td>
+                    <td>{{ dailyRecords['inspection_record'] }}</td>
                     <td>{{ dailyRecords['important_record'] }}</td>
                 </tr>
             </tbody>
