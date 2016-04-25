@@ -1,11 +1,13 @@
 <template>
-    <div class="ui large blue secondary menu" v-el:tabular-menu>
-      <a href="#" class="item active" data-tab="project-checklists">當日施工項目、位置</a>
-      <a href="#" class="item" data-tab="daily-materials">當日材料使用數量</a>
-      <a href="#" class="item" data-tab="daily-labors">當日出工人數</a>
-      <a href="#" class="item" data-tab="daily-appliances">當日機具使用情形</a>
-      <a href="#" class="item" data-tab="daily-records">備註</a>
+    <div class="ui fluid buttons" v-el:tabular-menu>
+      <a href="#" class="ui button active" data-tab="project-checklists">當日施工項目、位置</a>
+      <a href="#" class="ui button" data-tab="daily-materials">當日材料使用數量</a>
+      <a href="#" class="ui button" data-tab="daily-labors">當日出工人數</a>
+      <a href="#" class="ui button" data-tab="daily-appliances">當日機具使用情形</a>
+      <a href="#" class="ui button" data-tab="daily-records">紀錄</a>
     </div>
+
+    <div class="ui hidden divider"></div>
 
     <div class="ui tab active" data-tab="project-checklists">
         <table class="ui table">
@@ -172,7 +174,7 @@
 </template>
 
 <style>
-    .hidden {
+    .pm-visibility-hidden {
         position: absolute;
         tabindex: -1;
         left: -999999px;
@@ -275,7 +277,7 @@
         },
 
         ready() {
-            window.$(this.$els.tabularMenu).children('.item').tab()
+            window.$(this.$els.tabularMenu).children('.button').tab()
 
             get(this.projectId, {
                 date: this.date

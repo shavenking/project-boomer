@@ -42,12 +42,12 @@ class DailyRecordsController extends Controller
 
         if ($dailyRecord) {
             $dailyRecord->update([
-                'check_record' => $request->input('check_record'),
+                'inspection_record' => $request->input('inspection_record'),
                 'important_record' => $request->input('important_record')
             ]);
         } else {
             $project->dailyRecords()->create([
-                'check_record' => $request->input('check_record'),
+                'inspection_record' => $request->input('inspection_record'),
                 'important_record' => $request->input('important_record')
             ]);
         }

@@ -12,10 +12,6 @@
             @include('components.navbar')
         </div>
 
-        <div class="sixteen wide column">
-            @include('components.project-secondary-menu')
-        </div>
-
         <div class="four wide column">
             @include('components.project-sidebar')
         </div>
@@ -23,13 +19,6 @@
         <div class="twelve wide column">
 
             <div class="ui grid">
-
-                <div class="sixteen wide column">
-                    <div class="ui large breadcrumb">
-                        <i class="sitemap icon"></i>
-                        @include('components.breadcrumbs')
-                    </div>
-                </div>
 
                 <div class="sixteen wide column">
                     @yield('content')

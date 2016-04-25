@@ -65,7 +65,7 @@ class DailyAppliancesController extends Controller
             $project->dailyAppliances()->updateExistingPivot($dailyAppliance->id, ['amount' => $request->input('amount')]);
         } else {
             $project->dailyAppliances()->attach(
-                $dailyAppliance,
+                $dailyAppliance->id,
                 ['amount' => $request->amount]
             );
         }

@@ -19,7 +19,7 @@
                         <input type="text" name="amount">
                     </div>
                 </div>
-                <button type="submit" class="hidden"></button>
+                <button type="submit" class="pm-visibility-hidden"></button>
             </form>
         </div>
         <div class="actions">

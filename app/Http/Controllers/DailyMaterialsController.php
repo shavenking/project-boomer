@@ -64,7 +64,7 @@ class DailyMaterialsController extends Controller
             $project->dailyMaterials()->updateExistingPivot($dailyMaterial->id, ['amount' => $request->input('amount')]);
         } else {
             $project->dailyMaterials()->attach(
-                $dailyMaterial,
+                $dailyMaterial->id,
                 ['amount' => $request->amount]
             );
         }

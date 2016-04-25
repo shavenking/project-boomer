@@ -14,7 +14,7 @@
                 <div class="field">
                     <input type="text" name="seat">
                 </div>
-                <button type="submit" class="hidden"></button>
+                <button type="submit" class="pm-visibility-hidden"></button>
             </form>
         </div>
         <div class="actions">
