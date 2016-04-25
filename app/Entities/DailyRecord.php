@@ -6,5 +6,5 @@ use Illuminate\Database\Eloquent\Model;
 
 class DailyRecord extends Model
 {
-    protected $fillable = ['check_record', 'important_record'];
+    protected $fillable = ['inspection_record', 'important_record'];
 }

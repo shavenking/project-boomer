@@ -65,7 +65,7 @@ class DailyLaborsController extends Controller
             $project->dailyLabors()->updateExistingPivot($dailyLabor->id, ['amount' => $request->input('amount')]);
         } else {
             $project->dailyLabors()->attach(
-                $dailyLabor,
+                $dailyLabor->id,
                 ['amount' => $request->amount]
             );
         }

@@ -12,7 +12,7 @@
                         <textarea name="important_record" id="" cols="30" rows="10"></textarea>
                     </div>
                 </div>
-                <button type="submit" class="hidden"></button>
+                <button type="submit" class="pm-visibility-hidden"></button>
             </form>
         </div>
         <div class="actions">
