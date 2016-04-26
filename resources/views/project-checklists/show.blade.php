@@ -9,6 +9,8 @@
 
 @section('content')
 
+    <p>協力廠商：{{ $checklist->subcontractor->name }}</p>
+
     @if ($checklist->checkitems->isEmpty())
         {{ trans('all.empty_checkitems') }}
     @else
