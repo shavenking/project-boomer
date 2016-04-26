@@ -21,6 +21,13 @@
             <div class="ui grid">
 
                 <div class="sixteen wide column">
+                    <div class="ui large breadcrumb">
+                        <i class="sitemap icon"></i>
+                        @include('components.breadcrumbs')
+                    </div>
+                </div>
+
+                <div class="sixteen wide column">
                     @yield('content')
                 </div>
 
