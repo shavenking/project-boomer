@@ -13,9 +13,24 @@ class SubcontractorsController extends Controller
 {
     public function index()
     {
-        $subcontractors = subcontractor::all();
+        $subcontractors = Subcontractor::all();
 
         return view('subcontractors.index')->withSubcontractors($subcontractors);
     }
 
+    public function create()
+    {
+        return view('subcontractors.create');
+    }
+
+    public function store(Request $request)
+    {
+        $this->validate($request, [
+            'name' => 'required'
+        ]);
+
+        Subcontractor::create($request->only('name'));
+
+        return redirect()->route('subcontractors.index');
+    }
 }
