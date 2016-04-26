@@ -1,32 +1,33 @@
-<div class="ui fluid vertical pointing menu">
+<h3 class="header">{{ trans('all.settings') }}</h3>
+<div class="ui fluid vertical buttons">
     <a
         href="{{ route('workflows.index') }}"
-        class="@if (str_is('workflows*', request()->route()->getName())) active @endif item"
+        class="ui @if (str_is('workflows*', request()->route()->getName())) active @endif button"
     >
         {{ trans_choice('all.workflows', 2) }}
     </a>
 
     <a
         href="{{ route('works.index') }}"
-        class="@if (str_is('works*', request()->route()->getName())) active @endif item"
+        class="ui @if (str_is('works*', request()->route()->getName())) active @endif button"
     >
         {{ trans_choice('all.works', 2) }}
     </a>
 
     <a
         href="{{ route('checklists.index') }}"
-        class="@if (str_is('checklists*', request()->route()->getName())) active @endif item"
+        class="ui @if (str_is('checklists*', request()->route()->getName())) active @endif button"
     >
         {{ trans_choice('all.checklists', 2) }}
     </a>
     <a
         href="{{ route('subcontractors.index') }}"
-        class="item">
+        class="ui button">
         {{ trans('all.subcontractors') }}
     </a>
     <a
         href="#"
-        class="item">
+        class="ui button">
         {{ trans('all.personals') }}
     </a>
 </div>
