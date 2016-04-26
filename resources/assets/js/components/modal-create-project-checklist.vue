@@ -14,6 +14,12 @@
                 <div class="field">
                     <input type="text" name="seat">
                 </div>
+
+                <h4 class="ui inverted dividing header">選擇協力廠商</h4>
+                <div class="field">
+                    <subcontractor-select></subcontractor-select>
+                </div>
+
                 <button type="submit" class="pm-visibility-hidden"></button>
             </form>
         </div>
@@ -33,13 +39,14 @@
 <script>
     import { create as createChecklist } from '../query-helpers/project-checklists'
     import ProjectFlowtypeWorkSelect from './project-flowtype-work-select.vue'
+    import SubcontractorSelect from './subcontractor-select.vue'
     import pluck from 'lodash/collection/pluck'
     import zipObject from 'lodash/array/zipObject'
 
     export default {
         props: ['projectId', 'onSuccess', 'onCancel'],
 
-        components: { ProjectFlowtypeWorkSelect },
+        components: { ProjectFlowtypeWorkSelect, SubcontractorSelect },
 
         methods: {
             openModal() {

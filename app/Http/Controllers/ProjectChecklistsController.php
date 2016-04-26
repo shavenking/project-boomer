@@ -23,7 +23,17 @@ class ProjectChecklistsController extends Controller
                 $query->whereDate('created_at', '=', new Carbon($request->query('date')));
             }
 
-            $checklists = $query->get();
+            $checklists = $query->with('subcontractor')->get();
+
+            $checklists->map(function ($checklist) {
+                if ($checklist->checkitems()->whereNull('passes')->exists()) {
+                    $checklist->passes = false;
+                } else {
+                    $checklist->passes = true;
+                }
+
+                return $checklist;
+            });
 
             return response()->json(compact('checklists'));
         }
@@ -53,7 +63,8 @@ class ProjectChecklistsController extends Controller
         $this->validate($request, [
             'work_id' => 'required',
             'name' => 'required',
-            'seat' => 'required'
+            'seat' => 'required',
+            'subcontractor_id' => 'required'
         ]);
 
         $project = Project::findOrFail($projectId);
@@ -65,6 +76,7 @@ class ProjectChecklistsController extends Controller
             'project_work_id' => $projectWork->id,
             'name' => $request->name,
             'seat' => $request->seat,
+            'subcontractor_id' => $request->input('subcontractor_id'),
             'passes_amount' => 0
         ]);
 

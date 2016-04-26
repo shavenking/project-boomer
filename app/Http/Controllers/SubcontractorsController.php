@@ -11,9 +11,13 @@ use App\Entities\Subcontractor;
 
 class SubcontractorsController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
         $subcontractors = Subcontractor::all();
+
+        if ($request->ajax()) {
+            return response()->json(compact('subcontractors'));
+        }
 
         return view('subcontractors.index')->withSubcontractors($subcontractors);
     }

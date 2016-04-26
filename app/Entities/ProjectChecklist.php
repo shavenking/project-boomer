@@ -9,6 +9,7 @@ class ProjectChecklist extends Model
     protected $fillable = [
         'project_id',
         'project_work_id',
+        'subcontractor_id',
         'name',
         'passes_amount',
         'seat'
@@ -34,5 +35,10 @@ class ProjectChecklist extends Model
     public function projectWork()
     {
         return $this->belongsTo(ProjectWork::class);
+    }
+
+    public function subcontractor()
+    {
+        return $this->belongsTo(Subcontractor::class);
     }
 }

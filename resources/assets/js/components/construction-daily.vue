@@ -15,22 +15,28 @@
                 <tr>
                     <th>施工項目</th>
                     <th>施工位置</th>
+                    <th>協力廠商</th>
+                    <th>查核與否</th>
+                    <th>查核數量</th>
                 </tr>
             </thead>
             <tbody>
                 <tr v-if="!checklists.length">
-                    <td colspan="2">
+                    <td colspan="5">
                         <empty-message></empty-message>
                     </td>
                 </tr>
                 <tr v-for="checklist in checklists">
                     <td><a href="/projects/{{ projectId }}/works/{{ checklist.project_work.id }}">{{ checklist.project_work.name }}</a></td>
                     <td>{{ checklist.seat }}</td>
+                    <td>{{ checklist.subcontractor.name }}</td>
+                    <td>{{ checklist.passes ? '查核完畢' : '未查核完畢' }}</td>
+                    <td>{{ checklist.passes_amount }}</td>
                 </tr>
             </tbody>
             <tfoot v-if="!disabled">
                 <tr>
-                    <th colspan="2">
+                    <th colspan="5">
                         <button class="ui right floated primary button" @click="openModal('checklistModal')">
                             <i class="plus icon"></i>新增
                         </button>
