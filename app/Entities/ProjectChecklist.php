@@ -12,8 +12,11 @@ class ProjectChecklist extends Model
         'subcontractor_id',
         'name',
         'passes_amount',
-        'seat'
+        'seat',
+        'finished_at'
     ];
+
+    protected $dates = ['finished_at'];
 
     protected $casts = [
         'passes_amount' => 'integer'

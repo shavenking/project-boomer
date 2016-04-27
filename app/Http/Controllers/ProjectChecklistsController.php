@@ -129,6 +129,12 @@ class ProjectChecklistsController extends Controller
             }
         });
 
+        if (!$checklist->checkitems()->whereNull('passes')->exists()) {
+            $checklist->update([
+                'finished_at' => new Carbon
+            ]);
+        }
+
         return redirect()->route('projects.checklists.show', [$projectId, $checklistId]);
     }
 }

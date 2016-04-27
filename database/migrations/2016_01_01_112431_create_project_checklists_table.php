@@ -20,6 +20,7 @@ class CreateProjectChecklistsTable extends Migration
             $table->string('name');
             $table->string('seat');
             $table->integer('passes_amount')->unsigned();
+            $table->timestamp('finished_at')->nullable();
             $table->timestamps();
         });
     }
