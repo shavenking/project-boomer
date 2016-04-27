@@ -1,5 +1,6 @@
 <?php
 Route::group(['prefix' => 'api/v1'], function () {
+    get('projects/{projects}/works/{works}/cost-estimations', CostEstimationsController::class . '@estimations');
     get('projects/{projects}/works/{works}/workitems', ProjectWorksController::class . '@indexOfWorkitems');
     get('projects/{projects}/works/{works}/workitems/create', ProjectWorksController::class . '@createOfWorkitems');
     post('projects/{projects}/works/{works}/workitems', ProjectWorksController::class . '@storeOfWorkitems');

@@ -10,7 +10,7 @@ use Carbon\Carbon;
 use DatePeriod;
 use DateInterval;
 
-use App\Entities\{ Project };
+use App\Entities\{ Project, ProjectChecklist };
 
 class CostEstimationsController extends Controller
 {
@@ -55,6 +55,23 @@ class CostEstimationsController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function estimations($projectId, $projectWorkId, Request $request)
+    {
+        $projectWork = Project::findOrFail($projectId)->works()->findOrFail($projectWorkId);
+
+        $date = new Carbon($request->input('date', 'today'));
+
+        $pChecklists = ProjectChecklist::whereHas('projectWork', function ($q) use ($projectWork) {
+            $q->whereProjectWorkId($projectWork->id);
+        })->whereHas('checkitems', function ($q) {
+            $q->whereNull('passes');
+        }, '=', 0)->whereDate('finished_at', '<=', $date)->get();
+
+        return response()->json([
+            'project_checklists' => $pChecklists
+        ]);
     }
 
     private function datePeriodToCollection(DatePeriod $datePeriod)

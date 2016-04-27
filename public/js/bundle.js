@@ -28031,6 +28031,7 @@ webpackJsonp([0],[
 	    value: true
 	});
 	exports.getProjectWorks = getProjectWorks;
+	exports.getEstimations = getEstimations;
 	function getProjectWorks(projectId) {
 	    var queries = arguments.length <= 1 || arguments[1] === undefined ? [] : arguments[1];
 
@@ -28047,6 +28048,20 @@ webpackJsonp([0],[
 	    var queryString = queryArray.join('&');
 
 	    return window.$.getJSON('/api/v1/projects/' + projectId + '/works?' + queryString);
+	}
+
+	function getEstimations(pId, pWorkId) {
+	    var queries = arguments.length <= 2 || arguments[2] === undefined ? [] : arguments[2];
+
+	    var queryArray = [];
+
+	    if (queries.date) {
+	        queryArray.push('date=' + queries.date);
+	    }
+
+	    var queryString = queryArray.join('&');
+
+	    return window.$.getJSON('/api/v1/projects/' + pId + '/works/' + pWorkId + '/cost-estimations?' + queryString);
 	}
 
 /***/ },
@@ -43940,12 +43955,24 @@ webpackJsonp([0],[
 
 	var _projectWorks = __webpack_require__(133);
 
+	var _lodash = __webpack_require__(112);
+
+	var _lodash2 = _interopRequireDefault(_lodash);
+
+	var _moment = __webpack_require__(176);
+
+	var _moment2 = _interopRequireDefault(_moment);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
 	exports.default = {
 	    props: ['projectId', 'date'],
 
 	    data: function data() {
 	        return {
-	            projectWorks: []
+	            projectWorks: [],
+	            totalPassesAmount: [],
+	            previousPassesAmount: []
 	        };
 	    },
 	    ready: function ready() {
@@ -43953,6 +43980,34 @@ webpackJsonp([0],[
 
 	        (0, _projectWorks.getProjectWorks)(this.projectId).then(function (rep) {
 	            _this.projectWorks = rep.works;
+
+	            rep.works.forEach(function (pWork, idx) {
+	                (0, _projectWorks.getEstimations)(_this.projectId, pWork.id, { date: _this.date }).then(function (rep) {
+	                    var sum = 0;
+
+	                    if (rep['project_checklists']) {
+
+	                        rep.project_checklists.forEach(function (pChecklist) {
+	                            sum += pChecklist.passes_amount;
+	                        });
+	                    }
+
+	                    _this.totalPassesAmount.push(sum);
+	                });
+
+	                (0, _projectWorks.getEstimations)(_this.projectId, pWork.id, { date: (0, _moment2.default)(_this.date).subtract(1, 'months').format('YYYY-MM-DD') }).then(function (rep) {
+	                    var sum = 0;
+
+	                    if (rep['project_checklists']) {
+
+	                        rep.project_checklists.forEach(function (pChecklist) {
+	                            sum += pChecklist.passes_amount;
+	                        });
+	                    }
+
+	                    _this.previousPassesAmount.push(sum);
+	                });
+	            });
 	        });
 	    }
 	};
@@ -43963,9 +44018,19 @@ webpackJsonp([0],[
 	//             <tr>
 	//                 <th rowspan="2">工作項目</th>
 	//                 <th rowspan="2">單位</th>
+	//                 <th rowspan="2">單價</th>
 	//                 <th colspan="2">合約計數</th>
+	//                 <th colspan="2">以前完成</th>
+	//                 <th colspan="2">本期完成</th>
+	//                 <th colspan="2">合計完成</th>
 	//             </tr>
 	//             <tr>
+	//                 <th>數量</th>
+	//                 <th>價值</th>
+	//                 <th>數量</th>
+	//                 <th>價值</th>
+	//                 <th>數量</th>
+	//                 <th>價值</th>
 	//                 <th>數量</th>
 	//                 <th>價值</th>
 	//             </tr>
@@ -43974,8 +44039,15 @@ webpackJsonp([0],[
 	//             <tr v-for="projectWork in projectWorks">
 	//                 <td>{{ projectWork.name }}</td>
 	//                 <td>{{ projectWork.unit.name }}</td>
-	//                 <td>{{ projectWork.amount }}</td>
 	//                 <td>{{ projectWork.unit_price }}</td>
+	//                 <td>{{ projectWork.amount }}</td>
+	//                 <td>{{ projectWork.amount * projectWork.unit_price }}</td>
+	//                 <td>{{ previousPassesAmount[$index] }}</td>
+	//                 <td>{{ previousPassesAmount[$index] * projectWork.unit_price }}</td>
+	//                 <td>{{ totalPassesAmount[$index] - previousPassesAmount[$index] }}</td>
+	//                 <td>{{ (totalPassesAmount[$index] - previousPassesAmount[$index]) * projectWork.unit_price }}</td>
+	//                 <td>{{ totalPassesAmount[$index] }}</td>
+	//                 <td>{{ totalPassesAmount[$index] * projectWork.unit_price }}</td>
 	//             </tr>
 	//         </tbody>
 	//     </table>
@@ -43987,7 +44059,7 @@ webpackJsonp([0],[
 /* 281 */
 /***/ function(module, exports) {
 
-	module.exports = "\n<table class=\"ui table\">\n    <thead>\n        <tr>\n            <th rowspan=\"2\">工作項目</th>\n            <th rowspan=\"2\">單位</th>\n            <th colspan=\"2\">合約計數</th>\n        </tr>\n        <tr>\n            <th>數量</th>\n            <th>價值</th>\n        </tr>\n    </thead>\n    <tbody>\n        <tr v-for=\"projectWork in projectWorks\">\n            <td>{{ projectWork.name }}</td>\n            <td>{{ projectWork.unit.name }}</td>\n            <td>{{ projectWork.amount }}</td>\n            <td>{{ projectWork.unit_price }}</td>\n        </tr>\n    </tbody>\n</table>\n";
+	module.exports = "\n<table class=\"ui table\">\n    <thead>\n        <tr>\n            <th rowspan=\"2\">工作項目</th>\n            <th rowspan=\"2\">單位</th>\n            <th rowspan=\"2\">單價</th>\n            <th colspan=\"2\">合約計數</th>\n            <th colspan=\"2\">以前完成</th>\n            <th colspan=\"2\">本期完成</th>\n            <th colspan=\"2\">合計完成</th>\n        </tr>\n        <tr>\n            <th>數量</th>\n            <th>價值</th>\n            <th>數量</th>\n            <th>價值</th>\n            <th>數量</th>\n            <th>價值</th>\n            <th>數量</th>\n            <th>價值</th>\n        </tr>\n    </thead>\n    <tbody>\n        <tr v-for=\"projectWork in projectWorks\">\n            <td>{{ projectWork.name }}</td>\n            <td>{{ projectWork.unit.name }}</td>\n            <td>{{ projectWork.unit_price }}</td>\n            <td>{{ projectWork.amount }}</td>\n            <td>{{ projectWork.amount * projectWork.unit_price }}</td>\n            <td>{{ previousPassesAmount[$index] }}</td>\n            <td>{{ previousPassesAmount[$index] * projectWork.unit_price }}</td>\n            <td>{{ totalPassesAmount[$index] - previousPassesAmount[$index] }}</td>\n            <td>{{ (totalPassesAmount[$index] - previousPassesAmount[$index]) * projectWork.unit_price }}</td>\n            <td>{{ totalPassesAmount[$index] }}</td>\n            <td>{{ totalPassesAmount[$index] * projectWork.unit_price }}</td>\n        </tr>\n    </tbody>\n</table>\n";
 
 /***/ }
 ]);
