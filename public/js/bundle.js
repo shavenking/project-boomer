@@ -72,6 +72,10 @@ webpackJsonp([0],[
 
 	var _constructionDaily2 = _interopRequireDefault(_constructionDaily);
 
+	var _costEstimationSheet = __webpack_require__(279);
+
+	var _costEstimationSheet2 = _interopRequireDefault(_costEstimationSheet);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	new _vue2.default({
@@ -92,7 +96,8 @@ webpackJsonp([0],[
 	        ProjectWorkitemList: _projectWorkitemList2.default,
 	        ProjectFlowtypeWorkSelect: _projectFlowtypeWorkSelect2.default,
 	        ModalCreateProjectChecklist: _modalCreateProjectChecklist2.default,
-	        ConstructionDaily: _constructionDaily2.default
+	        ConstructionDaily: _constructionDaily2.default,
+	        CostEstimationSheet: _costEstimationSheet2.default
 	    }
 	});
 
@@ -28026,7 +28031,9 @@ webpackJsonp([0],[
 	    value: true
 	});
 	exports.getProjectWorks = getProjectWorks;
-	function getProjectWorks(projectId, queries) {
+	function getProjectWorks(projectId) {
+	    var queries = arguments.length <= 1 || arguments[1] === undefined ? [] : arguments[1];
+
 	    var queryArray = [];
 
 	    if (queries.mainflow_type_id) {
@@ -43892,6 +43899,95 @@ webpackJsonp([0],[
 /***/ function(module, exports) {
 
 	module.exports = "\n<div class=\"ui fluid buttons\" v-el:tabular-menu>\n  <a href=\"#\" class=\"ui button active\" data-tab=\"project-checklists\">當日施工項目、位置</a>\n  <a href=\"#\" class=\"ui button\" data-tab=\"daily-materials\">當日材料使用數量</a>\n  <a href=\"#\" class=\"ui button\" data-tab=\"daily-labors\">當日出工人數</a>\n  <a href=\"#\" class=\"ui button\" data-tab=\"daily-appliances\">當日機具使用情形</a>\n  <a href=\"#\" class=\"ui button\" data-tab=\"daily-records\">備註</a>\n</div>\n\n<div class=\"ui hidden divider\"></div>\n\n<div class=\"ui tab active\" data-tab=\"project-checklists\">\n    <table class=\"ui table\">\n        <thead>\n            <tr>\n                <th>施工項目</th>\n                <th>施工位置</th>\n                <th>協力廠商</th>\n                <th>查核與否</th>\n                <th>查核數量</th>\n            </tr>\n        </thead>\n        <tbody>\n            <tr v-if=\"!checklists.length\">\n                <td colspan=\"5\">\n                    <empty-message></empty-message>\n                </td>\n            </tr>\n            <tr v-for=\"checklist in checklists\">\n                <td><a href=\"/projects/{{ projectId }}/works/{{ checklist.project_work.id }}\">{{ checklist.project_work.name }}</a></td>\n                <td>{{ checklist.seat }}</td>\n                <td>{{ checklist.subcontractor.name }}</td>\n                <td>{{ checklist.passes ? '查核完畢' : '未查核完畢' }}</td>\n                <td>{{ checklist.passes_amount }}</td>\n            </tr>\n        </tbody>\n        <tfoot v-if=\"!disabled\">\n            <tr>\n                <th colspan=\"5\">\n                    <button class=\"ui right floated primary button\" @click=\"openModal('checklistModal')\">\n                        <i class=\"plus icon\"></i>新增\n                    </button>\n                </th>\n            </tr>\n        </tfoot>\n    </table>\n</div>\n<div class=\"ui tab\" data-tab=\"daily-materials\">\n    <table class=\"ui table\">\n        <thead>\n            <tr>\n                <th>材料名稱</th>\n                <th>本日使用數量</th>\n                <th>累積使用數量</th>\n            </tr>\n        </thead>\n        <tbody>\n            <tr v-if=\"!dailyMaterials.length\">\n                <td colspan=\"3\">\n                    <empty-message></empty-message>\n                </td>\n            </tr>\n            <tr v-for=\"dailyMaterial in dailyMaterials\">\n                <td>{{ dailyMaterial.name }}</td>\n                <td>{{ dailyMaterial.amount }}</td>\n                <td>{{ totalAmount[dailyMaterial.material_id] }}</td>\n            </tr>\n        </tbody>\n        <tfoot v-if=\"!disabled\">\n            <tr>\n                <th colspan=\"3\">\n                    <button class=\"ui right floated primary button\" @click=\"openModal('dailyMaterialModal')\">\n                        <i class=\"plus icon\"></i>新增\n                    </button>\n                </th>\n            </tr>\n        </tfoot>\n    </table>\n</div>\n<div class=\"ui tab\" data-tab=\"daily-labors\">\n    <table class=\"ui table\">\n        <thead>\n            <tr>\n                <th>工別</th>\n                <th>人數</th>\n                <th>累積人數</th>\n            </tr>\n        </thead>\n        <tbody>\n            <tr v-if=\"!dailyLabors.length\">\n                <td colspan=\"3\">\n                    <empty-message></empty-message>\n                </td>\n            </tr>\n            <tr v-for=\"dailyLabor in dailyLabors\">\n                <td>{{ dailyLabor.name }}</td>\n                <td>{{ dailyLabor.amount }}</td>\n                <td>{{ laborTotalAmount[dailyLabor.labor_id] }}</td>\n            </tr>\n        </tbody>\n        <tfoot v-if=\"!disabled\">\n            <tr>\n                <th colspan=\"3\">\n                    <button class=\"ui right floated primary button\" @click=\"openModal('dailyLaborModal')\">\n                        <i class=\"plus icon\"></i>新增\n                    </button>\n                </th>\n            </tr>\n        </tfoot>\n    </table>\n</div>\n<div class=\"ui tab\" data-tab=\"daily-appliances\">\n    <table class=\"ui table\">\n        <thead>\n            <tr>\n                <th>機具</th>\n                <th>數量</th>\n                <th>累積數量</th>\n            </tr>\n        </thead>\n        <tbody>\n            <tr v-if=\"!dailyAppliances.length\">\n                <td colspan=\"3\">\n                    <empty-message></empty-message>\n                </td>\n            </tr>\n            <tr v-for=\"dailyAppliance in dailyAppliances\">\n                <td>{{ dailyAppliance.name }}</td>\n                <td>{{ dailyAppliance.amount }}</td>\n                <td>{{ applianceTotalAmount[dailyAppliance.appliance_id] }}</td>\n            </tr>\n        </tbody>\n        <tfoot v-if=\"!disabled\">\n            <tr>\n                <th colspan=\"3\">\n                    <button class=\"ui right floated primary button\" @click=\"openModal('dailyApplianceModal')\">\n                        <i class=\"plus icon\"></i>新增\n                    </button>\n                </th>\n            </tr>\n        </tfoot>\n    </table>\n</div>\n<div class=\"ui tab\" data-tab=\"daily-records\">\n    <table class=\"ui table\">\n        <thead>\n            <tr>\n                <th>主辦單位、監造單位指示</th>\n                <th>重要事項紀錄</th>\n            </tr>\n        </thead>\n        <tbody>\n            <tr v-if=\"!dailyRecords\">\n                <td colspan=\"2\">\n                    <empty-message></empty-message>\n                </td>\n            </tr>\n            <tr v-if=\"dailyRecords\">\n                <td>{{ dailyRecords['inspection_record'] }}</td>\n                <td>{{ dailyRecords['important_record'] }}</td>\n            </tr>\n        </tbody>\n        <tfoot v-if=\"!disabled\">\n            <tr>\n                <th colspan=\"2\">\n                    <button class=\"ui right floated primary button\" @click=\"openModal('dailyRecordModal')\">\n                        <i class=\"plus icon\"></i>新增\n                    </button>\n                </th>\n            </tr>\n        </tfoot>\n    </table>\n</div>\n\n<modal-create-project-checklist :project-id.once=\"projectId\" :on-success.once=\"onSuccess\" v-ref:checklist-modal></modal-create-project-checklist>\n<modal-create-daily-material :project-id.once=\"projectId\" :on-success.once=\"onSuccess\" v-ref:daily-material-modal></modal-create-daily-material>\n<modal-create-daily-labor :project-id.once=\"projectId\" :on-success.once=\"onSuccess\" v-ref:daily-labor-modal></modal-create-daily-labor>\n<modal-create-daily-appliance :project-id.once=\"projectId\" :on-success.once=\"onSuccess\" v-ref:daily-appliance-modal></modal-create-daily-appliance>\n<modal-create-daily-record :project-id.once=\"projectId\" :on-success.once=\"onSuccess\" v-ref:daily-record-modal></modal-create-daily-record>\n";
+
+/***/ },
+/* 279 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var __vue_script__, __vue_template__
+	__vue_script__ = __webpack_require__(280)
+	if (__vue_script__ &&
+	    __vue_script__.__esModule &&
+	    Object.keys(__vue_script__).length > 1) {
+	  console.warn("[vue-loader] resources/assets/js/components/cost-estimation-sheet.vue: named exports in *.vue files are ignored.")}
+	__vue_template__ = __webpack_require__(281)
+	module.exports = __vue_script__ || {}
+	if (module.exports.__esModule) module.exports = module.exports.default
+	if (__vue_template__) {
+	(typeof module.exports === "function" ? (module.exports.options || (module.exports.options = {})) : module.exports).template = __vue_template__
+	}
+	if (false) {(function () {  module.hot.accept()
+	  var hotAPI = require("vue-hot-reload-api")
+	  hotAPI.install(require("vue"), true)
+	  if (!hotAPI.compatible) return
+	  var id = "/Users/shavenking/Code/project-boomer/resources/assets/js/components/cost-estimation-sheet.vue"
+	  if (!module.hot.data) {
+	    hotAPI.createRecord(id, module.exports)
+	  } else {
+	    hotAPI.update(id, module.exports, __vue_template__)
+	  }
+	})()}
+
+/***/ },
+/* 280 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+
+	var _projectWorks = __webpack_require__(133);
+
+	exports.default = {
+	    props: ['projectId', 'date'],
+
+	    data: function data() {
+	        return {
+	            projectWorks: []
+	        };
+	    },
+	    ready: function ready() {
+	        var _this = this;
+
+	        (0, _projectWorks.getProjectWorks)(this.projectId).then(function (rep) {
+	            _this.projectWorks = rep.works;
+	        });
+	    }
+	};
+	// </script>
+	// <template>
+	//     <table class="ui table">
+	//         <thead>
+	//             <tr>
+	//                 <th rowspan="2">工作項目</th>
+	//                 <th rowspan="2">單位</th>
+	//                 <th colspan="2">合約計數</th>
+	//             </tr>
+	//             <tr>
+	//                 <th>數量</th>
+	//                 <th>價值</th>
+	//             </tr>
+	//         </thead>
+	//         <tbody>
+	//             <tr v-for="projectWork in projectWorks">
+	//                 <td>{{ projectWork.name }}</td>
+	//                 <td>{{ projectWork.unit.name }}</td>
+	//                 <td>{{ projectWork.amount }}</td>
+	//                 <td>{{ projectWork.unit_price }}</td>
+	//             </tr>
+	//         </tbody>
+	//     </table>
+	// </template>
+	//
+	// <script>
+
+/***/ },
+/* 281 */
+/***/ function(module, exports) {
+
+	module.exports = "\n<table class=\"ui table\">\n    <thead>\n        <tr>\n            <th rowspan=\"2\">工作項目</th>\n            <th rowspan=\"2\">單位</th>\n            <th colspan=\"2\">合約計數</th>\n        </tr>\n        <tr>\n            <th>數量</th>\n            <th>價值</th>\n        </tr>\n    </thead>\n    <tbody>\n        <tr v-for=\"projectWork in projectWorks\">\n            <td>{{ projectWork.name }}</td>\n            <td>{{ projectWork.unit.name }}</td>\n            <td>{{ projectWork.amount }}</td>\n            <td>{{ projectWork.unit_price }}</td>\n        </tr>\n    </tbody>\n</table>\n";
 
 /***/ }
 ]);

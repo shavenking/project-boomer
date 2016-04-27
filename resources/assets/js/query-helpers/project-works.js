@@ -1,4 +1,4 @@
-export function getProjectWorks(projectId, queries) {
+export function getProjectWorks(projectId, queries = []) {
     let queryArray = []
 
     if (queries.mainflow_type_id) {

@@ -15,6 +15,7 @@ import ProjectWorkitemList from './components/project-workitem-list.vue'
 import ProjectFlowtypeWorkSelect from './components/project-flowtype-work-select.vue'
 import ModalCreateProjectChecklist from './components/modal-create-project-checklist.vue'
 import ConstructionDaily from './components/construction-daily.vue'
+import CostEstimationSheet from './components/cost-estimation-sheet.vue'
 
 new Vue({
     el: 'body',
@@ -34,6 +35,7 @@ new Vue({
         ProjectWorkitemList,
         ProjectFlowtypeWorkSelect,
         ModalCreateProjectChecklist,
-        ConstructionDaily
+        ConstructionDaily,
+        CostEstimationSheet
     }
 })
