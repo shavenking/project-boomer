@@ -27479,7 +27479,7 @@ webpackJsonp([0],[
 	//                 <td>{{ work.unit_price | currency}}</td>
 	//                 <td>
 	//                     <div class="ui input">
-	//                         <input type="text" name="work_amount" v-model="work.amount" @keyup="updateWork($index)">
+	//                         <input type="text" name="work_amount[]" v-model="work.amount" @keyup="updateWork(work)">
 	//                     </div>
 	//                 </td>
 	//                 <td>{{ work.unit_price * work.amount | currency }}</td>
@@ -27538,8 +27538,8 @@ webpackJsonp([0],[
 
 
 	    methods: {
-	        updateWork: function updateWork($index) {
-	            _updateWork(this.works[$index]);
+	        updateWork: function updateWork(work) {
+	            _updateWork(work);
 	        }
 	    },
 
@@ -27557,7 +27557,7 @@ webpackJsonp([0],[
 /* 124 */
 /***/ function(module, exports) {
 
-	module.exports = "\n<table class=\"ui table\">\n    <thead>\n        <tr>\n            <th class=\"four wide center aligned\">{{ typeOrderLabel }}</th>\n            <th>{{ nameLabel }}</th>\n            <th>{{ unitLabel }}</th>\n            <th>{{ unitPriceLabel }}</th>\n            <th>{{ amountLabel }}</th>\n            <th>{{ totalPriceLabel }}</th>\n            <th>\n            </th>\n        </tr>\n    </thead>\n    <tbody v-for=\"(detailingflowTypeId, works) in groupedWorks\">\n        <tr v-for=\"(idx, work) in works\">\n            <td :rowspan=\"works.length\" v-if=\"0 === idx\" class=\"top aligned center aligned\">\n                {{ work.detailingflow_type.mainflow_type.name }}\n                <br>\n                {{ work.detailingflow_type.name }}\n            </td>\n            <td>{{ work.name }}</td>\n            <td>{{ work.unit.name }}</td>\n            <td>{{ work.unit_price | currency}}</td>\n            <td>\n                <div class=\"ui input\">\n                    <input type=\"text\" name=\"work_amount\" v-model=\"work.amount\" @keyup=\"updateWork($index)\">\n                </div>\n            </td>\n            <td>{{ work.unit_price * work.amount | currency }}</td>\n            <td><a href=\"{{ '/projects/' + projectId + '/works/' + work.id }}\">{{ workitemsLabel }}</a></td>\n        </tr>\n    </tbody>\n    <tfoot>\n        <tr>\n            <th></th>\n            <th></th>\n            <th></th>\n            <th></th>\n            <th></th>\n            <th>{{ totalWorkPrice | currency }}</th>\n            <th></th>\n        </tr>\n    </tfoot>\n</table>\n";
+	module.exports = "\n<table class=\"ui table\">\n    <thead>\n        <tr>\n            <th class=\"four wide center aligned\">{{ typeOrderLabel }}</th>\n            <th>{{ nameLabel }}</th>\n            <th>{{ unitLabel }}</th>\n            <th>{{ unitPriceLabel }}</th>\n            <th>{{ amountLabel }}</th>\n            <th>{{ totalPriceLabel }}</th>\n            <th>\n            </th>\n        </tr>\n    </thead>\n    <tbody v-for=\"(detailingflowTypeId, works) in groupedWorks\">\n        <tr v-for=\"(idx, work) in works\">\n            <td :rowspan=\"works.length\" v-if=\"0 === idx\" class=\"top aligned center aligned\">\n                {{ work.detailingflow_type.mainflow_type.name }}\n                <br>\n                {{ work.detailingflow_type.name }}\n            </td>\n            <td>{{ work.name }}</td>\n            <td>{{ work.unit.name }}</td>\n            <td>{{ work.unit_price | currency}}</td>\n            <td>\n                <div class=\"ui input\">\n                    <input type=\"text\" name=\"work_amount[]\" v-model=\"work.amount\" @keyup=\"updateWork(work)\">\n                </div>\n            </td>\n            <td>{{ work.unit_price * work.amount | currency }}</td>\n            <td><a href=\"{{ '/projects/' + projectId + '/works/' + work.id }}\">{{ workitemsLabel }}</a></td>\n        </tr>\n    </tbody>\n    <tfoot>\n        <tr>\n            <th></th>\n            <th></th>\n            <th></th>\n            <th></th>\n            <th></th>\n            <th>{{ totalWorkPrice | currency }}</th>\n            <th></th>\n        </tr>\n    </tfoot>\n</table>\n";
 
 /***/ },
 /* 125 */

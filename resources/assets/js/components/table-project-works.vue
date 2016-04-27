@@ -24,7 +24,7 @@
                 <td>{{ work.unit_price | currency}}</td>
                 <td>
                     <div class="ui input">
-                        <input type="text" name="work_amount" v-model="work.amount" @keyup="updateWork($index)">
+                        <input type="text" name="work_amount[]" v-model="work.amount" @keyup="updateWork(work)">
                     </div>
                 </td>
                 <td>{{ work.unit_price * work.amount | currency }}</td>
@@ -100,8 +100,8 @@
         },
 
         methods: {
-            updateWork($index) {
-                updateWork(this.works[$index])
+            updateWork(work) {
+                updateWork(work)
             }
         },
 
