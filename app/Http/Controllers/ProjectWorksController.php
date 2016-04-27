@@ -32,7 +32,7 @@ class ProjectWorksController extends Controller
             $detailingflowTypeName = \App\Entities\DetailingflowType::findOrFail($detailingflowTypeId)->name;
         }
 
-        $works = $query->with('detailingflowType.mainflowType', 'unit')->get();
+        $works = $query->whereProjectId($project->id)->with('detailingflowType.mainflowType', 'unit')->get();
 
         return response()->json(compact('works'));
     }
