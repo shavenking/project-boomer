@@ -13,6 +13,11 @@
         <input type="text" name="seat">
     </div>
 
+    <h4 class="ui dividing header">選擇協力廠商</h4>
+    <div class="field">
+        <subcontractor-select></subcontractor-select>
+    </div>
+
     {{ csrf_field() }}
     <button class="ui primary button" type="submit">{{ trans('all.create') }}</button>
 </form>
