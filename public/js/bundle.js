@@ -24,49 +24,57 @@ webpackJsonp([0],[
 
 	var _workflowSelect2 = _interopRequireDefault(_workflowSelect);
 
-	var _workflowNodes = __webpack_require__(18);
+	var _subcontractorSelect = __webpack_require__(18);
+
+	var _subcontractorSelect2 = _interopRequireDefault(_subcontractorSelect);
+
+	var _workflowNodes = __webpack_require__(22);
 
 	var _workflowNodes2 = _interopRequireDefault(_workflowNodes);
 
-	var _workitemList = __webpack_require__(83);
+	var _workitemList = __webpack_require__(87);
 
 	var _workitemList2 = _interopRequireDefault(_workitemList);
 
-	var _checklist = __webpack_require__(112);
+	var _checklist = __webpack_require__(116);
 
 	var _checklist2 = _interopRequireDefault(_checklist);
 
-	var _flowtypeWorkSelect = __webpack_require__(115);
+	var _flowtypeWorkSelect = __webpack_require__(119);
 
 	var _flowtypeWorkSelect2 = _interopRequireDefault(_flowtypeWorkSelect);
 
-	var _tableProjectWorks = __webpack_require__(118);
+	var _tableProjectWorks = __webpack_require__(122);
 
 	var _tableProjectWorks2 = _interopRequireDefault(_tableProjectWorks);
 
-	var _tableWorkitems = __webpack_require__(106);
+	var _tableWorkitems = __webpack_require__(110);
 
 	var _tableWorkitems2 = _interopRequireDefault(_tableWorkitems);
 
-	var _statisticsWorkitems = __webpack_require__(121);
+	var _statisticsWorkitems = __webpack_require__(125);
 
 	var _statisticsWorkitems2 = _interopRequireDefault(_statisticsWorkitems);
 
-	var _projectWorkitemList = __webpack_require__(124);
+	var _projectWorkitemList = __webpack_require__(128);
 
 	var _projectWorkitemList2 = _interopRequireDefault(_projectWorkitemList);
 
-	var _projectFlowtypeWorkSelect = __webpack_require__(127);
+	var _projectFlowtypeWorkSelect = __webpack_require__(131);
 
 	var _projectFlowtypeWorkSelect2 = _interopRequireDefault(_projectFlowtypeWorkSelect);
 
-	var _modalCreateProjectChecklist = __webpack_require__(131);
+	var _modalCreateProjectChecklist = __webpack_require__(135);
 
 	var _modalCreateProjectChecklist2 = _interopRequireDefault(_modalCreateProjectChecklist);
 
 	var _constructionDaily = __webpack_require__(139);
 
 	var _constructionDaily2 = _interopRequireDefault(_constructionDaily);
+
+	var _costEstimationSheet = __webpack_require__(279);
+
+	var _costEstimationSheet2 = _interopRequireDefault(_costEstimationSheet);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -78,6 +86,7 @@ webpackJsonp([0],[
 	        FlowtypeSelect: _flowtypeSelect2.default,
 	        UnitSelect: _unitSelect2.default,
 	        WorkflowSelect: _workflowSelect2.default,
+	        SubcontractorSelect: _subcontractorSelect2.default,
 	        WorkitemList: _workitemList2.default,
 	        Checklist: _checklist2.default,
 	        FlowtypeWorkSelect: _flowtypeWorkSelect2.default,
@@ -87,7 +96,8 @@ webpackJsonp([0],[
 	        ProjectWorkitemList: _projectWorkitemList2.default,
 	        ProjectFlowtypeWorkSelect: _projectFlowtypeWorkSelect2.default,
 	        ModalCreateProjectChecklist: _modalCreateProjectChecklist2.default,
-	        ConstructionDaily: _constructionDaily2.default
+	        ConstructionDaily: _constructionDaily2.default,
+	        CostEstimationSheet: _costEstimationSheet2.default
 	    }
 	});
 
@@ -10670,8 +10680,120 @@ webpackJsonp([0],[
 	if (__vue_script__ &&
 	    __vue_script__.__esModule &&
 	    Object.keys(__vue_script__).length > 1) {
+	  console.warn("[vue-loader] resources/assets/js/components/subcontractor-select.vue: named exports in *.vue files are ignored.")}
+	__vue_template__ = __webpack_require__(21)
+	module.exports = __vue_script__ || {}
+	if (module.exports.__esModule) module.exports = module.exports.default
+	if (__vue_template__) {
+	(typeof module.exports === "function" ? (module.exports.options || (module.exports.options = {})) : module.exports).template = __vue_template__
+	}
+	if (false) {(function () {  module.hot.accept()
+	  var hotAPI = require("vue-hot-reload-api")
+	  hotAPI.install(require("vue"), true)
+	  if (!hotAPI.compatible) return
+	  var id = "/Users/shavenking/Code/project-boomer/resources/assets/js/components/subcontractor-select.vue"
+	  if (!module.hot.data) {
+	    hotAPI.createRecord(id, module.exports)
+	  } else {
+	    hotAPI.update(id, module.exports, __vue_template__)
+	  }
+	})()}
+
+/***/ },
+/* 19 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+
+	var _dropdownSelect = __webpack_require__(5);
+
+	var _dropdownSelect2 = _interopRequireDefault(_dropdownSelect);
+
+	var _subcontractors = __webpack_require__(20);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	// <template>
+	//     <dropdown-select
+	//         input-name="subcontractor_id"
+	//         :options="subcontractors"
+	//         option-value-name="id"
+	//         option-text-name="name"
+	//         v-ref:dropdown
+	//     ></dropdown-select>
+	// </template>
+	//
+	// <script>
+	exports.default = {
+	    props: ['default'],
+
+	    components: { DropdownSelect: _dropdownSelect2.default },
+
+	    methods: {
+	        select: function select(value) {
+	            this.$refs.dropdown.select(value);
+	        },
+	        clear: function clear() {
+	            this.$refs.dropdown.clear();
+	        }
+	    },
+
+	    data: function data() {
+	        return {
+	            subcontractors: []
+	        };
+	    },
+	    ready: function ready() {
+	        var _this = this;
+
+	        (0, _subcontractors.get)().then(function (response) {
+	            _this.subcontractors = response.subcontractors;
+
+	            _this.$nextTick(function () {
+	                if (_this.default) {
+	                    _this.select(_this.default);
+	                }
+	            });
+	        });
+	    }
+	};
+	// </script>
+
+/***/ },
+/* 20 */
+/***/ function(module, exports) {
+
+	"use strict";
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	exports.get = get;
+	function get() {
+	    return window.$.getJSON("/api/v1/subcontractors");
+	}
+
+/***/ },
+/* 21 */
+/***/ function(module, exports) {
+
+	module.exports = "\n<dropdown-select\n    input-name=\"subcontractor_id\"\n    :options=\"subcontractors\"\n    option-value-name=\"id\"\n    option-text-name=\"name\"\n    v-ref:dropdown\n></dropdown-select>\n";
+
+/***/ },
+/* 22 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var __vue_script__, __vue_template__
+	__vue_script__ = __webpack_require__(23)
+	if (__vue_script__ &&
+	    __vue_script__.__esModule &&
+	    Object.keys(__vue_script__).length > 1) {
 	  console.warn("[vue-loader] resources/assets/js/components/workflow-nodes.vue: named exports in *.vue files are ignored.")}
-	__vue_template__ = __webpack_require__(82)
+	__vue_template__ = __webpack_require__(86)
 	module.exports = __vue_script__ || {}
 	if (module.exports.__esModule) module.exports = module.exports.default
 	if (__vue_template__) {
@@ -10690,7 +10812,7 @@ webpackJsonp([0],[
 	})()}
 
 /***/ },
-/* 19 */
+/* 23 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -10699,11 +10821,11 @@ webpackJsonp([0],[
 	    value: true
 	});
 
-	var _orderTitleInput = __webpack_require__(20);
+	var _orderTitleInput = __webpack_require__(24);
 
 	var _orderTitleInput2 = _interopRequireDefault(_orderTitleInput);
 
-	var _workflowNodeList = __webpack_require__(23);
+	var _workflowNodeList = __webpack_require__(27);
 
 	var _workflowNodeList2 = _interopRequireDefault(_workflowNodeList);
 
@@ -10806,16 +10928,16 @@ webpackJsonp([0],[
 	// </script>
 
 /***/ },
-/* 20 */
+/* 24 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __vue_script__, __vue_template__
-	__vue_script__ = __webpack_require__(21)
+	__vue_script__ = __webpack_require__(25)
 	if (__vue_script__ &&
 	    __vue_script__.__esModule &&
 	    Object.keys(__vue_script__).length > 1) {
 	  console.warn("[vue-loader] resources/assets/js/components/order-title-input.vue: named exports in *.vue files are ignored.")}
-	__vue_template__ = __webpack_require__(22)
+	__vue_template__ = __webpack_require__(26)
 	module.exports = __vue_script__ || {}
 	if (module.exports.__esModule) module.exports = module.exports.default
 	if (__vue_template__) {
@@ -10834,7 +10956,7 @@ webpackJsonp([0],[
 	})()}
 
 /***/ },
-/* 21 */
+/* 25 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -10902,23 +11024,23 @@ webpackJsonp([0],[
 	// </script>
 
 /***/ },
-/* 22 */
+/* 26 */
 /***/ function(module, exports) {
 
 	module.exports = "\n<input type=\"text\" v-model=\"orderTitle\" v-on:keypress.enter=\"onKeypress\">\n";
 
 /***/ },
-/* 23 */
+/* 27 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __vue_script__, __vue_template__
-	__webpack_require__(24)
-	__vue_script__ = __webpack_require__(28)
+	__webpack_require__(28)
+	__vue_script__ = __webpack_require__(32)
 	if (__vue_script__ &&
 	    __vue_script__.__esModule &&
 	    Object.keys(__vue_script__).length > 1) {
 	  console.warn("[vue-loader] resources/assets/js/components/workflow-node-list.vue: named exports in *.vue files are ignored.")}
-	__vue_template__ = __webpack_require__(81)
+	__vue_template__ = __webpack_require__(85)
 	module.exports = __vue_script__ || {}
 	if (module.exports.__esModule) module.exports = module.exports.default
 	if (__vue_template__) {
@@ -10937,16 +11059,16 @@ webpackJsonp([0],[
 	})()}
 
 /***/ },
-/* 24 */
+/* 28 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(25);
+	var content = __webpack_require__(29);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
-	var update = __webpack_require__(27)(content, {});
+	var update = __webpack_require__(31)(content, {});
 	if(content.locals) module.exports = content.locals;
 	// Hot Module Replacement
 	if(false) {
@@ -10963,10 +11085,10 @@ webpackJsonp([0],[
 	}
 
 /***/ },
-/* 25 */
+/* 29 */
 /***/ function(module, exports, __webpack_require__) {
 
-	exports = module.exports = __webpack_require__(26)();
+	exports = module.exports = __webpack_require__(30)();
 	// imports
 
 
@@ -10977,7 +11099,7 @@ webpackJsonp([0],[
 
 
 /***/ },
-/* 26 */
+/* 30 */
 /***/ function(module, exports) {
 
 	/*
@@ -11033,7 +11155,7 @@ webpackJsonp([0],[
 
 
 /***/ },
-/* 27 */
+/* 31 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/*
@@ -11255,7 +11377,7 @@ webpackJsonp([0],[
 
 
 /***/ },
-/* 28 */
+/* 32 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -11264,15 +11386,15 @@ webpackJsonp([0],[
 	    value: true
 	});
 
-	var _sortBy = __webpack_require__(29);
+	var _sortBy = __webpack_require__(33);
 
 	var _sortBy2 = _interopRequireDefault(_sortBy);
 
-	var _last = __webpack_require__(63);
+	var _last = __webpack_require__(67);
 
 	var _last2 = _interopRequireDefault(_last);
 
-	var _take = __webpack_require__(80);
+	var _take = __webpack_require__(84);
 
 	var _take2 = _interopRequireDefault(_take);
 
@@ -11334,14 +11456,14 @@ webpackJsonp([0],[
 	// <script>
 
 /***/ },
-/* 29 */
+/* 33 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var baseCallback = __webpack_require__(30),
-	    baseMap = __webpack_require__(70),
-	    baseSortBy = __webpack_require__(76),
-	    compareAscending = __webpack_require__(77),
-	    isIterateeCall = __webpack_require__(79);
+	var baseCallback = __webpack_require__(34),
+	    baseMap = __webpack_require__(74),
+	    baseSortBy = __webpack_require__(80),
+	    compareAscending = __webpack_require__(81),
+	    isIterateeCall = __webpack_require__(83);
 
 	/**
 	 * Creates an array of elements, sorted in ascending order by the results of
@@ -11411,14 +11533,14 @@ webpackJsonp([0],[
 
 
 /***/ },
-/* 30 */
+/* 34 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var baseMatches = __webpack_require__(31),
-	    baseMatchesProperty = __webpack_require__(59),
-	    bindCallback = __webpack_require__(66),
-	    identity = __webpack_require__(67),
-	    property = __webpack_require__(68);
+	var baseMatches = __webpack_require__(35),
+	    baseMatchesProperty = __webpack_require__(63),
+	    bindCallback = __webpack_require__(70),
+	    identity = __webpack_require__(71),
+	    property = __webpack_require__(72);
 
 	/**
 	 * The base implementation of `_.callback` which supports specifying the
@@ -11452,12 +11574,12 @@ webpackJsonp([0],[
 
 
 /***/ },
-/* 31 */
+/* 35 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var baseIsMatch = __webpack_require__(32),
-	    getMatchData = __webpack_require__(56),
-	    toObject = __webpack_require__(55);
+	var baseIsMatch = __webpack_require__(36),
+	    getMatchData = __webpack_require__(60),
+	    toObject = __webpack_require__(59);
 
 	/**
 	 * The base implementation of `_.matches` which does not clone `source`.
@@ -11488,11 +11610,11 @@ webpackJsonp([0],[
 
 
 /***/ },
-/* 32 */
+/* 36 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var baseIsEqual = __webpack_require__(33),
-	    toObject = __webpack_require__(55);
+	var baseIsEqual = __webpack_require__(37),
+	    toObject = __webpack_require__(59);
 
 	/**
 	 * The base implementation of `_.isMatch` without support for callback
@@ -11546,12 +11668,12 @@ webpackJsonp([0],[
 
 
 /***/ },
-/* 33 */
+/* 37 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var baseIsEqualDeep = __webpack_require__(34),
-	    isObject = __webpack_require__(43),
-	    isObjectLike = __webpack_require__(44);
+	var baseIsEqualDeep = __webpack_require__(38),
+	    isObject = __webpack_require__(47),
+	    isObjectLike = __webpack_require__(48);
 
 	/**
 	 * The base implementation of `_.isEqual` without support for `this` binding
@@ -11580,14 +11702,14 @@ webpackJsonp([0],[
 
 
 /***/ },
-/* 34 */
+/* 38 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var equalArrays = __webpack_require__(35),
-	    equalByTag = __webpack_require__(37),
-	    equalObjects = __webpack_require__(38),
-	    isArray = __webpack_require__(51),
-	    isTypedArray = __webpack_require__(54);
+	var equalArrays = __webpack_require__(39),
+	    equalByTag = __webpack_require__(41),
+	    equalObjects = __webpack_require__(42),
+	    isArray = __webpack_require__(55),
+	    isTypedArray = __webpack_require__(58);
 
 	/** `Object#toString` result references. */
 	var argsTag = '[object Arguments]',
@@ -11688,10 +11810,10 @@ webpackJsonp([0],[
 
 
 /***/ },
-/* 35 */
+/* 39 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var arraySome = __webpack_require__(36);
+	var arraySome = __webpack_require__(40);
 
 	/**
 	 * A specialized version of `baseIsEqualDeep` for arrays with support for
@@ -11745,7 +11867,7 @@ webpackJsonp([0],[
 
 
 /***/ },
-/* 36 */
+/* 40 */
 /***/ function(module, exports) {
 
 	/**
@@ -11774,7 +11896,7 @@ webpackJsonp([0],[
 
 
 /***/ },
-/* 37 */
+/* 41 */
 /***/ function(module, exports) {
 
 	/** `Object#toString` result references. */
@@ -11828,10 +11950,10 @@ webpackJsonp([0],[
 
 
 /***/ },
-/* 38 */
+/* 42 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var keys = __webpack_require__(39);
+	var keys = __webpack_require__(43);
 
 	/** Used for native method references. */
 	var objectProto = Object.prototype;
@@ -11901,13 +12023,13 @@ webpackJsonp([0],[
 
 
 /***/ },
-/* 39 */
+/* 43 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var getNative = __webpack_require__(40),
-	    isArrayLike = __webpack_require__(45),
-	    isObject = __webpack_require__(43),
-	    shimKeys = __webpack_require__(49);
+	var getNative = __webpack_require__(44),
+	    isArrayLike = __webpack_require__(49),
+	    isObject = __webpack_require__(47),
+	    shimKeys = __webpack_require__(53);
 
 	/* Native method references for those with the same name as other `lodash` methods. */
 	var nativeKeys = getNative(Object, 'keys');
@@ -11952,10 +12074,10 @@ webpackJsonp([0],[
 
 
 /***/ },
-/* 40 */
+/* 44 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var isNative = __webpack_require__(41);
+	var isNative = __webpack_require__(45);
 
 	/**
 	 * Gets the native function at `key` of `object`.
@@ -11974,11 +12096,11 @@ webpackJsonp([0],[
 
 
 /***/ },
-/* 41 */
+/* 45 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var isFunction = __webpack_require__(42),
-	    isObjectLike = __webpack_require__(44);
+	var isFunction = __webpack_require__(46),
+	    isObjectLike = __webpack_require__(48);
 
 	/** Used to detect host constructors (Safari > 5). */
 	var reIsHostCtor = /^\[object .+?Constructor\]$/;
@@ -12028,10 +12150,10 @@ webpackJsonp([0],[
 
 
 /***/ },
-/* 42 */
+/* 46 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var isObject = __webpack_require__(43);
+	var isObject = __webpack_require__(47);
 
 	/** `Object#toString` result references. */
 	var funcTag = '[object Function]';
@@ -12072,7 +12194,7 @@ webpackJsonp([0],[
 
 
 /***/ },
-/* 43 */
+/* 47 */
 /***/ function(module, exports) {
 
 	/**
@@ -12106,7 +12228,7 @@ webpackJsonp([0],[
 
 
 /***/ },
-/* 44 */
+/* 48 */
 /***/ function(module, exports) {
 
 	/**
@@ -12124,11 +12246,11 @@ webpackJsonp([0],[
 
 
 /***/ },
-/* 45 */
+/* 49 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var getLength = __webpack_require__(46),
-	    isLength = __webpack_require__(48);
+	var getLength = __webpack_require__(50),
+	    isLength = __webpack_require__(52);
 
 	/**
 	 * Checks if `value` is array-like.
@@ -12145,10 +12267,10 @@ webpackJsonp([0],[
 
 
 /***/ },
-/* 46 */
+/* 50 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var baseProperty = __webpack_require__(47);
+	var baseProperty = __webpack_require__(51);
 
 	/**
 	 * Gets the "length" property value of `object`.
@@ -12166,7 +12288,7 @@ webpackJsonp([0],[
 
 
 /***/ },
-/* 47 */
+/* 51 */
 /***/ function(module, exports) {
 
 	/**
@@ -12186,7 +12308,7 @@ webpackJsonp([0],[
 
 
 /***/ },
-/* 48 */
+/* 52 */
 /***/ function(module, exports) {
 
 	/**
@@ -12212,14 +12334,14 @@ webpackJsonp([0],[
 
 
 /***/ },
-/* 49 */
+/* 53 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var isArguments = __webpack_require__(50),
-	    isArray = __webpack_require__(51),
-	    isIndex = __webpack_require__(52),
-	    isLength = __webpack_require__(48),
-	    keysIn = __webpack_require__(53);
+	var isArguments = __webpack_require__(54),
+	    isArray = __webpack_require__(55),
+	    isIndex = __webpack_require__(56),
+	    isLength = __webpack_require__(52),
+	    keysIn = __webpack_require__(57);
 
 	/** Used for native method references. */
 	var objectProto = Object.prototype;
@@ -12259,11 +12381,11 @@ webpackJsonp([0],[
 
 
 /***/ },
-/* 50 */
+/* 54 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var isArrayLike = __webpack_require__(45),
-	    isObjectLike = __webpack_require__(44);
+	var isArrayLike = __webpack_require__(49),
+	    isObjectLike = __webpack_require__(48);
 
 	/** Used for native method references. */
 	var objectProto = Object.prototype;
@@ -12299,12 +12421,12 @@ webpackJsonp([0],[
 
 
 /***/ },
-/* 51 */
+/* 55 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var getNative = __webpack_require__(40),
-	    isLength = __webpack_require__(48),
-	    isObjectLike = __webpack_require__(44);
+	var getNative = __webpack_require__(44),
+	    isLength = __webpack_require__(52),
+	    isObjectLike = __webpack_require__(48);
 
 	/** `Object#toString` result references. */
 	var arrayTag = '[object Array]';
@@ -12345,7 +12467,7 @@ webpackJsonp([0],[
 
 
 /***/ },
-/* 52 */
+/* 56 */
 /***/ function(module, exports) {
 
 	/** Used to detect unsigned integer values. */
@@ -12375,14 +12497,14 @@ webpackJsonp([0],[
 
 
 /***/ },
-/* 53 */
+/* 57 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var isArguments = __webpack_require__(50),
-	    isArray = __webpack_require__(51),
-	    isIndex = __webpack_require__(52),
-	    isLength = __webpack_require__(48),
-	    isObject = __webpack_require__(43);
+	var isArguments = __webpack_require__(54),
+	    isArray = __webpack_require__(55),
+	    isIndex = __webpack_require__(56),
+	    isLength = __webpack_require__(52),
+	    isObject = __webpack_require__(47);
 
 	/** Used for native method references. */
 	var objectProto = Object.prototype;
@@ -12445,11 +12567,11 @@ webpackJsonp([0],[
 
 
 /***/ },
-/* 54 */
+/* 58 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var isLength = __webpack_require__(48),
-	    isObjectLike = __webpack_require__(44);
+	var isLength = __webpack_require__(52),
+	    isObjectLike = __webpack_require__(48);
 
 	/** `Object#toString` result references. */
 	var argsTag = '[object Arguments]',
@@ -12525,10 +12647,10 @@ webpackJsonp([0],[
 
 
 /***/ },
-/* 55 */
+/* 59 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var isObject = __webpack_require__(43);
+	var isObject = __webpack_require__(47);
 
 	/**
 	 * Converts `value` to an object if it's not one.
@@ -12545,11 +12667,11 @@ webpackJsonp([0],[
 
 
 /***/ },
-/* 56 */
+/* 60 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var isStrictComparable = __webpack_require__(57),
-	    pairs = __webpack_require__(58);
+	var isStrictComparable = __webpack_require__(61),
+	    pairs = __webpack_require__(62);
 
 	/**
 	 * Gets the propery names, values, and compare flags of `object`.
@@ -12572,10 +12694,10 @@ webpackJsonp([0],[
 
 
 /***/ },
-/* 57 */
+/* 61 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var isObject = __webpack_require__(43);
+	var isObject = __webpack_require__(47);
 
 	/**
 	 * Checks if `value` is suitable for strict equality comparisons, i.e. `===`.
@@ -12593,11 +12715,11 @@ webpackJsonp([0],[
 
 
 /***/ },
-/* 58 */
+/* 62 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var keys = __webpack_require__(39),
-	    toObject = __webpack_require__(55);
+	var keys = __webpack_require__(43),
+	    toObject = __webpack_require__(59);
 
 	/**
 	 * Creates a two dimensional array of the key-value pairs for `object`,
@@ -12632,18 +12754,18 @@ webpackJsonp([0],[
 
 
 /***/ },
-/* 59 */
+/* 63 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var baseGet = __webpack_require__(60),
-	    baseIsEqual = __webpack_require__(33),
-	    baseSlice = __webpack_require__(61),
-	    isArray = __webpack_require__(51),
-	    isKey = __webpack_require__(62),
-	    isStrictComparable = __webpack_require__(57),
-	    last = __webpack_require__(63),
-	    toObject = __webpack_require__(55),
-	    toPath = __webpack_require__(64);
+	var baseGet = __webpack_require__(64),
+	    baseIsEqual = __webpack_require__(37),
+	    baseSlice = __webpack_require__(65),
+	    isArray = __webpack_require__(55),
+	    isKey = __webpack_require__(66),
+	    isStrictComparable = __webpack_require__(61),
+	    last = __webpack_require__(67),
+	    toObject = __webpack_require__(59),
+	    toPath = __webpack_require__(68);
 
 	/**
 	 * The base implementation of `_.matchesProperty` which does not clone `srcValue`.
@@ -12683,10 +12805,10 @@ webpackJsonp([0],[
 
 
 /***/ },
-/* 60 */
+/* 64 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var toObject = __webpack_require__(55);
+	var toObject = __webpack_require__(59);
 
 	/**
 	 * The base implementation of `get` without support for string paths
@@ -12718,7 +12840,7 @@ webpackJsonp([0],[
 
 
 /***/ },
-/* 61 */
+/* 65 */
 /***/ function(module, exports) {
 
 	/**
@@ -12756,11 +12878,11 @@ webpackJsonp([0],[
 
 
 /***/ },
-/* 62 */
+/* 66 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var isArray = __webpack_require__(51),
-	    toObject = __webpack_require__(55);
+	var isArray = __webpack_require__(55),
+	    toObject = __webpack_require__(59);
 
 	/** Used to match property names within property paths. */
 	var reIsDeepProp = /\.|\[(?:[^[\]]*|(["'])(?:(?!\1)[^\n\\]|\\.)*?\1)\]/,
@@ -12790,7 +12912,7 @@ webpackJsonp([0],[
 
 
 /***/ },
-/* 63 */
+/* 67 */
 /***/ function(module, exports) {
 
 	/**
@@ -12815,11 +12937,11 @@ webpackJsonp([0],[
 
 
 /***/ },
-/* 64 */
+/* 68 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var baseToString = __webpack_require__(65),
-	    isArray = __webpack_require__(51);
+	var baseToString = __webpack_require__(69),
+	    isArray = __webpack_require__(55);
 
 	/** Used to match property names within property paths. */
 	var rePropName = /[^.[\]]+|\[(?:(-?\d+(?:\.\d+)?)|(["'])((?:(?!\2)[^\n\\]|\\.)*?)\2)\]/g;
@@ -12849,7 +12971,7 @@ webpackJsonp([0],[
 
 
 /***/ },
-/* 65 */
+/* 69 */
 /***/ function(module, exports) {
 
 	/**
@@ -12868,10 +12990,10 @@ webpackJsonp([0],[
 
 
 /***/ },
-/* 66 */
+/* 70 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var identity = __webpack_require__(67);
+	var identity = __webpack_require__(71);
 
 	/**
 	 * A specialized version of `baseCallback` which only supports `this` binding
@@ -12913,7 +13035,7 @@ webpackJsonp([0],[
 
 
 /***/ },
-/* 67 */
+/* 71 */
 /***/ function(module, exports) {
 
 	/**
@@ -12939,12 +13061,12 @@ webpackJsonp([0],[
 
 
 /***/ },
-/* 68 */
+/* 72 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var baseProperty = __webpack_require__(47),
-	    basePropertyDeep = __webpack_require__(69),
-	    isKey = __webpack_require__(62);
+	var baseProperty = __webpack_require__(51),
+	    basePropertyDeep = __webpack_require__(73),
+	    isKey = __webpack_require__(66);
 
 	/**
 	 * Creates a function that returns the property value at `path` on a
@@ -12976,11 +13098,11 @@ webpackJsonp([0],[
 
 
 /***/ },
-/* 69 */
+/* 73 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var baseGet = __webpack_require__(60),
-	    toPath = __webpack_require__(64);
+	var baseGet = __webpack_require__(64),
+	    toPath = __webpack_require__(68);
 
 	/**
 	 * A specialized version of `baseProperty` which supports deep paths.
@@ -13001,11 +13123,11 @@ webpackJsonp([0],[
 
 
 /***/ },
-/* 70 */
+/* 74 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var baseEach = __webpack_require__(71),
-	    isArrayLike = __webpack_require__(45);
+	var baseEach = __webpack_require__(75),
+	    isArrayLike = __webpack_require__(49);
 
 	/**
 	 * The base implementation of `_.map` without support for callback shorthands
@@ -13030,11 +13152,11 @@ webpackJsonp([0],[
 
 
 /***/ },
-/* 71 */
+/* 75 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var baseForOwn = __webpack_require__(72),
-	    createBaseEach = __webpack_require__(75);
+	var baseForOwn = __webpack_require__(76),
+	    createBaseEach = __webpack_require__(79);
 
 	/**
 	 * The base implementation of `_.forEach` without support for callback
@@ -13051,11 +13173,11 @@ webpackJsonp([0],[
 
 
 /***/ },
-/* 72 */
+/* 76 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var baseFor = __webpack_require__(73),
-	    keys = __webpack_require__(39);
+	var baseFor = __webpack_require__(77),
+	    keys = __webpack_require__(43);
 
 	/**
 	 * The base implementation of `_.forOwn` without support for callback
@@ -13074,10 +13196,10 @@ webpackJsonp([0],[
 
 
 /***/ },
-/* 73 */
+/* 77 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var createBaseFor = __webpack_require__(74);
+	var createBaseFor = __webpack_require__(78);
 
 	/**
 	 * The base implementation of `baseForIn` and `baseForOwn` which iterates
@@ -13097,10 +13219,10 @@ webpackJsonp([0],[
 
 
 /***/ },
-/* 74 */
+/* 78 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var toObject = __webpack_require__(55);
+	var toObject = __webpack_require__(59);
 
 	/**
 	 * Creates a base function for `_.forIn` or `_.forInRight`.
@@ -13130,12 +13252,12 @@ webpackJsonp([0],[
 
 
 /***/ },
-/* 75 */
+/* 79 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var getLength = __webpack_require__(46),
-	    isLength = __webpack_require__(48),
-	    toObject = __webpack_require__(55);
+	var getLength = __webpack_require__(50),
+	    isLength = __webpack_require__(52),
+	    toObject = __webpack_require__(59);
 
 	/**
 	 * Creates a `baseEach` or `baseEachRight` function.
@@ -13167,7 +13289,7 @@ webpackJsonp([0],[
 
 
 /***/ },
-/* 76 */
+/* 80 */
 /***/ function(module, exports) {
 
 	/**
@@ -13194,10 +13316,10 @@ webpackJsonp([0],[
 
 
 /***/ },
-/* 77 */
+/* 81 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var baseCompareAscending = __webpack_require__(78);
+	var baseCompareAscending = __webpack_require__(82);
 
 	/**
 	 * Used by `_.sortBy` to compare transformed elements of a collection and stable
@@ -13216,7 +13338,7 @@ webpackJsonp([0],[
 
 
 /***/ },
-/* 78 */
+/* 82 */
 /***/ function(module, exports) {
 
 	/**
@@ -13256,12 +13378,12 @@ webpackJsonp([0],[
 
 
 /***/ },
-/* 79 */
+/* 83 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var isArrayLike = __webpack_require__(45),
-	    isIndex = __webpack_require__(52),
-	    isObject = __webpack_require__(43);
+	var isArrayLike = __webpack_require__(49),
+	    isIndex = __webpack_require__(56),
+	    isObject = __webpack_require__(47);
 
 	/**
 	 * Checks if the provided arguments are from an iteratee call.
@@ -13290,11 +13412,11 @@ webpackJsonp([0],[
 
 
 /***/ },
-/* 80 */
+/* 84 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var baseSlice = __webpack_require__(61),
-	    isIterateeCall = __webpack_require__(79);
+	var baseSlice = __webpack_require__(65),
+	    isIterateeCall = __webpack_require__(83);
 
 	/**
 	 * Creates a slice of `array` with `n` elements taken from the beginning.
@@ -13335,28 +13457,28 @@ webpackJsonp([0],[
 
 
 /***/ },
-/* 81 */
+/* 85 */
 /***/ function(module, exports) {
 
 	module.exports = "\n<div class=\"ui items\">\n    <div class=\"item\" v-for=\"node in nodesExceptLast\">\n        <div class=\"middle aligned content\">\n            <div class=\"header\">\n                {{ node.order }}.&nbsp;{{ node.title }}\n                <i class=\"red trash link icon\" @click=\"deleteNode(node)\"></i>\n            </div>\n            <div class=\"vue-divider\">\n                <i class=\"large grey long arrow down icon\"></i>\n            </div>\n        </div>\n    </div>\n    <div class=\"item\" v-if=\"lastNode\">\n        <div class=\"middle aligned content\">\n            <div class=\"header\">\n                {{ lastNode.order }}.&nbsp;{{ lastNode.title }}\n                <i class=\"red trash link icon\" @click=\"deleteNode(lastNode)\"></i>\n            </div>\n        </div>\n    </div>\n</div>\n";
 
 /***/ },
-/* 82 */
+/* 86 */
 /***/ function(module, exports) {
 
 	module.exports = "\n<div class=\"ui grid\">\n    <div class=\"nine wide center aligned column\">\n        <workflow-node-list :nodes.sync=\"nodes\"></workflow-node-list>\n    </div>\n\n    <div class=\"seven wide column\">\n        <div class=\"ui sticky form\" id=\"vue-order-title-input-{{ _uid }}\">\n            <div class=\"field\">\n                <label>{{ labelText }}</label>\n                <order-title-input v-on:valid=\"onValid\" v-on:invalid=\"onInvalid\"></order-title-input>\n            </div>\n            <a href=\"{{ '/workflows/' + workflowId + '/works' }}\" class=\"ui primary button\"><i class=\"plus icon\"></i>設定工作項目</a>\n            <a href=\"{{ '/workflows/' + workflowId + '/checklist' }}\" class=\"ui primary button\"><i class=\"plus icon\"></i>設定自主檢查表</a>\n        </div>\n    </div>\n</div>\n";
 
 /***/ },
-/* 83 */
+/* 87 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __vue_script__, __vue_template__
-	__vue_script__ = __webpack_require__(84)
+	__vue_script__ = __webpack_require__(88)
 	if (__vue_script__ &&
 	    __vue_script__.__esModule &&
 	    Object.keys(__vue_script__).length > 1) {
 	  console.warn("[vue-loader] resources/assets/js/components/workitem-list.vue: named exports in *.vue files are ignored.")}
-	__vue_template__ = __webpack_require__(111)
+	__vue_template__ = __webpack_require__(115)
 	module.exports = __vue_script__ || {}
 	if (module.exports.__esModule) module.exports = module.exports.default
 	if (__vue_template__) {
@@ -13375,7 +13497,7 @@ webpackJsonp([0],[
 	})()}
 
 /***/ },
-/* 84 */
+/* 88 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -13384,23 +13506,23 @@ webpackJsonp([0],[
 	    value: true
 	});
 
-	var _workitemForm = __webpack_require__(85);
+	var _workitemForm = __webpack_require__(89);
 
 	var _workitemForm2 = _interopRequireDefault(_workitemForm);
 
-	var _tableWorkitems = __webpack_require__(106);
+	var _tableWorkitems = __webpack_require__(110);
 
 	var _tableWorkitems2 = _interopRequireDefault(_tableWorkitems);
 
-	var _zipObject = __webpack_require__(90);
+	var _zipObject = __webpack_require__(94);
 
 	var _zipObject2 = _interopRequireDefault(_zipObject);
 
-	var _pluck = __webpack_require__(87);
+	var _pluck = __webpack_require__(91);
 
 	var _pluck2 = _interopRequireDefault(_pluck);
 
-	var _merge = __webpack_require__(91);
+	var _merge = __webpack_require__(95);
 
 	var _merge2 = _interopRequireDefault(_merge);
 
@@ -13564,16 +13686,16 @@ webpackJsonp([0],[
 	// </script>
 
 /***/ },
-/* 85 */
+/* 89 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __vue_script__, __vue_template__
-	__vue_script__ = __webpack_require__(86)
+	__vue_script__ = __webpack_require__(90)
 	if (__vue_script__ &&
 	    __vue_script__.__esModule &&
 	    Object.keys(__vue_script__).length > 1) {
 	  console.warn("[vue-loader] resources/assets/js/components/workitem-form.vue: named exports in *.vue files are ignored.")}
-	__vue_template__ = __webpack_require__(105)
+	__vue_template__ = __webpack_require__(109)
 	module.exports = __vue_script__ || {}
 	if (module.exports.__esModule) module.exports = module.exports.default
 	if (__vue_template__) {
@@ -13592,7 +13714,7 @@ webpackJsonp([0],[
 	})()}
 
 /***/ },
-/* 86 */
+/* 90 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -13601,15 +13723,15 @@ webpackJsonp([0],[
 	    value: true
 	});
 
-	var _pluck = __webpack_require__(87);
+	var _pluck = __webpack_require__(91);
 
 	var _pluck2 = _interopRequireDefault(_pluck);
 
-	var _zipObject = __webpack_require__(90);
+	var _zipObject = __webpack_require__(94);
 
 	var _zipObject2 = _interopRequireDefault(_zipObject);
 
-	var _merge = __webpack_require__(91);
+	var _merge = __webpack_require__(95);
 
 	var _merge2 = _interopRequireDefault(_merge);
 
@@ -13617,7 +13739,7 @@ webpackJsonp([0],[
 
 	var _unitSelect2 = _interopRequireDefault(_unitSelect);
 
-	var _costTypeSelect = __webpack_require__(102);
+	var _costTypeSelect = __webpack_require__(106);
 
 	var _costTypeSelect2 = _interopRequireDefault(_costTypeSelect);
 
@@ -13713,11 +13835,11 @@ webpackJsonp([0],[
 	// <script>
 
 /***/ },
-/* 87 */
+/* 91 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var map = __webpack_require__(88),
-	    property = __webpack_require__(68);
+	var map = __webpack_require__(92),
+	    property = __webpack_require__(72);
 
 	/**
 	 * Gets the property value of `path` from all elements in `collection`.
@@ -13750,13 +13872,13 @@ webpackJsonp([0],[
 
 
 /***/ },
-/* 88 */
+/* 92 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var arrayMap = __webpack_require__(89),
-	    baseCallback = __webpack_require__(30),
-	    baseMap = __webpack_require__(70),
-	    isArray = __webpack_require__(51);
+	var arrayMap = __webpack_require__(93),
+	    baseCallback = __webpack_require__(34),
+	    baseMap = __webpack_require__(74),
+	    isArray = __webpack_require__(55);
 
 	/**
 	 * Creates an array of values by running each element in `collection` through
@@ -13824,7 +13946,7 @@ webpackJsonp([0],[
 
 
 /***/ },
-/* 89 */
+/* 93 */
 /***/ function(module, exports) {
 
 	/**
@@ -13851,10 +13973,10 @@ webpackJsonp([0],[
 
 
 /***/ },
-/* 90 */
+/* 94 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var isArray = __webpack_require__(51);
+	var isArray = __webpack_require__(55);
 
 	/**
 	 * The inverse of `_.pairs`; this method returns an object composed from arrays
@@ -13900,11 +14022,11 @@ webpackJsonp([0],[
 
 
 /***/ },
-/* 91 */
+/* 95 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var baseMerge = __webpack_require__(92),
-	    createAssigner = __webpack_require__(100);
+	var baseMerge = __webpack_require__(96),
+	    createAssigner = __webpack_require__(104);
 
 	/**
 	 * Recursively merges own enumerable properties of the source object(s), that
@@ -13960,17 +14082,17 @@ webpackJsonp([0],[
 
 
 /***/ },
-/* 92 */
+/* 96 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var arrayEach = __webpack_require__(93),
-	    baseMergeDeep = __webpack_require__(94),
-	    isArray = __webpack_require__(51),
-	    isArrayLike = __webpack_require__(45),
-	    isObject = __webpack_require__(43),
-	    isObjectLike = __webpack_require__(44),
-	    isTypedArray = __webpack_require__(54),
-	    keys = __webpack_require__(39);
+	var arrayEach = __webpack_require__(97),
+	    baseMergeDeep = __webpack_require__(98),
+	    isArray = __webpack_require__(55),
+	    isArrayLike = __webpack_require__(49),
+	    isObject = __webpack_require__(47),
+	    isObjectLike = __webpack_require__(48),
+	    isTypedArray = __webpack_require__(58),
+	    keys = __webpack_require__(43);
 
 	/**
 	 * The base implementation of `_.merge` without support for argument juggling,
@@ -14022,7 +14144,7 @@ webpackJsonp([0],[
 
 
 /***/ },
-/* 93 */
+/* 97 */
 /***/ function(module, exports) {
 
 	/**
@@ -14050,16 +14172,16 @@ webpackJsonp([0],[
 
 
 /***/ },
-/* 94 */
+/* 98 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var arrayCopy = __webpack_require__(95),
-	    isArguments = __webpack_require__(50),
-	    isArray = __webpack_require__(51),
-	    isArrayLike = __webpack_require__(45),
-	    isPlainObject = __webpack_require__(96),
-	    isTypedArray = __webpack_require__(54),
-	    toPlainObject = __webpack_require__(98);
+	var arrayCopy = __webpack_require__(99),
+	    isArguments = __webpack_require__(54),
+	    isArray = __webpack_require__(55),
+	    isArrayLike = __webpack_require__(49),
+	    isPlainObject = __webpack_require__(100),
+	    isTypedArray = __webpack_require__(58),
+	    toPlainObject = __webpack_require__(102);
 
 	/**
 	 * A specialized version of `baseMerge` for arrays and objects which performs
@@ -14123,7 +14245,7 @@ webpackJsonp([0],[
 
 
 /***/ },
-/* 95 */
+/* 99 */
 /***/ function(module, exports) {
 
 	/**
@@ -14149,12 +14271,12 @@ webpackJsonp([0],[
 
 
 /***/ },
-/* 96 */
+/* 100 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var baseForIn = __webpack_require__(97),
-	    isArguments = __webpack_require__(50),
-	    isObjectLike = __webpack_require__(44);
+	var baseForIn = __webpack_require__(101),
+	    isArguments = __webpack_require__(54),
+	    isObjectLike = __webpack_require__(48);
 
 	/** `Object#toString` result references. */
 	var objectTag = '[object Object]';
@@ -14226,11 +14348,11 @@ webpackJsonp([0],[
 
 
 /***/ },
-/* 97 */
+/* 101 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var baseFor = __webpack_require__(73),
-	    keysIn = __webpack_require__(53);
+	var baseFor = __webpack_require__(77),
+	    keysIn = __webpack_require__(57);
 
 	/**
 	 * The base implementation of `_.forIn` without support for callback
@@ -14249,11 +14371,11 @@ webpackJsonp([0],[
 
 
 /***/ },
-/* 98 */
+/* 102 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var baseCopy = __webpack_require__(99),
-	    keysIn = __webpack_require__(53);
+	var baseCopy = __webpack_require__(103),
+	    keysIn = __webpack_require__(57);
 
 	/**
 	 * Converts `value` to a plain object flattening inherited enumerable
@@ -14286,7 +14408,7 @@ webpackJsonp([0],[
 
 
 /***/ },
-/* 99 */
+/* 103 */
 /***/ function(module, exports) {
 
 	/**
@@ -14315,12 +14437,12 @@ webpackJsonp([0],[
 
 
 /***/ },
-/* 100 */
+/* 104 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var bindCallback = __webpack_require__(66),
-	    isIterateeCall = __webpack_require__(79),
-	    restParam = __webpack_require__(101);
+	var bindCallback = __webpack_require__(70),
+	    isIterateeCall = __webpack_require__(83),
+	    restParam = __webpack_require__(105);
 
 	/**
 	 * Creates a `_.assign`, `_.defaults`, or `_.merge` function.
@@ -14362,7 +14484,7 @@ webpackJsonp([0],[
 
 
 /***/ },
-/* 101 */
+/* 105 */
 /***/ function(module, exports) {
 
 	/** Used as the `TypeError` message for "Functions" methods. */
@@ -14426,16 +14548,16 @@ webpackJsonp([0],[
 
 
 /***/ },
-/* 102 */
+/* 106 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __vue_script__, __vue_template__
-	__vue_script__ = __webpack_require__(103)
+	__vue_script__ = __webpack_require__(107)
 	if (__vue_script__ &&
 	    __vue_script__.__esModule &&
 	    Object.keys(__vue_script__).length > 1) {
 	  console.warn("[vue-loader] resources/assets/js/components/cost-type-select.vue: named exports in *.vue files are ignored.")}
-	__vue_template__ = __webpack_require__(104)
+	__vue_template__ = __webpack_require__(108)
 	module.exports = __vue_script__ || {}
 	if (module.exports.__esModule) module.exports = module.exports.default
 	if (__vue_template__) {
@@ -14454,7 +14576,7 @@ webpackJsonp([0],[
 	})()}
 
 /***/ },
-/* 103 */
+/* 107 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -14512,28 +14634,28 @@ webpackJsonp([0],[
 	// </script>
 
 /***/ },
-/* 104 */
+/* 108 */
 /***/ function(module, exports) {
 
 	module.exports = "\n<dropdown-select\n    input-name=\"cost_type_id\"\n    :options=\"costTypes\"\n    option-value-name=\"id\"\n    option-text-name=\"name\"\n    v-ref:dropdown\n></dropdown-select>\n";
 
 /***/ },
-/* 105 */
+/* 109 */
 /***/ function(module, exports) {
 
 	module.exports = "\n<form class=\"ui form\" @submit.prevent=\"onSubmit\">\n    <div class=\"ui dividing header\">{{ isEditing ? item.name : '新增工料項目' }}</div>\n    <div class=\"field\">\n        <label>名稱</label>\n        <input type=\"text\" name=\"name\" v-model=\"item.name\">\n    </div>\n    <div class=\"field\">\n        <label>數量</label>\n        <input type=\"text\" name=\"amount\" v-model=\"item.amount\">\n    </div>\n    <div class=\"field\">\n        <label>單價</label>\n        <input type=\"text\" name=\"unit_price\" v-model=\"item.unit_price\">\n    </div>\n    <div class=\"field\">\n        <label>單位</label>\n        <unit-select v-ref:unit-select></unit-select>\n    </div>\n    <div class=\"field\">\n        <label>費用分類</label>\n        <cost-type-select v-ref:cost-type-select></cost-type-select>\n    </div>\n    <button type=\"submit\" class=\"ui primary button\"><i class=\"plus icon\"></i>{{ isEditing ? '儲存' : '新增' }}</button>\n    <button type=\"button\" class=\"ui button\" @click=\"clearForm\">{{ isEditing ? '取消' : '重填' }}</button>\n    <slot></slot>\n</form>\n";
 
 /***/ },
-/* 106 */
+/* 110 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __vue_script__, __vue_template__
-	__vue_script__ = __webpack_require__(107)
+	__vue_script__ = __webpack_require__(111)
 	if (__vue_script__ &&
 	    __vue_script__.__esModule &&
 	    Object.keys(__vue_script__).length > 1) {
 	  console.warn("[vue-loader] resources/assets/js/components/table-workitems.vue: named exports in *.vue files are ignored.")}
-	__vue_template__ = __webpack_require__(110)
+	__vue_template__ = __webpack_require__(114)
 	module.exports = __vue_script__ || {}
 	if (module.exports.__esModule) module.exports = module.exports.default
 	if (__vue_template__) {
@@ -14552,7 +14674,7 @@ webpackJsonp([0],[
 	})()}
 
 /***/ },
-/* 107 */
+/* 111 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -14561,7 +14683,7 @@ webpackJsonp([0],[
 	    value: true
 	});
 
-	var _lodash = __webpack_require__(108);
+	var _lodash = __webpack_require__(112);
 
 	var _lodash2 = _interopRequireDefault(_lodash);
 
@@ -14644,7 +14766,7 @@ webpackJsonp([0],[
 	// <script>
 
 /***/ },
-/* 108 */
+/* 112 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_RESULT__;/* WEBPACK VAR INJECTION */(function(module, global) {/**
@@ -26999,32 +27121,32 @@ webpackJsonp([0],[
 	  }
 	}.call(this));
 
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(109)(module), (function() { return this; }())))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(113)(module), (function() { return this; }())))
 
 /***/ },
-/* 109 */,
-/* 110 */
+/* 113 */,
+/* 114 */
 /***/ function(module, exports) {
 
 	module.exports = "\n<table class=\"ui table\">\n    <thead>\n        <tr>\n            <th>名稱</th>\n            <th>單位</th>\n            <th>數量</th>\n            <th>單價</th>\n            <th>總價</th>\n            <th>費用類別</th>\n            <th></th>\n        </tr>\n    </thead>\n    <tbody>\n        <tr v-for=\"item in items\">\n            <td>{{ item.name }}</td>\n            <td>{{ item.unit.name }}</td>\n            <td>{{ item.amount }}</td>\n            <td>{{ item.unit_price | currency }}</td>\n            <td class=\"collapsing\">{{ item.unit_price * item.amount | currency }}</td>\n            <td>\n                {{ item.cost_type.name }}\n            </td>\n            <td class=\"collapsing\">\n                <div class=\"ui tiny compact right floated icon buttons\">\n                    <button class=\"ui button\" @click=\"editItem(item)\">\n                        <i class=\"pencil icon\"></i>\n                    </button>\n                    <button class=\"ui button\" @click=\"deleteItem(item)\">\n                        <i class=\"trash icon\"></i>\n                    </button>\n                </div>\n            </td>\n        </tr>\n    </tbody>\n    <tfoot>\n        <th></th>\n        <th></th>\n        <th></th>\n        <th></th>\n        <th>{{ totalPrice | currency }}</th>\n        <th></th>\n        <th></th>\n    </tfoot>\n</table>\n";
 
 /***/ },
-/* 111 */
+/* 115 */
 /***/ function(module, exports) {
 
 	module.exports = "\n<div class=\"ui grid\">\n    <div class=\"row\">\n        <div class=\"sixteen wide column\">\n            <div class=\"ui raised segment\">\n                <div class=\"ui mini five statistics\">\n                    <div class=\"statistic\">\n                        <div class=\"label\">總價</div>\n                        <div class=\"value\">{{ total | currency }}</div>\n                    </div>\n                    <div class=\"statistic\" v-for=\"(key, typeTotal) in typeTotals\">\n                        <div class=\"label\">{{ costTypes[key] }}</div>\n                        <div class=\"value\">{{ typeTotal | currency }}</div>\n                    </div>\n                </div>\n            </div>\n        </div>\n    </div>\n    <div class=\"row\">\n        <div class=\"sixteen wide column\">\n            <table-workitems\n                :items=\"items\"\n            ></table-workitems>\n        </div>\n    </div>\n    <div class=\"row\">\n        <div class=\"sixteen wide column\">\n            <workitem-form v-ref:form>\n                <a href=\"{{ '/works/' + workId+ '/workflow' }}\" class=\"ui primary button\">參考施工流程圖</a>\n                <a href=\"{{ '/works/' + workId }}\" class=\"ui primary button\">返回</a>\n            </workitem-form>\n        </div>\n    </div>\n</div>\n";
 
 /***/ },
-/* 112 */
+/* 116 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __vue_script__, __vue_template__
-	__vue_script__ = __webpack_require__(113)
+	__vue_script__ = __webpack_require__(117)
 	if (__vue_script__ &&
 	    __vue_script__.__esModule &&
 	    Object.keys(__vue_script__).length > 1) {
 	  console.warn("[vue-loader] resources/assets/js/components/checklist.vue: named exports in *.vue files are ignored.")}
-	__vue_template__ = __webpack_require__(114)
+	__vue_template__ = __webpack_require__(118)
 	module.exports = __vue_script__ || {}
 	if (module.exports.__esModule) module.exports = module.exports.default
 	if (__vue_template__) {
@@ -27043,7 +27165,7 @@ webpackJsonp([0],[
 	})()}
 
 /***/ },
-/* 113 */
+/* 117 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -27052,7 +27174,7 @@ webpackJsonp([0],[
 	    value: true
 	});
 
-	var _lodash = __webpack_require__(108);
+	var _lodash = __webpack_require__(112);
 
 	var _lodash2 = _interopRequireDefault(_lodash);
 
@@ -27147,22 +27269,22 @@ webpackJsonp([0],[
 	// </script>
 
 /***/ },
-/* 114 */
+/* 118 */
 /***/ function(module, exports) {
 
 	module.exports = "\n<table class=\"ui celled structured table\">\n    <thead>\n        <tr>\n            <th class=\"four wide center aligned\">{{ titleLabel }}</th>\n            <th class=\"twelve wide\">{{ detailLabel }}</th>\n        </tr>\n    </thead>\n    <tbody v-for=\"(title, items) in groupedItems\">\n        <tr v-for=\"(idx, item) in items\">\n            <td :rowspan=\"items.length\" v-if=\"0 === idx\" class=\"top aligned center aligned\">{{ title }}</td>\n            <td v-if=\"item.detail\">{{ item.detail }}</td>\n            <td v-if=\"!item.detail\" >\n                <div class=\"ui fluid icon input\">\n                    <input type=\"text\" @keypress.enter=\"onSubmit(title, $event)\">\n                    <i class=\"plus icon\"></i>\n                </div>\n            </td>\n        </tr>\n    </tbody>\n</table>\n";
 
 /***/ },
-/* 115 */
+/* 119 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __vue_script__, __vue_template__
-	__vue_script__ = __webpack_require__(116)
+	__vue_script__ = __webpack_require__(120)
 	if (__vue_script__ &&
 	    __vue_script__.__esModule &&
 	    Object.keys(__vue_script__).length > 1) {
 	  console.warn("[vue-loader] resources/assets/js/components/flowtype-work-select.vue: named exports in *.vue files are ignored.")}
-	__vue_template__ = __webpack_require__(117)
+	__vue_template__ = __webpack_require__(121)
 	module.exports = __vue_script__ || {}
 	if (module.exports.__esModule) module.exports = module.exports.default
 	if (__vue_template__) {
@@ -27181,7 +27303,7 @@ webpackJsonp([0],[
 	})()}
 
 /***/ },
-/* 116 */
+/* 120 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -27268,22 +27390,22 @@ webpackJsonp([0],[
 	// </script>
 
 /***/ },
-/* 117 */
+/* 121 */
 /***/ function(module, exports) {
 
 	module.exports = "\n<div class=\"field\">\n    <label>{{ selectTypeOrderLabel }}</label>\n    <flowtype-select :on-selected.once=\"onFlowtypeSelected\"></flowtype-select>\n</div>\n<div class=\"field\">\n    <label>{{ selectWorkLabel }}</label>\n    <dropdown-select\n        input-name=\"work_ids\"\n        :options=\"works\"\n        option-value-name=\"id\"\n        option-text-name=\"name\"\n        :multiple.once=\"true\"\n        v-ref:work-select\n    ></dropdown-select>\n</div>\n";
 
 /***/ },
-/* 118 */
+/* 122 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __vue_script__, __vue_template__
-	__vue_script__ = __webpack_require__(119)
+	__vue_script__ = __webpack_require__(123)
 	if (__vue_script__ &&
 	    __vue_script__.__esModule &&
 	    Object.keys(__vue_script__).length > 1) {
 	  console.warn("[vue-loader] resources/assets/js/components/table-project-works.vue: named exports in *.vue files are ignored.")}
-	__vue_template__ = __webpack_require__(120)
+	__vue_template__ = __webpack_require__(124)
 	module.exports = __vue_script__ || {}
 	if (module.exports.__esModule) module.exports = module.exports.default
 	if (__vue_template__) {
@@ -27302,7 +27424,7 @@ webpackJsonp([0],[
 	})()}
 
 /***/ },
-/* 119 */
+/* 123 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -27311,7 +27433,7 @@ webpackJsonp([0],[
 	    value: true
 	});
 
-	var _lodash = __webpack_require__(108);
+	var _lodash = __webpack_require__(112);
 
 	var _lodash2 = _interopRequireDefault(_lodash);
 
@@ -27432,22 +27554,22 @@ webpackJsonp([0],[
 	// </script>
 
 /***/ },
-/* 120 */
+/* 124 */
 /***/ function(module, exports) {
 
 	module.exports = "\n<table class=\"ui table\">\n    <thead>\n        <tr>\n            <th class=\"four wide center aligned\">{{ typeOrderLabel }}</th>\n            <th>{{ nameLabel }}</th>\n            <th>{{ unitLabel }}</th>\n            <th>{{ unitPriceLabel }}</th>\n            <th>{{ amountLabel }}</th>\n            <th>{{ totalPriceLabel }}</th>\n            <th>\n            </th>\n        </tr>\n    </thead>\n    <tbody v-for=\"(detailingflowTypeId, works) in groupedWorks\">\n        <tr v-for=\"(idx, work) in works\">\n            <td :rowspan=\"works.length\" v-if=\"0 === idx\" class=\"top aligned center aligned\">\n                {{ work.detailingflow_type.mainflow_type.name }}\n                <br>\n                {{ work.detailingflow_type.name }}\n            </td>\n            <td>{{ work.name }}</td>\n            <td>{{ work.unit.name }}</td>\n            <td>{{ work.unit_price | currency}}</td>\n            <td>\n                <div class=\"ui input\">\n                    <input type=\"text\" name=\"work_amount\" v-model=\"work.amount\" @keyup=\"updateWork($index)\">\n                </div>\n            </td>\n            <td>{{ work.unit_price * work.amount | currency }}</td>\n            <td><a href=\"{{ '/projects/' + projectId + '/works/' + work.id }}\">{{ workitemsLabel }}</a></td>\n        </tr>\n    </tbody>\n    <tfoot>\n        <tr>\n            <th></th>\n            <th></th>\n            <th></th>\n            <th></th>\n            <th></th>\n            <th>{{ totalWorkPrice | currency }}</th>\n            <th></th>\n        </tr>\n    </tfoot>\n</table>\n";
 
 /***/ },
-/* 121 */
+/* 125 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __vue_script__, __vue_template__
-	__vue_script__ = __webpack_require__(122)
+	__vue_script__ = __webpack_require__(126)
 	if (__vue_script__ &&
 	    __vue_script__.__esModule &&
 	    Object.keys(__vue_script__).length > 1) {
 	  console.warn("[vue-loader] resources/assets/js/components/statistics-workitems.vue: named exports in *.vue files are ignored.")}
-	__vue_template__ = __webpack_require__(123)
+	__vue_template__ = __webpack_require__(127)
 	module.exports = __vue_script__ || {}
 	if (module.exports.__esModule) module.exports = module.exports.default
 	if (__vue_template__) {
@@ -27466,7 +27588,7 @@ webpackJsonp([0],[
 	})()}
 
 /***/ },
-/* 122 */
+/* 126 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -27475,7 +27597,7 @@ webpackJsonp([0],[
 	    value: true
 	});
 
-	var _lodash = __webpack_require__(108);
+	var _lodash = __webpack_require__(112);
 
 	var _lodash2 = _interopRequireDefault(_lodash);
 
@@ -27556,22 +27678,22 @@ webpackJsonp([0],[
 	// </script>
 
 /***/ },
-/* 123 */
+/* 127 */
 /***/ function(module, exports) {
 
 	module.exports = "\n<div class=\"ui mini five statistics\">\n    <div class=\"statistic\">\n        <div class=\"label\">{{ totalPriceLabel }}</div>\n        <div class=\"value\">{{ totalPrice | currency }}</div>\n    </div>\n    <div class=\"statistic\" v-for=\"(costTypeId, totalPrice) in totalPriceByTypes\">\n        <div class=\"label\">{{ costTypes[costTypeId] }}</div>\n        <div class=\"value\">{{ totalPrice | currency }}</div>\n    </div>\n</div>\n";
 
 /***/ },
-/* 124 */
+/* 128 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __vue_script__, __vue_template__
-	__vue_script__ = __webpack_require__(125)
+	__vue_script__ = __webpack_require__(129)
 	if (__vue_script__ &&
 	    __vue_script__.__esModule &&
 	    Object.keys(__vue_script__).length > 1) {
 	  console.warn("[vue-loader] resources/assets/js/components/project-workitem-list.vue: named exports in *.vue files are ignored.")}
-	__vue_template__ = __webpack_require__(126)
+	__vue_template__ = __webpack_require__(130)
 	module.exports = __vue_script__ || {}
 	if (module.exports.__esModule) module.exports = module.exports.default
 	if (__vue_template__) {
@@ -27590,7 +27712,7 @@ webpackJsonp([0],[
 	})()}
 
 /***/ },
-/* 125 */
+/* 129 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -27599,23 +27721,23 @@ webpackJsonp([0],[
 	    value: true
 	});
 
-	var _workitemForm = __webpack_require__(85);
+	var _workitemForm = __webpack_require__(89);
 
 	var _workitemForm2 = _interopRequireDefault(_workitemForm);
 
-	var _tableWorkitems = __webpack_require__(106);
+	var _tableWorkitems = __webpack_require__(110);
 
 	var _tableWorkitems2 = _interopRequireDefault(_tableWorkitems);
 
-	var _zipObject = __webpack_require__(90);
+	var _zipObject = __webpack_require__(94);
 
 	var _zipObject2 = _interopRequireDefault(_zipObject);
 
-	var _pluck = __webpack_require__(87);
+	var _pluck = __webpack_require__(91);
 
 	var _pluck2 = _interopRequireDefault(_pluck);
 
-	var _merge = __webpack_require__(91);
+	var _merge = __webpack_require__(95);
 
 	var _merge2 = _interopRequireDefault(_merge);
 
@@ -27778,22 +27900,22 @@ webpackJsonp([0],[
 	// </script>
 
 /***/ },
-/* 126 */
+/* 130 */
 /***/ function(module, exports) {
 
 	module.exports = "\n<div class=\"ui grid\">\n    <div class=\"row\">\n        <div class=\"sixteen wide column\">\n            <div class=\"ui raised segment\">\n                <div class=\"ui mini five statistics\">\n                    <div class=\"statistic\">\n                        <div class=\"label\">總價</div>\n                        <div class=\"value\">{{ total | currency }}</div>\n                    </div>\n                    <div class=\"statistic\" v-for=\"(key, typeTotal) in typeTotals\">\n                        <div class=\"label\">{{ costTypes[key] }}</div>\n                        <div class=\"value\">{{ typeTotal | currency }}</div>\n                    </div>\n                </div>\n            </div>\n        </div>\n    </div>\n    <div class=\"row\">\n        <div class=\"sixteen wide column\">\n            <table-workitems\n                :items=\"items\"\n            ></table-workitems>\n        </div>\n    </div>\n    <div class=\"row\">\n        <div class=\"sixteen wide column\">\n            <workitem-form v-ref:form>\n                <a href=\"{{ '/projects/' + projectId + '/bid' + '/works'}}\" class=\"ui primary button\">返回</a>\n            </workitem-form>\n        </div>\n    </div>\n</div>\n";
 
 /***/ },
-/* 127 */
+/* 131 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __vue_script__, __vue_template__
-	__vue_script__ = __webpack_require__(128)
+	__vue_script__ = __webpack_require__(132)
 	if (__vue_script__ &&
 	    __vue_script__.__esModule &&
 	    Object.keys(__vue_script__).length > 1) {
 	  console.warn("[vue-loader] resources/assets/js/components/project-flowtype-work-select.vue: named exports in *.vue files are ignored.")}
-	__vue_template__ = __webpack_require__(130)
+	__vue_template__ = __webpack_require__(134)
 	module.exports = __vue_script__ || {}
 	if (module.exports.__esModule) module.exports = module.exports.default
 	if (__vue_template__) {
@@ -27812,7 +27934,7 @@ webpackJsonp([0],[
 	})()}
 
 /***/ },
-/* 128 */
+/* 132 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -27829,7 +27951,7 @@ webpackJsonp([0],[
 
 	var _dropdownSelect2 = _interopRequireDefault(_dropdownSelect);
 
-	var _projectWorks = __webpack_require__(129);
+	var _projectWorks = __webpack_require__(133);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -27900,7 +28022,7 @@ webpackJsonp([0],[
 	// <script>
 
 /***/ },
-/* 129 */
+/* 133 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -27909,7 +28031,10 @@ webpackJsonp([0],[
 	    value: true
 	});
 	exports.getProjectWorks = getProjectWorks;
-	function getProjectWorks(projectId, queries) {
+	exports.getEstimations = getEstimations;
+	function getProjectWorks(projectId) {
+	    var queries = arguments.length <= 1 || arguments[1] === undefined ? [] : arguments[1];
+
 	    var queryArray = [];
 
 	    if (queries.mainflow_type_id) {
@@ -27925,18 +28050,32 @@ webpackJsonp([0],[
 	    return window.$.getJSON('/api/v1/projects/' + projectId + '/works?' + queryString);
 	}
 
+	function getEstimations(pId, pWorkId) {
+	    var queries = arguments.length <= 2 || arguments[2] === undefined ? [] : arguments[2];
+
+	    var queryArray = [];
+
+	    if (queries.date) {
+	        queryArray.push('date=' + queries.date);
+	    }
+
+	    var queryString = queryArray.join('&');
+
+	    return window.$.getJSON('/api/v1/projects/' + pId + '/works/' + pWorkId + '/cost-estimations?' + queryString);
+	}
+
 /***/ },
-/* 130 */
+/* 134 */
 /***/ function(module, exports) {
 
 	module.exports = "\n<div class=\"field\">\n    <flowtype-select :on-selected.once=\"onFlowtypeSelected\"></flowtype-select>\n</div>\n<div class=\"field\">\n    <dropdown-select\n        :input-name.once=\"workFieldName\"\n        :options=\"works\"\n        option-value-name=\"id\"\n        option-text-name=\"name\"\n        :multiple.once=\"isMultiple\"\n        v-ref:work-select\n    ></dropdown-select>\n</div>\n";
 
 /***/ },
-/* 131 */
+/* 135 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __vue_script__, __vue_template__
-	__vue_script__ = __webpack_require__(132)
+	__vue_script__ = __webpack_require__(136)
 	if (__vue_script__ &&
 	    __vue_script__.__esModule &&
 	    Object.keys(__vue_script__).length > 1) {
@@ -27960,7 +28099,7 @@ webpackJsonp([0],[
 	})()}
 
 /***/ },
-/* 132 */
+/* 136 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -27969,21 +28108,21 @@ webpackJsonp([0],[
 	    value: true
 	});
 
-	var _projectChecklists = __webpack_require__(133);
+	var _projectChecklists = __webpack_require__(137);
 
-	var _projectFlowtypeWorkSelect = __webpack_require__(127);
+	var _projectFlowtypeWorkSelect = __webpack_require__(131);
 
 	var _projectFlowtypeWorkSelect2 = _interopRequireDefault(_projectFlowtypeWorkSelect);
 
-	var _subcontractorSelect = __webpack_require__(134);
+	var _subcontractorSelect = __webpack_require__(18);
 
 	var _subcontractorSelect2 = _interopRequireDefault(_subcontractorSelect);
 
-	var _pluck = __webpack_require__(87);
+	var _pluck = __webpack_require__(91);
 
 	var _pluck2 = _interopRequireDefault(_pluck);
 
-	var _zipObject = __webpack_require__(90);
+	var _zipObject = __webpack_require__(94);
 
 	var _zipObject2 = _interopRequireDefault(_zipObject);
 
@@ -28079,7 +28218,7 @@ webpackJsonp([0],[
 	// <script>
 
 /***/ },
-/* 133 */
+/* 137 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -28106,118 +28245,6 @@ webpackJsonp([0],[
 	function create(projectId, values) {
 	    return window.$.post('/api/v1/projects/' + projectId + '/checklists', values);
 	}
-
-/***/ },
-/* 134 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var __vue_script__, __vue_template__
-	__vue_script__ = __webpack_require__(135)
-	if (__vue_script__ &&
-	    __vue_script__.__esModule &&
-	    Object.keys(__vue_script__).length > 1) {
-	  console.warn("[vue-loader] resources/assets/js/components/subcontractor-select.vue: named exports in *.vue files are ignored.")}
-	__vue_template__ = __webpack_require__(137)
-	module.exports = __vue_script__ || {}
-	if (module.exports.__esModule) module.exports = module.exports.default
-	if (__vue_template__) {
-	(typeof module.exports === "function" ? (module.exports.options || (module.exports.options = {})) : module.exports).template = __vue_template__
-	}
-	if (false) {(function () {  module.hot.accept()
-	  var hotAPI = require("vue-hot-reload-api")
-	  hotAPI.install(require("vue"), true)
-	  if (!hotAPI.compatible) return
-	  var id = "/Users/shavenking/Code/project-boomer/resources/assets/js/components/subcontractor-select.vue"
-	  if (!module.hot.data) {
-	    hotAPI.createRecord(id, module.exports)
-	  } else {
-	    hotAPI.update(id, module.exports, __vue_template__)
-	  }
-	})()}
-
-/***/ },
-/* 135 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
-
-	var _dropdownSelect = __webpack_require__(5);
-
-	var _dropdownSelect2 = _interopRequireDefault(_dropdownSelect);
-
-	var _subcontractors = __webpack_require__(136);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	// <template>
-	//     <dropdown-select
-	//         input-name="subcontractor_id"
-	//         :options="subcontractors"
-	//         option-value-name="id"
-	//         option-text-name="name"
-	//         v-ref:dropdown
-	//     ></dropdown-select>
-	// </template>
-	//
-	// <script>
-	exports.default = {
-	    props: ['default'],
-
-	    components: { DropdownSelect: _dropdownSelect2.default },
-
-	    methods: {
-	        select: function select(value) {
-	            this.$refs.dropdown.select(value);
-	        },
-	        clear: function clear() {
-	            this.$refs.dropdown.clear();
-	        }
-	    },
-
-	    data: function data() {
-	        return {
-	            subcontractors: []
-	        };
-	    },
-	    ready: function ready() {
-	        var _this = this;
-
-	        (0, _subcontractors.get)().then(function (response) {
-	            _this.subcontractors = response.subcontractors;
-
-	            _this.$nextTick(function () {
-	                if (_this.default) {
-	                    _this.select(_this.default);
-	                }
-	            });
-	        });
-	    }
-	};
-	// </script>
-
-/***/ },
-/* 136 */
-/***/ function(module, exports) {
-
-	"use strict";
-
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
-	exports.get = get;
-	function get() {
-	    return window.$.getJSON("/api/v1/subcontractors");
-	}
-
-/***/ },
-/* 137 */
-/***/ function(module, exports) {
-
-	module.exports = "\n<dropdown-select\n    input-name=\"subcontractor_id\"\n    :options=\"subcontractors\"\n    option-value-name=\"id\"\n    option-text-name=\"name\"\n    v-ref:dropdown\n></dropdown-select>\n";
 
 /***/ },
 /* 138 */
@@ -28264,7 +28291,7 @@ webpackJsonp([0],[
 	var content = __webpack_require__(141);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
-	var update = __webpack_require__(27)(content, {});
+	var update = __webpack_require__(31)(content, {});
 	if(content.locals) module.exports = content.locals;
 	// Hot Module Replacement
 	if(false) {
@@ -28284,7 +28311,7 @@ webpackJsonp([0],[
 /* 141 */
 /***/ function(module, exports, __webpack_require__) {
 
-	exports = module.exports = __webpack_require__(26)();
+	exports = module.exports = __webpack_require__(30)();
 	// imports
 
 
@@ -28304,7 +28331,7 @@ webpackJsonp([0],[
 	    value: true
 	});
 
-	var _modalCreateProjectChecklist = __webpack_require__(131);
+	var _modalCreateProjectChecklist = __webpack_require__(135);
 
 	var _modalCreateProjectChecklist2 = _interopRequireDefault(_modalCreateProjectChecklist);
 
@@ -28332,13 +28359,13 @@ webpackJsonp([0],[
 
 	var _dailyRecords = __webpack_require__(171);
 
-	var _projectChecklists = __webpack_require__(133);
+	var _projectChecklists = __webpack_require__(137);
 
 	var _emptyMessage = __webpack_require__(173);
 
 	var _emptyMessage2 = _interopRequireDefault(_emptyMessage);
 
-	var _lodash = __webpack_require__(108);
+	var _lodash = __webpack_require__(112);
 
 	var _lodash2 = _interopRequireDefault(_lodash);
 
@@ -28481,7 +28508,7 @@ webpackJsonp([0],[
 	//       <a href="#" class="ui button" data-tab="daily-materials">當日材料使用數量</a>
 	//       <a href="#" class="ui button" data-tab="daily-labors">當日出工人數</a>
 	//       <a href="#" class="ui button" data-tab="daily-appliances">當日機具使用情形</a>
-	//       <a href="#" class="ui button" data-tab="daily-records">紀錄</a>
+	//       <a href="#" class="ui button" data-tab="daily-records">備註</a>
 	//     </div>
 	//
 	//     <div class="ui hidden divider"></div>
@@ -28706,15 +28733,15 @@ webpackJsonp([0],[
 
 	var _dailyMaterials = __webpack_require__(145);
 
-	var _pluck = __webpack_require__(87);
+	var _pluck = __webpack_require__(91);
 
 	var _pluck2 = _interopRequireDefault(_pluck);
 
-	var _zipObject = __webpack_require__(90);
+	var _zipObject = __webpack_require__(94);
 
 	var _zipObject2 = _interopRequireDefault(_zipObject);
 
-	var _merge = __webpack_require__(91);
+	var _merge = __webpack_require__(95);
 
 	var _merge2 = _interopRequireDefault(_merge);
 
@@ -28892,14 +28919,14 @@ webpackJsonp([0],[
 /* 146 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var arrayMap = __webpack_require__(89),
+	var arrayMap = __webpack_require__(93),
 	    baseDifference = __webpack_require__(147),
 	    baseFlatten = __webpack_require__(154),
-	    bindCallback = __webpack_require__(66),
-	    keysIn = __webpack_require__(53),
+	    bindCallback = __webpack_require__(70),
+	    keysIn = __webpack_require__(57),
 	    pickByArray = __webpack_require__(156),
 	    pickByCallback = __webpack_require__(157),
-	    restParam = __webpack_require__(101);
+	    restParam = __webpack_require__(105);
 
 	/**
 	 * The opposite of `_.pick`; this method creates an object composed of the
@@ -29068,7 +29095,7 @@ webpackJsonp([0],[
 /* 150 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var isObject = __webpack_require__(43);
+	var isObject = __webpack_require__(47);
 
 	/**
 	 * Checks if `value` is in `cache` mimicking the return signature of
@@ -29094,7 +29121,7 @@ webpackJsonp([0],[
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(global) {var SetCache = __webpack_require__(152),
-	    getNative = __webpack_require__(40);
+	    getNative = __webpack_require__(44);
 
 	/** Native method references. */
 	var Set = getNative(global, 'Set');
@@ -29122,7 +29149,7 @@ webpackJsonp([0],[
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(global) {var cachePush = __webpack_require__(153),
-	    getNative = __webpack_require__(40);
+	    getNative = __webpack_require__(44);
 
 	/** Native method references. */
 	var Set = getNative(global, 'Set');
@@ -29157,7 +29184,7 @@ webpackJsonp([0],[
 /* 153 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var isObject = __webpack_require__(43);
+	var isObject = __webpack_require__(47);
 
 	/**
 	 * Adds `value` to the cache.
@@ -29184,10 +29211,10 @@ webpackJsonp([0],[
 /***/ function(module, exports, __webpack_require__) {
 
 	var arrayPush = __webpack_require__(155),
-	    isArguments = __webpack_require__(50),
-	    isArray = __webpack_require__(51),
-	    isArrayLike = __webpack_require__(45),
-	    isObjectLike = __webpack_require__(44);
+	    isArguments = __webpack_require__(54),
+	    isArray = __webpack_require__(55),
+	    isArrayLike = __webpack_require__(49),
+	    isObjectLike = __webpack_require__(48);
 
 	/**
 	 * The base implementation of `_.flatten` with added support for restricting
@@ -29256,7 +29283,7 @@ webpackJsonp([0],[
 /* 156 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var toObject = __webpack_require__(55);
+	var toObject = __webpack_require__(59);
 
 	/**
 	 * A specialized version of `_.pick` which picks `object` properties specified
@@ -29290,7 +29317,7 @@ webpackJsonp([0],[
 /* 157 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var baseForIn = __webpack_require__(97);
+	var baseForIn = __webpack_require__(101);
 
 	/**
 	 * A specialized version of `_.pick` which picks `object` properties `predicate`
@@ -29318,13 +29345,13 @@ webpackJsonp([0],[
 /* 158 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var isArguments = __webpack_require__(50),
-	    isArray = __webpack_require__(51),
-	    isArrayLike = __webpack_require__(45),
-	    isFunction = __webpack_require__(42),
-	    isObjectLike = __webpack_require__(44),
+	var isArguments = __webpack_require__(54),
+	    isArray = __webpack_require__(55),
+	    isArrayLike = __webpack_require__(49),
+	    isFunction = __webpack_require__(46),
+	    isObjectLike = __webpack_require__(48),
 	    isString = __webpack_require__(159),
-	    keys = __webpack_require__(39);
+	    keys = __webpack_require__(43);
 
 	/**
 	 * Checks if `value` is empty. A value is considered empty unless it's an
@@ -29371,7 +29398,7 @@ webpackJsonp([0],[
 /* 159 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var isObjectLike = __webpack_require__(44);
+	var isObjectLike = __webpack_require__(48);
 
 	/** `Object#toString` result references. */
 	var stringTag = '[object String]';
@@ -29454,15 +29481,15 @@ webpackJsonp([0],[
 
 	var _dailyLabors = __webpack_require__(163);
 
-	var _pluck = __webpack_require__(87);
+	var _pluck = __webpack_require__(91);
 
 	var _pluck2 = _interopRequireDefault(_pluck);
 
-	var _zipObject = __webpack_require__(90);
+	var _zipObject = __webpack_require__(94);
 
 	var _zipObject2 = _interopRequireDefault(_zipObject);
 
-	var _merge = __webpack_require__(91);
+	var _merge = __webpack_require__(95);
 
 	var _merge2 = _interopRequireDefault(_merge);
 
@@ -29682,15 +29709,15 @@ webpackJsonp([0],[
 
 	var _dailyAppliances = __webpack_require__(167);
 
-	var _pluck = __webpack_require__(87);
+	var _pluck = __webpack_require__(91);
 
 	var _pluck2 = _interopRequireDefault(_pluck);
 
-	var _zipObject = __webpack_require__(90);
+	var _zipObject = __webpack_require__(94);
 
 	var _zipObject2 = _interopRequireDefault(_zipObject);
 
-	var _merge = __webpack_require__(91);
+	var _merge = __webpack_require__(95);
 
 	var _merge2 = _interopRequireDefault(_merge);
 
@@ -29910,15 +29937,15 @@ webpackJsonp([0],[
 
 	var _dailyRecords = __webpack_require__(171);
 
-	var _pluck = __webpack_require__(87);
+	var _pluck = __webpack_require__(91);
 
 	var _pluck2 = _interopRequireDefault(_pluck);
 
-	var _zipObject = __webpack_require__(90);
+	var _zipObject = __webpack_require__(94);
 
 	var _zipObject2 = _interopRequireDefault(_zipObject);
 
-	var _merge = __webpack_require__(91);
+	var _merge = __webpack_require__(95);
 
 	var _merge2 = _interopRequireDefault(_merge);
 
@@ -34149,7 +34176,7 @@ webpackJsonp([0],[
 	    return _moment;
 
 	}));
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(109)(module)))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(113)(module)))
 
 /***/ },
 /* 177 */
@@ -43886,7 +43913,153 @@ webpackJsonp([0],[
 /* 278 */
 /***/ function(module, exports) {
 
-	module.exports = "\n<div class=\"ui fluid buttons\" v-el:tabular-menu>\n  <a href=\"#\" class=\"ui button active\" data-tab=\"project-checklists\">當日施工項目、位置</a>\n  <a href=\"#\" class=\"ui button\" data-tab=\"daily-materials\">當日材料使用數量</a>\n  <a href=\"#\" class=\"ui button\" data-tab=\"daily-labors\">當日出工人數</a>\n  <a href=\"#\" class=\"ui button\" data-tab=\"daily-appliances\">當日機具使用情形</a>\n  <a href=\"#\" class=\"ui button\" data-tab=\"daily-records\">紀錄</a>\n</div>\n\n<div class=\"ui hidden divider\"></div>\n\n<div class=\"ui tab active\" data-tab=\"project-checklists\">\n    <table class=\"ui table\">\n        <thead>\n            <tr>\n                <th>施工項目</th>\n                <th>施工位置</th>\n                <th>協力廠商</th>\n                <th>查核與否</th>\n                <th>查核數量</th>\n            </tr>\n        </thead>\n        <tbody>\n            <tr v-if=\"!checklists.length\">\n                <td colspan=\"5\">\n                    <empty-message></empty-message>\n                </td>\n            </tr>\n            <tr v-for=\"checklist in checklists\">\n                <td><a href=\"/projects/{{ projectId }}/works/{{ checklist.project_work.id }}\">{{ checklist.project_work.name }}</a></td>\n                <td>{{ checklist.seat }}</td>\n                <td>{{ checklist.subcontractor.name }}</td>\n                <td>{{ checklist.passes ? '查核完畢' : '未查核完畢' }}</td>\n                <td>{{ checklist.passes_amount }}</td>\n            </tr>\n        </tbody>\n        <tfoot v-if=\"!disabled\">\n            <tr>\n                <th colspan=\"5\">\n                    <button class=\"ui right floated primary button\" @click=\"openModal('checklistModal')\">\n                        <i class=\"plus icon\"></i>新增\n                    </button>\n                </th>\n            </tr>\n        </tfoot>\n    </table>\n</div>\n<div class=\"ui tab\" data-tab=\"daily-materials\">\n    <table class=\"ui table\">\n        <thead>\n            <tr>\n                <th>材料名稱</th>\n                <th>本日使用數量</th>\n                <th>累積使用數量</th>\n            </tr>\n        </thead>\n        <tbody>\n            <tr v-if=\"!dailyMaterials.length\">\n                <td colspan=\"3\">\n                    <empty-message></empty-message>\n                </td>\n            </tr>\n            <tr v-for=\"dailyMaterial in dailyMaterials\">\n                <td>{{ dailyMaterial.name }}</td>\n                <td>{{ dailyMaterial.amount }}</td>\n                <td>{{ totalAmount[dailyMaterial.material_id] }}</td>\n            </tr>\n        </tbody>\n        <tfoot v-if=\"!disabled\">\n            <tr>\n                <th colspan=\"3\">\n                    <button class=\"ui right floated primary button\" @click=\"openModal('dailyMaterialModal')\">\n                        <i class=\"plus icon\"></i>新增\n                    </button>\n                </th>\n            </tr>\n        </tfoot>\n    </table>\n</div>\n<div class=\"ui tab\" data-tab=\"daily-labors\">\n    <table class=\"ui table\">\n        <thead>\n            <tr>\n                <th>工別</th>\n                <th>人數</th>\n                <th>累積人數</th>\n            </tr>\n        </thead>\n        <tbody>\n            <tr v-if=\"!dailyLabors.length\">\n                <td colspan=\"3\">\n                    <empty-message></empty-message>\n                </td>\n            </tr>\n            <tr v-for=\"dailyLabor in dailyLabors\">\n                <td>{{ dailyLabor.name }}</td>\n                <td>{{ dailyLabor.amount }}</td>\n                <td>{{ laborTotalAmount[dailyLabor.labor_id] }}</td>\n            </tr>\n        </tbody>\n        <tfoot v-if=\"!disabled\">\n            <tr>\n                <th colspan=\"3\">\n                    <button class=\"ui right floated primary button\" @click=\"openModal('dailyLaborModal')\">\n                        <i class=\"plus icon\"></i>新增\n                    </button>\n                </th>\n            </tr>\n        </tfoot>\n    </table>\n</div>\n<div class=\"ui tab\" data-tab=\"daily-appliances\">\n    <table class=\"ui table\">\n        <thead>\n            <tr>\n                <th>機具</th>\n                <th>數量</th>\n                <th>累積數量</th>\n            </tr>\n        </thead>\n        <tbody>\n            <tr v-if=\"!dailyAppliances.length\">\n                <td colspan=\"3\">\n                    <empty-message></empty-message>\n                </td>\n            </tr>\n            <tr v-for=\"dailyAppliance in dailyAppliances\">\n                <td>{{ dailyAppliance.name }}</td>\n                <td>{{ dailyAppliance.amount }}</td>\n                <td>{{ applianceTotalAmount[dailyAppliance.appliance_id] }}</td>\n            </tr>\n        </tbody>\n        <tfoot v-if=\"!disabled\">\n            <tr>\n                <th colspan=\"3\">\n                    <button class=\"ui right floated primary button\" @click=\"openModal('dailyApplianceModal')\">\n                        <i class=\"plus icon\"></i>新增\n                    </button>\n                </th>\n            </tr>\n        </tfoot>\n    </table>\n</div>\n<div class=\"ui tab\" data-tab=\"daily-records\">\n    <table class=\"ui table\">\n        <thead>\n            <tr>\n                <th>主辦單位、監造單位指示</th>\n                <th>重要事項紀錄</th>\n            </tr>\n        </thead>\n        <tbody>\n            <tr v-if=\"!dailyRecords\">\n                <td colspan=\"2\">\n                    <empty-message></empty-message>\n                </td>\n            </tr>\n            <tr v-if=\"dailyRecords\">\n                <td>{{ dailyRecords['inspection_record'] }}</td>\n                <td>{{ dailyRecords['important_record'] }}</td>\n            </tr>\n        </tbody>\n        <tfoot v-if=\"!disabled\">\n            <tr>\n                <th colspan=\"2\">\n                    <button class=\"ui right floated primary button\" @click=\"openModal('dailyRecordModal')\">\n                        <i class=\"plus icon\"></i>新增\n                    </button>\n                </th>\n            </tr>\n        </tfoot>\n    </table>\n</div>\n\n<modal-create-project-checklist :project-id.once=\"projectId\" :on-success.once=\"onSuccess\" v-ref:checklist-modal></modal-create-project-checklist>\n<modal-create-daily-material :project-id.once=\"projectId\" :on-success.once=\"onSuccess\" v-ref:daily-material-modal></modal-create-daily-material>\n<modal-create-daily-labor :project-id.once=\"projectId\" :on-success.once=\"onSuccess\" v-ref:daily-labor-modal></modal-create-daily-labor>\n<modal-create-daily-appliance :project-id.once=\"projectId\" :on-success.once=\"onSuccess\" v-ref:daily-appliance-modal></modal-create-daily-appliance>\n<modal-create-daily-record :project-id.once=\"projectId\" :on-success.once=\"onSuccess\" v-ref:daily-record-modal></modal-create-daily-record>\n";
+	module.exports = "\n<div class=\"ui fluid buttons\" v-el:tabular-menu>\n  <a href=\"#\" class=\"ui button active\" data-tab=\"project-checklists\">當日施工項目、位置</a>\n  <a href=\"#\" class=\"ui button\" data-tab=\"daily-materials\">當日材料使用數量</a>\n  <a href=\"#\" class=\"ui button\" data-tab=\"daily-labors\">當日出工人數</a>\n  <a href=\"#\" class=\"ui button\" data-tab=\"daily-appliances\">當日機具使用情形</a>\n  <a href=\"#\" class=\"ui button\" data-tab=\"daily-records\">備註</a>\n</div>\n\n<div class=\"ui hidden divider\"></div>\n\n<div class=\"ui tab active\" data-tab=\"project-checklists\">\n    <table class=\"ui table\">\n        <thead>\n            <tr>\n                <th>施工項目</th>\n                <th>施工位置</th>\n                <th>協力廠商</th>\n                <th>查核與否</th>\n                <th>查核數量</th>\n            </tr>\n        </thead>\n        <tbody>\n            <tr v-if=\"!checklists.length\">\n                <td colspan=\"5\">\n                    <empty-message></empty-message>\n                </td>\n            </tr>\n            <tr v-for=\"checklist in checklists\">\n                <td><a href=\"/projects/{{ projectId }}/works/{{ checklist.project_work.id }}\">{{ checklist.project_work.name }}</a></td>\n                <td>{{ checklist.seat }}</td>\n                <td>{{ checklist.subcontractor.name }}</td>\n                <td>{{ checklist.passes ? '查核完畢' : '未查核完畢' }}</td>\n                <td>{{ checklist.passes_amount }}</td>\n            </tr>\n        </tbody>\n        <tfoot v-if=\"!disabled\">\n            <tr>\n                <th colspan=\"5\">\n                    <button class=\"ui right floated primary button\" @click=\"openModal('checklistModal')\">\n                        <i class=\"plus icon\"></i>新增\n                    </button>\n                </th>\n            </tr>\n        </tfoot>\n    </table>\n</div>\n<div class=\"ui tab\" data-tab=\"daily-materials\">\n    <table class=\"ui table\">\n        <thead>\n            <tr>\n                <th>材料名稱</th>\n                <th>本日使用數量</th>\n                <th>累積使用數量</th>\n            </tr>\n        </thead>\n        <tbody>\n            <tr v-if=\"!dailyMaterials.length\">\n                <td colspan=\"3\">\n                    <empty-message></empty-message>\n                </td>\n            </tr>\n            <tr v-for=\"dailyMaterial in dailyMaterials\">\n                <td>{{ dailyMaterial.name }}</td>\n                <td>{{ dailyMaterial.amount }}</td>\n                <td>{{ totalAmount[dailyMaterial.material_id] }}</td>\n            </tr>\n        </tbody>\n        <tfoot v-if=\"!disabled\">\n            <tr>\n                <th colspan=\"3\">\n                    <button class=\"ui right floated primary button\" @click=\"openModal('dailyMaterialModal')\">\n                        <i class=\"plus icon\"></i>新增\n                    </button>\n                </th>\n            </tr>\n        </tfoot>\n    </table>\n</div>\n<div class=\"ui tab\" data-tab=\"daily-labors\">\n    <table class=\"ui table\">\n        <thead>\n            <tr>\n                <th>工別</th>\n                <th>人數</th>\n                <th>累積人數</th>\n            </tr>\n        </thead>\n        <tbody>\n            <tr v-if=\"!dailyLabors.length\">\n                <td colspan=\"3\">\n                    <empty-message></empty-message>\n                </td>\n            </tr>\n            <tr v-for=\"dailyLabor in dailyLabors\">\n                <td>{{ dailyLabor.name }}</td>\n                <td>{{ dailyLabor.amount }}</td>\n                <td>{{ laborTotalAmount[dailyLabor.labor_id] }}</td>\n            </tr>\n        </tbody>\n        <tfoot v-if=\"!disabled\">\n            <tr>\n                <th colspan=\"3\">\n                    <button class=\"ui right floated primary button\" @click=\"openModal('dailyLaborModal')\">\n                        <i class=\"plus icon\"></i>新增\n                    </button>\n                </th>\n            </tr>\n        </tfoot>\n    </table>\n</div>\n<div class=\"ui tab\" data-tab=\"daily-appliances\">\n    <table class=\"ui table\">\n        <thead>\n            <tr>\n                <th>機具</th>\n                <th>數量</th>\n                <th>累積數量</th>\n            </tr>\n        </thead>\n        <tbody>\n            <tr v-if=\"!dailyAppliances.length\">\n                <td colspan=\"3\">\n                    <empty-message></empty-message>\n                </td>\n            </tr>\n            <tr v-for=\"dailyAppliance in dailyAppliances\">\n                <td>{{ dailyAppliance.name }}</td>\n                <td>{{ dailyAppliance.amount }}</td>\n                <td>{{ applianceTotalAmount[dailyAppliance.appliance_id] }}</td>\n            </tr>\n        </tbody>\n        <tfoot v-if=\"!disabled\">\n            <tr>\n                <th colspan=\"3\">\n                    <button class=\"ui right floated primary button\" @click=\"openModal('dailyApplianceModal')\">\n                        <i class=\"plus icon\"></i>新增\n                    </button>\n                </th>\n            </tr>\n        </tfoot>\n    </table>\n</div>\n<div class=\"ui tab\" data-tab=\"daily-records\">\n    <table class=\"ui table\">\n        <thead>\n            <tr>\n                <th>主辦單位、監造單位指示</th>\n                <th>重要事項紀錄</th>\n            </tr>\n        </thead>\n        <tbody>\n            <tr v-if=\"!dailyRecords\">\n                <td colspan=\"2\">\n                    <empty-message></empty-message>\n                </td>\n            </tr>\n            <tr v-if=\"dailyRecords\">\n                <td>{{ dailyRecords['inspection_record'] }}</td>\n                <td>{{ dailyRecords['important_record'] }}</td>\n            </tr>\n        </tbody>\n        <tfoot v-if=\"!disabled\">\n            <tr>\n                <th colspan=\"2\">\n                    <button class=\"ui right floated primary button\" @click=\"openModal('dailyRecordModal')\">\n                        <i class=\"plus icon\"></i>新增\n                    </button>\n                </th>\n            </tr>\n        </tfoot>\n    </table>\n</div>\n\n<modal-create-project-checklist :project-id.once=\"projectId\" :on-success.once=\"onSuccess\" v-ref:checklist-modal></modal-create-project-checklist>\n<modal-create-daily-material :project-id.once=\"projectId\" :on-success.once=\"onSuccess\" v-ref:daily-material-modal></modal-create-daily-material>\n<modal-create-daily-labor :project-id.once=\"projectId\" :on-success.once=\"onSuccess\" v-ref:daily-labor-modal></modal-create-daily-labor>\n<modal-create-daily-appliance :project-id.once=\"projectId\" :on-success.once=\"onSuccess\" v-ref:daily-appliance-modal></modal-create-daily-appliance>\n<modal-create-daily-record :project-id.once=\"projectId\" :on-success.once=\"onSuccess\" v-ref:daily-record-modal></modal-create-daily-record>\n";
+
+/***/ },
+/* 279 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var __vue_script__, __vue_template__
+	__vue_script__ = __webpack_require__(280)
+	if (__vue_script__ &&
+	    __vue_script__.__esModule &&
+	    Object.keys(__vue_script__).length > 1) {
+	  console.warn("[vue-loader] resources/assets/js/components/cost-estimation-sheet.vue: named exports in *.vue files are ignored.")}
+	__vue_template__ = __webpack_require__(281)
+	module.exports = __vue_script__ || {}
+	if (module.exports.__esModule) module.exports = module.exports.default
+	if (__vue_template__) {
+	(typeof module.exports === "function" ? (module.exports.options || (module.exports.options = {})) : module.exports).template = __vue_template__
+	}
+	if (false) {(function () {  module.hot.accept()
+	  var hotAPI = require("vue-hot-reload-api")
+	  hotAPI.install(require("vue"), true)
+	  if (!hotAPI.compatible) return
+	  var id = "/Users/shavenking/Code/project-boomer/resources/assets/js/components/cost-estimation-sheet.vue"
+	  if (!module.hot.data) {
+	    hotAPI.createRecord(id, module.exports)
+	  } else {
+	    hotAPI.update(id, module.exports, __vue_template__)
+	  }
+	})()}
+
+/***/ },
+/* 280 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+
+	var _projectWorks = __webpack_require__(133);
+
+	var _lodash = __webpack_require__(112);
+
+	var _lodash2 = _interopRequireDefault(_lodash);
+
+	var _moment = __webpack_require__(176);
+
+	var _moment2 = _interopRequireDefault(_moment);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	exports.default = {
+	    props: ['projectId', 'date'],
+
+	    data: function data() {
+	        return {
+	            projectWorks: [],
+	            totalPassesAmount: [],
+	            previousPassesAmount: []
+	        };
+	    },
+	    ready: function ready() {
+	        var _this = this;
+
+	        (0, _projectWorks.getProjectWorks)(this.projectId).then(function (rep) {
+	            _this.projectWorks = rep.works;
+
+	            rep.works.forEach(function (pWork, idx) {
+	                (0, _projectWorks.getEstimations)(_this.projectId, pWork.id, { date: _this.date }).then(function (rep) {
+	                    var sum = 0;
+
+	                    if (rep['project_checklists']) {
+
+	                        rep.project_checklists.forEach(function (pChecklist) {
+	                            sum += pChecklist.passes_amount;
+	                        });
+	                    }
+
+	                    _this.totalPassesAmount.push(sum);
+	                });
+
+	                (0, _projectWorks.getEstimations)(_this.projectId, pWork.id, { date: (0, _moment2.default)(_this.date).subtract(1, 'months').format('YYYY-MM-DD') }).then(function (rep) {
+	                    var sum = 0;
+
+	                    if (rep['project_checklists']) {
+
+	                        rep.project_checklists.forEach(function (pChecklist) {
+	                            sum += pChecklist.passes_amount;
+	                        });
+	                    }
+
+	                    _this.previousPassesAmount.push(sum);
+	                });
+	            });
+	        });
+	    }
+	};
+	// </script>
+	// <template>
+	//     <table class="ui table">
+	//         <thead>
+	//             <tr>
+	//                 <th rowspan="2">工作項目</th>
+	//                 <th rowspan="2">單位</th>
+	//                 <th rowspan="2">單價</th>
+	//                 <th colspan="2">合約計數</th>
+	//                 <th colspan="2">以前完成</th>
+	//                 <th colspan="2">本期完成</th>
+	//                 <th colspan="2">合計完成</th>
+	//             </tr>
+	//             <tr>
+	//                 <th>數量</th>
+	//                 <th>價值</th>
+	//                 <th>數量</th>
+	//                 <th>價值</th>
+	//                 <th>數量</th>
+	//                 <th>價值</th>
+	//                 <th>數量</th>
+	//                 <th>價值</th>
+	//             </tr>
+	//         </thead>
+	//         <tbody>
+	//             <tr v-for="projectWork in projectWorks">
+	//                 <td>{{ projectWork.name }}</td>
+	//                 <td>{{ projectWork.unit.name }}</td>
+	//                 <td>{{ projectWork.unit_price }}</td>
+	//                 <td>{{ projectWork.amount }}</td>
+	//                 <td>{{ projectWork.amount * projectWork.unit_price }}</td>
+	//                 <td>{{ previousPassesAmount[$index] }}</td>
+	//                 <td>{{ previousPassesAmount[$index] * projectWork.unit_price }}</td>
+	//                 <td>{{ totalPassesAmount[$index] - previousPassesAmount[$index] }}</td>
+	//                 <td>{{ (totalPassesAmount[$index] - previousPassesAmount[$index]) * projectWork.unit_price }}</td>
+	//                 <td>{{ totalPassesAmount[$index] }}</td>
+	//                 <td>{{ totalPassesAmount[$index] * projectWork.unit_price }}</td>
+	//             </tr>
+	//         </tbody>
+	//     </table>
+	// </template>
+	//
+	// <script>
+
+/***/ },
+/* 281 */
+/***/ function(module, exports) {
+
+	module.exports = "\n<table class=\"ui table\">\n    <thead>\n        <tr>\n            <th rowspan=\"2\">工作項目</th>\n            <th rowspan=\"2\">單位</th>\n            <th rowspan=\"2\">單價</th>\n            <th colspan=\"2\">合約計數</th>\n            <th colspan=\"2\">以前完成</th>\n            <th colspan=\"2\">本期完成</th>\n            <th colspan=\"2\">合計完成</th>\n        </tr>\n        <tr>\n            <th>數量</th>\n            <th>價值</th>\n            <th>數量</th>\n            <th>價值</th>\n            <th>數量</th>\n            <th>價值</th>\n            <th>數量</th>\n            <th>價值</th>\n        </tr>\n    </thead>\n    <tbody>\n        <tr v-for=\"projectWork in projectWorks\">\n            <td>{{ projectWork.name }}</td>\n            <td>{{ projectWork.unit.name }}</td>\n            <td>{{ projectWork.unit_price }}</td>\n            <td>{{ projectWork.amount }}</td>\n            <td>{{ projectWork.amount * projectWork.unit_price }}</td>\n            <td>{{ previousPassesAmount[$index] }}</td>\n            <td>{{ previousPassesAmount[$index] * projectWork.unit_price }}</td>\n            <td>{{ totalPassesAmount[$index] - previousPassesAmount[$index] }}</td>\n            <td>{{ (totalPassesAmount[$index] - previousPassesAmount[$index]) * projectWork.unit_price }}</td>\n            <td>{{ totalPassesAmount[$index] }}</td>\n            <td>{{ totalPassesAmount[$index] * projectWork.unit_price }}</td>\n        </tr>\n    </tbody>\n</table>\n";
 
 /***/ }
 ]);

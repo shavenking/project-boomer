@@ -7,6 +7,7 @@ require(app_path('Http/Routes/ProjectWorks.php'));
 require(app_path('Http/Routes/Checklists.php'));
 require(app_path('Http/Routes/ProjectChecklists.php'));
 require(app_path('Http/Routes/ConstructionDailies.php'));
+require(app_path('Http/Routes/CostEstimations.php'));
 require(app_path('Http/Routes/FaultImprovements.php'));
 require(app_path('Http/Routes/Bids.php'));
 require(app_path('Http/Routes/DailyMaterials.php'));

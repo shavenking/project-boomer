@@ -1,4 +1,4 @@
-export function getProjectWorks(projectId, queries) {
+export function getProjectWorks(projectId, queries = []) {
     let queryArray = []
 
     if (queries.mainflow_type_id) {
@@ -12,4 +12,16 @@ export function getProjectWorks(projectId, queries) {
     const queryString = queryArray.join('&')
 
     return window.$.getJSON(`/api/v1/projects/${projectId}/works?${queryString}`)
+}
+
+export function getEstimations(pId, pWorkId, queries = []) {
+    let queryArray = []
+
+    if (queries.date) {
+        queryArray.push(`date=${queries.date}`)
+    }
+
+    const queryString = queryArray.join('&')
+
+    return window.$.getJSON(`/api/v1/projects/${pId}/works/${pWorkId}/cost-estimations?${queryString}`)
 }

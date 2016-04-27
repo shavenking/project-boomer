@@ -3,6 +3,7 @@ import WorkSelect from './components/work-select.vue'
 import FlowtypeSelect from './components/flowtype-select.vue'
 import UnitSelect from './components/unit-select.vue'
 import WorkflowSelect from './components/workflow-select.vue'
+import SubcontractorSelect from './components/subcontractor-select.vue'
 import WorkflowNodes from './components/workflow-nodes.vue'
 import WorkitemList from './components/workitem-list.vue'
 import Checklist from './components/checklist.vue'
@@ -14,6 +15,7 @@ import ProjectWorkitemList from './components/project-workitem-list.vue'
 import ProjectFlowtypeWorkSelect from './components/project-flowtype-work-select.vue'
 import ModalCreateProjectChecklist from './components/modal-create-project-checklist.vue'
 import ConstructionDaily from './components/construction-daily.vue'
+import CostEstimationSheet from './components/cost-estimation-sheet.vue'
 
 new Vue({
     el: 'body',
@@ -23,6 +25,7 @@ new Vue({
         FlowtypeSelect,
         UnitSelect,
         WorkflowSelect,
+        SubcontractorSelect,
         WorkitemList,
         Checklist,
         FlowtypeWorkSelect,
@@ -32,6 +35,7 @@ new Vue({
         ProjectWorkitemList,
         ProjectFlowtypeWorkSelect,
         ModalCreateProjectChecklist,
-        ConstructionDaily
+        ConstructionDaily,
+        CostEstimationSheet
     }
 })
