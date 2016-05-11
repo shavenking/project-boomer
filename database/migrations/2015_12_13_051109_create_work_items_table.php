@@ -22,7 +22,7 @@ class CreateWorkItemsTable extends Migration
             $table->string('name');
 
             $table->integer('order')->unsigned();
-            $table->integer('amount')->unsigned();
+            $table->double('amount', 15, 8)->unsigned();
             $table->integer('unit_price')->unsigned();
 
             $table->timestamps();

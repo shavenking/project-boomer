@@ -74,7 +74,7 @@ class ProjectChecklistsController extends Controller
 
         $checklist = $project->checklists()->create([
             'project_work_id' => $projectWork->id,
-            'name' => $request->name,
+            'name' => 'required',
             'seat' => $request->seat,
             'subcontractor_id' => $request->input('subcontractor_id'),
             'passes_amount' => 0

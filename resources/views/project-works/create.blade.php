@@ -23,8 +23,13 @@
 
             <flowtype-work-select
                 select-type-order-label="{{ trans('all.select_type_order') }}"
-                select-work-label="{{ trans('all.select_work') }}"
+                select-work-label="{{ trans('all.select_workflow') }}"
             ></flowtype-work-select>
+
+            <div class="field {{ $errors->has('name') ? 'error' : '' }}">
+                <label>{{ trans('all.create_work') }}</label>
+                <input type="text" name="name">
+            </div>
 
             <button class="ui primary button" type="submit">{{ trans('all.create') }}</button>
             <a href="{{ route('projects.bid.works', $project->id) }}" class="ui primary button">{{ trans('all.back') }}</a>

@@ -41,7 +41,7 @@ return [
     'set_checklists' => '設定自主檢查表',
     'set_works' => '設定工作項目',
 
-    'select_workflow' => '選擇流程',
+    'select_workflow' => '選擇施工流程',
     'select_work'=> '選擇工作項目',
     'select_type_order' => '選擇工程順序與類別',
     'select_unit' => '選擇單位',

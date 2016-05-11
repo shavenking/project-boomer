@@ -2,7 +2,7 @@
     trans_choice('all.projects', 2) => route('projects.index'),
     "{$project->name}" => route('projects.show', $project->id),
     trans('all.finance') => route('projects.finance.index', $project->id),
-    '估驗計價單列表' => null
+    '工程進度估驗計價' => null
 ] /* --}}
 
 @extends('layouts.project')

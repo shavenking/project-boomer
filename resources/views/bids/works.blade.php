@@ -52,7 +52,7 @@
                 unit-price-label="{{ trans('all.unit_price') }}"
                 amount-label="{{ trans('all.amount') }}"
                 total-price-label="{{ trans('all.total_price') }}"
-                workitems-label="{{ trans_choice('all.workitems', 2) }}"
+                workitems-label="{{ trans('all.workitems') }}"
             ></table-project-works>
         </div>
     </div>

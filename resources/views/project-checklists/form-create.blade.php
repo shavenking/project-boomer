@@ -1,6 +1,6 @@
 {{-- $project, $checklists --}}
 <form action="{{ route('projects.checklists.store', $project->id) }}" method="POST" class="ui form">
-    <h4 class="ui dividing header">施工工項</h4>
+    <h4 class="ui dividing header">工作項目</h4>
     <project-flowtype-work-select project-id="{{ $project->id }}"></project-flowtype-work-select>
 
     <h4 class="ui dividing header">自定檢查表名稱</h4>
