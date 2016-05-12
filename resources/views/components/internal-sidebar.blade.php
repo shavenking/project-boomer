@@ -8,19 +8,19 @@
     </a>
     <a
         href="#"
-        class="ui button"
+        class="ui disabled button"
     >
         {{ trans('all.p_cost') }}
     </a>
     <a
         href="#"
-        class="ui button"
+        class="ui disabled button"
     >
         {{ trans('all.p_schedule') }}
     </a>
     <a
         href="#"
-        class="ui button"
+        class="ui disabled button"
     >
         {{ trans('all.p_preparation') }}
     </a>
