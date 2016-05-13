@@ -19,7 +19,7 @@ class CreateProjectWorkitemsTable extends Migration
             $table->integer('cost_type_id')->unsigned();
             $table->string('name');
             $table->integer('order')->unsigned();
-            $table->integer('amount')->unsigned();
+            $table->double('amount', 15, 8)->unsigned();
             $table->integer('unit_price')->unsigned();
             $table->timestamps();
         });

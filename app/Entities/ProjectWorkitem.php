@@ -23,7 +23,7 @@ class ProjectWorkitem extends Model
     ];
 
     protected $casts = [
-        'amount' => 'integer',
+        'amount' => 'double',
         'unit_price' => 'integer'
     ];
 
