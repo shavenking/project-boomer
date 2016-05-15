@@ -27,7 +27,7 @@
     </a>
     <a
         href="#"
-        class="ui button">
+        class="ui disabled button">
         {{ trans('all.personals') }}
     </a>
 </div>
