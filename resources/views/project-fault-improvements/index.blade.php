@@ -8,25 +8,28 @@
 
 @section('content')
 
-    <div class="ui raised segment">
-        <ul class="ui relaxed list">
-            @foreach ($checklists as $checklist)
-                <li>
-                    <a href="{{ route('projects.checklists.show', [$project->id, $checklist->id]) }}" class="header">
-                        {{ $checklist->name }}    
-                    </a>
-                    
-                    <ul>
+    <div class="ui grid">
+        <div class="computer tablet only row">
+            <div class="sixteen wide column">
+                <table class="ui celled table">
+                    <thead>
+                        <tr>
+                            <th>自主檢查表</th>
+                            <th>缺失項目</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach ($checklists as $checklist)
+                            <tr>
+                                <td class="selectable">
+                                    <a href="{{ route('projects.checklists.show', [$project->id, $checklist->id]) }}">{{ $checklist->name }}</a>
+                                </td>
                         @foreach ($checklist->checkitems as $checkitem)
                             @if ($checkitem->faultImprovement)
-                                <li>
-                                    <a 
-                                        href="{{ route('projects.fault-improvements.show', [$project->id, $checkitem->faultImprovement->id]) }}" 
-                                        class="header"
-                                    >
-                                        {{ $checkitem->name }} - {{ $checkitem->detail }}
-                                    </a>
-                                </li>
+                                <td class="selectable">
+                                    <a href="{{ route('projects.fault-improvements.show', [$project->id, $checkitem->faultImprovement->id]) }}">{{ $checkitem->name }} - {{ $checkitem->detail }}</a>
+                                </td>
+                            </tr>
                             @endif
                         @endforeach
                     </ul>

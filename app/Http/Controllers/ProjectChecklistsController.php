@@ -38,9 +38,15 @@ class ProjectChecklistsController extends Controller
             return response()->json(compact('checklists'));
         }
 
-        $checklists = $project->checklists()->whereHas('checkitems', function ($q) {
-            $q->wherePasses(null);
-        })->get();
+        $checklists = $project->checklists->map(function ($checklist) {
+            if ($checklist->checkitems()->whereNull('passes')->exists()) {
+                $checklist->passes = false;
+            } else {
+                $checklist->passes = true;
+            }
+
+            return $checklist;
+        });
 
         return view('project-checklists.index')
             ->withProject($project)

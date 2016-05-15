@@ -22,7 +22,8 @@
                         <tr>
                             <th>名稱</th>
                             <th>協力廠商</th>
-                            <th>數量</th>
+                            <th>查核與否</th>
+                            <th>完成數量</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -32,6 +33,7 @@
                                     <a href="{{ route('projects.checklists.show', [$project->id, $checklist->id]) }}">{{ $checklist->name }}</a>
                                 </td>
                                 <td>{{ $checklist->subcontractor->name }}</td>
+                                <td>{{ $checklist->passes ? '查核完畢' : '未查核完畢' }}</td>
                                 <td>{{ $checklist->passes_amount }}</td>
                             </tr>
                         @endforeach
