@@ -6,11 +6,11 @@
     <div class="field">
         <label>{{ selectWorkLabel }}</label>
         <dropdown-select
-            input-name="work_ids"
+            input-name="work_id"
             :options="works"
             option-value-name="id"
             option-text-name="name"
-            :multiple.once="true"
+            :multiple.once="false"
             v-ref:work-select
         ></dropdown-select>
     </div>
@@ -43,7 +43,7 @@
                     this.works = response.works
 
                     this.$nextTick(() => {
-                        this.$refs.workSelect.$emit('optionsUpdated')                    
+                        this.$refs.workSelect.$emit('optionsUpdated')
                     })
                 })
             }

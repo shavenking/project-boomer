@@ -27330,11 +27330,11 @@ webpackJsonp([0],[
 	//     <div class="field">
 	//         <label>{{ selectWorkLabel }}</label>
 	//         <dropdown-select
-	//             input-name="work_ids"
+	//             input-name="work_id"
 	//             :options="works"
 	//             option-value-name="id"
 	//             option-text-name="name"
-	//             :multiple.once="true"
+	//             :multiple.once="false"
 	//             v-ref:work-select
 	//         ></dropdown-select>
 	//     </div>
@@ -27393,7 +27393,7 @@ webpackJsonp([0],[
 /* 121 */
 /***/ function(module, exports) {
 
-	module.exports = "\n<div class=\"field\">\n    <label>{{ selectTypeOrderLabel }}</label>\n    <flowtype-select :on-selected.once=\"onFlowtypeSelected\"></flowtype-select>\n</div>\n<div class=\"field\">\n    <label>{{ selectWorkLabel }}</label>\n    <dropdown-select\n        input-name=\"work_ids\"\n        :options=\"works\"\n        option-value-name=\"id\"\n        option-text-name=\"name\"\n        :multiple.once=\"true\"\n        v-ref:work-select\n    ></dropdown-select>\n</div>\n";
+	module.exports = "\n<div class=\"field\">\n    <label>{{ selectTypeOrderLabel }}</label>\n    <flowtype-select :on-selected.once=\"onFlowtypeSelected\"></flowtype-select>\n</div>\n<div class=\"field\">\n    <label>{{ selectWorkLabel }}</label>\n    <dropdown-select\n        input-name=\"work_id\"\n        :options=\"works\"\n        option-value-name=\"id\"\n        option-text-name=\"name\"\n        :multiple.once=\"false\"\n        v-ref:work-select\n    ></dropdown-select>\n</div>\n";
 
 /***/ },
 /* 122 */

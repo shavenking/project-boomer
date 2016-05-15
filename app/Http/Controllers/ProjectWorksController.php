@@ -71,21 +71,20 @@ class ProjectWorksController extends Controller
     public function store($projectId, Request $request)
     {
         $this->validate($request, [
-            'work_ids' => 'required'
+            'work_id' => 'required',
+            'name' => 'required'
         ]);
 
-        $workIds = explode(',', $request->input('work_ids'));
-
-        $works = \App\Entities\Work::findOrFail($workIds);
+        $work = \App\Entities\Work::findOrFail($request->input('work_id'));
 
         $project = \App\Entities\Project::findOrFail($projectId);
 
-        $works->each(function ($work) use ($project) {
-            $projectWork = $project->works()->create($work->toArray());
+        $projectWork = $project->works()->create(array_merge($work->toArray(), [
+            'name' => $request->input('name')
+        ]));
 
-            $work->items->each(function ($item) use ($projectWork) {
-                $projectWork->workitems()->create($item->toArray());
-            });
+        $work->items->each(function ($item) use ($projectWork) {
+            $projectWork->workitems()->create($item->toArray());
         });
 
         if ($request->ajax()) {
