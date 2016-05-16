@@ -13,7 +13,14 @@ class FaultImprovementsController extends Controller
     {
         $project = \App\Entities\Project::findOrFail($projectId);
 
-        $checklists = $project->checklists()->has('checkitems.faultImprovement')->get();
+        $checklists = $project->checklists()->has('checkitems.faultImprovement')->get()->map(function ($checklist) {
+            // Reject passes or unchecked checkitems
+            $checklist->checkitems = $checklist->checkitems->reject(function ($checkitem) {
+                return is_null($checkitem->faultImprovement);
+            });
+
+            return $checklist;
+        });
 
         return view('project-fault-improvements.index')
             ->withProject($project)

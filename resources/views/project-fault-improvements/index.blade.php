@@ -9,9 +9,9 @@
 @section('content')
 
     <div class="ui grid">
-        <div class="computer tablet only row">
+        <div class="row">
             <div class="sixteen wide column">
-                <table class="ui celled table">
+                <table class="ui celled structured table">
                     <thead>
                         <tr>
                             <th>自主檢查表</th>
@@ -22,22 +22,22 @@
                     <ul>
                         @foreach ($checklists as $checklist)
                             <tr>
-                                <td class="selectable">
+                                <td rowspan="{{ $checklist->checkitems->count() }}">
                                     <a href="{{ route('projects.checklists.show', [$project->id, $checklist->id]) }}">{{ $checklist->name }}</a>
                                 </td>
-                    <ul>
-                        @foreach ($checklist->checkitems as $checkitem)
-                            @if ($checkitem->faultImprovement)
-                                <td >
-                                    <a href="{{ route('projects.fault-improvements.show', [$project->id, $checkitem->faultImprovement->id]) }}">{{ $checkitem->name }} - {{ $checkitem->detail }}</a>
+                                <td>
+                                    <a href="{{ route('projects.fault-improvements.show', [$project->id, $checklist->checkitems->first()->faultImprovement->id]) }}">{{ $checklist->checkitems->first()->name }} - {{ $checklist->checkitems->first()->detail }}</a>
                                 </td>
                             </tr>
-                            @endif
+                            @foreach ($checklist->checkitems->slice(1) as $checkitem)
+                                <tr>
+                                    <td>
+                                        <a href="{{ route('projects.fault-improvements.show', [$project->id, $checkitem->faultImprovement->id]) }}">{{ $checkitem->name }} - {{ $checkitem->detail }}</a>
+                                    </td>
+                                </tr>
+                            @endforeach
                         @endforeach
-                    </ul>
-                        @endforeach
-                    </ul>
-                   </tbody>
+                    </tbody>
                 </table>
             </div>
         </div>
