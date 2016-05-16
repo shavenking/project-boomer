@@ -5,11 +5,6 @@
                 <h4 class="ui inverted dividing header">選擇施工工項</h4>
                 <project-flowtype-work-select :project-id.once="projectId"></project-flowtype-work-select>
 
-                <h4 class="ui inverted dividing header">自定檢查表名稱</h4>
-                <div class="field">
-                    <input type="text" name="name">
-                </div>
-
                 <h4 class="ui inverted dividing header">施工部位</h4>
                 <div class="field">
                     <input type="text" name="seat">

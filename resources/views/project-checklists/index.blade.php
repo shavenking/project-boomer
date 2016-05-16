@@ -35,7 +35,7 @@
                                 </td>
                                 <td>{{ $checklist->subcontractor->name }}</td>
                                 <td>{{ $checklist->passes ? '查核完成' : '未查核完成'}}</td>
-                                <td>{{ $checklist->fales ? '無' : '有'}}</td>
+                                <td>{{ $checklist->false ? '無' : '有'}}</td>
                                 <td>{{ $checklist->passes_amount }}</td>
                             </tr>
                         @endforeach
