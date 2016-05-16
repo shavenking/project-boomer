@@ -40,7 +40,7 @@
 </template>
 
 <script>
-    import { getProjectWorks, getEstimations } from '../query-helpers/project-works'
+    import { getProjectWorks, getEstimations, getPreviousEstimations } from '../query-helpers/project-works'
     import _ from 'lodash'
     import moment from 'moment'
 
@@ -73,7 +73,7 @@
                         this.totalPassesAmount.push(sum)
                     })
 
-                    getEstimations(this.projectId, pWork.id, { date: moment(this.date).subtract(1, 'months').format('YYYY-MM-DD') }).then(rep => {
+                    getPreviousEstimations(this.projectId, pWork.id, { date: this.date }).then(rep => {
                         let sum = 0
 
                         if (rep['project_checklists']) {

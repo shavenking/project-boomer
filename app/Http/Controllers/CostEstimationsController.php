@@ -56,6 +56,29 @@ class CostEstimationsController extends Controller
         return view('cost-estimations.show', compact('project', 'date'));
     }
 
+    public function getPreviousEstimation($projectId, $projectWorkId, Request $request)
+    {
+        $this->validate($request, ['date' => 'required|date']);
+
+        $projectWork = Project::findOrFail($projectId)->works()->findOrFail($projectWorkId);
+
+        $date = new Carbon($request->input('date'));
+
+        $previousDate = new Carbon(
+            CostEstimation::whereDate('settled_at', '<', $date)->orderBy('settled_at', 'desc')->first(['settled_at'])->settled_at
+        );
+
+        $pChecklists = ProjectChecklist::whereHas('projectWork', function ($q) use ($projectWork) {
+            $q->whereProjectWorkId($projectWork->id);
+        })->whereHas('checkitems', function ($q) {
+            $q->whereNull('passes');
+        }, '=', 0)->whereDate('finished_at', '<=', $previousDate)->get();
+
+        return response()->json([
+            'project_checklists' => $pChecklists
+        ]);
+    }
+
     public function estimations($projectId, $projectWorkId, Request $request)
     {
         $projectWork = Project::findOrFail($projectId)->works()->findOrFail($projectWorkId);
