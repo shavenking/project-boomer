@@ -28,7 +28,7 @@
     </div>
 </template>
 
-<script>
+<script type="text/babel">
     import { create } from '../query-helpers/daily-records'
     import pluck from 'lodash/collection/pluck'
     import zipObject from 'lodash/array/zipObject'

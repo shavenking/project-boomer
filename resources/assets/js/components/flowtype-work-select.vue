@@ -16,7 +16,7 @@
     </div>
 </template>
 
-<script>
+<script type="text/babel">
     import FlowtypeSelect from './flowtype-select.vue'
     import DropdownSelect from './dropdown-select.vue'
 

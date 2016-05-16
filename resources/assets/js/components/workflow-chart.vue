@@ -2,7 +2,7 @@
     <workflow-node-list :nodes.sync="nodes" read-only="true"></workflow-node-list>
 </template>
 
-<script>
+<script type="text/babel">
     import WorkflowNodeList from './workflow-node-list.vue'
 
     export default {

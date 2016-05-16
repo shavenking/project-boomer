@@ -187,7 +187,7 @@
     }
 </style>
 
-<script>
+<script type="text/babel">
     import ModalCreateProjectChecklist from './modal-create-project-checklist.vue'
     import ModalCreateDailyMaterial from './modal-create-daily-material.vue'
     import ModalCreateDailyLabor from './modal-create-daily-labor.vue'

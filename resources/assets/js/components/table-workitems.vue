@@ -45,7 +45,7 @@
     </table>
 </template>
 
-<script>
+<script type="text/babel">
     import _ from 'lodash'
 
     export default {

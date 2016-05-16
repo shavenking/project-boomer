@@ -29,7 +29,7 @@
     </div>
 </template>
 
-<script>
+<script type="text/babel">
     export default {
 
         props: [

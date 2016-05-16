@@ -34,7 +34,7 @@
     </div>
 </template>
 
-<script>
+<script type="text/babel">
     import WorkitemForm from './workitem-form.vue'
     import TableWorkitems from './table-workitems.vue'
     import zipObject from 'lodash/array/zipObject'

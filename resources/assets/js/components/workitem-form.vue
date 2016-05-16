@@ -27,7 +27,7 @@
     </form>
 </template>
 
-<script>
+<script type="text/babel">
     import pluck from 'lodash/collection/pluck'
     import zipObject from 'lodash/array/zipObject'
     import merge from 'lodash/object/merge'

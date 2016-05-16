@@ -28,7 +28,7 @@
 
 </template>
 
-<script>
+<script type="text/babel">
     import FlowtypeWorkSelect from './flowtype-work-select.vue'
     import WorkflowChart from './workflow-chart.vue'
 

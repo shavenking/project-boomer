@@ -17,7 +17,7 @@
     </div>
 </template>
 
-<script>
+<script type="text/babel">
     import OrderTitleInput from './order-title-input.vue'
     import WorkflowNodeList from './workflow-node-list.vue'
 

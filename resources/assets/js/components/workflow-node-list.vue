@@ -29,7 +29,7 @@
     }
 </style>
 
-<script>
+<script type="text/babel">
     import sortBy from 'lodash/collection/sortBy'
     import last from 'lodash/array/last'
     import take from 'lodash/array/take'

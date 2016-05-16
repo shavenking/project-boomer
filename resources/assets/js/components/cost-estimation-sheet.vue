@@ -39,7 +39,7 @@
     </table>
 </template>
 
-<script>
+<script type="text/babel">
     import { getProjectWorks, getEstimations, getPreviousEstimations } from '../query-helpers/project-works'
     import _ from 'lodash'
     import moment from 'moment'
