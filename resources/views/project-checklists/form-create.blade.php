@@ -15,4 +15,7 @@
 
     {{ csrf_field() }}
     <button class="ui primary button" type="submit">{{ trans('all.create') }}</button>
+    <a href="{{ route('projects.checklists.index', $project->id) }}" class="ui primary button">
+         返回
+    </a>
 </form>

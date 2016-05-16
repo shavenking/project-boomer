@@ -26,7 +26,7 @@
                                     <th>項目名稱</th>
                                     <th>檢查標準</th>
                                     <th class="collapsing">缺失改善表</th>
-                                    <th><!-- Buttons --></th>
+                                    <th>檢查狀態</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -81,6 +81,7 @@
                                             <label>完成數量</label>
                                             <input type="text" class="ui fluid" name="passes_amount" value="{{ $checklist->passes_amount }}"></input>
                                             <button class="ui primary button" type="submit">{{ trans('all.save') }}</button>
+                                            <a href="{{ route('projects.checklists.index', $project->id) }}" class="ui primary button">返回</a>
                                         </div>
 
                                     </th>
