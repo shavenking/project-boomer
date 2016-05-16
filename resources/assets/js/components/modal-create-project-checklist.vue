@@ -31,7 +31,7 @@
     </div>
 </template>
 
-<script>
+<script type="text/babel">
     import { create as createChecklist } from '../query-helpers/project-checklists'
     import ProjectFlowtypeWorkSelect from './project-flowtype-work-select.vue'
     import SubcontractorSelect from './subcontractor-select.vue'

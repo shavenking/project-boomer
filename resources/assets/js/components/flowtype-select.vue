@@ -23,7 +23,7 @@
     </div>
 </template>
 
-<script>
+<script type="text/babel">
     import Vue from 'vue'
     import DropdownSelect from './dropdown-select.vue'
 

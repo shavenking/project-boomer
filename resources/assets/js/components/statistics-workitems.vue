@@ -11,7 +11,7 @@
     </div>
 </template>
 
-<script>
+<script type="text/babel">
     import _ from 'lodash'
 
     function getItems(workId) {

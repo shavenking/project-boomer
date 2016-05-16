@@ -8,7 +8,7 @@
     ></dropdown-select>
 </template>
 
-<script>
+<script type="text/babel">
     import DropdownSelect from './dropdown-select.vue'
 
     function getWorkflows() {

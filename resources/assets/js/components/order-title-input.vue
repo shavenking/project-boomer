@@ -2,7 +2,7 @@
     <input type="text" v-model="orderTitle" v-on:keypress.enter="onKeypress">
 </template>
 
-<script>
+<script type="text/babel">
     let regex = /^([0-9]+)\.\s*(\S.*)/
 
     export default {

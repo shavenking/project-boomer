@@ -35,7 +35,7 @@
     </div>
 </template>
 
-<script>
+<script type="text/babel">
     import { getAll, create as createDailyMaterial } from '../query-helpers/daily-materials'
     import pluck from 'lodash/collection/pluck'
     import zipObject from 'lodash/array/zipObject'
