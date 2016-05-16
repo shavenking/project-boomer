@@ -64,8 +64,14 @@ class CostEstimationsController extends Controller
 
         $date = new Carbon($request->input('date'));
 
+        $previousEstimation = CostEstimation::whereDate('settled_at', '<', $date)->orderBy('settled_at', 'desc')->first(['settled_at']);
+
+        if (!$previousEstimation) {
+            return response()->json();
+        }
+
         $previousDate = new Carbon(
-            CostEstimation::whereDate('settled_at', '<', $date)->orderBy('settled_at', 'desc')->first(['settled_at'])->settled_at
+            $previousEstimation->settled_at
         );
 
         $pChecklists = ProjectChecklist::whereHas('projectWork', function ($q) use ($projectWork) {
