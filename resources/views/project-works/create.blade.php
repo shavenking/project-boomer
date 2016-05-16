@@ -18,23 +18,14 @@
     @endif
 
     <div class="ui raised segment">
-        <form method="POST" action="{{ route('projects.works.store', $project->id) }}" class="ui form">
+        <form-create-project-work
+            action="{{ route('projects.works.store', $project->id) }}"
+            project-id="{{ $project->id }}"
+            back-url="{{ route('projects.bid.works', $project->id) }}"
+            setting-work-url="{{ route('works.create') }}"
+        >
             {{ csrf_field() }}
-
-            <flowtype-work-select
-                select-type-order-label="{{ trans('all.select_type_order') }}"
-                select-work-label="{{ trans('all.select_workflow') }}"
-            ></flowtype-work-select>
-
-            <div class="field {{ $errors->has('name') ? 'error' : '' }}">
-                <label>{{ trans('all.create_work') }}</label>
-                <input type="text" name="name">
-            </div>
-
-            <button class="ui primary button" type="submit">{{ trans('all.create') }}</button>
-            <a href="{{ route('projects.bid.works', $project->id) }}" class="ui primary button">{{ trans('all.back') }}</a>
-            <a href="{{ route('works.create') }}" class="ui primary button">{{ trans('all.create_standard_work') }}</a>
-        </form>
+        </form-create-project-work>
     </div>
 
 @stop

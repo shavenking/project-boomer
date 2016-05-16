@@ -76,6 +76,10 @@ webpackJsonp([0],[
 
 	var _costEstimationSheet2 = _interopRequireDefault(_costEstimationSheet);
 
+	var _formCreateProjectWork = __webpack_require__(338);
+
+	var _formCreateProjectWork2 = _interopRequireDefault(_formCreateProjectWork);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	new _vue2.default({
@@ -97,7 +101,8 @@ webpackJsonp([0],[
 	        ProjectFlowtypeWorkSelect: _projectFlowtypeWorkSelect2.default,
 	        ModalCreateProjectChecklist: _modalCreateProjectChecklist2.default,
 	        ConstructionDaily: _constructionDaily2.default,
-	        CostEstimationSheet: _costEstimationSheet2.default
+	        CostEstimationSheet: _costEstimationSheet2.default,
+	        FormCreateProjectWork: _formCreateProjectWork2.default
 	    }
 	});
 
@@ -10243,7 +10248,7 @@ webpackJsonp([0],[
 	});
 	// <template>
 	//     <div
-	//         class="ui selection dropdown"
+	//         class="ui fluid selection dropdown"
 	//         :class="{ 'multiple': multiple, 'disabled': isEmpty }"
 	//         id="vue-dropdown-select-{{ _uid }}"
 	//     >
@@ -10326,7 +10331,7 @@ webpackJsonp([0],[
 /* 7 */
 /***/ function(module, exports) {
 
-	module.exports = "\n<div\n    class=\"ui selection dropdown\"\n    :class=\"{ 'multiple': multiple, 'disabled': isEmpty }\"\n    id=\"vue-dropdown-select-{{ _uid }}\"\n>\n    <input type=\"hidden\" v-bind:name=\"inputName\">\n    <i class=\"dropdown icon\"></i>\n    <div class=\"default text\"></div>\n    <div class=\"menu\">\n        <div\n            v-for=\"option in options\"\n            class=\"item\"\n            v-bind:data-value.once=\"option[optionValueName]\"\n        >\n            {{ option[optionTextName] }}\n        </div>\n    </div>\n</div>\n";
+	module.exports = "\n<div\n    class=\"ui fluid selection dropdown\"\n    :class=\"{ 'multiple': multiple, 'disabled': isEmpty }\"\n    id=\"vue-dropdown-select-{{ _uid }}\"\n>\n    <input type=\"hidden\" v-bind:name=\"inputName\">\n    <i class=\"dropdown icon\"></i>\n    <div class=\"default text\"></div>\n    <div class=\"menu\">\n        <div\n            v-for=\"option in options\"\n            class=\"item\"\n            v-bind:data-value.once=\"option[optionValueName]\"\n        >\n            {{ option[optionTextName] }}\n        </div>\n    </div>\n</div>\n";
 
 /***/ },
 /* 8 */
@@ -11401,7 +11406,7 @@ webpackJsonp([0],[
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	exports.default = {
-	    props: ['workflowId', 'nodes'],
+	    props: ['workflowId', 'nodes', 'readOnly'],
 
 	    methods: {
 	        deleteNode: function deleteNode(node) {
@@ -11428,7 +11433,7 @@ webpackJsonp([0],[
 	//             <div class="middle aligned content">
 	//                 <div class="header">
 	//                     {{ node.order }}.&nbsp;{{ node.title }}
-	//                     <i class="red trash link icon" @click="deleteNode(node)"></i>
+	//                     <i class="red trash link icon" @click="deleteNode(node)" v-if="!readOnly"></i>
 	//                 </div>
 	//                 <div class="vue-divider">
 	//                     <i class="large grey long arrow down icon"></i>
@@ -11439,7 +11444,7 @@ webpackJsonp([0],[
 	//             <div class="middle aligned content">
 	//                 <div class="header">
 	//                     {{ lastNode.order }}.&nbsp;{{ lastNode.title }}
-	//                     <i class="red trash link icon" @click="deleteNode(lastNode)"></i>
+	//                     <i class="red trash link icon" @click="deleteNode(lastNode)" v-if="!readOnly"></i>
 	//                 </div>
 	//             </div>
 	//         </div>
@@ -13460,7 +13465,7 @@ webpackJsonp([0],[
 /* 85 */
 /***/ function(module, exports) {
 
-	module.exports = "\n<div class=\"ui items\">\n    <div class=\"item\" v-for=\"node in nodesExceptLast\">\n        <div class=\"middle aligned content\">\n            <div class=\"header\">\n                {{ node.order }}.&nbsp;{{ node.title }}\n                <i class=\"red trash link icon\" @click=\"deleteNode(node)\"></i>\n            </div>\n            <div class=\"vue-divider\">\n                <i class=\"large grey long arrow down icon\"></i>\n            </div>\n        </div>\n    </div>\n    <div class=\"item\" v-if=\"lastNode\">\n        <div class=\"middle aligned content\">\n            <div class=\"header\">\n                {{ lastNode.order }}.&nbsp;{{ lastNode.title }}\n                <i class=\"red trash link icon\" @click=\"deleteNode(lastNode)\"></i>\n            </div>\n        </div>\n    </div>\n</div>\n";
+	module.exports = "\n<div class=\"ui items\">\n    <div class=\"item\" v-for=\"node in nodesExceptLast\">\n        <div class=\"middle aligned content\">\n            <div class=\"header\">\n                {{ node.order }}.&nbsp;{{ node.title }}\n                <i class=\"red trash link icon\" @click=\"deleteNode(node)\" v-if=\"!readOnly\"></i>\n            </div>\n            <div class=\"vue-divider\">\n                <i class=\"large grey long arrow down icon\"></i>\n            </div>\n        </div>\n    </div>\n    <div class=\"item\" v-if=\"lastNode\">\n        <div class=\"middle aligned content\">\n            <div class=\"header\">\n                {{ lastNode.order }}.&nbsp;{{ lastNode.title }}\n                <i class=\"red trash link icon\" @click=\"deleteNode(lastNode)\" v-if=\"!readOnly\"></i>\n            </div>\n        </div>\n    </div>\n</div>\n";
 
 /***/ },
 /* 86 */
@@ -44060,6 +44065,242 @@ webpackJsonp([0],[
 /***/ function(module, exports) {
 
 	module.exports = "\n<table class=\"ui table\">\n    <thead>\n        <tr>\n            <th rowspan=\"2\">工作項目</th>\n            <th rowspan=\"2\">單位</th>\n            <th rowspan=\"2\">單價</th>\n            <th colspan=\"2\">合約計數</th>\n            <th colspan=\"2\">以前完成</th>\n            <th colspan=\"2\">本期完成</th>\n            <th colspan=\"2\">合計完成</th>\n        </tr>\n        <tr>\n            <th>數量</th>\n            <th>價值</th>\n            <th>數量</th>\n            <th>價值</th>\n            <th>數量</th>\n            <th>價值</th>\n            <th>數量</th>\n            <th>價值</th>\n        </tr>\n    </thead>\n    <tbody>\n        <tr v-for=\"projectWork in projectWorks\">\n            <td>{{ projectWork.name }}</td>\n            <td>{{ projectWork.unit.name }}</td>\n            <td>{{ projectWork.unit_price }}</td>\n            <td>{{ projectWork.amount }}</td>\n            <td>{{ projectWork.amount * projectWork.unit_price }}</td>\n            <td>{{ previousPassesAmount[$index] }}</td>\n            <td>{{ previousPassesAmount[$index] * projectWork.unit_price }}</td>\n            <td>{{ totalPassesAmount[$index] - previousPassesAmount[$index] }}</td>\n            <td>{{ (totalPassesAmount[$index] - previousPassesAmount[$index]) * projectWork.unit_price }}</td>\n            <td>{{ totalPassesAmount[$index] }}</td>\n            <td>{{ totalPassesAmount[$index] * projectWork.unit_price }}</td>\n        </tr>\n    </tbody>\n</table>\n";
+
+/***/ },
+/* 282 */,
+/* 283 */,
+/* 284 */,
+/* 285 */,
+/* 286 */,
+/* 287 */,
+/* 288 */,
+/* 289 */,
+/* 290 */,
+/* 291 */,
+/* 292 */,
+/* 293 */,
+/* 294 */,
+/* 295 */,
+/* 296 */,
+/* 297 */,
+/* 298 */,
+/* 299 */,
+/* 300 */,
+/* 301 */,
+/* 302 */,
+/* 303 */,
+/* 304 */,
+/* 305 */,
+/* 306 */,
+/* 307 */,
+/* 308 */,
+/* 309 */,
+/* 310 */,
+/* 311 */,
+/* 312 */,
+/* 313 */,
+/* 314 */,
+/* 315 */,
+/* 316 */,
+/* 317 */,
+/* 318 */,
+/* 319 */,
+/* 320 */,
+/* 321 */,
+/* 322 */,
+/* 323 */,
+/* 324 */,
+/* 325 */,
+/* 326 */,
+/* 327 */,
+/* 328 */,
+/* 329 */,
+/* 330 */,
+/* 331 */,
+/* 332 */,
+/* 333 */,
+/* 334 */,
+/* 335 */,
+/* 336 */,
+/* 337 */,
+/* 338 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var __vue_script__, __vue_template__
+	__vue_script__ = __webpack_require__(339)
+	if (__vue_script__ &&
+	    __vue_script__.__esModule &&
+	    Object.keys(__vue_script__).length > 1) {
+	  console.warn("[vue-loader] resources/assets/js/components/form-create-project-work.vue: named exports in *.vue files are ignored.")}
+	__vue_template__ = __webpack_require__(340)
+	module.exports = __vue_script__ || {}
+	if (module.exports.__esModule) module.exports = module.exports.default
+	if (__vue_template__) {
+	(typeof module.exports === "function" ? (module.exports.options || (module.exports.options = {})) : module.exports).template = __vue_template__
+	}
+	if (false) {(function () {  module.hot.accept()
+	  var hotAPI = require("vue-hot-reload-api")
+	  hotAPI.install(require("vue"), true)
+	  if (!hotAPI.compatible) return
+	  var id = "/Users/shavenking/Code/project-boomer/resources/assets/js/components/form-create-project-work.vue"
+	  if (!module.hot.data) {
+	    hotAPI.createRecord(id, module.exports)
+	  } else {
+	    hotAPI.update(id, module.exports, __vue_template__)
+	  }
+	})()}
+
+/***/ },
+/* 339 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+
+	var _flowtypeWorkSelect = __webpack_require__(119);
+
+	var _flowtypeWorkSelect2 = _interopRequireDefault(_flowtypeWorkSelect);
+
+	var _workflowChart = __webpack_require__(341);
+
+	var _workflowChart2 = _interopRequireDefault(_workflowChart);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	// <template>
+	//     <div class="ui two column stackable grid container">
+	//         <div class="column">
+	//             <form method="POST" :action.once="action" class="ui form">
+	//                 <slot></slot>
+	//
+	//                 <flowtype-work-select
+	//                     select-type-order-label="選擇工程順序與類別"
+	//                     select-work-label="選擇施工流程"
+	//                     @selected="onWorkSelected"
+	//                 ></flowtype-work-select>
+	//
+	//                 <div class="field">
+	//                     <label>名稱</label>
+	//                     <input type="text" name="name">
+	//                 </div>
+	//
+	//                 <button class="ui primary button" type="submit">新增</button>
+	//                 <a :href.once="backUrl" class="ui primary button">返回</a>
+	//                 <a :href.once="settingWorkUrl" class="ui primary button">新增標準工作項目</a>
+	//             </form>
+	//         </div>
+	//         <div class="center aligned column">
+	//             <h5>流程圖</h5>
+	//             <workflow-chart v-ref:workflow-chart></workflow-chart>
+	//         </div>
+	//     </div>
+	//
+	// </template>
+	//
+	// <script>
+	exports.default = {
+	    props: ['projectId', 'action', 'backUrl', 'settingWorkUrl'],
+
+	    components: { FlowtypeWorkSelect: _flowtypeWorkSelect2.default, WorkflowChart: _workflowChart2.default },
+
+	    methods: {
+	        onWorkSelected: function onWorkSelected(workId) {
+	            this.$refs.workflowChart.showByWorkId(workId);
+	        }
+	    }
+	};
+	// </script>
+
+/***/ },
+/* 340 */
+/***/ function(module, exports) {
+
+	module.exports = "\n<div class=\"ui two column stackable grid container\">\n    <div class=\"column\">\n        <form method=\"POST\" :action.once=\"action\" class=\"ui form\">\n            <slot></slot>\n\n            <flowtype-work-select\n                select-type-order-label=\"選擇工程順序與類別\"\n                select-work-label=\"選擇施工流程\"\n                @selected=\"onWorkSelected\"\n            ></flowtype-work-select>\n\n            <div class=\"field\">\n                <label>名稱</label>\n                <input type=\"text\" name=\"name\">\n            </div>\n\n            <button class=\"ui primary button\" type=\"submit\">新增</button>\n            <a :href.once=\"backUrl\" class=\"ui primary button\">返回</a>\n            <a :href.once=\"settingWorkUrl\" class=\"ui primary button\">新增標準工作項目</a>\n        </form>\n    </div>\n    <div class=\"center aligned column\">\n        <h5>流程圖</h5>\n        <workflow-chart v-ref:workflow-chart></workflow-chart>\n    </div>\n</div>\n\n";
+
+/***/ },
+/* 341 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var __vue_script__, __vue_template__
+	__vue_script__ = __webpack_require__(342)
+	if (__vue_script__ &&
+	    __vue_script__.__esModule &&
+	    Object.keys(__vue_script__).length > 1) {
+	  console.warn("[vue-loader] resources/assets/js/components/workflow-chart.vue: named exports in *.vue files are ignored.")}
+	__vue_template__ = __webpack_require__(343)
+	module.exports = __vue_script__ || {}
+	if (module.exports.__esModule) module.exports = module.exports.default
+	if (__vue_template__) {
+	(typeof module.exports === "function" ? (module.exports.options || (module.exports.options = {})) : module.exports).template = __vue_template__
+	}
+	if (false) {(function () {  module.hot.accept()
+	  var hotAPI = require("vue-hot-reload-api")
+	  hotAPI.install(require("vue"), true)
+	  if (!hotAPI.compatible) return
+	  var id = "/Users/shavenking/Code/project-boomer/resources/assets/js/components/workflow-chart.vue"
+	  if (!module.hot.data) {
+	    hotAPI.createRecord(id, module.exports)
+	  } else {
+	    hotAPI.update(id, module.exports, __vue_template__)
+	  }
+	})()}
+
+/***/ },
+/* 342 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+
+	var _workflowNodeList = __webpack_require__(27);
+
+	var _workflowNodeList2 = _interopRequireDefault(_workflowNodeList);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	exports.default = {
+	    components: { WorkflowNodeList: _workflowNodeList2.default },
+
+	    props: [],
+
+	    methods: {
+	        showByWorkId: function showByWorkId(workId) {
+	            var _this = this;
+
+	            window.$.getJSON('/api/v1/works/' + workId).then(function (rep) {
+	                var workflowId = rep.work.workflow_id;
+
+	                window.$.getJSON('/api/v1/workflows/' + workflowId + '/nodes').then(function (rep) {
+	                    _this.nodes = rep.nodes;
+	                });
+	            });
+	        }
+	    },
+
+	    data: function data() {
+	        return {
+	            nodes: []
+	        };
+	    }
+	};
+	// </script>
+	// <template>
+	//     <workflow-node-list :nodes.sync="nodes" read-only="true"></workflow-node-list>
+	// </template>
+	//
+	// <script>
+
+/***/ },
+/* 343 */
+/***/ function(module, exports) {
+
+	module.exports = "\n<workflow-node-list :nodes.sync=\"nodes\" read-only=\"true\"></workflow-node-list>\n";
 
 /***/ }
 ]);

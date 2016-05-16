@@ -1,6 +1,6 @@
 <template>
     <div
-        class="ui selection dropdown"
+        class="ui fluid selection dropdown"
         :class="{ 'multiple': multiple, 'disabled': isEmpty }"
         id="vue-dropdown-select-{{ _uid }}"
     >

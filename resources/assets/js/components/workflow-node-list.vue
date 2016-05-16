@@ -4,7 +4,7 @@
             <div class="middle aligned content">
                 <div class="header">
                     {{ node.order }}.&nbsp;{{ node.title }}
-                    <i class="red trash link icon" @click="deleteNode(node)"></i>
+                    <i class="red trash link icon" @click="deleteNode(node)" v-if="!readOnly"></i>
                 </div>
                 <div class="vue-divider">
                     <i class="large grey long arrow down icon"></i>
@@ -15,7 +15,7 @@
             <div class="middle aligned content">
                 <div class="header">
                     {{ lastNode.order }}.&nbsp;{{ lastNode.title }}
-                    <i class="red trash link icon" @click="deleteNode(lastNode)"></i>
+                    <i class="red trash link icon" @click="deleteNode(lastNode)" v-if="!readOnly"></i>
                 </div>
             </div>
         </div>
@@ -35,7 +35,7 @@
     import take from 'lodash/array/take'
 
     export default {
-        props: ['workflowId', 'nodes'],
+        props: ['workflowId', 'nodes', 'readOnly'],
 
         methods: {
             deleteNode(node) {
