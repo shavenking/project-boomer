@@ -81,7 +81,7 @@
                                             <label>完成數量</label>
                                             <input type="text" class="ui fluid" name="passes_amount" value="{{ $checklist->passes_amount }}"></input>
                                             <button class="ui primary button" type="submit">{{ trans('all.save') }}</button>
-                                            <a href="{{ route('projects.checklists.index', $project->id) }}" class="ui primary button">返回</a>
+                                            <a href="{{ route('projects.checklists.index', $project->id) }}" class="ui primary button">返回施工流程自主檢查</a>
                                         </div>
 
                                     </th>

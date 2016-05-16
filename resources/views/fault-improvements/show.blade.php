@@ -76,7 +76,7 @@
                 </div>
                 <div class="column">
                     <button class="ui primary button" type="submit">{{ trans('all.save') }}</button>
-                    <a href="{{ route('projects.fault-improvements.index', $project->id) }}" class="ui primary button">返回缺失改善表</a>
+                    <a href="{{ route('projects.fault-improvements.index', $project->id) }}" class="ui primary button">返回工程施工改善</a>
                 </div>
             </div>
 
