@@ -5,3 +5,5 @@ Homestead.json
 .env
 /public/js/*.map
 /public/images
+
+resources/views/project-fault-improvements/index.blade.php

@@ -23,6 +23,7 @@
                             <th>名稱</th>
                             <th>協力廠商</th>
                             <th>查核狀態</th>
+                            <th>缺失狀態</th>
                             <th>完成數量</th>
                         </tr>
                     </thead>
@@ -34,6 +35,7 @@
                                 </td>
                                 <td>{{ $checklist->subcontractor->name }}</td>
                                 <td>{{ $checklist->passes ? '查核完成' : '未查核完成'}}</td>
+                                <td>{{ $checklist->fales ? '無' : '有'}}</td>
                                 <td>{{ $checklist->passes_amount }}</td>
                             </tr>
                         @endforeach

@@ -45,6 +45,14 @@ class ProjectChecklistsController extends Controller
                 $checklist->passes = true;
             }
 
+            if ($checklist->checkitems()->wherePasses('fales')->exists()) {
+                $checklist->hasFailure = true;
+            } else {
+                $checklist->hasFailure = fales;
+            }
+
+
+
             return $checklist;
         });
 

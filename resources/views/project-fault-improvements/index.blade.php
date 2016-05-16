@@ -19,19 +19,18 @@
                         </tr>
                     </thead>
                     <tbody>
-                    <ul>
                         @foreach ($checklists as $checklist)
                             <tr>
-                                <td rowspan="{{ $checklist->checkitems->count() }}">
+                                <td rowspan="{{ $checklist->checkitems->count() }}" class="selectable" >
                                     <a href="{{ route('projects.checklists.show', [$project->id, $checklist->id]) }}">{{ $checklist->name }}</a>
                                 </td>
-                                <td>
+                                <td class="selectable">
                                     <a href="{{ route('projects.fault-improvements.show', [$project->id, $checklist->checkitems->first()->faultImprovement->id]) }}">{{ $checklist->checkitems->first()->name }} - {{ $checklist->checkitems->first()->detail }}</a>
                                 </td>
                             </tr>
                             @foreach ($checklist->checkitems->slice(1) as $checkitem)
                                 <tr>
-                                    <td>
+                                    <td class="selectable">
                                         <a href="{{ route('projects.fault-improvements.show', [$project->id, $checkitem->faultImprovement->id]) }}">{{ $checkitem->name }} - {{ $checkitem->detail }}</a>
                                     </td>
                                 </tr>
