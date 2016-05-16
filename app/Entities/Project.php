@@ -43,4 +43,9 @@ class Project extends Model
     {
         return $this->hasMany(ProjectChecklist::class);
     }
+
+    public function costEstimations()
+    {
+        return $this->hasMany(CostEstimation::class);
+    }
 }

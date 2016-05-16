@@ -10,7 +10,7 @@ use Carbon\Carbon;
 use DatePeriod;
 use DateInterval;
 
-use App\Entities\{ Project, ProjectChecklist };
+use App\Entities\{ Project, ProjectChecklist, CostEstimation };
 
 class CostEstimationsController extends Controller
 {
@@ -18,19 +18,33 @@ class CostEstimationsController extends Controller
     {
         $project = Project::findOrFail($projectId);
 
-        $datePeriod = $this->datePeriodToCollection(
-            new DatePeriod(
-                (new Carbon('today'))->subMonths('5'),
-                new DateInterval('P1M'),
-                new Carbon('today')
-            )
-        );
+        $costEstimations = $project->costEstimations->sortByDesc('settled_at');
 
-        $datePeriod = $datePeriod->reverse();
+        return view('cost-estimations.index', compact('project', 'costEstimations'));
+    }
 
-        $today = new Carbon('today');
+    public function create($projectId, Request $request)
+    {
+        $this->validate($request, [
+            'date' => 'required|date'
+        ]);
 
-        return view('cost-estimations.index', compact('project', 'datePeriod', 'today'));
+        $project = Project::findOrFail($projectId);
+
+        $date = new Carbon($request->date);
+
+        return view('cost-estimations.create', compact('project', 'date'));
+    }
+
+    public function store($projectId, Request $request)
+    {
+        $date = new Carbon($request->date);
+
+        $project = Project::findOrFail($projectId);
+
+        $project->costEstimations()->create(['settled_at' => $date]);
+
+        return redirect()->route('projects.cost-estimations.show', [$projectId, $date->toDateString()]);
     }
 
     public function show($projectId, $date)
