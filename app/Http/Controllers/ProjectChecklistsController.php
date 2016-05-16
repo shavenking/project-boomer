@@ -51,8 +51,6 @@ class ProjectChecklistsController extends Controller
                 $checklist->hasFailure = false;
             }
 
-
-
             return $checklist;
         });
 
