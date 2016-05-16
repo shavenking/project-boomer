@@ -19,23 +19,30 @@
                         </tr>
                     </thead>
                     <tbody>
+                    <ul>
                         @foreach ($checklists as $checklist)
                             <tr>
                                 <td class="selectable">
                                     <a href="{{ route('projects.checklists.show', [$project->id, $checklist->id]) }}">{{ $checklist->name }}</a>
                                 </td>
+                    <ul>
                         @foreach ($checklist->checkitems as $checkitem)
                             @if ($checkitem->faultImprovement)
-                                <td class="selectable">
+                                <td >
                                     <a href="{{ route('projects.fault-improvements.show', [$project->id, $checkitem->faultImprovement->id]) }}">{{ $checkitem->name }} - {{ $checkitem->detail }}</a>
                                 </td>
                             </tr>
                             @endif
                         @endforeach
                     </ul>
-                </li>
-            @endforeach
-        </ul>
+                        @endforeach
+                    </ul>
+                   </tbody>
+                </table>
+            </div>
+        </div>
     </div>
+
+
 
 @stop
