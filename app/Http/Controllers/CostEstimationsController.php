@@ -56,21 +56,6 @@ class CostEstimationsController extends Controller
         return view('cost-estimations.show', compact('project', 'date'));
     }
 
-    public function edit($id)
-    {
-        //
-    }
-
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    public function destroy($id)
-    {
-        //
-    }
-
     public function estimations($projectId, $projectWorkId, Request $request)
     {
         $projectWork = Project::findOrFail($projectId)->works()->findOrFail($projectWorkId);
@@ -86,16 +71,5 @@ class CostEstimationsController extends Controller
         return response()->json([
             'project_checklists' => $pChecklists
         ]);
-    }
-
-    private function datePeriodToCollection(DatePeriod $datePeriod)
-    {
-        $collection = collect();
-
-        foreach ($datePeriod as $date) {
-            $collection->push($date->format('Y-m-d'));
-        }
-
-        return $collection;
     }
 }
