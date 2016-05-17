@@ -10,7 +10,9 @@ use Carbon\Carbon;
 use DatePeriod;
 use DateInterval;
 
-use App\Entities\{ Project, ProjectChecklist, CostEstimation };
+use App\Entities\{
+    CostEstimationBounce, Project, ProjectChecklist, CostEstimation
+};
 
 class CostEstimationsController extends Controller
 {
@@ -54,6 +56,90 @@ class CostEstimationsController extends Controller
         $date = new Carbon($date);
 
         return view('cost-estimations.show', compact('project', 'date'));
+    }
+
+    /**
+     * Show all available bounces.
+     */
+    public function allBounces()
+    {
+        $costEstimationBounces = CostEstimationBounce::all();
+
+        return response()->json([
+            'cost_estimation_bounces' => $costEstimationBounces
+        ]);
+    }
+
+    /**
+     * Show all bounces in specific cost estimation.
+     *
+     * @param $projectId
+     * @param $costEstimationId
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function indexBounce($projectId, $costEstimationId)
+    {
+        $project = Project::findOrFail($projectId);
+        $costEstimation = $project->costEstimations()->findOrFail($costEstimationId);
+
+        return response()->json([
+            'cost_estimation_bounces' => $costEstimation->bounces
+        ]);
+    }
+
+    /**
+     * Create or Add CostEstimationBounce
+     *
+     * @param $projectId
+     * @param $costEstimationId
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function storeBounce($projectId, $costEstimationId, Request $request)
+    {
+        $this->validate($request, [
+            'name' => 'required_without:cost_estimation_bounce_id',
+            'cost_estimation_bounce_id' => 'required_without:name',
+            'unit_id' => 'required',
+            'unit_price' => 'required',
+            'amount' => 'required'
+        ]);
+        
+        $project = Project::findOrFail($projectId);
+        $costEstimation = $project->costEstimations()->findOrFail($costEstimationId);
+
+        if ($request->has('name')) {
+            $costEstimation->bounces()->create([
+                'name' => $request->input('name'),
+                'unit_id' => $request->input('unit_id'),
+            ], [
+                'unit_price' => $request->input('unit_price'),
+                'amount' => $request->input('amount')
+            ]);
+        }
+
+        if ($request->has('cost_estimation_bounce_id')) {
+            $costEstimationBounce = $costEstimation->bounces()->find(
+                $request->input('cost_estimation_bounce_id')
+            );
+
+            if ($costEstimationBounce) {
+                $costEstimation->bounces()->updateExistingPivot($costEstimationBounce->id, [
+                    'unit_price' => $request->input('unit_price'),
+                    'amount' => $request->input('amount')
+                ]);
+            } else {
+                $costEstimation->bounces()->attach(
+                    $costEstimationBounce->id,
+                    [
+                        'unit_price' => $request->input('unit_price'),
+                        'amount' => $request->input('amount')
+                    ]
+                );
+            }
+        }
+
+        return response()->json();
     }
 
     public function getPreviousEstimation($projectId, $projectWorkId, Request $request)
