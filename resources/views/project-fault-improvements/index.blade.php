@@ -1,7 +1,7 @@
 {{-- */ $breadcrumbs = [
     trans_choice('all.projects', 2) => route('projects.index'),
     "{$project->name}" => route('projects.show', $project->id),
-    trans_choice('all.fault_improvements', 2) => null
+    trans('all.fault_improvements') => null
 ] /* --}}
 
 @extends('layouts.project')
@@ -16,6 +16,7 @@
                         <tr>
                             <th>自主檢查表</th>
                             <th>缺失項目</th>
+                            <th>改善狀態</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -33,6 +34,7 @@
                                     <td class="selectable">
                                         <a href="{{ route('projects.fault-improvements.show', [$project->id, $checkitem->faultImprovement->id]) }}">{{ $checkitem->name }} - {{ $checkitem->detail }}</a>
                                     </td>
+                                    <td>已改善</td>
                                 </tr>
                             @endforeach
                         @endforeach
