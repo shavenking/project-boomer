@@ -76,7 +76,7 @@ webpackJsonp([0],[
 
 	var _costEstimationSheet2 = _interopRequireDefault(_costEstimationSheet);
 
-	var _formCreateProjectWork = __webpack_require__(282);
+	var _formCreateProjectWork = __webpack_require__(285);
 
 	var _formCreateProjectWork2 = _interopRequireDefault(_formCreateProjectWork);
 
@@ -10188,7 +10188,7 @@ webpackJsonp([0],[
 	//     ></dropdown-select>
 	// </template>
 	//
-	// <script>
+	// <script type="text/babel">
 
 
 	exports.default = {
@@ -10267,7 +10267,7 @@ webpackJsonp([0],[
 	//     </div>
 	// </template>
 	//
-	// <script>
+	// <script type="text/babel">
 	exports.default = {
 	    props: {
 	        inputName: {
@@ -10412,7 +10412,7 @@ webpackJsonp([0],[
 	//     </div>
 	// </template>
 	//
-	// <script>
+	// <script type="text/babel">
 
 
 	function getMainflowTypes() {
@@ -10541,7 +10541,7 @@ webpackJsonp([0],[
 	//     ></dropdown-select>
 	// </template>
 	//
-	// <script>
+	// <script type="text/babel">
 
 
 	exports.default = {
@@ -10641,7 +10641,7 @@ webpackJsonp([0],[
 	//     ></dropdown-select>
 	// </template>
 	//
-	// <script>
+	// <script type="text/babel">
 
 
 	exports.default = {
@@ -10732,7 +10732,7 @@ webpackJsonp([0],[
 	//     ></dropdown-select>
 	// </template>
 	//
-	// <script>
+	// <script type="text/babel">
 	exports.default = {
 	    props: ['default'],
 
@@ -10855,7 +10855,7 @@ webpackJsonp([0],[
 	//     </div>
 	// </template>
 	//
-	// <script>
+	// <script type="text/babel">
 
 
 	function getNodes(workflowId) {
@@ -10973,7 +10973,7 @@ webpackJsonp([0],[
 	//     <input type="text" v-model="orderTitle" v-on:keypress.enter="onKeypress">
 	// </template>
 	//
-	// <script>
+	// <script type="text/babel">
 	var regex = /^([0-9]+)\.\s*(\S.*)/;
 
 	exports.default = {
@@ -11458,7 +11458,7 @@ webpackJsonp([0],[
 	//     }
 	// </style>
 	//
-	// <script>
+	// <script type="text/babel">
 
 /***/ },
 /* 33 */
@@ -13571,7 +13571,7 @@ webpackJsonp([0],[
 	//     </div>
 	// </template>
 	//
-	// <script>
+	// <script type="text/babel">
 
 
 	function getTypes() {
@@ -13837,7 +13837,7 @@ webpackJsonp([0],[
 	//     </form>
 	// </template>
 	//
-	// <script>
+	// <script type="text/babel">
 
 /***/ },
 /* 91 */
@@ -14608,7 +14608,7 @@ webpackJsonp([0],[
 	//     ></dropdown-select>
 	// </template>
 	//
-	// <script>
+	// <script type="text/babel">
 
 
 	exports.default = {
@@ -14768,7 +14768,7 @@ webpackJsonp([0],[
 	//     </table>
 	// </template>
 	//
-	// <script>
+	// <script type="text/babel">
 
 /***/ },
 /* 112 */
@@ -27210,7 +27210,7 @@ webpackJsonp([0],[
 	//     </table>
 	// </template>
 	//
-	// <script>
+	// <script type="text/babel">
 
 
 	function createCheckitem(checklistId, title, detail) {
@@ -27345,7 +27345,7 @@ webpackJsonp([0],[
 	//     </div>
 	// </template>
 	//
-	// <script>
+	// <script type="text/babel">
 
 
 	function getWorks(detailingflowTypeId) {
@@ -27505,7 +27505,7 @@ webpackJsonp([0],[
 	//     </table>
 	// </template>
 	//
-	// <script>
+	// <script type="text/babel">
 
 
 	function _updateWork(work) {
@@ -27623,7 +27623,7 @@ webpackJsonp([0],[
 	//     </div>
 	// </template>
 	//
-	// <script>
+	// <script type="text/babel">
 
 
 	function getTypes() {
@@ -27785,7 +27785,7 @@ webpackJsonp([0],[
 	//     </div>
 	// </template>
 	//
-	// <script>
+	// <script type="text/babel">
 
 
 	function getTypes() {
@@ -28024,7 +28024,7 @@ webpackJsonp([0],[
 	//     </div>
 	// </template>
 	//
-	// <script>
+	// <script type="text/babel">
 
 /***/ },
 /* 133 */
@@ -28230,7 +28230,7 @@ webpackJsonp([0],[
 	//     </div>
 	// </template>
 	//
-	// <script>
+	// <script type="text/babel">
 
 /***/ },
 /* 137 */
@@ -28706,7 +28706,7 @@ webpackJsonp([0],[
 	//     }
 	// </style>
 	//
-	// <script>
+	// <script type="text/babel">
 
 /***/ },
 /* 143 */
@@ -28807,7 +28807,7 @@ webpackJsonp([0],[
 	//     </div>
 	// </template>
 	//
-	// <script>
+	// <script type="text/babel">
 	exports.default = {
 	    props: ['projectId', 'onSuccess', 'onCancel'],
 
@@ -29555,7 +29555,7 @@ webpackJsonp([0],[
 	//     </div>
 	// </template>
 	//
-	// <script>
+	// <script type="text/babel">
 	exports.default = {
 	    props: ['projectId', 'onSuccess', 'onCancel'],
 
@@ -29783,7 +29783,7 @@ webpackJsonp([0],[
 	//     </div>
 	// </template>
 	//
-	// <script>
+	// <script type="text/babel">
 	exports.default = {
 	    props: ['projectId', 'onSuccess', 'onCancel'],
 
@@ -30004,7 +30004,7 @@ webpackJsonp([0],[
 	//     </div>
 	// </template>
 	//
-	// <script>
+	// <script type="text/babel">
 	exports.default = {
 	    props: ['projectId', 'onSuccess', 'onCancel'],
 
@@ -30137,7 +30137,7 @@ webpackJsonp([0],[
 	//     </div>
 	// </template>
 	//
-	// <script>
+	// <script type="text/babel">
 	exports.default = {};
 	// </script>
 
@@ -43940,7 +43940,7 @@ webpackJsonp([0],[
 	    __vue_script__.__esModule &&
 	    Object.keys(__vue_script__).length > 1) {
 	  console.warn("[vue-loader] resources/assets/js/components/cost-estimation-sheet.vue: named exports in *.vue files are ignored.")}
-	__vue_template__ = __webpack_require__(281)
+	__vue_template__ = __webpack_require__(284)
 	module.exports = __vue_script__ || {}
 	if (module.exports.__esModule) module.exports = module.exports.default
 	if (__vue_template__) {
@@ -43974,30 +43974,114 @@ webpackJsonp([0],[
 
 	var _lodash2 = _interopRequireDefault(_lodash);
 
-	var _moment = __webpack_require__(176);
+	var _modalCreateCostEstimationBounce = __webpack_require__(281);
 
-	var _moment2 = _interopRequireDefault(_moment);
+	var _modalCreateCostEstimationBounce2 = _interopRequireDefault(_modalCreateCostEstimationBounce);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	exports.default = {
-	    props: ['projectId', 'date'],
+	    props: ['projectId', 'costEstimationId', 'date'],
+
+	    components: { ModalCreateCostEstimationBounce: _modalCreateCostEstimationBounce2.default },
+
+	    methods: {
+	        openModal: function openModal() {
+	            this.$refs.modal.openModal();
+	        },
+	        onCostEstimationBounceCreated: function onCostEstimationBounceCreated() {
+	            var _this = this;
+
+	            window.$.getJSON('/api/v1/cost-estimation-bounces').then(function (rep) {
+	                var allBounces = rep.cost_estimation_bounces;
+	                _this.allBounces = rep.cost_estimation_bounces;
+
+	                window.$.getJSON('/api/v1/projects/' + _this.projectId + '/bounces/', { cost_estimation_id: _this.costEstimationId }).then(function (rep) {
+	                    // 抓出本期的額外費用
+	                    var currentBounces = _lodash2.default.filter(rep.cost_estimation_bounces, function (bounce) {
+	                        return bounce.cost_estimation_id == _this.costEstimationId;
+	                    });
+	                    var currentPrices = _lodash2.default.zipObject(_lodash2.default.pluck(allBounces, 'id'), new Array(allBounces.length).fill(0));
+	                    _lodash2.default.each(_lodash2.default.groupBy(currentBounces, 'cost_estimation_bounce_id'), function (bounces, bounceId) {
+	                        var sum = 0;
+	                        _lodash2.default.each(bounces, function (bounce) {
+	                            sum += bounce.amount * bounce.unit_price;
+	                        });
+	                        currentPrices[bounceId] = sum;
+	                    });
+	                    _this.currentPrices = currentPrices;
+	                    // 抓出本期以外的額外費用
+	                    var previousPrices = _lodash2.default.zipObject(_lodash2.default.pluck(allBounces, 'id'), new Array(allBounces.length).fill(0));
+	                    var previousBounces = _lodash2.default.filter(rep.cost_estimation_bounces, function (bounce) {
+	                        return bounce.cost_estimation_id != _this.costEstimationId;
+	                    });
+	                    _lodash2.default.each(_lodash2.default.groupBy(previousBounces, 'cost_estimation_bounce_id'), function (bounces, bounceId) {
+	                        var sum = 0;
+	                        _lodash2.default.each(bounces, function (bounce) {
+	                            sum += bounce.amount * bounce.unit_price;
+	                        });
+	                        previousPrices[bounceId] = sum;
+	                    });
+	                    _this.previousPrices = previousPrices;
+	                });
+	            });
+	        }
+	    },
 
 	    data: function data() {
 	        return {
 	            projectWorks: [],
 	            totalPassesAmount: [],
-	            previousPassesAmount: []
+	            previousPassesAmount: [],
+	            bounceCostEstimations: [],
+	            previousBounceCostEstimations: {},
+	            allBounces: [],
+	            currentPrices: {},
+	            previousPrices: {}
 	        };
 	    },
 	    ready: function ready() {
-	        var _this = this;
+	        var _this2 = this;
+
+	        window.$.getJSON('/api/v1/cost-estimation-bounces').then(function (rep) {
+	            var allBounces = rep.cost_estimation_bounces;
+	            _this2.allBounces = rep.cost_estimation_bounces;
+
+	            window.$.getJSON('/api/v1/projects/' + _this2.projectId + '/bounces/', { cost_estimation_id: _this2.costEstimationId }).then(function (rep) {
+	                // 抓出本期的額外費用
+	                var currentBounces = _lodash2.default.filter(rep.cost_estimation_bounces, function (bounce) {
+	                    return bounce.cost_estimation_id == _this2.costEstimationId;
+	                });
+	                var currentPrices = _lodash2.default.zipObject(_lodash2.default.pluck(allBounces, 'id'), new Array(allBounces.length).fill(0));
+	                _lodash2.default.each(_lodash2.default.groupBy(currentBounces, 'cost_estimation_bounce_id'), function (bounces, bounceId) {
+	                    var sum = 0;
+	                    _lodash2.default.each(bounces, function (bounce) {
+	                        sum += bounce.amount * bounce.unit_price;
+	                    });
+	                    currentPrices[bounceId] = sum;
+	                });
+	                _this2.currentPrices = currentPrices;
+	                // 抓出本期以外的額外費用
+	                var previousPrices = _lodash2.default.zipObject(_lodash2.default.pluck(allBounces, 'id'), new Array(allBounces.length).fill(0));
+	                var previousBounces = _lodash2.default.filter(rep.cost_estimation_bounces, function (bounce) {
+	                    return bounce.cost_estimation_id != _this2.costEstimationId;
+	                });
+	                _lodash2.default.each(_lodash2.default.groupBy(previousBounces, 'cost_estimation_bounce_id'), function (bounces, bounceId) {
+	                    var sum = 0;
+	                    _lodash2.default.each(bounces, function (bounce) {
+	                        sum += bounce.amount * bounce.unit_price;
+	                    });
+	                    previousPrices[bounceId] = sum;
+	                });
+	                _this2.previousPrices = previousPrices;
+	            });
+	        });
 
 	        (0, _projectWorks.getProjectWorks)(this.projectId).then(function (rep) {
-	            _this.projectWorks = rep.works;
+	            _this2.projectWorks = rep.works;
 
 	            rep.works.forEach(function (pWork, idx) {
-	                (0, _projectWorks.getEstimations)(_this.projectId, pWork.id, { date: _this.date }).then(function (rep) {
+	                (0, _projectWorks.getEstimations)(_this2.projectId, pWork.id, { date: _this2.date }).then(function (rep) {
 	                    var sum = 0;
 
 	                    if (rep['project_checklists']) {
@@ -44007,10 +44091,10 @@ webpackJsonp([0],[
 	                        });
 	                    }
 
-	                    _this.totalPassesAmount.push(sum);
+	                    _this2.totalPassesAmount.push(sum);
 	                });
 
-	                (0, _projectWorks.getPreviousEstimations)(_this.projectId, pWork.id, { date: _this.date }).then(function (rep) {
+	                (0, _projectWorks.getPreviousEstimations)(_this2.projectId, pWork.id, { date: _this2.date }).then(function (rep) {
 	                    var sum = 0;
 
 	                    if (rep['project_checklists']) {
@@ -44020,7 +44104,7 @@ webpackJsonp([0],[
 	                        });
 	                    }
 
-	                    _this.previousPassesAmount.push(sum);
+	                    _this2.previousPassesAmount.push(sum);
 	                });
 	            });
 	        });
@@ -44065,28 +44149,265 @@ webpackJsonp([0],[
 	//                 <td>{{ totalPassesAmount[$index] * projectWork.unit_price }}</td>
 	//             </tr>
 	//         </tbody>
+	//         <thead>
+	//             <tr>
+	//                 <th colspan="11">其它費用</th>
+	//             </tr>
+	//         </thead>
+	//         <tbody>
+	//             <tr v-for="bounce in allBounces">
+	//                 <td>{{ bounce.name }}</td>
+	//                 <td>{{ bounce.unit.name }}</td>
+	//                 <td>-</td>
+	//                 <td>-</td>
+	//                 <td>-</td>
+	//                 <td>-</td>
+	//                 <td>{{ previousPrices[bounce.id] }}</td>
+	//                 <td>-</td>
+	//                 <td>{{ currentPrices[bounce.id] }}</td>
+	//                 <td>-</td>
+	//                 <td>{{ previousPrices[bounce.id] + currentPrices[bounce.id] }}</td>
+	//             </tr>
+	//         </tbody>
+	//         <tfoot>
+	//             <tr>
+	//                 <th colspan="11">
+	//                     <button class="ui primary button" @click="openModal()">其它費用</button>
+	//                 </th>
+	//             </tr>
+	//         </tfoot>
 	//     </table>
+	//
+	//     <modal-create-cost-estimation-bounce
+	//             :project-id.once="projectId"
+	//             :cost-estimation-id.once="costEstimationId"
+	//             :on-success.once="onCostEstimationBounceCreated"
+	//             v-ref:modal
+	//     ></modal-create-cost-estimation-bounce>
 	// </template>
 	//
-	// <script>
+	// <script type="text/babel">
 
 /***/ },
 /* 281 */
-/***/ function(module, exports) {
+/***/ function(module, exports, __webpack_require__) {
 
-	module.exports = "\n<table class=\"ui table\">\n    <thead>\n        <tr>\n            <th rowspan=\"2\">工作項目</th>\n            <th rowspan=\"2\">單位</th>\n            <th rowspan=\"2\">單價</th>\n            <th colspan=\"2\">合約計數</th>\n            <th colspan=\"2\">以前完成</th>\n            <th colspan=\"2\">本期完成</th>\n            <th colspan=\"2\">合計完成</th>\n        </tr>\n        <tr>\n            <th>數量</th>\n            <th>價值</th>\n            <th>數量</th>\n            <th>價值</th>\n            <th>數量</th>\n            <th>價值</th>\n            <th>數量</th>\n            <th>價值</th>\n        </tr>\n    </thead>\n    <tbody>\n        <tr v-for=\"projectWork in projectWorks\">\n            <td>{{ projectWork.name }}</td>\n            <td>{{ projectWork.unit.name }}</td>\n            <td>{{ projectWork.unit_price }}</td>\n            <td>{{ projectWork.amount }}</td>\n            <td>{{ projectWork.amount * projectWork.unit_price }}</td>\n            <td>{{ previousPassesAmount[$index] }}</td>\n            <td>{{ previousPassesAmount[$index] * projectWork.unit_price }}</td>\n            <td>{{ totalPassesAmount[$index] - previousPassesAmount[$index] }}</td>\n            <td>{{ (totalPassesAmount[$index] - previousPassesAmount[$index]) * projectWork.unit_price }}</td>\n            <td>{{ totalPassesAmount[$index] }}</td>\n            <td>{{ totalPassesAmount[$index] * projectWork.unit_price }}</td>\n        </tr>\n    </tbody>\n</table>\n";
+	var __vue_script__, __vue_template__
+	__vue_script__ = __webpack_require__(282)
+	if (__vue_script__ &&
+	    __vue_script__.__esModule &&
+	    Object.keys(__vue_script__).length > 1) {
+	  console.warn("[vue-loader] resources/assets/js/components/modal-create-cost-estimation-bounce.vue: named exports in *.vue files are ignored.")}
+	__vue_template__ = __webpack_require__(283)
+	module.exports = __vue_script__ || {}
+	if (module.exports.__esModule) module.exports = module.exports.default
+	if (__vue_template__) {
+	(typeof module.exports === "function" ? (module.exports.options || (module.exports.options = {})) : module.exports).template = __vue_template__
+	}
+	if (false) {(function () {  module.hot.accept()
+	  var hotAPI = require("vue-hot-reload-api")
+	  hotAPI.install(require("vue"), true)
+	  if (!hotAPI.compatible) return
+	  var id = "/Users/shavenking/Code/project-boomer/resources/assets/js/components/modal-create-cost-estimation-bounce.vue"
+	  if (!module.hot.data) {
+	    hotAPI.createRecord(id, module.exports)
+	  } else {
+	    hotAPI.update(id, module.exports, __vue_template__)
+	  }
+	})()}
 
 /***/ },
 /* 282 */
 /***/ function(module, exports, __webpack_require__) {
 
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+
+	var _unitSelect = __webpack_require__(12);
+
+	var _unitSelect2 = _interopRequireDefault(_unitSelect);
+
+	var _pluck = __webpack_require__(91);
+
+	var _pluck2 = _interopRequireDefault(_pluck);
+
+	var _zipObject = __webpack_require__(94);
+
+	var _zipObject2 = _interopRequireDefault(_zipObject);
+
+	var _merge = __webpack_require__(95);
+
+	var _merge2 = _interopRequireDefault(_merge);
+
+	var _omit = __webpack_require__(146);
+
+	var _omit2 = _interopRequireDefault(_omit);
+
+	var _isEmpty = __webpack_require__(158);
+
+	var _isEmpty2 = _interopRequireDefault(_isEmpty);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	// <template>
+	//     <div class="ui basic modal" v-el:modal>
+	//         <div class="content">
+	//             <form action="#" method="POST" class="ui inverted form" @submit="onSubmit" v-el:form>
+	//                 <div class="two fields">
+	//                     <div class="field">
+	//                         <div class="label">費用名稱</div>
+	//                         <div class="ui search fluid selection dropdown" v-el:dropdown>
+	//                             <input type="hidden" name="cost_estimation_bounce_id">
+	//                             <i class="dropdown icon"></i>
+	//                             <div class="default text"></div>
+	//                             <div class="menu">
+	//                                 <div class="item" v-for="costEstimationBounce in costEstimationBounces" :data-value="costEstimationBounce.id">{{ costEstimationBounce.name }}</div>
+	//                             </div>
+	//                         </div>
+	//                     </div>
+	//                     <div class="field">
+	//                         <div class="label">單位</div>
+	//                         <unit-select v-ref:unit-dropdown></unit-select>
+	//                     </div>
+	//                     <div class="field">
+	//                         <div class="label">單價</div>
+	//                         <input type="text" name="unit_price">
+	//                     </div>
+	//                     <div class="field">
+	//                         <div class="label">數量</div>
+	//                         <input type="text" name="amount">
+	//                     </div>
+	//                 </div>
+	//                 <button type="submit" class="pm-visibility-hidden"></button>
+	//             </form>
+	//         </div>
+	//         <div class="actions">
+	//             <div class="ui green inverted ok button">
+	//                 <i class="checkmark icon"></i>
+	//                 送出
+	//             </div>
+	//             <div class="ui inverted cancel button">
+	//                 <i class="remove icon"></i>
+	//                 取消
+	//             </div>
+	//         </div>
+	//     </div>
+	// </template>
+	//
+	// <script type="text/babel">
+	exports.default = {
+	    props: ['projectId', 'costEstimationId', 'onSuccess', 'onCancel'],
+
+	    components: { UnitSelect: _unitSelect2.default },
+
+	    methods: {
+	        openModal: function openModal() {
+	            this.$modal.modal('show');
+	        },
+	        onSubmit: function onSubmit(e) {
+	            e.preventDefault();
+
+	            this.onApprove();
+
+	            window.$(this.$els.modal).modal('hide');
+	        },
+	        onApprove: function onApprove() {
+	            var _this = this;
+
+	            var inputs = window.$(this.$els.form).serializeArray();
+
+	            var values = (0, _omit2.default)((0, _merge2.default)((0, _zipObject2.default)((0, _pluck2.default)(inputs, 'name'), (0, _pluck2.default)(inputs, 'value')), { name: this.name }), _isEmpty2.default);
+
+	            window.$.post('/api/v1/projects/' + this.projectId + '/cost-estimations/' + this.costEstimationId + '/bounces', values).then(function (rep) {
+	                if (values.name) {
+	                    window.$.getJSON('/api/v1/cost-estimation-bounces').then(function (rep) {
+	                        _this.costEstimationBounces = rep.cost_estimation_bounces;
+	                    });
+	                }
+
+	                _this.$els.form.reset();
+
+	                if (_this.onSuccess) {
+	                    _this.onSuccess();
+	                }
+	            });
+	        },
+	        onDeny: function onDeny() {
+	            this.$els.form.reset();
+
+	            if (this.onCancel) {
+	                this.onCancel();
+	            }
+	        },
+	        onNoResults: function onNoResults(val) {
+	            this.$refs.unitDropdown.clear();
+	            this.name = val;
+
+	            window.$(this.$els.dropdown).dropdown('clear').dropdown('set text', val);
+	        },
+	        onChange: function onChange(val) {
+	            this.$refs.unitDropdown.select(val);
+	            this.name = '';
+	        }
+	    },
+
+	    data: function data() {
+	        return {
+	            'costEstimationBounces': []
+	        };
+	    },
+	    ready: function ready() {
+	        var _this2 = this;
+
+	        window.$.getJSON('/api/v1/cost-estimation-bounces').then(function (rep) {
+	            _this2.costEstimationBounces = rep.cost_estimation_bounces;
+	        });
+
+	        this.$modal = window.$(this.$els.modal).modal({
+	            closable: false,
+	            onApprove: this.onApprove,
+	            onDeny: this.onDeny
+	        });
+
+	        window.$(this.$els.dropdown).dropdown({
+	            fullTextSearch: true,
+	            forceSelection: true,
+	            onChange: this.onChange,
+	            onNoResults: this.onNoResults,
+	            message: {
+	                noResults: '新增 {term}'
+	            }
+	        });
+	    }
+	};
+	// </script>
+
+/***/ },
+/* 283 */
+/***/ function(module, exports) {
+
+	module.exports = "\n<div class=\"ui basic modal\" v-el:modal>\n    <div class=\"content\">\n        <form action=\"#\" method=\"POST\" class=\"ui inverted form\" @submit=\"onSubmit\" v-el:form>\n            <div class=\"two fields\">\n                <div class=\"field\">\n                    <div class=\"label\">費用名稱</div>\n                    <div class=\"ui search fluid selection dropdown\" v-el:dropdown>\n                        <input type=\"hidden\" name=\"cost_estimation_bounce_id\">\n                        <i class=\"dropdown icon\"></i>\n                        <div class=\"default text\"></div>\n                        <div class=\"menu\">\n                            <div class=\"item\" v-for=\"costEstimationBounce in costEstimationBounces\" :data-value=\"costEstimationBounce.id\">{{ costEstimationBounce.name }}</div>\n                        </div>\n                    </div>\n                </div>\n                <div class=\"field\">\n                    <div class=\"label\">單位</div>\n                    <unit-select v-ref:unit-dropdown></unit-select>\n                </div>\n                <div class=\"field\">\n                    <div class=\"label\">單價</div>\n                    <input type=\"text\" name=\"unit_price\">\n                </div>\n                <div class=\"field\">\n                    <div class=\"label\">數量</div>\n                    <input type=\"text\" name=\"amount\">\n                </div>\n            </div>\n            <button type=\"submit\" class=\"pm-visibility-hidden\"></button>\n        </form>\n    </div>\n    <div class=\"actions\">\n        <div class=\"ui green inverted ok button\">\n            <i class=\"checkmark icon\"></i>\n            送出\n        </div>\n        <div class=\"ui inverted cancel button\">\n            <i class=\"remove icon\"></i>\n            取消\n        </div>\n    </div>\n</div>\n";
+
+/***/ },
+/* 284 */
+/***/ function(module, exports) {
+
+	module.exports = "\n<table class=\"ui table\">\n    <thead>\n        <tr>\n            <th rowspan=\"2\">工作項目</th>\n            <th rowspan=\"2\">單位</th>\n            <th rowspan=\"2\">單價</th>\n            <th colspan=\"2\">合約計數</th>\n            <th colspan=\"2\">以前完成</th>\n            <th colspan=\"2\">本期完成</th>\n            <th colspan=\"2\">合計完成</th>\n        </tr>\n        <tr>\n            <th>數量</th>\n            <th>價值</th>\n            <th>數量</th>\n            <th>價值</th>\n            <th>數量</th>\n            <th>價值</th>\n            <th>數量</th>\n            <th>價值</th>\n        </tr>\n    </thead>\n    <tbody>\n        <tr v-for=\"projectWork in projectWorks\">\n            <td>{{ projectWork.name }}</td>\n            <td>{{ projectWork.unit.name }}</td>\n            <td>{{ projectWork.unit_price }}</td>\n            <td>{{ projectWork.amount }}</td>\n            <td>{{ projectWork.amount * projectWork.unit_price }}</td>\n            <td>{{ previousPassesAmount[$index] }}</td>\n            <td>{{ previousPassesAmount[$index] * projectWork.unit_price }}</td>\n            <td>{{ totalPassesAmount[$index] - previousPassesAmount[$index] }}</td>\n            <td>{{ (totalPassesAmount[$index] - previousPassesAmount[$index]) * projectWork.unit_price }}</td>\n            <td>{{ totalPassesAmount[$index] }}</td>\n            <td>{{ totalPassesAmount[$index] * projectWork.unit_price }}</td>\n        </tr>\n    </tbody>\n    <thead>\n        <tr>\n            <th colspan=\"11\">其它費用</th>\n        </tr>\n    </thead>\n    <tbody>\n        <tr v-for=\"bounce in allBounces\">\n            <td>{{ bounce.name }}</td>\n            <td>{{ bounce.unit.name }}</td>\n            <td>-</td>\n            <td>-</td>\n            <td>-</td>\n            <td>-</td>\n            <td>{{ previousPrices[bounce.id] }}</td>\n            <td>-</td>\n            <td>{{ currentPrices[bounce.id] }}</td>\n            <td>-</td>\n            <td>{{ previousPrices[bounce.id] + currentPrices[bounce.id] }}</td>\n        </tr>\n    </tbody>\n    <tfoot>\n        <tr>\n            <th colspan=\"11\">\n                <button class=\"ui primary button\" @click=\"openModal()\">其它費用</button>\n            </th>\n        </tr>\n    </tfoot>\n</table>\n\n<modal-create-cost-estimation-bounce\n        :project-id.once=\"projectId\"\n        :cost-estimation-id.once=\"costEstimationId\"\n        :on-success.once=\"onCostEstimationBounceCreated\"\n        v-ref:modal\n></modal-create-cost-estimation-bounce>\n";
+
+/***/ },
+/* 285 */
+/***/ function(module, exports, __webpack_require__) {
+
 	var __vue_script__, __vue_template__
-	__vue_script__ = __webpack_require__(283)
+	__vue_script__ = __webpack_require__(286)
 	if (__vue_script__ &&
 	    __vue_script__.__esModule &&
 	    Object.keys(__vue_script__).length > 1) {
 	  console.warn("[vue-loader] resources/assets/js/components/form-create-project-work.vue: named exports in *.vue files are ignored.")}
-	__vue_template__ = __webpack_require__(287)
+	__vue_template__ = __webpack_require__(290)
 	module.exports = __vue_script__ || {}
 	if (module.exports.__esModule) module.exports = module.exports.default
 	if (__vue_template__) {
@@ -44105,7 +44426,7 @@ webpackJsonp([0],[
 	})()}
 
 /***/ },
-/* 283 */
+/* 286 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -44118,7 +44439,7 @@ webpackJsonp([0],[
 
 	var _flowtypeWorkSelect2 = _interopRequireDefault(_flowtypeWorkSelect);
 
-	var _workflowChart = __webpack_require__(284);
+	var _workflowChart = __webpack_require__(287);
 
 	var _workflowChart2 = _interopRequireDefault(_workflowChart);
 
@@ -44154,7 +44475,7 @@ webpackJsonp([0],[
 	//
 	// </template>
 	//
-	// <script>
+	// <script type="text/babel">
 	exports.default = {
 	    props: ['projectId', 'action', 'backUrl', 'settingWorkUrl'],
 
@@ -44169,16 +44490,16 @@ webpackJsonp([0],[
 	// </script>
 
 /***/ },
-/* 284 */
+/* 287 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __vue_script__, __vue_template__
-	__vue_script__ = __webpack_require__(285)
+	__vue_script__ = __webpack_require__(288)
 	if (__vue_script__ &&
 	    __vue_script__.__esModule &&
 	    Object.keys(__vue_script__).length > 1) {
 	  console.warn("[vue-loader] resources/assets/js/components/workflow-chart.vue: named exports in *.vue files are ignored.")}
-	__vue_template__ = __webpack_require__(286)
+	__vue_template__ = __webpack_require__(289)
 	module.exports = __vue_script__ || {}
 	if (module.exports.__esModule) module.exports = module.exports.default
 	if (__vue_template__) {
@@ -44197,7 +44518,7 @@ webpackJsonp([0],[
 	})()}
 
 /***/ },
-/* 285 */
+/* 288 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -44242,16 +44563,16 @@ webpackJsonp([0],[
 	//     <workflow-node-list :nodes.sync="nodes" read-only="true"></workflow-node-list>
 	// </template>
 	//
-	// <script>
+	// <script type="text/babel">
 
 /***/ },
-/* 286 */
+/* 289 */
 /***/ function(module, exports) {
 
 	module.exports = "\n<workflow-node-list :nodes.sync=\"nodes\" read-only=\"true\"></workflow-node-list>\n";
 
 /***/ },
-/* 287 */
+/* 290 */
 /***/ function(module, exports) {
 
 	module.exports = "\n<div class=\"ui two column stackable grid container\">\n    <div class=\"column\">\n        <form method=\"POST\" :action.once=\"action\" class=\"ui form\">\n            <slot></slot>\n\n            <flowtype-work-select\n                select-type-order-label=\"選擇工程順序與類別\"\n                select-work-label=\"選擇施工流程\"\n                @selected=\"onWorkSelected\"\n            ></flowtype-work-select>\n\n            <div class=\"field\">\n                <label>名稱</label>\n                <input type=\"text\" name=\"name\">\n            </div>\n\n            <button class=\"ui primary button\" type=\"submit\">新增</button>\n            <a :href.once=\"backUrl\" class=\"ui primary button\">返回</a>\n            <a :href.once=\"settingWorkUrl\" class=\"ui primary button\">新增標準工作項目</a>\n        </form>\n    </div>\n    <div class=\"center aligned column\">\n        <h5>流程圖</h5>\n        <workflow-chart v-ref:workflow-chart></workflow-chart>\n    </div>\n</div>\n\n";

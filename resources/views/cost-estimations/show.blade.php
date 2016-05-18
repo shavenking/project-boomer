@@ -10,6 +10,6 @@
 
 @section('content')
 
-    <cost-estimation-sheet project-id="{{ $project->id }}" date="{{ $date->toDateString() }}"></cost-estimation-sheet>
+    <cost-estimation-sheet project-id="{{ $project->id }}" cost-estimation-id="{{ $costEstimation->id }}" date="{{ $date->toDateString() }}"></cost-estimation-sheet>
 
 @stop

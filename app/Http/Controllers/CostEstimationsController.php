@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
@@ -52,10 +53,10 @@ class CostEstimationsController extends Controller
     public function show($projectId, $date)
     {
         $project = Project::findOrFail($projectId);
-
         $date = new Carbon($date);
+        $costEstimation = $project->costEstimations()->whereDate('settled_at', '=', $date)->firstOrFail();
 
-        return view('cost-estimations.show', compact('project', 'date'));
+        return view('cost-estimations.show', compact('project', 'date', 'costEstimation'));
     }
 
     /**
@@ -66,24 +67,7 @@ class CostEstimationsController extends Controller
         $costEstimationBounces = CostEstimationBounce::all();
 
         return response()->json([
-            'cost_estimation_bounces' => $costEstimationBounces
-        ]);
-    }
-
-    /**
-     * Show all bounces in specific cost estimation.
-     *
-     * @param $projectId
-     * @param $costEstimationId
-     * @return \Illuminate\Http\JsonResponse
-     */
-    public function indexBounce($projectId, $costEstimationId)
-    {
-        $project = Project::findOrFail($projectId);
-        $costEstimation = $project->costEstimations()->findOrFail($costEstimationId);
-
-        return response()->json([
-            'cost_estimation_bounces' => $costEstimation->bounces
+            'cost_estimation_bounces' => $costEstimationBounces->load('unit')
         ]);
     }
 
@@ -130,7 +114,7 @@ class CostEstimationsController extends Controller
                 ]);
             } else {
                 $costEstimation->bounces()->attach(
-                    $costEstimationBounce->id,
+                    $request->input('cost_estimation_bounce_id'),
                     [
                         'unit_price' => $request->input('unit_price'),
                         'amount' => $request->input('amount')
@@ -186,5 +170,45 @@ class CostEstimationsController extends Controller
         return response()->json([
             'project_checklists' => $pChecklists
         ]);
+    }
+
+    public function getBouncesByProject($projectId, Request $request)
+    {
+        $project = Project::findOrFail($projectId);
+
+        $query = $project->costEstimations();
+
+        if ($request->has('cost_estimation_id')) {
+            $costEstimation = $project->costEstimations()->findOrFail($request->input('cost_estimation_id'));
+
+            $query->whereDate('settled_at', '<=', $costEstimation->settled_at);
+        }
+
+        $costEstimations = $query->with('bounces')->get();
+
+        $results = $costEstimations->map(function ($costEstimation) {
+            return $costEstimation->bounces;
+        })->collapse()->map($this->getJsonTransformer());
+
+        return response()->json([
+            'cost_estimation_bounces' => $results
+        ]);
+    }
+
+    protected function getJsonTransformer()
+    {
+        return function ($model) {
+            return [
+                'id' => $model->pivot->id,
+                'cost_estimation_bounce_id' => $model->id,
+                'cost_estimation_id' => $model->pivot->cost_estimation_id,
+                'name' => $model->name,
+                'amount' => (int) $model->pivot->amount,
+                'unit_price' => (int) $model->pivot->unit_price,
+                'unit_name' => $model->unit->name,
+                'created_at' => (string) $model->pivot->created_at,
+                'updated_at' => (string) $model->pivot->updated_at
+            ];
+        };
     }
 }
