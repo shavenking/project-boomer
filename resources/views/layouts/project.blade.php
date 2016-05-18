@@ -12,8 +12,14 @@
             @include('components.navbar')
         </div>
 
-        <div class="four wide column">
+        <div class="four wide computer only column">
             @include('components.project-sidebar')
+        </div>
+
+        <div class="sixteen wide mobile only column">
+            <modal-project-menu>
+                @include('components.project-sidebar')
+            </modal-project-menu>
         </div>
 
         <div class="twelve wide column">

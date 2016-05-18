@@ -17,6 +17,7 @@ import ModalCreateProjectChecklist from './components/modal-create-project-check
 import ConstructionDaily from './components/construction-daily.vue'
 import CostEstimationSheet from './components/cost-estimation-sheet.vue'
 import FormCreateProjectWork from './components/form-create-project-work.vue'
+import ModalProjectMenu from './presentation-layer/modal-project-menu.vue'
 
 new Vue({
     el: 'body',
@@ -38,6 +39,7 @@ new Vue({
         ModalCreateProjectChecklist,
         ConstructionDaily,
         CostEstimationSheet,
-        FormCreateProjectWork
+        FormCreateProjectWork,
+        ModalProjectMenu
     }
 })
