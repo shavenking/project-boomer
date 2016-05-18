@@ -80,7 +80,7 @@ webpackJsonp([0],[
 
 	var _formCreateProjectWork2 = _interopRequireDefault(_formCreateProjectWork);
 
-	var _modalProjectMenu = __webpack_require__(347);
+	var _modalProjectMenu = __webpack_require__(291);
 
 	var _modalProjectMenu2 = _interopRequireDefault(_modalProjectMenu);
 
@@ -27140,7 +27140,7 @@ webpackJsonp([0],[
 
 	    return window.$.getJSON('/api/v1/projects/' + projectId + '/works?' + queryString);
 	} // <template>
-	//     <table class="ui celled structured table">
+	//     <table class="ui eight column table">
 	//         <thead>
 	//             <tr>
 	//                 <th class="four wide center aligned">{{ typeOrderLabel }}</th>
@@ -27256,7 +27256,7 @@ webpackJsonp([0],[
 /* 124 */
 /***/ function(module, exports) {
 
-	module.exports = "\n<table class=\"ui celled structured table\">\n    <thead>\n        <tr>\n            <th class=\"four wide center aligned\">{{ typeOrderLabel }}</th>\n            <th>{{ nameLabel }}</th>\n            <th>{{ unitLabel }}</th>\n            <th>{{ unitPriceLabel }}</th>\n            <th>{{ amountLabel }}</th>\n            <th>{{ totalPriceLabel }}</th>\n            <th></th>\n            <th></th>\n        </tr>\n    </thead>\n    <tbody v-for=\"(detailingflowTypeId, works) in groupedWorks\">\n        <tr v-for=\"(idx, work) in works\">\n            <td :rowspan=\"works.length\" v-if=\"0 === idx\" class=\"top aligned center aligned\">\n                {{ work.detailingflow_type.mainflow_type.name }}\n                <br>\n                {{ work.detailingflow_type.name }}\n            </td>\n            <td>{{ work.name }}</td>\n            <td>{{ work.unit.name }}</td>\n            <td>{{ work.unit_price | currency}}</td>\n            <td>\n                <div class=\"ui input\">\n                    <input type=\"text\" name=\"work_amount[]\" v-model=\"work.amount\" @keyup=\"updateWork(work)\">\n                </div>\n            </td>\n            <td>{{ work.unit_price * work.amount | currency }}</td>\n            <td><a href=\"{{ '/projects/' + projectId + '/works/' + work.id }}\">{{ workitemsLabel }}</a></td>\n            <td>\n                <button class=\"ui icon red button\" @click=\"deleteWork(work.id)\"><i class=\"ui trash icon\"></i></button>\n            </td>\n        </tr>\n    </tbody>\n    <tfoot>\n        <tr>\n            <th></th>\n            <th></th>\n            <th></th>\n            <th></th>\n            <th></th>\n            <th>{{ totalWorkPrice | currency }}</th>\n            <th></th>\n            <th></th>\n        </tr>\n    </tfoot>\n</table>\n";
+	module.exports = "\n<table class=\"ui eight column table\">\n    <thead>\n        <tr>\n            <th class=\"four wide center aligned\">{{ typeOrderLabel }}</th>\n            <th>{{ nameLabel }}</th>\n            <th>{{ unitLabel }}</th>\n            <th>{{ unitPriceLabel }}</th>\n            <th>{{ amountLabel }}</th>\n            <th>{{ totalPriceLabel }}</th>\n            <th></th>\n            <th></th>\n        </tr>\n    </thead>\n    <tbody v-for=\"(detailingflowTypeId, works) in groupedWorks\">\n        <tr v-for=\"(idx, work) in works\">\n            <td :rowspan=\"works.length\" v-if=\"0 === idx\" class=\"top aligned center aligned\">\n                {{ work.detailingflow_type.mainflow_type.name }}\n                <br>\n                {{ work.detailingflow_type.name }}\n            </td>\n            <td>{{ work.name }}</td>\n            <td>{{ work.unit.name }}</td>\n            <td>{{ work.unit_price | currency}}</td>\n            <td>\n                <div class=\"ui input\">\n                    <input type=\"text\" name=\"work_amount[]\" v-model=\"work.amount\" @keyup=\"updateWork(work)\">\n                </div>\n            </td>\n            <td>{{ work.unit_price * work.amount | currency }}</td>\n            <td><a href=\"{{ '/projects/' + projectId + '/works/' + work.id }}\">{{ workitemsLabel }}</a></td>\n            <td>\n                <button class=\"ui icon red button\" @click=\"deleteWork(work.id)\"><i class=\"ui trash icon\"></i></button>\n            </td>\n        </tr>\n    </tbody>\n    <tfoot>\n        <tr>\n            <th></th>\n            <th></th>\n            <th></th>\n            <th></th>\n            <th></th>\n            <th>{{ totalWorkPrice | currency }}</th>\n            <th></th>\n            <th></th>\n        </tr>\n    </tfoot>\n</table>\n";
 
 /***/ },
 /* 125 */
@@ -44272,72 +44272,16 @@ webpackJsonp([0],[
 	module.exports = "\n<div class=\"ui two column stackable grid container\">\n    <div class=\"column\">\n        <form method=\"POST\" :action.once=\"action\" class=\"ui form\">\n            <slot></slot>\n\n            <flowtype-work-select\n                select-type-order-label=\"選擇工程順序與類別\"\n                select-work-label=\"選擇施工流程\"\n                @selected=\"onWorkSelected\"\n            ></flowtype-work-select>\n\n            <div class=\"field\">\n                <label>名稱</label>\n                <input type=\"text\" name=\"name\">\n            </div>\n\n            <button class=\"ui primary button\" type=\"submit\">新增</button>\n            <a :href.once=\"backUrl\" class=\"ui primary button\">返回</a>\n            <a :href.once=\"settingWorkUrl\" class=\"ui primary button\">新增標準工作項目</a>\n        </form>\n    </div>\n    <div class=\"center aligned column\">\n        <h5>流程圖</h5>\n        <workflow-chart v-ref:workflow-chart></workflow-chart>\n    </div>\n</div>\n\n";
 
 /***/ },
-/* 291 */,
-/* 292 */,
-/* 293 */,
-/* 294 */,
-/* 295 */,
-/* 296 */,
-/* 297 */,
-/* 298 */,
-/* 299 */,
-/* 300 */,
-/* 301 */,
-/* 302 */,
-/* 303 */,
-/* 304 */,
-/* 305 */,
-/* 306 */,
-/* 307 */,
-/* 308 */,
-/* 309 */,
-/* 310 */,
-/* 311 */,
-/* 312 */,
-/* 313 */,
-/* 314 */,
-/* 315 */,
-/* 316 */,
-/* 317 */,
-/* 318 */,
-/* 319 */,
-/* 320 */,
-/* 321 */,
-/* 322 */,
-/* 323 */,
-/* 324 */,
-/* 325 */,
-/* 326 */,
-/* 327 */,
-/* 328 */,
-/* 329 */,
-/* 330 */,
-/* 331 */,
-/* 332 */,
-/* 333 */,
-/* 334 */,
-/* 335 */,
-/* 336 */,
-/* 337 */,
-/* 338 */,
-/* 339 */,
-/* 340 */,
-/* 341 */,
-/* 342 */,
-/* 343 */,
-/* 344 */,
-/* 345 */,
-/* 346 */,
-/* 347 */
+/* 291 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __vue_script__, __vue_template__
-	__vue_script__ = __webpack_require__(348)
+	__vue_script__ = __webpack_require__(292)
 	if (__vue_script__ &&
 	    __vue_script__.__esModule &&
 	    Object.keys(__vue_script__).length > 1) {
 	  console.warn("[vue-loader] resources/assets/js/presentation-layer/modal-project-menu.vue: named exports in *.vue files are ignored.")}
-	__vue_template__ = __webpack_require__(349)
+	__vue_template__ = __webpack_require__(293)
 	module.exports = __vue_script__ || {}
 	if (module.exports.__esModule) module.exports = module.exports.default
 	if (__vue_template__) {
@@ -44347,7 +44291,7 @@ webpackJsonp([0],[
 	  var hotAPI = require("vue-hot-reload-api")
 	  hotAPI.install(require("vue"), true)
 	  if (!hotAPI.compatible) return
-	  var id = "/Users/shavenking/Code/project-boomer/resources/assets/js/presentation-layer/modal-project-menu.vue"
+	  var id = "/home/vagrant/Code/Laravel/resources/assets/js/presentation-layer/modal-project-menu.vue"
 	  if (!module.hot.data) {
 	    hotAPI.createRecord(id, module.exports)
 	  } else {
@@ -44356,7 +44300,7 @@ webpackJsonp([0],[
 	})()}
 
 /***/ },
-/* 348 */
+/* 292 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -44394,7 +44338,7 @@ webpackJsonp([0],[
 	// </script>
 
 /***/ },
-/* 349 */
+/* 293 */
 /***/ function(module, exports) {
 
 	module.exports = "\n<button class=\"ui fluid button\" @click=\"openMenu()\">選單</button>\n\n<div class=\"ui basic modal\" v-el:modal>\n    <i class=\"close icon\"></i>\n    <div class=\"content\">\n        <slot></slot>\n    </div>\n</div>\n";

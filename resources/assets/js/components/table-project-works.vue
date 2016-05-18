@@ -1,5 +1,5 @@
 <template>
-    <table class="ui celled structured table">
+    <table class="ui eight column table">
         <thead>
             <tr>
                 <th class="four wide center aligned">{{ typeOrderLabel }}</th>
