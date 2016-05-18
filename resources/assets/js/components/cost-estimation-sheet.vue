@@ -28,12 +28,12 @@
                 <td>{{ projectWork.unit_price }}</td>
                 <td>{{ projectWork.amount }}</td>
                 <td>{{ projectWork.amount * projectWork.unit_price }}</td>
-                <td>{{ previousPassesAmount[$index] }}</td>
-                <td>{{ previousPassesAmount[$index] * projectWork.unit_price }}</td>
-                <td>{{ totalPassesAmount[$index] - previousPassesAmount[$index] }}</td>
-                <td>{{ (totalPassesAmount[$index] - previousPassesAmount[$index]) * projectWork.unit_price }}</td>
-                <td>{{ totalPassesAmount[$index] }}</td>
-                <td>{{ totalPassesAmount[$index] * projectWork.unit_price }}</td>
+                <td>{{ previousPassesAmount[projectWork.id] }}</td>
+                <td>{{ previousPassesAmount[projectWork.id] * projectWork.unit_price }}</td>
+                <td>{{ totalPassesAmount[projectWork.id] - previousPassesAmount[projectWork.id] }}</td>
+                <td>{{ (totalPassesAmount[projectWork.id] - previousPassesAmount[projectWork.id]) * projectWork.unit_price }}</td>
+                <td>{{ totalPassesAmount[projectWork.id] }}</td>
+                <td>{{ totalPassesAmount[projectWork.id] * projectWork.unit_price }}</td>
             </tr>
         </tbody>
         <thead>
@@ -127,8 +127,8 @@
         data() {
             return {
                 projectWorks: [],
-                totalPassesAmount: [],
-                previousPassesAmount: [],
+                totalPassesAmount: {},
+                previousPassesAmount: {},
                 bounceCostEstimations: [],
                 previousBounceCostEstimations: {},
                 allBounces: [],
@@ -174,6 +174,8 @@
 
             getProjectWorks(this.projectId).then(rep => {
                 this.projectWorks = rep.works
+                this.totalPassesAmount = _.zipObject(_.pluck(rep.works, 'id'), new Array(rep.works.length).fill(0))
+                this.previousPassesAmount = _.zipObject(_.pluck(rep.works, 'id'), new Array(rep.works.length).fill(0))
 
                 rep.works.forEach((pWork, idx) => {
                     getEstimations(this.projectId, pWork.id, { date: this.date }).then(rep => {
@@ -186,7 +188,7 @@
                             })
                         }
 
-                        this.totalPassesAmount.push(sum)
+                        this.totalPassesAmount[pWork.id] = sum
                     })
 
                     getPreviousEstimations(this.projectId, pWork.id, { date: this.date }).then(rep => {
@@ -199,7 +201,7 @@
                             })
                         }
 
-                        this.previousPassesAmount.push(sum)
+                        this.previousPassesAmount[pWork.id] = sum
                     })
                 })
             })

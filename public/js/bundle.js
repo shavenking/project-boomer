@@ -44063,8 +44063,8 @@ webpackJsonp([0],[
 	    data: function data() {
 	        return {
 	            projectWorks: [],
-	            totalPassesAmount: [],
-	            previousPassesAmount: [],
+	            totalPassesAmount: {},
+	            previousPassesAmount: {},
 	            bounceCostEstimations: [],
 	            previousBounceCostEstimations: {},
 	            allBounces: [],
@@ -44111,6 +44111,8 @@ webpackJsonp([0],[
 
 	        (0, _projectWorks.getProjectWorks)(this.projectId).then(function (rep) {
 	            _this2.projectWorks = rep.works;
+	            _this2.totalPassesAmount = _lodash2.default.zipObject(_lodash2.default.pluck(rep.works, 'id'), new Array(rep.works.length).fill(0));
+	            _this2.previousPassesAmount = _lodash2.default.zipObject(_lodash2.default.pluck(rep.works, 'id'), new Array(rep.works.length).fill(0));
 
 	            rep.works.forEach(function (pWork, idx) {
 	                (0, _projectWorks.getEstimations)(_this2.projectId, pWork.id, { date: _this2.date }).then(function (rep) {
@@ -44123,7 +44125,7 @@ webpackJsonp([0],[
 	                        });
 	                    }
 
-	                    _this2.totalPassesAmount.push(sum);
+	                    _this2.totalPassesAmount[pWork.id] = sum;
 	                });
 
 	                (0, _projectWorks.getPreviousEstimations)(_this2.projectId, pWork.id, { date: _this2.date }).then(function (rep) {
@@ -44136,7 +44138,7 @@ webpackJsonp([0],[
 	                        });
 	                    }
 
-	                    _this2.previousPassesAmount.push(sum);
+	                    _this2.previousPassesAmount[pWork.id] = sum;
 	                });
 	            });
 	        });
@@ -44173,12 +44175,12 @@ webpackJsonp([0],[
 	//                 <td>{{ projectWork.unit_price }}</td>
 	//                 <td>{{ projectWork.amount }}</td>
 	//                 <td>{{ projectWork.amount * projectWork.unit_price }}</td>
-	//                 <td>{{ previousPassesAmount[$index] }}</td>
-	//                 <td>{{ previousPassesAmount[$index] * projectWork.unit_price }}</td>
-	//                 <td>{{ totalPassesAmount[$index] - previousPassesAmount[$index] }}</td>
-	//                 <td>{{ (totalPassesAmount[$index] - previousPassesAmount[$index]) * projectWork.unit_price }}</td>
-	//                 <td>{{ totalPassesAmount[$index] }}</td>
-	//                 <td>{{ totalPassesAmount[$index] * projectWork.unit_price }}</td>
+	//                 <td>{{ previousPassesAmount[projectWork.id] }}</td>
+	//                 <td>{{ previousPassesAmount[projectWork.id] * projectWork.unit_price }}</td>
+	//                 <td>{{ totalPassesAmount[projectWork.id] - previousPassesAmount[projectWork.id] }}</td>
+	//                 <td>{{ (totalPassesAmount[projectWork.id] - previousPassesAmount[projectWork.id]) * projectWork.unit_price }}</td>
+	//                 <td>{{ totalPassesAmount[projectWork.id] }}</td>
+	//                 <td>{{ totalPassesAmount[projectWork.id] * projectWork.unit_price }}</td>
 	//             </tr>
 	//         </tbody>
 	//         <thead>
@@ -44427,7 +44429,7 @@ webpackJsonp([0],[
 /* 284 */
 /***/ function(module, exports) {
 
-	module.exports = "\n<table class=\"ui table\">\n    <thead>\n        <tr>\n            <th rowspan=\"2\">工作項目</th>\n            <th rowspan=\"2\">單位</th>\n            <th rowspan=\"2\">單價</th>\n            <th colspan=\"2\">合約計數</th>\n            <th colspan=\"2\">以前完成</th>\n            <th colspan=\"2\">本期完成</th>\n            <th colspan=\"2\">合計完成</th>\n        </tr>\n        <tr>\n            <th>數量</th>\n            <th>價值</th>\n            <th>數量</th>\n            <th>價值</th>\n            <th>數量</th>\n            <th>價值</th>\n            <th>數量</th>\n            <th>價值</th>\n        </tr>\n    </thead>\n    <tbody>\n        <tr v-for=\"projectWork in projectWorks\">\n            <td>{{ projectWork.name }}</td>\n            <td>{{ projectWork.unit.name }}</td>\n            <td>{{ projectWork.unit_price }}</td>\n            <td>{{ projectWork.amount }}</td>\n            <td>{{ projectWork.amount * projectWork.unit_price }}</td>\n            <td>{{ previousPassesAmount[$index] }}</td>\n            <td>{{ previousPassesAmount[$index] * projectWork.unit_price }}</td>\n            <td>{{ totalPassesAmount[$index] - previousPassesAmount[$index] }}</td>\n            <td>{{ (totalPassesAmount[$index] - previousPassesAmount[$index]) * projectWork.unit_price }}</td>\n            <td>{{ totalPassesAmount[$index] }}</td>\n            <td>{{ totalPassesAmount[$index] * projectWork.unit_price }}</td>\n        </tr>\n    </tbody>\n    <thead>\n        <tr>\n            <th colspan=\"11\">其它費用</th>\n        </tr>\n    </thead>\n    <tbody>\n        <tr v-for=\"bounce in allBounces\">\n            <td>{{ bounce.name }}</td>\n            <td>{{ bounce.unit.name }}</td>\n            <td>-</td>\n            <td>-</td>\n            <td>-</td>\n            <td>-</td>\n            <td>{{ previousPrices[bounce.id] }}</td>\n            <td>-</td>\n            <td>{{ currentPrices[bounce.id] }}</td>\n            <td>-</td>\n            <td>{{ previousPrices[bounce.id] + currentPrices[bounce.id] }}</td>\n        </tr>\n    </tbody>\n    <tfoot v-if=\"costEstimationId\">\n        <tr>\n            <th colspan=\"11\">\n                <button class=\"ui primary button\" @click=\"openModal()\">其它費用</button>\n            </th>\n        </tr>\n    </tfoot>\n</table>\n\n<modal-create-cost-estimation-bounce\n        :project-id.once=\"projectId\"\n        :cost-estimation-id.once=\"costEstimationId\"\n        :on-success.once=\"onCostEstimationBounceCreated\"\n        v-ref:modal\n></modal-create-cost-estimation-bounce>\n";
+	module.exports = "\n<table class=\"ui table\">\n    <thead>\n        <tr>\n            <th rowspan=\"2\">工作項目</th>\n            <th rowspan=\"2\">單位</th>\n            <th rowspan=\"2\">單價</th>\n            <th colspan=\"2\">合約計數</th>\n            <th colspan=\"2\">以前完成</th>\n            <th colspan=\"2\">本期完成</th>\n            <th colspan=\"2\">合計完成</th>\n        </tr>\n        <tr>\n            <th>數量</th>\n            <th>價值</th>\n            <th>數量</th>\n            <th>價值</th>\n            <th>數量</th>\n            <th>價值</th>\n            <th>數量</th>\n            <th>價值</th>\n        </tr>\n    </thead>\n    <tbody>\n        <tr v-for=\"projectWork in projectWorks\">\n            <td>{{ projectWork.name }}</td>\n            <td>{{ projectWork.unit.name }}</td>\n            <td>{{ projectWork.unit_price }}</td>\n            <td>{{ projectWork.amount }}</td>\n            <td>{{ projectWork.amount * projectWork.unit_price }}</td>\n            <td>{{ previousPassesAmount[projectWork.id] }}</td>\n            <td>{{ previousPassesAmount[projectWork.id] * projectWork.unit_price }}</td>\n            <td>{{ totalPassesAmount[projectWork.id] - previousPassesAmount[projectWork.id] }}</td>\n            <td>{{ (totalPassesAmount[projectWork.id] - previousPassesAmount[projectWork.id]) * projectWork.unit_price }}</td>\n            <td>{{ totalPassesAmount[projectWork.id] }}</td>\n            <td>{{ totalPassesAmount[projectWork.id] * projectWork.unit_price }}</td>\n        </tr>\n    </tbody>\n    <thead>\n        <tr>\n            <th colspan=\"11\">其它費用</th>\n        </tr>\n    </thead>\n    <tbody>\n        <tr v-for=\"bounce in allBounces\">\n            <td>{{ bounce.name }}</td>\n            <td>{{ bounce.unit.name }}</td>\n            <td>-</td>\n            <td>-</td>\n            <td>-</td>\n            <td>-</td>\n            <td>{{ previousPrices[bounce.id] }}</td>\n            <td>-</td>\n            <td>{{ currentPrices[bounce.id] }}</td>\n            <td>-</td>\n            <td>{{ previousPrices[bounce.id] + currentPrices[bounce.id] }}</td>\n        </tr>\n    </tbody>\n    <tfoot v-if=\"costEstimationId\">\n        <tr>\n            <th colspan=\"11\">\n                <button class=\"ui primary button\" @click=\"openModal()\">其它費用</button>\n            </th>\n        </tr>\n    </tfoot>\n</table>\n\n<modal-create-cost-estimation-bounce\n        :project-id.once=\"projectId\"\n        :cost-estimation-id.once=\"costEstimationId\"\n        :on-success.once=\"onCostEstimationBounceCreated\"\n        v-ref:modal\n></modal-create-cost-estimation-bounce>\n";
 
 /***/ },
 /* 285 */
