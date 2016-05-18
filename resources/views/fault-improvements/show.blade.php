@@ -9,8 +9,6 @@
 @extends('layouts.project')
 
 @section('content')
-
-    <div class="ui raised segment">
         <form
             method="POST"
             action="{{ route('projects.fault-improvements.update', [$project->id, $faultImprovement->id]) }}"
@@ -20,17 +18,19 @@
             {{ csrf_field() }}
             {{ method_field('PUT') }}
 
-            <div class="ui three column grid">
+            <div class="ui one column grid">
                 <div class="column">
                     <div class="ui fluid card">
+                        <div class="content">
+                            <div class="header">{{ trans('all.before_photo') }}</div>
+                        </div>
                         @if ($faultImprovement->before_photo)
-                            <a class="image" href="/images/{{ $faultImprovement->before_photo }}">
+                            <div class="image">
                                 <img src="/images/{{ $faultImprovement->before_photo }}" alt="before_photo">
-                            </a>
+                            </div>
                         @endif
                         <div class="content">
                             <div class="field">
-                                <label>{{ trans('all.before_photo') }}</label>
                                 <input type="file" name="before_photo">
                             </div>
                         </div>
@@ -39,14 +39,16 @@
 
                 <div class="column">
                     <div class="ui fluid card">
+                        <div class="content">
+                            <div class="header">{{ trans('all.current_photo') }}</div>
+                        </div>
                         @if ($faultImprovement->current_photo)
-                            <a class="image" href="/images/{{ $faultImprovement->current_photo }}">
+                            <div class="image">
                                 <img src="/images/{{ $faultImprovement->current_photo }}" alt="current_photo">
-                            </a>
+                            </div>
                         @endif
                         <div class="content">
                             <div class="field">
-                                <label>{{ trans('all.current_photo') }}</label>
                                 <input type="file" name="current_photo">
                             </div>
                         </div>
@@ -55,14 +57,16 @@
 
                 <div class="column">
                     <div class="ui fluid card">
+                        <div class="content">
+                            <div class="header">{{ trans('all.after_photo') }}</div>
+                        </div>
                         @if ($faultImprovement->after_photo)
-                            <a class="image" href="/images/{{ $faultImprovement->after_photo }}">
+                            <div class="image">
                                 <img src="/images/{{ $faultImprovement->after_photo }}" alt="after_photo">
-                            </a>
+                            </div>
                         @endif
                         <div class="content">
                             <div class="field">
-                                <label>{{ trans('all.after_photo') }}</label>
                                 <input type="file" name="after_photo">
                             </div>
                         </div>
@@ -79,9 +83,5 @@
                     <a href="{{ route('projects.fault-improvements.index', $project->id) }}" class="ui primary button">返回工程施工改善</a>
                 </div>
             </div>
-
         </form>
-
-
-    </div>
 @stop

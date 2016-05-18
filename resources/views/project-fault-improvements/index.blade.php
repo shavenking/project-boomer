@@ -10,7 +10,34 @@
 
     <div class="ui grid">
         <div class="row">
-            <div class="sixteen wide column">
+            <div class="sixteen wide mobile only column">
+                <div class="ui cards">
+                    @foreach ($checklists as $checklist)
+                        @foreach ($checklist->checkitems as $checkitem)
+                            <div class="ui fluid card">
+                                <div class="content">
+                                    <div class="header">
+                                        自主檢查表：<a href="{{ route('projects.checklists.show', [$project->id, $checklist->id]) }}">{{ $checklist->name }}</a>
+                                    </div>
+                                    <div class="description">
+                                        <a href="{{ route('projects.fault-improvements.show', [$project->id, $checkitem->faultImprovement->id]) }}">{{ $checkitem->detail }}</a>
+                                    </div>
+                                </div>
+                                <div class="extra content">
+                                    @if (true === $checkitem->faultImprovement->passes)
+                                        <span class="ui green label">已改善</span>
+                                    @elseif (false === $checkitem->faultImprovement->passes)
+                                        <span class="ui red label">有缺失</span>
+                                    @else
+                                        <span class="ui label">未審核</span>
+                                    @endif
+                                </div>
+                            </div>
+                        @endforeach
+                    @endforeach
+                </div>
+            </div>
+            <div class="sixteen wide computer only column">
                 <table class="ui celled structured table">
                     <thead>
                         <tr>
