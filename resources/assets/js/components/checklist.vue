@@ -9,7 +9,10 @@
         <tbody v-for="(title, items) in groupedItems">
             <tr v-for="(idx, item) in items">
                 <td :rowspan="items.length" v-if="0 === idx" class="top aligned center aligned">{{ title }}</td>
-                <td v-if="item.detail">{{ item.detail }}</td>
+                <td v-if="item.detail">
+                    {{ item.detail }}
+                    <a href="#" @click="deleteItem(item, $event)"><i class="ui red trash icon"></i></a>
+                </td>
                 <td v-if="!item.detail" >
                     <div class="ui fluid icon input">
                         <input type="text" @keypress.enter="onSubmit(title, $event)">
@@ -44,6 +47,7 @@
                 return (_(this.items)
                 .map(item => {
                     return {
+                        id: item.id,
                         title: item.name,
                         detail: item.detail
                     }
@@ -59,6 +63,17 @@
         },
 
         methods: {
+            deleteItem(item, e) {
+                e.preventDefault()
+
+                window.$.post(`/api/v1/checklists/${this.checklistId}/checkitems/${item.id}`, {
+                    _method: 'DELETE'
+                }).then(() => {
+                    this.items = this.items.filter(candidate => {
+                        return item.id !== candidate.id
+                    })
+                })
+            },
             onSubmit(title, e) {
                 e.preventDefault()
 

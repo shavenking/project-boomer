@@ -27198,7 +27198,10 @@ webpackJsonp([0],[
 	//         <tbody v-for="(title, items) in groupedItems">
 	//             <tr v-for="(idx, item) in items">
 	//                 <td :rowspan="items.length" v-if="0 === idx" class="top aligned center aligned">{{ title }}</td>
-	//                 <td v-if="item.detail">{{ item.detail }}</td>
+	//                 <td v-if="item.detail">
+	//                     {{ item.detail }}
+	//                     <a href="#" @click="deleteItem(item, $event)"><i class="ui red trash icon"></i></a>
+	//                 </td>
 	//                 <td v-if="!item.detail" >
 	//                     <div class="ui fluid icon input">
 	//                         <input type="text" @keypress.enter="onSubmit(title, $event)">
@@ -27228,6 +27231,7 @@ webpackJsonp([0],[
 	        groupedItems: function groupedItems() {
 	            return (0, _lodash2.default)(this.items).map(function (item) {
 	                return {
+	                    id: item.id,
 	                    title: item.name,
 	                    detail: item.detail
 	                };
@@ -27238,15 +27242,28 @@ webpackJsonp([0],[
 	    },
 
 	    methods: {
-	        onSubmit: function onSubmit(title, e) {
+	        deleteItem: function deleteItem(item, e) {
 	            var _this = this;
+
+	            e.preventDefault();
+
+	            window.$.post('/api/v1/checklists/' + this.checklistId + '/checkitems/' + item.id, {
+	                _method: 'DELETE'
+	            }).then(function () {
+	                _this.items = _this.items.filter(function (candidate) {
+	                    return item.id !== candidate.id;
+	                });
+	            });
+	        },
+	        onSubmit: function onSubmit(title, e) {
+	            var _this2 = this;
 
 	            e.preventDefault();
 
 	            var detail = e.target.value;
 
 	            createCheckitem(this.checklistId, title, detail).then(function (response) {
-	                _this.items.push(response.checkitem);
+	                _this2.items.push(response.checkitem);
 
 	                e.target.value = '';
 	            });
@@ -27260,13 +27277,13 @@ webpackJsonp([0],[
 	        };
 	    },
 	    ready: function ready() {
-	        var _this2 = this;
+	        var _this3 = this;
 
 	        getChecklist(this.checklistId).then(function (response) {
-	            _this2.items = response.checkitems;
+	            _this3.items = response.checkitems;
 
 	            getNodes(response.checklist.workflow_id).then(function (response) {
-	                _this2.nodes = response.nodes;
+	                _this3.nodes = response.nodes;
 	            });
 	        });
 	    }
@@ -27277,7 +27294,7 @@ webpackJsonp([0],[
 /* 118 */
 /***/ function(module, exports) {
 
-	module.exports = "\n<table class=\"ui celled structured table\">\n    <thead>\n        <tr>\n            <th class=\"four wide center aligned\">{{ titleLabel }}</th>\n            <th class=\"twelve wide\">{{ detailLabel }}</th>\n        </tr>\n    </thead>\n    <tbody v-for=\"(title, items) in groupedItems\">\n        <tr v-for=\"(idx, item) in items\">\n            <td :rowspan=\"items.length\" v-if=\"0 === idx\" class=\"top aligned center aligned\">{{ title }}</td>\n            <td v-if=\"item.detail\">{{ item.detail }}</td>\n            <td v-if=\"!item.detail\" >\n                <div class=\"ui fluid icon input\">\n                    <input type=\"text\" @keypress.enter=\"onSubmit(title, $event)\">\n                    <i class=\"plus icon\"></i>\n                </div>\n            </td>\n        </tr>\n    </tbody>\n</table>\n";
+	module.exports = "\n<table class=\"ui celled structured table\">\n    <thead>\n        <tr>\n            <th class=\"four wide center aligned\">{{ titleLabel }}</th>\n            <th class=\"twelve wide\">{{ detailLabel }}</th>\n        </tr>\n    </thead>\n    <tbody v-for=\"(title, items) in groupedItems\">\n        <tr v-for=\"(idx, item) in items\">\n            <td :rowspan=\"items.length\" v-if=\"0 === idx\" class=\"top aligned center aligned\">{{ title }}</td>\n            <td v-if=\"item.detail\">\n                {{ item.detail }}\n                <a href=\"#\" @click=\"deleteItem(item, $event)\"><i class=\"ui red trash icon\"></i></a>\n            </td>\n            <td v-if=\"!item.detail\" >\n                <div class=\"ui fluid icon input\">\n                    <input type=\"text\" @keypress.enter=\"onSubmit(title, $event)\">\n                    <i class=\"plus icon\"></i>\n                </div>\n            </td>\n        </tr>\n    </tbody>\n</table>\n";
 
 /***/ },
 /* 119 */

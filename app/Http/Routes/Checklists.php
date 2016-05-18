@@ -2,6 +2,7 @@
 
 Route::group(['prefix' => 'api/v1'], function () {
     post('checklists/{checklists}/checkitems', ChecklistsController::class . '@storeCheckitem');
+    delete('checklists/{checklistId}/checkitems/{checkitemId}', ChecklistsController::class . '@destroyItem');
     resource('checklists', ChecklistsController::class);
 });
 

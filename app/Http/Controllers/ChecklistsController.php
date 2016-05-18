@@ -87,6 +87,15 @@ class ChecklistsController extends Controller
         return redirect()->route('checklists.index');
     }
 
+    public function destroyItem($checklistId, $itemId)
+    {
+        $checkitem = Checklist::findOrFail($checklistId)->checkitems()->findOrFail($itemId);
+
+        $checkitem->delete();
+
+        return response()->json();
+    }
+
     public function workflow($checklistId)
     {
         $checklist = \App\Entities\Checklist::findOrFail($checklistId);
