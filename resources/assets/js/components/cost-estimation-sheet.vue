@@ -56,7 +56,7 @@
                 <td>{{ previousPrices[bounce.id] + currentPrices[bounce.id] }}</td>
             </tr>
         </tbody>
-        <tfoot>
+        <tfoot v-if="costEstimationId">
             <tr>
                 <th colspan="11">
                     <button class="ui primary button" @click="openModal()">其它費用</button>
