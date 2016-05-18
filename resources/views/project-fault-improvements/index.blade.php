@@ -28,13 +28,26 @@
                                 <td class="selectable">
                                     <a href="{{ route('projects.fault-improvements.show', [$project->id, $checklist->checkitems->first()->faultImprovement->id]) }}">{{ $checklist->checkitems->first()->name }} - {{ $checklist->checkitems->first()->detail }}</a>
                                 </td>
+                                @if (true === $checklist->checkitems->first()->faultImprovement->passes)
+                                    <td>已改善</td>
+                                @elseif (false === $checklist->checkitems->first()->faultImprovement->passes)
+                                    <td>有缺失</td>
+                                @else
+                                    <td>未審核</td>
+                                @endif
                             </tr>
                             @foreach ($checklist->checkitems->slice(1) as $checkitem)
                                 <tr>
                                     <td class="selectable">
                                         <a href="{{ route('projects.fault-improvements.show', [$project->id, $checkitem->faultImprovement->id]) }}">{{ $checkitem->name }} - {{ $checkitem->detail }}</a>
                                     </td>
-                                    <td>已改善</td>
+                                    @if (true === $checkitem->faultImprovement->passes)
+                                        <td>已改善</td>
+                                    @elseif (false === $checkitem->faultImprovement->passes)
+                                        <td>有缺失</td>
+                                    @else
+                                        <td>未審核</td>
+                                    @endif
                                 </tr>
                             @endforeach
                         @endforeach
