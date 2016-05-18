@@ -43,7 +43,7 @@ return [
 
     'select_workflow' => '選擇施工流程',
     'select_work'=> '選擇工作項目',
-    'select_type_order' => '選擇工程順序與類別',
+    'select_type_order' => '選擇工程類別與細部類別',
     'select_unit' => '選擇單位',
     'select_cost_type' => '選擇費用分類',
 
