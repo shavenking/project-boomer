@@ -14737,7 +14737,7 @@ webpackJsonp([0],[
 	};
 	// </script>
 	// <template>
-	//     <table class="ui table">
+	//     <table class="ui seven column table">
 	//         <thead>
 	//             <tr>
 	//                 <th>名稱</th>
@@ -27148,7 +27148,7 @@ webpackJsonp([0],[
 /* 114 */
 /***/ function(module, exports) {
 
-	module.exports = "\n<table class=\"ui table\">\n    <thead>\n        <tr>\n            <th>名稱</th>\n            <th>單位</th>\n            <th>數量</th>\n            <th>單價</th>\n            <th>總價</th>\n            <th>費用類別</th>\n            <th></th>\n        </tr>\n    </thead>\n    <tbody>\n        <tr v-for=\"item in items\">\n            <td>{{ item.name }}</td>\n            <td>{{ item.unit.name }}</td>\n            <td>{{ item.amount }}</td>\n            <td>{{ item.unit_price | currency }}</td>\n            <td class=\"collapsing\">{{ item.unit_price * item.amount | currency }}</td>\n            <td>\n                {{ item.cost_type.name }}\n            </td>\n            <td class=\"collapsing\">\n                <div class=\"ui tiny compact right floated icon buttons\">\n                    <button class=\"ui button\" @click=\"editItem(item)\">\n                        <i class=\"pencil icon\"></i>\n                    </button>\n                    <button class=\"ui button\" @click=\"deleteItem(item)\">\n                        <i class=\"trash icon\"></i>\n                    </button>\n                </div>\n            </td>\n        </tr>\n    </tbody>\n    <tfoot>\n        <th></th>\n        <th></th>\n        <th></th>\n        <th></th>\n        <th>{{ totalPrice | currency }}</th>\n        <th></th>\n        <th></th>\n    </tfoot>\n</table>\n";
+	module.exports = "\n<table class=\"ui seven column table\">\n    <thead>\n        <tr>\n            <th>名稱</th>\n            <th>單位</th>\n            <th>數量</th>\n            <th>單價</th>\n            <th>總價</th>\n            <th>費用類別</th>\n            <th></th>\n        </tr>\n    </thead>\n    <tbody>\n        <tr v-for=\"item in items\">\n            <td>{{ item.name }}</td>\n            <td>{{ item.unit.name }}</td>\n            <td>{{ item.amount }}</td>\n            <td>{{ item.unit_price | currency }}</td>\n            <td class=\"collapsing\">{{ item.unit_price * item.amount | currency }}</td>\n            <td>\n                {{ item.cost_type.name }}\n            </td>\n            <td class=\"collapsing\">\n                <div class=\"ui tiny compact right floated icon buttons\">\n                    <button class=\"ui button\" @click=\"editItem(item)\">\n                        <i class=\"pencil icon\"></i>\n                    </button>\n                    <button class=\"ui button\" @click=\"deleteItem(item)\">\n                        <i class=\"trash icon\"></i>\n                    </button>\n                </div>\n            </td>\n        </tr>\n    </tbody>\n    <tfoot>\n        <th></th>\n        <th></th>\n        <th></th>\n        <th></th>\n        <th>{{ totalPrice | currency }}</th>\n        <th></th>\n        <th></th>\n    </tfoot>\n</table>\n";
 
 /***/ },
 /* 115 */

@@ -1,5 +1,5 @@
 <template>
-    <table class="ui table">
+    <table class="ui seven column table">
         <thead>
             <tr>
                 <th>名稱</th>
