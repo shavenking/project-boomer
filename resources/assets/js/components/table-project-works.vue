@@ -8,8 +8,8 @@
                 <th>{{ unitPriceLabel }}</th>
                 <th>{{ amountLabel }}</th>
                 <th>{{ totalPriceLabel }}</th>
-                <th>
-                </th>
+                <th></th>
+                <th></th>
             </tr>
         </thead>
         <tbody v-for="(detailingflowTypeId, works) in groupedWorks">
@@ -29,6 +29,9 @@
                 </td>
                 <td>{{ work.unit_price * work.amount | currency }}</td>
                 <td><a href="{{ '/projects/' + projectId + '/works/' + work.id }}">{{ workitemsLabel }}</a></td>
+                <td>
+                    <button class="ui icon red button" @click="deleteWork(work.id)"><i class="ui trash icon"></i></button>
+                </td>
             </tr>
         </tbody>
         <tfoot>
@@ -39,6 +42,7 @@
                 <th></th>
                 <th></th>
                 <th>{{ totalWorkPrice | currency }}</th>
+                <th></th>
                 <th></th>
             </tr>
         </tfoot>
@@ -102,6 +106,16 @@
         methods: {
             updateWork(work) {
                 updateWork(work)
+            },
+
+            deleteWork(workId) {
+                window.$.post(`/api/v1/projects/${this.projectId}/works/${workId}`, {
+                    _method: 'DELETE'
+                }).then(rep => {
+                    this.works = this.works.filter(work => {
+                        return work.id !== workId
+                    })
+                })
             }
         },
 

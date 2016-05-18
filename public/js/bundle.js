@@ -27468,8 +27468,8 @@ webpackJsonp([0],[
 	//                 <th>{{ unitPriceLabel }}</th>
 	//                 <th>{{ amountLabel }}</th>
 	//                 <th>{{ totalPriceLabel }}</th>
-	//                 <th>
-	//                 </th>
+	//                 <th></th>
+	//                 <th></th>
 	//             </tr>
 	//         </thead>
 	//         <tbody v-for="(detailingflowTypeId, works) in groupedWorks">
@@ -27489,6 +27489,9 @@ webpackJsonp([0],[
 	//                 </td>
 	//                 <td>{{ work.unit_price * work.amount | currency }}</td>
 	//                 <td><a href="{{ '/projects/' + projectId + '/works/' + work.id }}">{{ workitemsLabel }}</a></td>
+	//                 <td>
+	//                     <button class="ui icon red button" @click="deleteWork(work.id)"><i class="ui trash icon"></i></button>
+	//                 </td>
 	//             </tr>
 	//         </tbody>
 	//         <tfoot>
@@ -27499,6 +27502,7 @@ webpackJsonp([0],[
 	//                 <th></th>
 	//                 <th></th>
 	//                 <th>{{ totalWorkPrice | currency }}</th>
+	//                 <th></th>
 	//                 <th></th>
 	//             </tr>
 	//         </tfoot>
@@ -27545,14 +27549,25 @@ webpackJsonp([0],[
 	    methods: {
 	        updateWork: function updateWork(work) {
 	            _updateWork(work);
+	        },
+	        deleteWork: function deleteWork(workId) {
+	            var _this = this;
+
+	            window.$.post('/api/v1/projects/' + this.projectId + '/works/' + workId, {
+	                _method: 'DELETE'
+	            }).then(function (rep) {
+	                _this.works = _this.works.filter(function (work) {
+	                    return work.id !== workId;
+	                });
+	            });
 	        }
 	    },
 
 	    ready: function ready() {
-	        var _this = this;
+	        var _this2 = this;
 
 	        getProjectWorks(this.projectId, this.queries).then(function (response) {
-	            _this.works = response.works;
+	            _this2.works = response.works;
 	        });
 	    }
 	};
@@ -27562,7 +27577,7 @@ webpackJsonp([0],[
 /* 124 */
 /***/ function(module, exports) {
 
-	module.exports = "\n<table class=\"ui table\">\n    <thead>\n        <tr>\n            <th class=\"four wide center aligned\">{{ typeOrderLabel }}</th>\n            <th>{{ nameLabel }}</th>\n            <th>{{ unitLabel }}</th>\n            <th>{{ unitPriceLabel }}</th>\n            <th>{{ amountLabel }}</th>\n            <th>{{ totalPriceLabel }}</th>\n            <th>\n            </th>\n        </tr>\n    </thead>\n    <tbody v-for=\"(detailingflowTypeId, works) in groupedWorks\">\n        <tr v-for=\"(idx, work) in works\">\n            <td :rowspan=\"works.length\" v-if=\"0 === idx\" class=\"top aligned center aligned\">\n                {{ work.detailingflow_type.mainflow_type.name }}\n                <br>\n                {{ work.detailingflow_type.name }}\n            </td>\n            <td>{{ work.name }}</td>\n            <td>{{ work.unit.name }}</td>\n            <td>{{ work.unit_price | currency}}</td>\n            <td>\n                <div class=\"ui input\">\n                    <input type=\"text\" name=\"work_amount[]\" v-model=\"work.amount\" @keyup=\"updateWork(work)\">\n                </div>\n            </td>\n            <td>{{ work.unit_price * work.amount | currency }}</td>\n            <td><a href=\"{{ '/projects/' + projectId + '/works/' + work.id }}\">{{ workitemsLabel }}</a></td>\n        </tr>\n    </tbody>\n    <tfoot>\n        <tr>\n            <th></th>\n            <th></th>\n            <th></th>\n            <th></th>\n            <th></th>\n            <th>{{ totalWorkPrice | currency }}</th>\n            <th></th>\n        </tr>\n    </tfoot>\n</table>\n";
+	module.exports = "\n<table class=\"ui table\">\n    <thead>\n        <tr>\n            <th class=\"four wide center aligned\">{{ typeOrderLabel }}</th>\n            <th>{{ nameLabel }}</th>\n            <th>{{ unitLabel }}</th>\n            <th>{{ unitPriceLabel }}</th>\n            <th>{{ amountLabel }}</th>\n            <th>{{ totalPriceLabel }}</th>\n            <th></th>\n            <th></th>\n        </tr>\n    </thead>\n    <tbody v-for=\"(detailingflowTypeId, works) in groupedWorks\">\n        <tr v-for=\"(idx, work) in works\">\n            <td :rowspan=\"works.length\" v-if=\"0 === idx\" class=\"top aligned center aligned\">\n                {{ work.detailingflow_type.mainflow_type.name }}\n                <br>\n                {{ work.detailingflow_type.name }}\n            </td>\n            <td>{{ work.name }}</td>\n            <td>{{ work.unit.name }}</td>\n            <td>{{ work.unit_price | currency}}</td>\n            <td>\n                <div class=\"ui input\">\n                    <input type=\"text\" name=\"work_amount[]\" v-model=\"work.amount\" @keyup=\"updateWork(work)\">\n                </div>\n            </td>\n            <td>{{ work.unit_price * work.amount | currency }}</td>\n            <td><a href=\"{{ '/projects/' + projectId + '/works/' + work.id }}\">{{ workitemsLabel }}</a></td>\n            <td>\n                <button class=\"ui icon red button\" @click=\"deleteWork(work.id)\"><i class=\"ui trash icon\"></i></button>\n            </td>\n        </tr>\n    </tbody>\n    <tfoot>\n        <tr>\n            <th></th>\n            <th></th>\n            <th></th>\n            <th></th>\n            <th></th>\n            <th>{{ totalWorkPrice | currency }}</th>\n            <th></th>\n            <th></th>\n        </tr>\n    </tfoot>\n</table>\n";
 
 /***/ },
 /* 125 */
