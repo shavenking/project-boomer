@@ -4,7 +4,7 @@
             <div class="content">
                 <div class="header">
                     {{* header }}
-                    <a href="#" class="ui right floated" v-el:file-upload>上傳照片</a>
+                    <div class="ui right floated blue label" style="cursor: pointer;" v-el:file-upload>上傳照片</div>
                 </div>
             </div>
             <div class="image">

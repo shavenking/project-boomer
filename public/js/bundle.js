@@ -44789,7 +44789,7 @@ webpackJsonp([0],[
 	//             <div class="content">
 	//                 <div class="header">
 	//                     {{* header }}
-	//                     <a href="#" class="ui right floated" v-el:file-upload>上傳照片</a>
+	//                     <div class="ui right floated blue label" style="cursor: pointer;" v-el:file-upload>上傳照片</div>
 	//                 </div>
 	//             </div>
 	//             <div class="image">
@@ -46584,7 +46584,7 @@ webpackJsonp([0],[
 /* 297 */
 /***/ function(module, exports) {
 
-	module.exports = "\n<div class=\"ui basic segment\" :class=\"{ loading: loading }\">\n    <div class=\"ui fluid card\">\n        <div class=\"content\">\n            <div class=\"header\">\n                {{* header }}\n                <a href=\"#\" class=\"ui right floated\" v-el:file-upload>上傳照片</a>\n            </div>\n        </div>\n        <div class=\"image\">\n            <img :src=\"url\" :alt.once=\"header\" v-if=\"photoName\">\n        </div>\n    </div>\n</div>\n";
+	module.exports = "\n<div class=\"ui basic segment\" :class=\"{ loading: loading }\">\n    <div class=\"ui fluid card\">\n        <div class=\"content\">\n            <div class=\"header\">\n                {{* header }}\n                <div class=\"ui right floated blue label\" style=\"cursor: pointer;\" v-el:file-upload>上傳照片</div>\n            </div>\n        </div>\n        <div class=\"image\">\n            <img :src=\"url\" :alt.once=\"header\" v-if=\"photoName\">\n        </div>\n    </div>\n</div>\n";
 
 /***/ },
 /* 298 */
