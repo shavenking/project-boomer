@@ -10,7 +10,7 @@
 
 @section('content')
 
-    <p>協力廠商：{{ $checklist->subcontractor->name }}</p>
+<h4 class="ui header">協力廠商：{{ $checklist->subcontractor->name }}</h4>
 
     @if ($checklist->checkitems->isEmpty())
         {{ trans('all.empty_checkitems') }}

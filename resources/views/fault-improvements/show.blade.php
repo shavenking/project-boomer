@@ -11,6 +11,13 @@
 
 @section('content')
 
+<h3 class="ui header">自主檢查表：{{ $faultImprovement->checkitem->checklist->name }}</h3>
+<h4 class="ui header">缺失項目：{{ $faultImprovement->checkitem->name }} - {{$faultImprovement->checkitem->detail }}</h4>
+
+
+
+
+
     <div class="ui one column grid">
         <div class="column">
             <card-fault-improvement-photo
