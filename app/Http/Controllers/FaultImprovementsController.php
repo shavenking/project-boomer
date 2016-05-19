@@ -38,22 +38,37 @@ class FaultImprovementsController extends Controller
 
     public function update($projectId, $faultImprovementId, Request $request)
     {
+        $this->validate($request, ['passes' => 'required']);
+
         $faultImprovement = \App\Entities\FaultImprovement::findOrFail($faultImprovementId);
 
-        $photoKeys = ['before_photo', 'current_photo', 'after_photo'];
+        $faultImprovement->update(['passes' => $request->input('passes')]);
 
-        $collection = ['passes' => $request->input('passes')];
-
-        foreach ($photoKeys as $photoKey) {
-            if ($request->hasFile($photoKey)) {
-                $photo = $request->file($photoKey)->move(public_path('images', rand()));
-
-                $collection[$photoKey] = $photo->getFileName();
-            }
+        if ($request->ajax()) {
+            return response()->json([
+                'fault_improvement' => $faultImprovement
+            ]);
         }
 
-        $faultImprovement->update($collection);
-
         return redirect()->route('projects.checklists.show', [$projectId, $faultImprovement->checkitem->checklist->id]);
+    }
+
+    public function storePhotos($projectId, $faultImprovementId, $step, Request $request)
+    {
+        $this->validate($request, [
+            'file' => 'required|image'
+        ]);
+
+        $faultImprovement = \App\Entities\FaultImprovement::findOrFail($faultImprovementId);
+
+        $photo = $request->file('file')->move(public_path('images', rand()));
+
+        $faultImprovement->update([
+            "{$step}_photo" => $photo->getFilename()
+        ]);
+
+        return response()->json([
+            'photo' => $photo->getFilename()
+        ]);
     }
 }

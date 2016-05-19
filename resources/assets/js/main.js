@@ -18,6 +18,8 @@ import ConstructionDaily from './components/construction-daily.vue'
 import CostEstimationSheet from './components/cost-estimation-sheet.vue'
 import FormCreateProjectWork from './components/form-create-project-work.vue'
 import ModalProjectMenu from './presentation-layer/modal-project-menu.vue'
+import CardFaultImprovementPhoto from './components/card-fault-improvement-photo.vue'
+import ButtonsFaultImprovementResult from './components/buttons-fault-improvement-result.vue'
 
 new Vue({
     el: 'body',
@@ -40,6 +42,8 @@ new Vue({
         ConstructionDaily,
         CostEstimationSheet,
         FormCreateProjectWork,
-        ModalProjectMenu
+        ModalProjectMenu,
+        CardFaultImprovementPhoto,
+        ButtonsFaultImprovementResult
     }
 })
