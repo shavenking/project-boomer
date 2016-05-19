@@ -44766,6 +44766,7 @@ webpackJsonp([0],[
 	        new _dropzone2.default(this.$els.fileUpload, {
 	            url: '/api/v1/projects/' + this.projectId + '/fault-improvements/' + this.faultImprovement.id + '/photos/' + this.step,
 	            uploadMultiple: false,
+	            maxFiles: 1,
 	            createImageThumbnails: false,
 	            addedfile: function addedfile(file) {},
 
