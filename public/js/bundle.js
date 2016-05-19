@@ -44756,7 +44756,8 @@ webpackJsonp([0],[
 
 	    data: function data() {
 	        return {
-	            faultImprovement: JSON.parse(this.serializedFaultImprovement)
+	            faultImprovement: JSON.parse(this.serializedFaultImprovement),
+	            loading: false
 	        };
 	    },
 	    ready: function ready() {
@@ -44770,21 +44771,29 @@ webpackJsonp([0],[
 
 	            success: function success(file, rep) {
 	                _this.faultImprovement[_this.step + '_photo'] = rep.photo;
+	            },
+	            sending: function sending() {
+	                _this.loading = true;
+	            },
+	            complete: function complete() {
+	                _this.loading = false;
 	            }
 	        });
 	    }
 	};
 	// </script>
 	// <template>
-	//     <div class="ui fluid card">
-	//         <div class="content">
-	//             <div class="header">
-	//                 {{* header }}
-	//                 <a href="#" class="ui right floated" v-el:file-upload>上傳照片</a>
+	//     <div class="ui basic segment" :class="{ loading: loading }">
+	//         <div class="ui fluid card">
+	//             <div class="content">
+	//                 <div class="header">
+	//                     {{* header }}
+	//                     <a href="#" class="ui right floated" v-el:file-upload>上傳照片</a>
+	//                 </div>
 	//             </div>
-	//         </div>
-	//         <div class="image">
-	//             <img :src="url" :alt.once="header" v-if="photoName">
+	//             <div class="image">
+	//                 <img :src="url" :alt.once="header" v-if="photoName">
+	//             </div>
 	//         </div>
 	//     </div>
 	// </template>
@@ -46574,7 +46583,7 @@ webpackJsonp([0],[
 /* 297 */
 /***/ function(module, exports) {
 
-	module.exports = "\n<div class=\"ui fluid card\">\n    <div class=\"content\">\n        <div class=\"header\">\n            {{* header }}\n            <a href=\"#\" class=\"ui right floated\" v-el:file-upload>上傳照片</a>\n        </div>\n    </div>\n    <div class=\"image\">\n        <img :src=\"url\" :alt.once=\"header\" v-if=\"photoName\">\n    </div>\n</div>\n";
+	module.exports = "\n<div class=\"ui basic segment\" :class=\"{ loading: loading }\">\n    <div class=\"ui fluid card\">\n        <div class=\"content\">\n            <div class=\"header\">\n                {{* header }}\n                <a href=\"#\" class=\"ui right floated\" v-el:file-upload>上傳照片</a>\n            </div>\n        </div>\n        <div class=\"image\">\n            <img :src=\"url\" :alt.once=\"header\" v-if=\"photoName\">\n        </div>\n    </div>\n</div>\n";
 
 /***/ },
 /* 298 */

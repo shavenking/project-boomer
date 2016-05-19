@@ -1,13 +1,15 @@
 <template>
-    <div class="ui fluid card">
-        <div class="content">
-            <div class="header">
-                {{* header }}
-                <a href="#" class="ui right floated" v-el:file-upload>上傳照片</a>
+    <div class="ui basic segment" :class="{ loading: loading }">
+        <div class="ui fluid card">
+            <div class="content">
+                <div class="header">
+                    {{* header }}
+                    <a href="#" class="ui right floated" v-el:file-upload>上傳照片</a>
+                </div>
             </div>
-        </div>
-        <div class="image">
-            <img :src="url" :alt.once="header" v-if="photoName">
+            <div class="image">
+                <img :src="url" :alt.once="header" v-if="photoName">
+            </div>
         </div>
     </div>
 </template>
@@ -29,7 +31,8 @@
 
         data(){
             return {
-                faultImprovement: JSON.parse(this.serializedFaultImprovement)
+                faultImprovement: JSON.parse(this.serializedFaultImprovement),
+                loading: false
             }
         },
 
@@ -41,6 +44,12 @@
                 addedfile(file) {},
                 success: (file, rep) => {
                     this.faultImprovement[`${this.step}_photo`] = rep.photo
+                },
+                sending: () => {
+                    this.loading = true
+                },
+                complete: () => {
+                    this.loading = false
                 }
             })
         }
