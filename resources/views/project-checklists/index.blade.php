@@ -1,7 +1,8 @@
 {{-- */ $breadcrumbs = [
     trans_choice('all.projects', 2) => route('projects.index'),
     "{$project->name}" => route('projects.show', $project->id),
-    trans_choice('all.checklists', 2) => null
+    trans('all.external') => route('projects.external.index', $project->id),
+    trans('all.checklists') => null
 ] /* --}}
 
 @extends('layouts.project')

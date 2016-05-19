@@ -1,6 +1,7 @@
 {{-- */ $breadcrumbs = [
     trans_choice('all.projects', 2) => route('projects.index'),
     "{$project->name}" => route('projects.show', $project->id),
+    trans('all.external') => route('projects.external.index', $project->id),
     trans('all.fault_improvements') => null
 ] /* --}}
 
@@ -20,7 +21,7 @@
                                         自主檢查表：<a href="{{ route('projects.checklists.show', [$project->id, $checklist->id]) }}">{{ $checklist->name }}</a>
                                     </div>
                                     <div class="description">
-                                        <a href="{{ route('projects.fault-improvements.show', [$project->id, $checkitem->faultImprovement->id]) }}">{{ $checkitem->detail }}</a>
+                                        <a href="{{ route('projects.fault-improvements.show', [$project->id, $checkitem->faultImprovement->id]) }}">{{ $checkitem->name }}</a>
                                     </div>
                                 </div>
                                 <div class="extra content">

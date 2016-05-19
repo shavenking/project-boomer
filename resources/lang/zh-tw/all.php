@@ -32,10 +32,10 @@ return [
     'work' => '工作項目',
     'workitems' => '工料項目',
     'unit_price_analysis' => '工料單價分析',
-    'checklists' => '自主檢查表管理',
+    'checklists' => '施工流程自主檢查',
     'checklist' => '自主檢查表',
     'checkitems' => '流程檢查項目',
-    'fault_improvements' => '缺失改善表',
+    'fault_improvements' => '工程施工改善',
 
     'set_workflows' => '設定施工流程',
     'set_checklists' => '設定自主檢查表',
