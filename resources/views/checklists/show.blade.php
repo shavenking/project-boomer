@@ -1,6 +1,6 @@
 {{-- */ $breadcrumbs = [
     trans('all.settings') => route('settings.index'),
-    trans('all.checklists') => route('checklists.index'),
+    trans('all.m_checklists') => route('checklists.index'),
     "{$checklist->name}" => null
 ] /* --}}
 

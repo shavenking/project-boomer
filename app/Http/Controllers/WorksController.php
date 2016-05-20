@@ -110,6 +110,21 @@ class WorksController extends Controller
         return view('works.edit')->withWork($work);
     }
 
+    public function update($workId, Request $request)
+    {
+        $this->validate($request, [
+            'detailingflow_type_id' => 'required',
+            'unit_id' => 'required',
+            'workflow_id' => 'required',
+            'name' => 'required',
+            'amount' => 'required'
+        ]);
+
+        $work = Work::findOrFail($workId);
+        $work->update($request->all());
+
+        return redirect(route('works.show', $work->id));
+    }
 
     public function updateOfWorkitems($workId, $itemId, Request $request)
     {

@@ -1,6 +1,6 @@
 {{-- */ $breadcrumbs = [
     trans('all.settings') => route('settings.index'),
-    trans_choice('all.checklists', 2) => null
+    trans('all.m_checklists') => null
 ] /* --}}
 
 @extends('layouts.settings')

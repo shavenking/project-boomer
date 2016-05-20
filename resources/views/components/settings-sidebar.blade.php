@@ -18,7 +18,7 @@
         href="{{ route('checklists.index') }}"
         class="ui @if (str_is('checklists*', request()->route()->getName())) active @endif button"
     >
-        {{ trans_choice('all.checklists', 2) }}
+        {{ trans('all.m_checklists') }}
     </a>
     <a
         href="{{ route('subcontractors.index') }}"
