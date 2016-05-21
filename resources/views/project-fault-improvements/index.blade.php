@@ -18,7 +18,7 @@
                             <div class="ui fluid card">
                                 <div class="content">
                                     <div class="header">
-                                        自主檢查表：<a href="{{ route('projects.checklists.show', [$project->id, $checklist->id]) }}">{{ $checklist->name }}</a>
+                                        施工流程自主檢查表：<a href="{{ route('projects.checklists.show', [$project->id, $checklist->id]) }}">{{ $checklist->name }}</a>
                                     </div>
                                     <div class="description">
                                         <a href="{{ route('projects.fault-improvements.show', [$project->id, $checkitem->faultImprovement->id]) }}">{{ $checkitem->name }}</a>
@@ -42,7 +42,7 @@
                 <table class="ui celled structured table">
                     <thead>
                         <tr>
-                            <th>自主檢查表</th>
+                            <th>施工流程自主檢查表</th>
                             <th>缺失項目</th>
                             <th>改善狀態</th>
                         </tr>

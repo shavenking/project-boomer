@@ -12,7 +12,7 @@
     <form action="{{ route('projects.cost-estimations.create', $project->id) }}" method="GET" class="ui inline form">
         <div class="inline field">
             <label>結算日期</label>
-            <input type="text" name="date">
+            <input type="text" name="date" value="2016.06.13">
             <input type="submit" class="ui button" value="預覽估驗計價單">
         </div>
     </form>

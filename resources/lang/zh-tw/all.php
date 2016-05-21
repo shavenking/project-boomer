@@ -34,7 +34,7 @@ return [
     'unit_price_analysis' => '工料單價分析',
     'checklists' => '施工流程自主檢查',
     'm_checklists' => '自主檢查表管理',
-    'checklist' => '自主檢查表',
+    'checklist' => '施工流程自主檢查表',
     'checkitems' => '流程檢查項目',
     'fault_improvements' => '工程施工改善',
 
@@ -54,7 +54,7 @@ return [
     'create_standard_workflow' => '新增標準施工流程',
     'create_standard_work' => '新增標準工作項目',
     'create_standard_checklist' => '新增標準自主檢查表',
-    'create_checklist' => '新增自主檢查表',
+    'create_checklist' => '新增施工流程自主檢查表',
     'create_checkitem' => '新增檢查項目',
     'create_workitem' => '新增工料項目',
     'create_project' => '新增專案',

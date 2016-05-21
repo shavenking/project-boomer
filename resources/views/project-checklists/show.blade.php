@@ -24,7 +24,7 @@
                         <table class="ui celled table">
                             <thead>
                                 <tr>
-                                    <th>項目名稱</th>
+                                    <th>流程檢查項目</th>
                                     <th>檢查標準</th>
                                     <th class="collapsing">缺失改善表</th>
                                     <th>檢查狀態</th>
