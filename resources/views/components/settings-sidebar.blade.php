@@ -21,6 +21,11 @@
         {{ trans('all.m_checklists') }}
     </a>
     <a
+        href="#"
+        class="ui disabled button">
+        {{ trans('all.schedules') }}
+    </a>
+    <a
         href="{{ route('subcontractors.index') }}"
         class="ui button">
         {{ trans('all.subcontractors') }}
