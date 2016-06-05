@@ -5,7 +5,7 @@
                 <slot></slot>
 
                 <flowtype-work-select
-                    select-type-order-label="選擇工程順序與類別"
+                    select-type-order-label="選擇工程類別與工作項目分類"
                     select-work-label="選擇施工流程"
                     @selected="onWorkSelected"
                 ></flowtype-work-select>

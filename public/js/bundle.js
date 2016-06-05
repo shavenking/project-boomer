@@ -44156,7 +44156,7 @@ webpackJsonp([0],[
 	//                 <slot></slot>
 	//
 	//                 <flowtype-work-select
-	//                     select-type-order-label="選擇工程順序與類別"
+	//                     select-type-order-label="選擇工程類別與工作項目分類"
 	//                     select-work-label="選擇施工流程"
 	//                     @selected="onWorkSelected"
 	//                 ></flowtype-work-select>
@@ -44279,7 +44279,7 @@ webpackJsonp([0],[
 /* 290 */
 /***/ function(module, exports) {
 
-	module.exports = "\n<div class=\"ui two column stackable grid container\">\n    <div class=\"column\">\n        <form method=\"POST\" :action.once=\"action\" class=\"ui form\">\n            <slot></slot>\n\n            <flowtype-work-select\n                select-type-order-label=\"選擇工程順序與類別\"\n                select-work-label=\"選擇施工流程\"\n                @selected=\"onWorkSelected\"\n            ></flowtype-work-select>\n\n            <div class=\"field\">\n                <label>名稱</label>\n                <input type=\"text\" name=\"name\">\n            </div>\n\n            <button class=\"ui primary button\" type=\"submit\">新增</button>\n            <a :href.once=\"backUrl\" class=\"ui primary button\">返回</a>\n            <a :href.once=\"settingWorkUrl\" class=\"ui primary button\">新增標準工作項目</a>\n        </form>\n    </div>\n    <div class=\"center aligned column\">\n        <h5>流程圖</h5>\n        <workflow-chart v-ref:workflow-chart></workflow-chart>\n    </div>\n</div>\n\n";
+	module.exports = "\n<div class=\"ui two column stackable grid container\">\n    <div class=\"column\">\n        <form method=\"POST\" :action.once=\"action\" class=\"ui form\">\n            <slot></slot>\n\n            <flowtype-work-select\n                select-type-order-label=\"選擇工程類別與工作項目分類\"\n                select-work-label=\"選擇施工流程\"\n                @selected=\"onWorkSelected\"\n            ></flowtype-work-select>\n\n            <div class=\"field\">\n                <label>名稱</label>\n                <input type=\"text\" name=\"name\">\n            </div>\n\n            <button class=\"ui primary button\" type=\"submit\">新增</button>\n            <a :href.once=\"backUrl\" class=\"ui primary button\">返回</a>\n            <a :href.once=\"settingWorkUrl\" class=\"ui primary button\">新增標準工作項目</a>\n        </form>\n    </div>\n    <div class=\"center aligned column\">\n        <h5>流程圖</h5>\n        <workflow-chart v-ref:workflow-chart></workflow-chart>\n    </div>\n</div>\n\n";
 
 /***/ },
 /* 291 */
