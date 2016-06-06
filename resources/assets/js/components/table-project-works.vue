@@ -105,25 +105,15 @@
             },
 
             statistics() {
-                return (
-                    _(this.works)
-                    .map(work => {
-                        work.workitems = _(work.workitems).map(workitem => {
-                            workitem.amount *= work.amount
-                            return workitem
-                        }).value()
-                        return work
+                let statistics = _.zipObject(_.values(this.costTypes), _.fill(new Array(4), 0))
+
+                _.each(this.works, work => {
+                    _.each(work.workitems, workitem => {
+                        statistics[workitem.cost_type_name] += work.amount * workitem.amount * workitem.unit_price
                     })
-                    .pluck('workitems')
-                    .flatten()
-                    .groupBy('cost_type_name')
-                    .mapValues(workitems => {
-                        return _.sum(workitems, workitem => {
-                            return workitem.amount * workitem.unit_price
-                        })
-                    })
-                    .value()
-                )
+                })
+
+                return statistics
             }
         },
 

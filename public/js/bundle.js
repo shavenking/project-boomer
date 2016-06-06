@@ -27578,17 +27578,15 @@ webpackJsonp([0],[
 	            return _lodash2.default.groupBy(this.works, 'detailingflow_type_id');
 	        },
 	        statistics: function statistics() {
-	            return (0, _lodash2.default)(this.works).map(function (work) {
-	                work.workitems = (0, _lodash2.default)(work.workitems).map(function (workitem) {
-	                    workitem.amount *= work.amount;
-	                    return workitem;
-	                }).value();
-	                return work;
-	            }).pluck('workitems').flatten().groupBy('cost_type_name').mapValues(function (workitems) {
-	                return _lodash2.default.sum(workitems, function (workitem) {
-	                    return workitem.amount * workitem.unit_price;
+	            var statistics = _lodash2.default.zipObject(_lodash2.default.values(this.costTypes), _lodash2.default.fill(new Array(4), 0));
+
+	            _lodash2.default.each(this.works, function (work) {
+	                _lodash2.default.each(work.workitems, function (workitem) {
+	                    statistics[workitem.cost_type_name] += work.amount * workitem.amount * workitem.unit_price;
 	                });
-	            }).value();
+	            });
+
+	            return statistics;
 	        }
 	    },
 
