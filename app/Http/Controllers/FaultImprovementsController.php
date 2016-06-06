@@ -38,17 +38,23 @@ class FaultImprovementsController extends Controller
 
     public function update($projectId, $faultImprovementId, Request $request)
     {
-        $this->validate($request, ['passes' => 'required']);
-
         $faultImprovement = \App\Entities\FaultImprovement::findOrFail($faultImprovementId);
 
-        $faultImprovement->update(['passes' => $request->input('passes')]);
-
         if ($request->ajax()) {
+            foreach (['before_notes', 'current_notes', 'after_notes'] as $key) {
+                if ($request->has($key)) {
+                    $faultImprovement->update([$key => $request->input($key)]);
+                }
+            }
+
             return response()->json([
                 'fault_improvement' => $faultImprovement
             ]);
         }
+
+        $this->validate($request, ['passes' => 'required']);
+
+        $faultImprovement->update(['passes' => $request->input('passes')]);
 
         return redirect()->route('projects.checklists.show', [$projectId, $faultImprovement->checkitem->checklist->id]);
     }

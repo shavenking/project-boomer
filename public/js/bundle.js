@@ -44760,6 +44760,10 @@ webpackJsonp([0],[
 	    value: true
 	});
 
+	var _defineProperty2 = __webpack_require__(357);
+
+	var _defineProperty3 = _interopRequireDefault(_defineProperty2);
+
 	var _dropzone = __webpack_require__(296);
 
 	var _dropzone2 = _interopRequireDefault(_dropzone);
@@ -44773,6 +44777,9 @@ webpackJsonp([0],[
 	        photoName: function photoName() {
 	            return this.faultImprovement[this.step + '_photo'];
 	        },
+	        notes: function notes() {
+	            return this.faultImprovement[this.step + '_notes'];
+	        },
 	        url: function url() {
 	            return '/images/' + this.photoName;
 	        }
@@ -44781,11 +44788,26 @@ webpackJsonp([0],[
 	    data: function data() {
 	        return {
 	            faultImprovement: JSON.parse(this.serializedFaultImprovement),
-	            loading: false
+	            loading: false,
+	            newNotes: null
 	        };
 	    },
+
+
+	    methods: {
+	        saveNotes: function saveNotes() {
+	            var _this = this;
+
+	            window.$.post('/api/v1/projects/' + this.projectId + '/fault-improvements/' + this.faultImprovement.id, (0, _defineProperty3.default)({
+	                _method: 'PUT'
+	            }, this.step + '_notes', this.newNotes)).then(function () {
+	                _this.faultImprovement[_this.step + '_notes'] = _this.newNotes;
+	            });
+	        }
+	    },
+
 	    ready: function ready() {
-	        var _this = this;
+	        var _this2 = this;
 
 	        new _dropzone2.default(this.$els.fileUpload, {
 	            url: '/api/v1/projects/' + this.projectId + '/fault-improvements/' + this.faultImprovement.id + '/photos/' + this.step,
@@ -44795,13 +44817,13 @@ webpackJsonp([0],[
 	            addedfile: function addedfile(file) {},
 
 	            success: function success(file, rep) {
-	                _this.faultImprovement[_this.step + '_photo'] = rep.photo;
+	                _this2.faultImprovement[_this2.step + '_photo'] = rep.photo;
 	            },
 	            sending: function sending() {
-	                _this.loading = true;
+	                _this2.loading = true;
 	            },
 	            complete: function complete() {
-	                _this.loading = false;
+	                _this2.loading = false;
 	            }
 	        });
 	    }
@@ -44818,6 +44840,14 @@ webpackJsonp([0],[
 	//             </div>
 	//             <div class="image">
 	//                 <img :src="url" :alt.once="header" v-if="photoName">
+	//             </div>
+	//             <div class="extra content">
+	//                 <p v-show="notes">備註：{{ notes }}</p>
+	//                 <div class="ui fluid labeled action input" v-show="!notes">
+	//                     <div class="ui label">備註：</div>
+	//                     <input type="text" name="new_notes" v-model="newNotes">
+	//                     <button class="ui primary button" @click="saveNotes">儲存</button>
+	//                 </div>
 	//             </div>
 	//         </div>
 	//     </div>
@@ -46608,7 +46638,7 @@ webpackJsonp([0],[
 /* 297 */
 /***/ function(module, exports) {
 
-	module.exports = "\n<div class=\"ui basic segment\" :class=\"{ loading: loading }\">\n    <div class=\"ui fluid card\">\n        <div class=\"content\">\n            <div class=\"header\">\n                {{* header }}\n                <div class=\"ui right floated blue label\" style=\"cursor: pointer;\" v-el:file-upload>上傳照片</div>\n            </div>\n        </div>\n        <div class=\"image\">\n            <img :src=\"url\" :alt.once=\"header\" v-if=\"photoName\">\n        </div>\n    </div>\n</div>\n";
+	module.exports = "\n<div class=\"ui basic segment\" :class=\"{ loading: loading }\">\n    <div class=\"ui fluid card\">\n        <div class=\"content\">\n            <div class=\"header\">\n                {{* header }}\n                <div class=\"ui right floated blue label\" style=\"cursor: pointer;\" v-el:file-upload>上傳照片</div>\n            </div>\n        </div>\n        <div class=\"image\">\n            <img :src=\"url\" :alt.once=\"header\" v-if=\"photoName\">\n        </div>\n        <div class=\"extra content\">\n            <p v-show=\"notes\">備註：{{ notes }}</p>\n            <div class=\"ui fluid labeled action input\" v-show=\"!notes\">\n                <div class=\"ui label\">備註：</div>\n                <input type=\"text\" name=\"new_notes\" v-model=\"newNotes\">\n                <button class=\"ui primary button\" @click=\"saveNotes\">儲存</button>\n            </div>\n        </div>\n    </div>\n</div>\n";
 
 /***/ },
 /* 298 */
@@ -46698,6 +46728,91 @@ webpackJsonp([0],[
 /***/ function(module, exports) {
 
 	module.exports = "\n<div class=\"ui basic segment\" :class=\"{ loading: loading }\">\n    <div class=\"ui fluid buttons\">\n        <button class=\"ui button\" :class=\"{ grey: null === result }\" @click=\"updateResult('null')\">未審核</button>\n        <button class=\"ui button\" :class=\"{ green: true === result }\" @click=\"updateResult(1)\">通過</button>\n        <button class=\"ui button\" :class=\"{ red: false === result }\" @click=\"updateResult(0)\">缺失</button>\n    </div>\n</div>\n";
+
+/***/ },
+/* 301 */,
+/* 302 */,
+/* 303 */,
+/* 304 */,
+/* 305 */,
+/* 306 */,
+/* 307 */,
+/* 308 */,
+/* 309 */,
+/* 310 */,
+/* 311 */,
+/* 312 */,
+/* 313 */,
+/* 314 */,
+/* 315 */,
+/* 316 */,
+/* 317 */,
+/* 318 */,
+/* 319 */,
+/* 320 */,
+/* 321 */,
+/* 322 */,
+/* 323 */,
+/* 324 */,
+/* 325 */,
+/* 326 */,
+/* 327 */,
+/* 328 */,
+/* 329 */,
+/* 330 */,
+/* 331 */,
+/* 332 */,
+/* 333 */,
+/* 334 */,
+/* 335 */,
+/* 336 */,
+/* 337 */,
+/* 338 */,
+/* 339 */,
+/* 340 */,
+/* 341 */,
+/* 342 */,
+/* 343 */,
+/* 344 */,
+/* 345 */,
+/* 346 */,
+/* 347 */,
+/* 348 */,
+/* 349 */,
+/* 350 */,
+/* 351 */,
+/* 352 */,
+/* 353 */,
+/* 354 */,
+/* 355 */,
+/* 356 */,
+/* 357 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	exports.__esModule = true;
+
+	var _defineProperty = __webpack_require__(302);
+
+	var _defineProperty2 = _interopRequireDefault(_defineProperty);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	exports.default = function (obj, key, value) {
+	  if (key in obj) {
+	    (0, _defineProperty2.default)(obj, key, {
+	      value: value,
+	      enumerable: true,
+	      configurable: true,
+	      writable: true
+	    });
+	  } else {
+	    obj[key] = value;
+	  }
+
+	  return obj;
+	};
 
 /***/ }
 ]);

@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class FaultImprovement extends Model
 {
-    protected $fillable = ['project_checkitem_id', 'before_photo', 'current_photo', 'after_photo', 'passes'];
+    protected $fillable = ['project_checkitem_id', 'before_photo', 'current_photo', 'after_photo', 'passes', 'before_notes', 'current_notes', 'after_notes'];
 
     protected $casts = [
         'passes' => 'boolean'
