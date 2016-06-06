@@ -27,7 +27,7 @@
                     </td>
                 </tr>
                 <tr v-for="checklist in checklists">
-                    <td><a href="/projects/{{ projectId }}/checklists/{{ checklist.project_work.id }}">{{ checklist.project_work.name }}</a></td>
+                    <td><a href="/projects/{{ projectId }}/checklists/{{ checklist.id }}">{{ checklist.project_work.name }}</a></td>
                     <td>{{ checklist.seat }}</td>
                     <td>{{ checklist.subcontractor.name }}</td>
                     <td>{{ checklist.passes ? '查核完畢' : '未查核完畢' }}</td>
