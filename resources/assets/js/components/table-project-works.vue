@@ -36,14 +36,18 @@
         </tbody>
         <tfoot>
             <tr>
-                <th></th>
-                <th></th>
-                <th></th>
-                <th></th>
-                <th></th>
-                <th>{{ totalWorkPrice | currency }}</th>
-                <th></th>
-                <th></th>
+                <th colspan="8">
+                    <div class="ui mini five statistics">
+                        <div class="statistic">
+                            <div class="label">總價</div>
+                            <div class="value">{{ totalWorkPrice | currency }}</div>
+                        </div>
+                        <div class="statistic" v-for="costTypeName in costTypes">
+                            <div class="label">{{ costTypeName }}</div>
+                            <div class="value">{{ statistics[costTypeName] || 0 | currency }}</div>
+                        </div>
+                    </div>
+                </th>
             </tr>
         </tfoot>
     </table>
@@ -66,6 +70,10 @@
         const queryString = queryArray.join('&')
 
         return window.$.getJSON(`/api/v1/projects/${projectId}/works?${queryString}`)
+    }
+
+    function getTypes() {
+        return window.$.getJSON('/api/v1/cost-types')
     }
 
     function updateWork(work) {
@@ -94,12 +102,35 @@
 
             groupedWorks() {
                 return _.groupBy(this.works, 'detailingflow_type_id')
+            },
+
+            statistics() {
+                return (
+                    _(this.works)
+                    .map(work => {
+                        work.workitems = _(work.workitems).map(workitem => {
+                            workitem.amount *= work.amount
+                            return workitem
+                        }).value()
+                        return work
+                    })
+                    .pluck('workitems')
+                    .flatten()
+                    .groupBy('cost_type_name')
+                    .mapValues(workitems => {
+                        return _.sum(workitems, workitem => {
+                            return workitem.amount * workitem.unit_price
+                        })
+                    })
+                    .value()
+                )
             }
         },
 
         data() {
             return {
-                works: []
+                works: [],
+                costTypes: []
             }
         },
 
@@ -122,6 +153,13 @@
         ready() {
             getProjectWorks(this.projectId, this.queries).then(response => {
                 this.works = response.works
+            })
+
+            getTypes().then(response => {
+                this.costTypes = _.zipObject(
+                    _.pluck(response.cost_types, 'id'),
+                    _.pluck(response.cost_types, 'name')
+                )
             })
         }
     }
