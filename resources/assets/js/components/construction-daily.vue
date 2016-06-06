@@ -1,8 +1,8 @@
 <template>
     <div class="ui fluid buttons" v-el:tabular-menu>
       <a href="#" class="ui button active" data-tab="project-checklists">當日工作項目、位置</a>
-      <a href="#" class="ui button" data-tab="daily-materials">當日材料使用數量</a>
-      <a href="#" class="ui button" data-tab="daily-labors">當日出工人數</a>
+      <a href="#" class="ui button" data-tab="daily-materials">當日材料使用情形</a>
+      <a href="#" class="ui button" data-tab="daily-labors">當日出工人數情形</a>
       <a href="#" class="ui button" data-tab="daily-appliances">當日機具使用情形</a>
       <a href="#" class="ui button" data-tab="daily-records">備註</a>
     </div>
