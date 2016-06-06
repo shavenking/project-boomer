@@ -41,7 +41,7 @@ class FaultImprovementsController extends Controller
         $faultImprovement = \App\Entities\FaultImprovement::findOrFail($faultImprovementId);
 
         if ($request->ajax()) {
-            foreach (['before_notes', 'current_notes', 'after_notes'] as $key) {
+            foreach (['before_notes', 'current_notes', 'after_notes', 'passes'] as $key) {
                 if ($request->has($key)) {
                     $faultImprovement->update([$key => $request->input($key)]);
                 }
@@ -51,10 +51,6 @@ class FaultImprovementsController extends Controller
                 'fault_improvement' => $faultImprovement
             ]);
         }
-
-        $this->validate($request, ['passes' => 'required']);
-
-        $faultImprovement->update(['passes' => $request->input('passes')]);
 
         return redirect()->route('projects.checklists.show', [$projectId, $faultImprovement->checkitem->checklist->id]);
     }
