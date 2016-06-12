@@ -1,4 +1,46 @@
-webpackJsonp([0],[
+/******/ (function(modules) { // webpackBootstrap
+/******/ 	// The module cache
+/******/ 	var installedModules = {};
+
+/******/ 	// The require function
+/******/ 	function __webpack_require__(moduleId) {
+
+/******/ 		// Check if module is in cache
+/******/ 		if(installedModules[moduleId])
+/******/ 			return installedModules[moduleId].exports;
+
+/******/ 		// Create a new module (and put it into the cache)
+/******/ 		var module = installedModules[moduleId] = {
+/******/ 			exports: {},
+/******/ 			id: moduleId,
+/******/ 			loaded: false
+/******/ 		};
+
+/******/ 		// Execute the module function
+/******/ 		modules[moduleId].call(module.exports, module, module.exports, __webpack_require__);
+
+/******/ 		// Flag the module as loaded
+/******/ 		module.loaded = true;
+
+/******/ 		// Return the exports of the module
+/******/ 		return module.exports;
+/******/ 	}
+
+
+/******/ 	// expose the modules object (__webpack_modules__)
+/******/ 	__webpack_require__.m = modules;
+
+/******/ 	// expose the module cache
+/******/ 	__webpack_require__.c = installedModules;
+
+/******/ 	// __webpack_public_path__
+/******/ 	__webpack_require__.p = "";
+
+/******/ 	// Load entry module and return exports
+/******/ 	return __webpack_require__(0);
+/******/ })
+/************************************************************************/
+/******/ ([
 /* 0 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -88,9 +130,13 @@ webpackJsonp([0],[
 
 	var _cardFaultImprovementPhoto2 = _interopRequireDefault(_cardFaultImprovementPhoto);
 
-	var _buttonsFaultImprovementResult = __webpack_require__(298);
+	var _buttonsFaultImprovementResult = __webpack_require__(302);
 
 	var _buttonsFaultImprovementResult2 = _interopRequireDefault(_buttonsFaultImprovementResult);
+
+	var _inputDate = __webpack_require__(305);
+
+	var _inputDate2 = _interopRequireDefault(_inputDate);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -117,7 +163,8 @@ webpackJsonp([0],[
 	        FormCreateProjectWork: _formCreateProjectWork2.default,
 	        ModalProjectMenu: _modalProjectMenu2.default,
 	        CardFaultImprovementPhoto: _cardFaultImprovementPhoto2.default,
-	        ButtonsFaultImprovementResult: _buttonsFaultImprovementResult2.default
+	        ButtonsFaultImprovementResult: _buttonsFaultImprovementResult2.default,
+	        InputDate: _inputDate2.default
 	    }
 	});
 
@@ -27144,7 +27191,22 @@ webpackJsonp([0],[
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(113)(module), (function() { return this; }())))
 
 /***/ },
-/* 113 */,
+/* 113 */
+/***/ function(module, exports) {
+
+	module.exports = function(module) {
+		if(!module.webpackPolyfill) {
+			module.deprecate = function() {};
+			module.paths = [];
+			// module.parent = undefined by default
+			module.children = [];
+			module.webpackPolyfill = 1;
+		}
+		return module;
+	}
+
+
+/***/ },
 /* 114 */
 /***/ function(module, exports) {
 
@@ -44732,7 +44794,7 @@ webpackJsonp([0],[
 	    __vue_script__.__esModule &&
 	    Object.keys(__vue_script__).length > 1) {
 	  console.warn("[vue-loader] resources/assets/js/components/card-fault-improvement-photo.vue: named exports in *.vue files are ignored.")}
-	__vue_template__ = __webpack_require__(297)
+	__vue_template__ = __webpack_require__(301)
 	module.exports = __vue_script__ || {}
 	if (module.exports.__esModule) module.exports = module.exports.default
 	if (__vue_template__) {
@@ -44760,11 +44822,11 @@ webpackJsonp([0],[
 	    value: true
 	});
 
-	var _defineProperty2 = __webpack_require__(357);
+	var _defineProperty2 = __webpack_require__(296);
 
 	var _defineProperty3 = _interopRequireDefault(_defineProperty2);
 
-	var _dropzone = __webpack_require__(296);
+	var _dropzone = __webpack_require__(300);
 
 	var _dropzone2 = _interopRequireDefault(_dropzone);
 
@@ -44857,6 +44919,68 @@ webpackJsonp([0],[
 
 /***/ },
 /* 296 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	exports.__esModule = true;
+
+	var _defineProperty = __webpack_require__(297);
+
+	var _defineProperty2 = _interopRequireDefault(_defineProperty);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	exports.default = function (obj, key, value) {
+	  if (key in obj) {
+	    (0, _defineProperty2.default)(obj, key, {
+	      value: value,
+	      enumerable: true,
+	      configurable: true,
+	      writable: true
+	    });
+	  } else {
+	    obj[key] = value;
+	  }
+
+	  return obj;
+	};
+
+/***/ },
+/* 297 */
+/***/ function(module, exports, __webpack_require__) {
+
+	module.exports = { "default": __webpack_require__(298), __esModule: true };
+
+/***/ },
+/* 298 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var $ = __webpack_require__(299);
+	module.exports = function defineProperty(it, key, desc){
+	  return $.setDesc(it, key, desc);
+	};
+
+/***/ },
+/* 299 */
+/***/ function(module, exports) {
+
+	var $Object = Object;
+	module.exports = {
+	  create:     $Object.create,
+	  getProto:   $Object.getPrototypeOf,
+	  isEnum:     {}.propertyIsEnumerable,
+	  getDesc:    $Object.getOwnPropertyDescriptor,
+	  setDesc:    $Object.defineProperty,
+	  setDescs:   $Object.defineProperties,
+	  getKeys:    $Object.keys,
+	  getNames:   $Object.getOwnPropertyNames,
+	  getSymbols: $Object.getOwnPropertySymbols,
+	  each:       [].forEach
+	};
+
+/***/ },
+/* 300 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(module) {"use strict";
@@ -46635,22 +46759,22 @@ webpackJsonp([0],[
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(113)(module)))
 
 /***/ },
-/* 297 */
+/* 301 */
 /***/ function(module, exports) {
 
 	module.exports = "\n<div class=\"ui basic segment\" :class=\"{ loading: loading }\">\n    <div class=\"ui fluid card\">\n        <div class=\"content\">\n            <div class=\"header\">\n                {{* header }}\n                <div class=\"ui right floated blue label\" style=\"cursor: pointer;\" v-el:file-upload>上傳照片</div>\n            </div>\n        </div>\n        <div class=\"image\">\n            <img :src=\"url\" :alt.once=\"header\" v-if=\"photoName\">\n        </div>\n        <div class=\"extra content\">\n            <p v-show=\"notes\">備註：{{ notes }}</p>\n            <div class=\"ui fluid labeled action input\" v-show=\"!notes\">\n                <div class=\"ui label\">備註：</div>\n                <input type=\"text\" name=\"new_notes\" v-model=\"newNotes\">\n                <button class=\"ui primary button\" @click=\"saveNotes\">儲存</button>\n            </div>\n        </div>\n    </div>\n</div>\n";
 
 /***/ },
-/* 298 */
+/* 302 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __vue_script__, __vue_template__
-	__vue_script__ = __webpack_require__(299)
+	__vue_script__ = __webpack_require__(303)
 	if (__vue_script__ &&
 	    __vue_script__.__esModule &&
 	    Object.keys(__vue_script__).length > 1) {
 	  console.warn("[vue-loader] resources/assets/js/components/buttons-fault-improvement-result.vue: named exports in *.vue files are ignored.")}
-	__vue_template__ = __webpack_require__(300)
+	__vue_template__ = __webpack_require__(304)
 	module.exports = __vue_script__ || {}
 	if (module.exports.__esModule) module.exports = module.exports.default
 	if (__vue_template__) {
@@ -46669,7 +46793,7 @@ webpackJsonp([0],[
 	})()}
 
 /***/ },
-/* 299 */
+/* 303 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -46724,95 +46848,72 @@ webpackJsonp([0],[
 	// </script>
 
 /***/ },
-/* 300 */
+/* 304 */
 /***/ function(module, exports) {
 
 	module.exports = "\n<div class=\"ui basic segment\" :class=\"{ loading: loading }\">\n    <div class=\"ui fluid buttons\">\n        <button class=\"ui button\" :class=\"{ grey: null === result }\" @click=\"updateResult('null')\">未審核</button>\n        <button class=\"ui button\" :class=\"{ green: true === result }\" @click=\"updateResult(1)\">通過</button>\n        <button class=\"ui button\" :class=\"{ red: false === result }\" @click=\"updateResult(0)\">缺失</button>\n    </div>\n</div>\n";
 
 /***/ },
-/* 301 */,
-/* 302 */,
-/* 303 */,
-/* 304 */,
-/* 305 */,
-/* 306 */,
-/* 307 */,
-/* 308 */,
-/* 309 */,
-/* 310 */,
-/* 311 */,
-/* 312 */,
-/* 313 */,
-/* 314 */,
-/* 315 */,
-/* 316 */,
-/* 317 */,
-/* 318 */,
-/* 319 */,
-/* 320 */,
-/* 321 */,
-/* 322 */,
-/* 323 */,
-/* 324 */,
-/* 325 */,
-/* 326 */,
-/* 327 */,
-/* 328 */,
-/* 329 */,
-/* 330 */,
-/* 331 */,
-/* 332 */,
-/* 333 */,
-/* 334 */,
-/* 335 */,
-/* 336 */,
-/* 337 */,
-/* 338 */,
-/* 339 */,
-/* 340 */,
-/* 341 */,
-/* 342 */,
-/* 343 */,
-/* 344 */,
-/* 345 */,
-/* 346 */,
-/* 347 */,
-/* 348 */,
-/* 349 */,
-/* 350 */,
-/* 351 */,
-/* 352 */,
-/* 353 */,
-/* 354 */,
-/* 355 */,
-/* 356 */,
-/* 357 */
+/* 305 */
 /***/ function(module, exports, __webpack_require__) {
 
-	"use strict";
-
-	exports.__esModule = true;
-
-	var _defineProperty = __webpack_require__(302);
-
-	var _defineProperty2 = _interopRequireDefault(_defineProperty);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	exports.default = function (obj, key, value) {
-	  if (key in obj) {
-	    (0, _defineProperty2.default)(obj, key, {
-	      value: value,
-	      enumerable: true,
-	      configurable: true,
-	      writable: true
-	    });
+	var __vue_script__, __vue_template__
+	__vue_script__ = __webpack_require__(306)
+	if (__vue_script__ &&
+	    __vue_script__.__esModule &&
+	    Object.keys(__vue_script__).length > 1) {
+	  console.warn("[vue-loader] resources/assets/js/components/input-date.vue: named exports in *.vue files are ignored.")}
+	__vue_template__ = __webpack_require__(307)
+	module.exports = __vue_script__ || {}
+	if (module.exports.__esModule) module.exports = module.exports.default
+	if (__vue_template__) {
+	(typeof module.exports === "function" ? (module.exports.options || (module.exports.options = {})) : module.exports).template = __vue_template__
+	}
+	if (false) {(function () {  module.hot.accept()
+	  var hotAPI = require("vue-hot-reload-api")
+	  hotAPI.install(require("vue"), true)
+	  if (!hotAPI.compatible) return
+	  var id = "/Users/shavenking/Code/project-boomer/resources/assets/js/components/input-date.vue"
+	  if (!module.hot.data) {
+	    hotAPI.createRecord(id, module.exports)
 	  } else {
-	    obj[key] = value;
+	    hotAPI.update(id, module.exports, __vue_template__)
 	  }
+	})()}
 
-	  return obj;
+/***/ },
+/* 306 */
+/***/ function(module, exports) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	// <template>
+	//     <input type="text" :name.once="name" v-el:input>
+	// </template>
+	//
+	// <script>
+	exports.default = {
+	    props: ['name'],
+
+	    ready: function ready() {
+	        window.$(this.$els.input).pickadate({
+	            close: '關閉',
+	            format: 'yyyy-mm-dd',
+	            formatSubmit: 'yyyy-mm-dd',
+	            hiddenName: true
+	        });
+	    }
 	};
+	// </script>
+
+/***/ },
+/* 307 */
+/***/ function(module, exports) {
+
+	module.exports = "\n<input type=\"text\" :name.once=\"name\" v-el:input>\n";
 
 /***/ }
-]);
+/******/ ]);

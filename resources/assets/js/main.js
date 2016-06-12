@@ -20,6 +20,7 @@ import FormCreateProjectWork from './components/form-create-project-work.vue'
 import ModalProjectMenu from './presentation-layer/modal-project-menu.vue'
 import CardFaultImprovementPhoto from './components/card-fault-improvement-photo.vue'
 import ButtonsFaultImprovementResult from './components/buttons-fault-improvement-result.vue'
+import InputDate from './components/input-date.vue'
 
 new Vue({
     el: 'body',
@@ -44,6 +45,7 @@ new Vue({
         FormCreateProjectWork,
         ModalProjectMenu,
         CardFaultImprovementPhoto,
-        ButtonsFaultImprovementResult
+        ButtonsFaultImprovementResult,
+        InputDate
     }
 })

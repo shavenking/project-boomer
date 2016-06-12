@@ -2,8 +2,7 @@ var webpack = require('webpack')
 
 module.exports = {
     entry: {
-        main: './resources/assets/js/main.js',
-        vendor: './resources/assets/js/vendor.js'
+        main: './resources/assets/js/main.js'
     },
     output: {
         path: './public/js',
@@ -26,8 +25,5 @@ module.exports = {
         loaders: {
             js: 'babel'
         }
-    },
-    plugins: [
-        new webpack.optimize.CommonsChunkPlugin("vendor", "vendor.bundle.js")
-    ]
+    }
 }
