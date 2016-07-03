@@ -11,6 +11,9 @@
         <a href="{{ route('settings.index') }}" class="@if (request()->is('*settings*', '*workflows*', 'works*')) active @endif item">
             {{ trans('all.settings') }}
         </a>
+        <a href="{{ route('auth.logout') }}" class="item">
+            登出
+        </a>
     </div>
 
 </div>
