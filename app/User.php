@@ -8,6 +8,8 @@ use Illuminate\Auth\Passwords\CanResetPassword;
 use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
 use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordContract;
 
+use App\Entities\Work;
+
 class User extends Model implements AuthenticatableContract,
                                     CanResetPasswordContract
 {
@@ -33,6 +35,11 @@ class User extends Model implements AuthenticatableContract,
      * @var array
      */
     protected $hidden = ['password', 'remember_token'];
+
+    public function works()
+    {
+        return $this->hasMany(Work::class);
+    }
 
     public function roles($projectId)
     {
