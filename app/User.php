@@ -10,7 +10,8 @@ use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordContract;
 
 use App\Entities\{
     Work,
-    Workflow
+    Workflow,
+    Checklist
 };
 
 class User extends Model implements AuthenticatableContract,
@@ -47,6 +48,11 @@ class User extends Model implements AuthenticatableContract,
     public function workflows()
     {
         return $this->hasMany(Workflow::class);
+    }
+
+    public function checklists()
+    {
+        return $this->hasMany(Checklist::class);
     }
 
     public function roles($projectId)

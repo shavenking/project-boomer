@@ -5,6 +5,14 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
+use App\Http\Requests\StandardChecklist\{
+    StoreRequest as StoreChecklistRequest,
+    DestroyRequest as DestroyChecklistRequest
+};
+use App\Http\Requests\StandardCheckitem\{
+    StoreRequest as StoreCheckitemRequest,
+    DestroyRequest as DestroyCheckitemRequest
+};
 use App\Http\Controllers\Controller;
 
 use App\Entities\Checklist;
@@ -27,14 +35,15 @@ class ChecklistsController extends Controller
         return view('checklists.create', compact('workflows'));
     }
 
-    public function store(Request $request)
+    public function store(StoreChecklistRequest $request)
     {
-        $checklist = Checklist::create(array_only($request->all(), ['workflow_id', 'name']));
+        $user = $request->user();
+        $checklist = $user->checklists->create(array_only($request->all(), ['workflow_id', 'name']));
 
         return redirect()->route('checklists.show', $checklist->id);
     }
 
-    public function storeCheckitem($checklistId, Request $request)
+    public function storeCheckitem($checklistId, StoreCheckitemRequest $request)
     {
         $checklist = Checklist::findOrFail($checklistId);
 
@@ -77,7 +86,7 @@ class ChecklistsController extends Controller
         //
     }
 
-    public function destroy($id)
+    public function destroy($id, DestroyChecklistRequest $request)
     {
         $checklist = app(\App\Entities\Checklist::class)->findOrFail($id);
 
@@ -87,7 +96,7 @@ class ChecklistsController extends Controller
         return redirect()->route('checklists.index');
     }
 
-    public function destroyItem($checklistId, $itemId)
+    public function destroyItem($checklistId, $itemId, DestroyCheckitemRequest $request)
     {
         $checkitem = Checklist::findOrFail($checklistId)->checkitems()->findOrFail($itemId);
 
