@@ -14,6 +14,7 @@ class CreateSubcontractorTable extends Migration
     {
         Schema::create('subcontractors', function (Blueprint $table) {
             $table->increments('id');
+            $table->integer('user_id')->unsigned();
 
             $table->string('name');
 
