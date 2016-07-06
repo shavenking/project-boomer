@@ -8,7 +8,10 @@ use Illuminate\Auth\Passwords\CanResetPassword;
 use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
 use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordContract;
 
-use App\Entities\Work;
+use App\Entities\{
+    Work,
+    Workflow
+};
 
 class User extends Model implements AuthenticatableContract,
                                     CanResetPasswordContract
@@ -39,6 +42,11 @@ class User extends Model implements AuthenticatableContract,
     public function works()
     {
         return $this->hasMany(Work::class);
+    }
+
+    public function workflows()
+    {
+        return $this->hasMany(Workflow::class);
     }
 
     public function roles($projectId)

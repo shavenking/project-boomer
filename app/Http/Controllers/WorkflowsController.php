@@ -5,6 +5,17 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
+use App\Http\Requests\StandardWorkflow\{
+    StoreRequest as StoreWorkflowRequest,
+    EditRequest as EditWorkflowRequest,
+    UpdateRequest as UpdateWorkflowRequest,
+    DestroyRequest as DestroyWorkflowRequest
+};
+use App\Http\Requests\StandardWorkflowitem\{
+    StoreRequest as StoreWorkflowitemRequest,
+    UpdateRequest as UpdateWorkflowitemRequest,
+    DestroyRequest as DestroyWorkflowitemRequest
+};
 use App\Http\Controllers\Controller;
 
 use App\Entities\Work;
@@ -39,13 +50,11 @@ class WorkflowsController extends Controller
         return view('workflows.create');
     }
 
-    public function store(Request $request)
+    public function store(StoreWorkflowRequest $request)
     {
-        $this->validate($request, [
-            'name' => 'required'
-        ]);
+        $user = $request->user();
 
-        $workflow = Workflow::create([
+        $workflow = $user->workflows()->create([
             'name' => $request->name
         ]);
 
@@ -65,7 +74,7 @@ class WorkflowsController extends Controller
         return redirect()->route('workflows.show', $workflow->id);
     }
 
-    public function storeOfNodes($workflowId, Request $request)
+    public function storeOfNodes($workflowId, StoreWorkflowitemRequest $request)
     {
         $node = Workflow::findOrFail($workflowId)
             ->nodes()
@@ -97,14 +106,14 @@ class WorkflowsController extends Controller
         return response()->json(compact('node'));
     }
 
-    public function edit($id)
+    public function edit($id, EditWorkflowRequest $request)
     {
         $workflow = Workflow::findOrFail($id);
 
         return view('workflows.edit')->withWorkflow($workflow);
     }
 
-    public function update($id, Request $request)
+    public function update($id, UpdateWorkflowRequest $request)
     {
         $workflow = Workflow::findOrFail($id);
 
@@ -113,9 +122,7 @@ class WorkflowsController extends Controller
         return redirect()->route('workflows.index');
     }
 
-
-
-    public function updateOfNodes($workflowId, $id, Request $request)
+    public function updateOfNodes($workflowId, $id, UpdateWorkflowitemRequest $request)
     {
         $node = WorkflowNode::whereWorkflowId($workflowId)
             ->whereId($id)
@@ -129,7 +136,7 @@ class WorkflowsController extends Controller
         return response()->json(compact('node'));
     }
 
-    public function destroy($id, Request $request)
+    public function destroy($id, DestroyWorkflowRequest $request)
     {
         $workflow = Workflow::findOrFail($id);
 
@@ -144,7 +151,7 @@ class WorkflowsController extends Controller
         return redirect()->back();
     }
 
-    public function destroyOfNodes($workflowId, $id)
+    public function destroyOfNodes($workflowId, $id, DestroyWorkflowitemRequest $request)
     {
         $node = WorkflowNode::whereWorkflowId($workflowId)
             ->whereId($id)
