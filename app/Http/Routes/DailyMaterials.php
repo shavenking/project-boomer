@@ -1,7 +1,11 @@
 <?php
 
 Route::group(['prefix' => 'api/v1'], function () {
-    get('daily-materials', DailyMaterialsController::class . '@all');
-    get('projects/{projects}/daily-materials/total-amount', DailyMaterialsController::class . '@getTotalAmount');
-    resource('projects.daily-materials', DailyMaterialsController::class);
+    $controller = DailyMaterialsController::class;
+
+    Route::get('daily-materials', "$controller@all");
+    Route::get('projects/{projects}/daily-materials/total-amount', "$controller@getTotalAmount");
+
+    Route::get('projects/{projects}/daily-materials', "$controller@index");
+    Route::post('projects/{projects}/daily-materials', "$controller@store")->middleware('role:field_engineer');
 });

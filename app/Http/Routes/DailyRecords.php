@@ -1,5 +1,8 @@
 <?php
 
 Route::group(['prefix' => 'api/v1'], function () {
-    resource('projects.daily-records', DailyRecordsController::class);
+    $controller = DailyRecordsController::class;
+
+    Route::get('projects/{projects}/daily-records', "$controller@index");
+    Route::post('projects/{projects}/daily-records', "$controller@store")->middleware('role:field_engineer');
 });
