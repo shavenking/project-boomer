@@ -1,5 +1,11 @@
 <?php
 
 Route::group(['middleware' => ['csrftoken']], function () {
-    resource('projects', ProjectsController::class);
+    $controller = ProjectsController::class;
+
+    Route::get('projects', "$controller@index")->name('projects.index');
+    Route::get('projects/create', "$controller@create")->name('projects.create');
+    Route::post('projects', "$controller@store")->name('projects.store');
+    Route::get('projects/{projects}', "$controller@show")->middleware('user.in.project')->name('projects.show');
+    Route::delete('projects/{projects}', "$controller@destroy")->middleware('project.manager')->name('projects.destroy');
 });

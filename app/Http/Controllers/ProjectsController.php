@@ -5,11 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
-use App\Http\Requests\Project\{
-    StoreRequest,
-    ShowRequest,
-    DestroyRequest
-};
+use App\Http\Requests\Project\StoreRequest;
 use App\Http\Controllers\Controller;
 
 use App\Repos\Contracts\{
@@ -39,35 +35,35 @@ class ProjectsController extends Controller
         return redirect()->route('projects.show', $project->id);
     }
 
-    public function show($id, ShowRequest $request, ProjectRepo $repo)
+    public function show($id, ProjectRepo $repo)
     {
         $project = $repo->findOrFail($id);
 
         return view('projects.show')->withProject($project);
     }
 
-    public function destroy($id, DestroyRequest $request, ProjectRepo $repo)
+    public function destroy($id, ProjectRepo $repo)
     {
         $repo->destroy($id);
 
         return redirect()->route('projects.index');
     }
 
-    public function internal($id, ShowRequest $request, ProjectRepo $repo)
+    public function internal($id, ProjectRepo $repo)
     {
         $project = $repo->findOrFail($id);
 
         return view('projects.internal')->withProject($project);
     }
 
-    public function external($id, ShowRequest $request, ProjectRepo $repo)
+    public function external($id, ProjectRepo $repo)
     {
         $project = $repo->findOrFail($id);
 
         return view('projects.external')->withProject($project);
     }
 
-    public function finance($id, ShowRequest $request, ProjectRepo $repo)
+    public function finance($id, ProjectRepo $repo)
     {
         $project = $repo->findOrFail($id);
 
