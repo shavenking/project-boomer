@@ -37,6 +37,21 @@ class Project implements ProjectContract
         return !is_null($user->projects()->whereProjectId($project->id)->first());
     }
 
+    public function isRole(User $user, ProjectEntity $project, string $roleName): bool
+    {
+        $roleNames = explode('|', $roleName);
+
+        foreach ($roleNames as $roleName) {
+            $role = $this->access->getRoleByName($roleName);
+
+            if (!is_null($user->projects()->wherePivot('role_id', $role->id)->find($project->id))) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
     public function create(User $user, ArrayAccess $data): ProjectEntity
     {
         $role = $this->access->getProjectManager();

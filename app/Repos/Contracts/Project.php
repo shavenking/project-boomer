@@ -23,4 +23,6 @@ interface Project
     public function isUserProjectManager(User $user, ProjectEntity $project): bool;
 
     public function isUserInProject(User $user, ProjectEntity $project): bool;
+
+    public function isRole(User $user, ProjectEntity $project, string $roleName): bool;
 }

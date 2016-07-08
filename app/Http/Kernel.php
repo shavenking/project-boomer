@@ -30,7 +30,6 @@ class Kernel extends HttpKernel
         'guest' => \App\Http\Middleware\RedirectIfAuthenticated::class,
         'csrftoken' => \App\Http\Middleware\VerifyCsrfToken::class,
         'localize' => \App\Http\Middleware\Localize::class,
-        'project.manager' => \App\Http\Middleware\ProjectManager::class,
-        'user.in.project' => \App\Http\Middleware\UserInProject::class
+        'role' => \App\Http\Middleware\Role::class
     ];
 }

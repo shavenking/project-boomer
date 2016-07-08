@@ -11,4 +11,9 @@ class Access implements AccessContract
     {
         return Role::whereName('project_manager')->firstOrFail();
     }
+
+    public function getRoleByName(string $roleName): Role
+    {
+        return Role::whereName($roleName)->firstOrFail();
+    }
 }

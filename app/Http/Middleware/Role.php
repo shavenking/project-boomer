@@ -3,13 +3,12 @@
 namespace App\Http\Middleware;
 
 use Closure;
-use App\Repos\Contracts\Project;
 
-class ProjectManager
+class Role
 {
     private $repo;
 
-    public function __construct(Project $repo)
+    public function __construct(\App\Repos\Contracts\Project $repo)
     {
         $this->repo = $repo;
     }
@@ -21,18 +20,23 @@ class ProjectManager
      * @param  \Closure  $next
      * @return mixed
      */
-    public function handle($request, Closure $next)
+    public function handle($request, Closure $next, $role)
     {
         $user = $request->user();
         $project = $this->repo->findOrFail($request->route('projects'));
 
-        if (
-            !$user
-            || !$this->repo->isUserProjectManager($request->user(), $project)
-        ) {
+        if (!$user) {
             abort(403);
         }
 
-        return $next($request);
+        if ('*' !== $role && $this->repo->isRole($user, $project, $role)) {
+            return $next($request);
+        }
+
+        if ('*' === $role && $this->repo->isUserInProject($user, $project)) {
+            return $next($request);
+        }
+
+        abort(403);
     }
 }
