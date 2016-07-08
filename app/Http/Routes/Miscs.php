@@ -9,7 +9,7 @@ Route::group(['middleware' => ['csrftoken']], function () {
         return view('settings.index');
     })->name('settings.index');
 
-    Route::get('projects/{projects}/internal', ProjectsController::class . '@internal')->name('projects.internal.index');
-    Route::get('projects/{projects}/external', ProjectsController::class . '@external')->name('projects.external.index');
-    Route::get('projects/{projects}/finance', ProjectsController::class . '@finance')->name('projects.finance.index');
+    Route::get('projects/{projects}/internal', ProjectsController::class . '@internal')->name('projects.internal.index')->middleware('role:*');
+    Route::get('projects/{projects}/external', ProjectsController::class . '@external')->name('projects.external.index')->middleware('role:*');
+    Route::get('projects/{projects}/finance', ProjectsController::class . '@finance')->name('projects.finance.index')->middleware('role:*');
 });

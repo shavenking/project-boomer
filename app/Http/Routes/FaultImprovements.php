@@ -8,7 +8,7 @@ Route::group(['prefix' => 'api/v1'], function () use ($controller) {
 });
 
 Route::group(['middleware' => ['csrftoken']], function () use ($controller) {
-    Route::get('projects/{projects}/fault-improvements', "$controller@index")->name('projects.fault-improvements.index');
-    Route::get('projects/{projects}/fault-improvements/{faultImprovements}', "$controller@show")->name('projects.fault-improvements.show');
+    Route::get('projects/{projects}/fault-improvements', "$controller@index")->name('projects.fault-improvements.index')->middleware('role:*');
+    Route::get('projects/{projects}/fault-improvements/{faultImprovements}', "$controller@show")->name('projects.fault-improvements.show')->middleware('role:*');
     Route::put('projects/{projects}/fault-improvements/{faultImprovements}', "$controller@update")->name('projects.fault-improvements.update')->middleware('role:quality_manager|field_engineer');
 });

@@ -3,7 +3,7 @@
 $workController = ProjectWorksController::class;
 $estimationController = CostEstimationsController::class;
 
-Route::group(['prefix' => 'api/v1'], function () use ($workController, $estimationController) {
+Route::group(['prefix' => 'api/v1', 'middleware' => 'role:*'], function () use ($workController, $estimationController) {
 
     Route::get('projects/{projects}/works/{works}/cost-estimations/previous', "$estimationController@getPreviousEstimation");
     Route::get('projects/{projects}/works/{works}/cost-estimations', "$estimationController@estimations");
@@ -17,7 +17,7 @@ Route::group(['prefix' => 'api/v1'], function () use ($workController, $estimati
     Route::put('projects/{projects}/works/{works}', "$workController@update")->middleware('role:cost_manager');
     Route::delete('projects/{projects}/works/{works}', "$workController@destroy")->middleware('role:cost_manager');
 });
-Route::group(['middleware' => ['csrftoken']], function () use ($workController) {
+Route::group(['middleware' => ['csrftoken', 'role:*']], function () use ($workController) {
     Route::get('projects/{projects}/works/{works}/workitems', "$workController@indexOfWorkitems")
         ->name('projects.works.workitems.index');
     Route::get('projects/{projects}/works/{works}/workitems/create', "$workController@createOfWorkitems")
