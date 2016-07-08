@@ -38,6 +38,7 @@ class DatabaseSeeder extends Seeder
         $this->seedCostTypes();
 
         $this->call(TestDataSeeder::class);
+        $this->call(RolePermissionSeeder::class);
 
         Model::reguard();
     }

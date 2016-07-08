@@ -9,6 +9,8 @@ class Role extends Model implements RoleContract
 {
     protected $table;
 
+    protected $fillable = ['name'];
+
     public function __construct(array $attributes = [])
     {
         parent::__construct($attributes);
