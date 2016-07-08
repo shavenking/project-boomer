@@ -12,7 +12,8 @@ class RolePermissionSeerder extends Seeder
         'field_engineer', // 現場工程師
         'cost_manager', // 成本控制人員
         'estimation_manager', // 估驗計價人員
-        'permission_manager' // 權限管理人員
+        'permission_manager', // 權限管理人員
+        'project_member'
     ];
 
     /**

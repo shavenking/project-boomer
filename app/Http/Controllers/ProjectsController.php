@@ -5,15 +5,22 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
+use App\Http\Requests\Project\{
+    StoreRequest,
+    ShowRequest,
+    DestroyRequest
+};
 use App\Http\Controllers\Controller;
 
-use App\Entities\Project;
+use App\Repos\Contracts\{
+    Project as ProjectRepo
+};
 
 class ProjectsController extends Controller
 {
-    public function index()
+    public function index(Request $request, ProjectRepo $repo)
     {
-        $projects = Project::all();
+        $projects = $repo->userProjects($request->user());
 
         return view('projects.index')->withProjects($projects);
     }
@@ -23,50 +30,46 @@ class ProjectsController extends Controller
         return view('projects.create');
     }
 
-    public function store(Request $request)
+    public function store(StoreRequest $request, ProjectRepo $repo)
     {
-        $validator = $this->validate($request, [
-            'name' => 'required'
-        ]);
+        $user = $request->user();
 
-        $name = $request->input('name');
-
-        $project = Project::create(compact('name'));
+        $project = $repo->create($user, $request);
 
         return redirect()->route('projects.show', $project->id);
     }
 
-    public function show($id)
+    public function show($id, ShowRequest $request, ProjectRepo $repo)
     {
-        $project = Project::findOrFail($id);
+        $project = $repo->findOrFail($id);
 
         return view('projects.show')->withProject($project);
     }
 
-    public function destroy($id)
+    public function destroy($id, DestroyRequest $request, ProjectRepo $repo)
     {
-        \App\Entities\Project::destroy($id);
+        $repo->destroy($id);
 
         return redirect()->route('projects.index');
     }
 
-    public function internal($id)
+    public function internal($id, ShowRequest $request, ProjectRepo $repo)
     {
-        $project = Project::findOrFail($id);
+        $project = $repo->findOrFail($id);
 
         return view('projects.internal')->withProject($project);
     }
 
-    public function external($id)
+    public function external($id, ShowRequest $request, ProjectRepo $repo)
     {
-        $project = Project::findOrFail($id);
+        $project = $repo->findOrFail($id);
 
         return view('projects.external')->withProject($project);
     }
 
-    public function finance($id)
+    public function finance($id, ShowRequest $request, ProjectRepo $repo)
     {
-        $project = Project::findOrFail($id);
+        $project = $repo->findOrFail($id);
 
         return view('projects.finance')->withProject($project);
     }

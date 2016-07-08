@@ -12,7 +12,8 @@ use App\Entities\{
     Work,
     Workflow,
     Checklist,
-    Subcontractor
+    Subcontractor,
+    Project
 };
 
 class User extends Model implements AuthenticatableContract,
@@ -59,6 +60,16 @@ class User extends Model implements AuthenticatableContract,
     public function subcontractors()
     {
         return $this->hasMany(Subcontractor::class);
+    }
+
+    public function projects()
+    {
+        return (
+            $this
+            ->belongsToMany(Project::class, config('entrust.role_user_table'), 'user_id', 'project_id')
+            ->withPivot('role_id')
+            ->withTimestamps()
+        );
     }
 
     public function roles($projectId)
