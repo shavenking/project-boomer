@@ -6,9 +6,12 @@ use App\User;
 use App\Entities\Project as ProjectEntity;
 use Illuminate\Support\Collection;
 use ArrayAccess;
+use App\Repos\Contracts\Access;
 
 interface Project
 {
+    public function __construct(Access $access);
+
     public function userProjects(User $user): Collection;
 
     public function create(User $user, ArrayAccess $data): ProjectEntity;

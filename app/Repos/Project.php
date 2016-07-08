@@ -7,9 +7,17 @@ use App\Entities\Project as ProjectEntity;
 use App\Repos\Contracts\Project as ProjectContract;
 use Illuminate\Support\Collection;
 use ArrayAccess;
+use App\Repos\Contracts\Access;
 
 class Project implements ProjectContract
 {
+    private $access;
+
+    public function __construct(Access $access)
+    {
+        $this->access = $access;
+    }
+
     public function userProjects(User $user): Collection
     {
         return $user->projects;
@@ -17,7 +25,7 @@ class Project implements ProjectContract
 
     public function isUserProjectManager(User $user, ProjectEntity $project): bool
     {
-        $role = Access::getProjectManager();
+        $role = $this->access->getProjectManager();
 
         $project = $user->projects()->wherePivot('role_id', $role->id)->find($project->id);
 
@@ -31,7 +39,7 @@ class Project implements ProjectContract
 
     public function create(User $user, ArrayAccess $data): ProjectEntity
     {
-        $role = Access::getProjectManager();
+        $role = $this->access->getProjectManager();
 
         $project = $user->projects()->create([
             'name' => $data['name']
