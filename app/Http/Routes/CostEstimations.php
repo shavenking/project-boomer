@@ -1,11 +1,16 @@
 <?php
 
-Route::group(['prefix' => 'api/v1'], function () {
-    get('cost-estimation-bounces', CostEstimationsController::class . '@allBounces');
-    get('projects/{projectId}/bounces', CostEstimationsController::class . '@getBouncesByProject');
-    post('projects/{projectId}/cost-estimations/{costEstimationId}/bounces', CostEstimationsController::class . '@storeBounce');
+$controller = CostEstimationsController::class;
+
+Route::group(['prefix' => 'api/v1'], function () use ($controller) {
+    Route::get('cost-estimation-bounces', "$controller@allBounces");
+    Route::get('projects/{projects}/bounces', "$controller@getBouncesByProject");
+    Route::post('projects/{projects}/cost-estimations/{costEstimations}/bounces', "$controller@storeBounce")->middleware('role:estimation_manager');
 });
 
-Route::group(['middleware' => ['csrftoken']], function () {
-    resource('projects.cost-estimations', CostEstimationsController::class);
+Route::group(['middleware' => ['csrftoken']], function () use ($controller) {
+    Route::get('projects/{projects}/cost-estimations', "$controller@index")->name('projects.cost-estimations.index');
+    Route::post('projects/{projects}/cost-estimations', "$controller@store")->name('projects.cost-estimations.store')->middleware('role:estimation_manager');
+    Route::get('projects/{projects}/cost-estimations/create', "$controller@create")->name('projects.cost-estimations.create')->middleware('role:estimation_manager');
+    Route::get('projects/{projects}/cost-estimations/{costEstimations}', "$controller@show")->name('projects.cost-estimations.show');
 });
