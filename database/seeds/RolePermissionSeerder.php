@@ -6,14 +6,14 @@ use Illuminate\Database\Seeder;
 class RolePermissionSeerder extends Seeder
 {
     private $roles = [
-        'general_manager', // 總經理
-        'project_manager', // 專案經理
-        'quality_manager', // 品質管理人員
-        'field_engineer', // 現場工程師
-        'cost_manager', // 成本控制人員
-        'estimation_manager', // 估驗計價人員
-        'permission_manager', // 權限管理人員
-        'project_member'
+        '總經理' => 'general_manager',
+        '專案經理' => 'project_manager',
+        '品質管理人員' => 'quality_manager',
+        '現場工程師' => 'field_engineer',
+        '成本控制人員' => 'cost_manager',
+        '估驗計價人員' => 'estimation_manager',
+        '權限管理人員' => 'permission_manager',
+        '專案成員' => 'project_member'
     ];
 
     /**
@@ -27,9 +27,10 @@ class RolePermissionSeerder extends Seeder
         DB::table('roles')->truncate();
         DB::table('permissions')->truncate();
 
-        foreach ($this->roles as $role) {
+        foreach ($this->roles as $displayName => $role) {
             Role::create([
-                'name' => $role
+                'name' => $role,
+                'display_name' => $displayName
             ]);
         }
     }

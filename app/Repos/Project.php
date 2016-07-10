@@ -3,7 +3,10 @@
 namespace App\Repos;
 
 use App\User;
-use App\Entities\Project as ProjectEntity;
+use App\Entities\{
+    Project as ProjectEntity,
+    Role as RoleEntity
+};
 use App\Repos\Contracts\Project as ProjectContract;
 use Illuminate\Support\Collection;
 use ArrayAccess;
@@ -21,6 +24,34 @@ class Project implements ProjectContract
     public function userProjects(User $user): Collection
     {
         return $user->projects;
+    }
+
+    public function getMembers(ProjectEntity $project): Collection
+    {
+        $members = $project->users;
+
+        $members = $members->map(function ($member) use ($project) {
+            $role = $member->roles($project->id)->first();
+
+            return $member->setRelation('role', $role);
+        });
+
+        return $members;
+    }
+
+    public function getMember(ArrayAccess $candidate, ProjectEntity $project): User
+    {
+        $query = $project->users();
+
+        if (isset($candidate['email'])) {
+            $query->where('users.email', $candidate['email']);
+        }
+
+        if (isset($candidate['id'])) {
+            $query->where('users.id', $candidate['id']);
+        }
+
+        return $query->firstOrFail();
     }
 
     public function isUserProjectManager(User $user, ProjectEntity $project): bool
@@ -61,6 +92,32 @@ class Project implements ProjectContract
         ], ['role_id' => $role->id]);
 
         return $project;
+    }
+
+    public function addMemberByEmail(string $email, $roleName, ProjectEntity $project)
+    {
+        $user = User::whereEmail($email)->firstOrFail();
+        $role = $this->access->getRoleByName($roleName);
+
+        return $this->addMember($user, $role, $project);
+    }
+
+    public function addMember(User $user, RoleEntity $role, ProjectEntity $project)
+    {
+        if (!$project->users()->whereEmail($user->email)->first()) {
+            return $project->users()->attach($user->id, ['role_id' => $role->id]);
+        }
+
+        return null;
+    }
+
+    public function removeMember(User $user, ProjectEntity $project)
+    {
+        if ($project->users()->where('users.id', $user->id)->firstOrFail()) {
+            return $project->users()->detach($user->id);
+        }
+
+        return null;
     }
 
     public function findOrFail(int $id): ProjectEntity

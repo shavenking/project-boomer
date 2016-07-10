@@ -16,4 +16,9 @@ class Access implements AccessContract
     {
         return Role::whereName($roleName)->firstOrFail();
     }
+
+    public function getRoles()
+    {
+        return Role::all();
+    }
 }
