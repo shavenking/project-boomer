@@ -16,7 +16,7 @@ class ProjectsController extends Controller
 {
     public function index(Request $request, ProjectRepo $repo)
     {
-        $projects = $repo->userProjects($request->user());
+        $projects = $repo->all();
 
         return view('projects.index')->withProjects($projects);
     }

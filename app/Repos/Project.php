@@ -26,6 +26,11 @@ class Project implements ProjectContract
         return $user->projects;
     }
 
+    public function all(): Collection
+    {
+        return ProjectEntity::all();
+    }
+
     public function getMembers(ProjectEntity $project): Collection
     {
         $members = $project->users;
