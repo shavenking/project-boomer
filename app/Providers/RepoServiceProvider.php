@@ -27,6 +27,10 @@ class RepoServiceProvider extends ServiceProvider
             return new \App\Repos\Access;
         });
 
+        $this->app->singleton(\App\Repos\Contracts\User::class, function ($app) {
+            return new \App\Repos\User;
+        });
+
         $this->app->singleton(\App\Repos\Contracts\Project::class, function ($app) {
             return new \App\Repos\Project(app(\App\Repos\Contracts\Access::class));
         });

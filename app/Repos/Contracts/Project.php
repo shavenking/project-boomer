@@ -15,6 +15,8 @@ interface Project
 {
     public function __construct(Access $access);
 
+    public function usersNotInProject(ProjectEntity $project): Collection;
+
     public function all(): Collection;
 
     public function userProjects(User $user): Collection;

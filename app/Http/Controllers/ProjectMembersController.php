@@ -37,6 +37,15 @@ class ProjectMembersController extends Controller
         return view('project-members.create', compact('project', 'roles'));
     }
 
+    public function fastCreate($projectId, ProjectRepo $repo, AccessRepo $access)
+    {
+        $project = $repo->findOrFail($projectId);
+        $roles = $access->getRoles();
+        $users = $repo->usersNotInProject($project);
+
+        return view('project-members.fast-create', compact('project', 'roles', 'users'));
+    }
+
     /**
      * Store a newly created resource in storage.
      *
@@ -59,6 +68,24 @@ class ProjectMembersController extends Controller
         );
 
         return redirect(route('projects.members.index', $project->id));
+    }
+
+    public function fastStore($projectId, Request $request, ProjectRepo $repo)
+    {
+        $this->validate($request, [
+            'email' => 'required',
+            'role_name' => 'required'
+        ]);
+
+        $project = $repo->findOrFail($projectId);
+
+        $repo->addMemberByEmail(
+            $request->input('email'),
+            $request->input('role_name'),
+            $project
+        );
+
+        return redirect()->back();
     }
 
     /**

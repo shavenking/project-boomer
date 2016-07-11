@@ -8,7 +8,7 @@
 
 @section('content')
 
-    <a href="{{ route('projects.members.create', $project->id) }}" class="ui primary labeled icon button">
+    <a href="{{ route('projects.members.fast-create', $project->id) }}" class="ui primary labeled icon button">
         <i class="plus icon"></i>新增專案成員
     </a>
 

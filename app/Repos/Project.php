@@ -26,6 +26,13 @@ class Project implements ProjectContract
         return $user->projects;
     }
 
+    public function usersNotInProject(ProjectEntity $project): Collection
+    {
+        $memberIds = $project->users->pluck('id');
+
+        return User::whereNotIn('id', $memberIds)->get();
+    }
+
     public function all(): Collection
     {
         return ProjectEntity::all();
