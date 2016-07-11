@@ -7,5 +7,5 @@ Route::group(['prefix' => 'api/v1'], function () {
     Route::get('projects/{projects}/daily-appliances/total-amount', "$controller@getTotalAmount")->middleware('role:*');
 
     Route::get('projects/{projects}/daily-appliances', "$controller@index")->middleware('role:*');
-    Route::post('projects/{projects}/daily-appliances', "$controller@store")->middleware('role:field_engineer');
+    Route::post('projects/{projects}/daily-appliances', "$controller@store")->middleware('role:project_manager|field_engineer');
 });
