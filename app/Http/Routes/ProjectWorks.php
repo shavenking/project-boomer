@@ -29,7 +29,7 @@ Route::group(['middleware' => ['csrftoken', 'role:*']], function () use ($workCo
     Route::delete('projects/{projects}/works/{works}/workitems/{workitems}', "$workController@destroyOfWorkitems")
         ->name('projects.works.workitems.destroy')->middleware('role:cost_manager');
 
-    Route::get('projects/{project}/works/search', "$workController@search")->name('projects.works.search');
+    Route::get('projects/{projects}/works/search', "$workController@search")->name('projects.works.search');
 
     Route::get('projects/{projects}/works', "$workController@index")->name('projects.works.index');
     Route::get('projects/{projects}/works/create', "$workController@create")->name('projects.works.create')->middleware('role:cost_manager');
