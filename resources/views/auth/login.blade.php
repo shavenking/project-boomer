@@ -17,10 +17,7 @@
                 <input type="password" name="password">
             </div>
             <div class="field">
-                <div class="ui checkbox">
-                    <input type="checkbox" name="remember" tabindex="0">
-                    <label>記得我</label>
-                </div>
+                <input type="hidden" name="remember" value="true" tabindex="0">
             </div>
 
             <button class="ui primary button" type="submit">送出</button>
