@@ -9,7 +9,7 @@ class RolePermissionSeerder extends Seeder
         '總經理' => 'general_manager',
         '專案經理' => 'project_manager',
         '品質管理人員' => 'quality_manager',
-        '現場工程師' => 'field_engineer',
+        '工地主任' => 'field_engineer',
         '成本控制人員' => 'cost_manager',
         '估驗計價人員' => 'estimation_manager',
         '權限管理人員' => 'permission_manager',
