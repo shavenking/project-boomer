@@ -58,7 +58,9 @@ class DailyMaterialsController extends Controller
             $dailyMaterial = DailyMaterial::create(['name' => $request->input('name')]);
         }
 
-        $projectDailyMaterial = $project->dailyMaterials()->find($dailyMaterial->id);
+        $pivotTable = $project->dailyMaterials()->getTable();
+        $query = $project->dailyMaterials()->getQuery();
+        $projectDailyMaterial = $query->whereDate("$pivotTable.created_at", '=', Carbon::today())->find($dailyMaterial->id);
 
         if ($projectDailyMaterial) {
             $project->dailyMaterials()->updateExistingPivot($dailyMaterial->id, ['amount' => $request->input('amount')]);

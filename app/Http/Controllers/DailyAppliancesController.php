@@ -59,7 +59,9 @@ class DailyAppliancesController extends Controller
             $dailyAppliance = DailyAppliance::create(['name' => $request->input('name')]);
         }
 
-        $projectDailyAppliance = $project->dailyAppliances()->find($dailyAppliance->id);
+        $pivotTable = $project->dailyAppliances()->getTable();
+        $query = $project->dailyAppliances()->getQuery();
+        $projectDailyAppliance = $query->whereDate("$pivotTable.created_at", '=', Carbon::today())->find($dailyAppliance->id);
 
         if ($projectDailyAppliance) {
             $project->dailyAppliances()->updateExistingPivot($dailyAppliance->id, ['amount' => $request->input('amount')]);
