@@ -59,7 +59,9 @@ class DailyLaborsController extends Controller
             $dailyLabor = DailyLabor::create(['name' => $request->input('name')]);
         }
 
-        $projectDailyLabor = $project->dailyLabors()->find($dailyLabor->id);
+        $pivotTable = $project->dailyLabors()->getTable();
+        $query = $project->dailyLabors()->getQuery();
+        $projectDailyLabor = $query->whereDate("$pivotTable.created_at", '=', Carbon::today())->find($dailyLabor->id);
 
         if ($projectDailyLabor) {
             $project->dailyLabors()->updateExistingPivot($dailyLabor->id, ['amount' => $request->input('amount')]);
