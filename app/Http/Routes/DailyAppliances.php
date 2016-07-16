@@ -1,7 +1,11 @@
 <?php
 
 Route::group(['prefix' => 'api/v1'], function () {
-    get('daily-appliances', DailyAppliancesController::class . '@all');
-    get('projects/{projects}/daily-appliances/total-amount', DailyAppliancesController::class . '@getTotalAmount');
-    resource('projects.daily-appliances', DailyAppliancesController::class);
+    $controller = DailyAppliancesController::class;
+
+    Route::get('daily-appliances', "$controller@all");
+    Route::get('projects/{projects}/daily-appliances/total-amount', "$controller@getTotalAmount")->middleware('role:*');
+
+    Route::get('projects/{projects}/daily-appliances', "$controller@index")->middleware('role:*');
+    Route::post('projects/{projects}/daily-appliances', "$controller@store")->middleware('role:project_manager|field_engineer');
 });

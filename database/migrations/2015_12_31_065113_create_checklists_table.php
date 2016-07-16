@@ -16,6 +16,7 @@ class CreateChecklistsTable extends Migration
             $table->increments('id');
 
             $table->integer('workflow_id')->unsigned();
+            $table->integer('user_id')->unsigned();
 
             $table->string('name');
 

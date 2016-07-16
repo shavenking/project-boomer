@@ -1,15 +1,15 @@
 <?php
 
 Route::group(['middleware' => ['csrftoken']], function () {
-    get('/', function () {
+    Route::get('/', function () {
         return view('index');
     })->name('index');
 
-    get('settings', function () {
+    Route::get('settings', function () {
         return view('settings.index');
     })->name('settings.index');
 
-    get('projects/{project}/internal', ProjectsController::class . '@internal')->name('projects.internal.index');
-    get('projects/{project}/external', ProjectsController::class . '@external')->name('projects.external.index');
-    get('projects/{project}/finance', ProjectsController::class . '@finance')->name('projects.finance.index');
+    Route::get('projects/{projects}/internal', ProjectsController::class . '@internal')->name('projects.internal.index')->middleware('role:*');
+    Route::get('projects/{projects}/external', ProjectsController::class . '@external')->name('projects.external.index')->middleware('role:*');
+    Route::get('projects/{projects}/finance', ProjectsController::class . '@finance')->name('projects.finance.index')->middleware('role:*');
 });

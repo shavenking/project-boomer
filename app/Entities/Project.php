@@ -48,4 +48,19 @@ class Project extends Model
     {
         return $this->hasMany(CostEstimation::class);
     }
+
+    public function users()
+    {
+        return (
+            $this
+            ->belongsToMany(config('auth.model'), config('entrust.role_user_table'))
+            ->withPivot('role_id')
+            ->withTimestamps()
+        );
+    }
+
+    public function addUser($userId, $roleId)
+    {
+        return $this->users()->attach($userId, ['role_id' => $roleId]);
+    }
 }
