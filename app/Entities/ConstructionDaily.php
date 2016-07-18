@@ -10,4 +10,9 @@ class ConstructionDaily extends Model
     {
         return $this->belongsToMany(ProjectWork::class)->withPivot('id', 'seat')->withTimestamps();
     }
+
+    public function labors()
+    {
+        return $this->belongsToMany(DailyLabor::class)->withPivot('id', 'amount')->withTimestamps();
+    }
 }

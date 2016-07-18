@@ -15,13 +15,6 @@ class Project extends Model
             ->withTimestamps();
     }
 
-    public function dailyLabors()
-    {
-        return $this->belongsToMany(DailyLabor::class, 'project_daily_labor', 'project_id', 'daily_labor_id')
-            ->withPivot('id', 'amount')
-            ->withTimestamps();
-    }
-
     public function dailyAppliances()
     {
         return $this->belongsToMany(DailyAppliance::class, 'project_daily_appliance', 'project_id', 'daily_appliance_id')

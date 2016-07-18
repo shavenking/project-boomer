@@ -18,9 +18,9 @@ class CreateDailyLaborsTable extends Migration
             $table->timestamps();
         });
 
-        Schema::create('project_daily_labor', function (Blueprint $table) {
+        Schema::create('construction_daily_daily_labor', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('project_id')->unsigned();
+            $table->integer('construction_daily_id')->unsigned();
             $table->integer('daily_labor_id')->unsigned();
             $table->integer('amount')->unsigned();
             $table->timestamps();
@@ -35,6 +35,6 @@ class CreateDailyLaborsTable extends Migration
     public function down()
     {
         Schema::drop('daily_labors');
-        Schema::drop('project_daily_labor');
+        Schema::drop('construction_daily_daily_labor');
     }
 }
