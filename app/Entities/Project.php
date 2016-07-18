@@ -63,4 +63,9 @@ class Project extends Model
     {
         return $this->users()->attach($userId, ['role_id' => $roleId]);
     }
+
+    public function constructionDailies()
+    {
+        return $this->hasMany(ConstructionDaily::class);
+    }
 }
