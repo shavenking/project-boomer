@@ -25,6 +25,7 @@ class CreateConstructionDailiesTable extends Migration
             $table->increments('id');
             $table->integer('construction_daily_id')->unsigned();
             $table->integer('project_work_id')->unsigned();
+            $table->string('seat');
             $table->timestamps();
         });
     }

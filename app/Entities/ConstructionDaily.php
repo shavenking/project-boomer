@@ -8,6 +8,6 @@ class ConstructionDaily extends Model
 {
     public function works()
     {
-        return $this->belongsToMany(ProjectWork::class);
+        return $this->belongsToMany(ProjectWork::class)->withPivot('id', 'seat')->withTimestamps();
     }
 }

@@ -62,6 +62,6 @@ class ProjectWork extends Model
 
     public function constructionDailies()
     {
-        return $this->belongsToMany(ConstructionDaily::class);
+        return $this->belongsToMany(ConstructionDaily::class)->withPivot('id', 'seat')->withTimestamps();
     }
 }
