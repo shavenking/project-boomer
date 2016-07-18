@@ -8,13 +8,6 @@ class Project extends Model
 {
     protected $fillable = ['name'];
 
-    public function dailyAppliances()
-    {
-        return $this->belongsToMany(DailyAppliance::class, 'project_daily_appliance', 'project_id', 'daily_appliance_id')
-            ->withPivot('id', 'amount')
-            ->withTimestamps();
-    }
-
     public function dailyRecords()
     {
         return $this->hasMany(DailyRecord::class);
