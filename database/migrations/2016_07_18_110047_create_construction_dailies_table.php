@@ -20,6 +20,13 @@ class CreateConstructionDailiesTable extends Migration
             $table->timestamp('work_date');
             $table->timestamps();
         });
+
+        Schema::create('construction_daily_project_work', function (Blueprint $table) {
+            $table->increments('id');
+            $table->integer('construction_daily_id')->unsigned();
+            $table->integer('project_work_id')->unsigned();
+            $table->timestamps();
+        });
     }
 
     /**
@@ -29,6 +36,7 @@ class CreateConstructionDailiesTable extends Migration
      */
     public function down()
     {
+        Schema::drop('construction_daily_project_work');
         Schema::drop('construction_dailies');
     }
 }

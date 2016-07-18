@@ -59,4 +59,9 @@ class ProjectWork extends Model
         $this->unit_price = $unitPrice;
         return $this->save();
     }
+
+    public function constructionDailies()
+    {
+        return $this->belongsToMany(ConstructionDaily::class);
+    }
 }
