@@ -3,13 +3,10 @@
 namespace App\Repos;
 
 use App\Entities\{
-    ConstructionDaily as ConstructionDailyEntity,
-    Project,
-    ProjectWork,
-    ProjectChecklist,
-    Subcontractor
+    ConstructionDaily as ConstructionDailyEntity, DailyLabor, Project, ProjectWork, ProjectChecklist, Subcontractor
 };
 use App\Repos\Contracts\ConstructionDaily as Contract;
+use Carbon\Carbon;
 
 class ConstructionDaily implements Contract
 {
@@ -50,5 +47,26 @@ class ConstructionDaily implements Contract
                 $checklist->checkitems()->create($checkitem->toArray());
             }
         }
+    }
+
+    public function addLabor(
+        ConstructionDailyEntity $constructionDaily,
+        DailyLabor $labor,
+        int $amount
+    ) {
+        return $constructionDaily->labors()->attach(
+            $labor,
+            compact('amount')
+        );
+    }
+
+    public function getConstructionDaily(Project $project, Carbon $date)
+    {
+        return (
+            $project
+                ->constructionDailies()
+                ->whereDate('work_date', '=', $date)
+                ->firstOrFail()
+        );
     }
 }
