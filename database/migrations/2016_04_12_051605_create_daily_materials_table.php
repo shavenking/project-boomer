@@ -12,16 +12,16 @@ class CreateDailyMaterialsTable extends Migration
      */
     public function up()
     {
-        Schema::create('daily_materials', function (Blueprint $table) {
+        Schema::create('materials', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
             $table->timestamps();
         });
 
-        Schema::create('construction_daily_daily_material', function (Blueprint $table) {
+        Schema::create('construction_daily_material', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('construction_daily_id')->unsigned();
-            $table->integer('daily_material_id')->unsigned();
+            $table->integer('material_id')->unsigned();
             $table->integer('amount')->unsigned();
             $table->timestamps();
         });
@@ -34,7 +34,7 @@ class CreateDailyMaterialsTable extends Migration
      */
     public function down()
     {
-        Schema::drop('daily_materials');
-        Schema::drop('construction_daily_daily_material');
+        Schema::drop('materials');
+        Schema::drop('construction_daily_material');
     }
 }
