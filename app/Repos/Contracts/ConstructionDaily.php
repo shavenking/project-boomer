@@ -4,7 +4,7 @@ namespace App\Repos\Contracts;
 
 use App\Entities\{
     ConstructionDaily as ConstructionDailyEntity,
-    DailyLabor,
+    Labor,
     Project,
     ProjectWork,
     Subcontractor
@@ -20,7 +20,7 @@ interface ConstructionDaily
 
     public function addLabor(
         ConstructionDailyEntity $constructionDaily,
-        DailyLabor $labor,
+        Labor $labor,
         int $amount
     );
 

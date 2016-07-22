@@ -3,7 +3,7 @@
 namespace App\Repos;
 
 use App\Entities\{
-    ConstructionDaily as ConstructionDailyEntity, DailyLabor, Project, ProjectWork, ProjectChecklist, Subcontractor
+    ConstructionDaily as ConstructionDailyEntity, Labor, Project, ProjectWork, ProjectChecklist, Subcontractor
 };
 use App\Repos\Contracts\ConstructionDaily as Contract;
 use Carbon\Carbon;
@@ -51,7 +51,7 @@ class ConstructionDaily implements Contract
 
     public function addLabor(
         ConstructionDailyEntity $constructionDaily,
-        DailyLabor $labor,
+        Labor $labor,
         int $amount
     ) {
         return $constructionDaily->labors()->attach(

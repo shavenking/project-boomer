@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Entities\{
-    DailyLabor,
+    Labor,
     Project
 };
 use App\Http\Requests;
@@ -70,7 +70,7 @@ class ConstructionDailiesController extends Controller
 
         $project = Project::findOrFail($projectId);
         $date = new Carbon($date);
-        $labor = DailyLabor::findOrFail($request->input('daily_labor_id'));
+        $labor = Labor::findOrFail($request->input('daily_labor_id'));
         $amount = (int) $request->input('amount');
 
         $constructionDaily = $repo->getConstructionDaily($project, $date);

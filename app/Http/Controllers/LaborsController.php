@@ -8,16 +8,16 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use Carbon\Carbon;
 
-use App\Entities\{ Project, DailyLabor };
+use App\Entities\{ Project, Labor };
 
-class DailyLaborsController extends Controller
+class LaborsController extends Controller
 {
     public function index()
     {
-        $dailyLabors = DailyLabor::all();
+        $labors = Labor::all();
 
         return response()->json([
-            'daily_labors' => $dailyLabors
+            'labors' => $labors
         ]);
     }
 
@@ -27,7 +27,7 @@ class DailyLaborsController extends Controller
             'name' => 'required',
         ]);
 
-        $dailyLabor = DailyLabor::create(['name' => $request->input('name')]);
+        $labor = Labor::create(['name' => $request->input('name')]);
 
         return response()->json();
     }

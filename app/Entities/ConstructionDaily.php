@@ -13,7 +13,7 @@ class ConstructionDaily extends Model
 
     public function labors()
     {
-        return $this->belongsToMany(DailyLabor::class)->withPivot('id', 'amount')->withTimestamps();
+        return $this->belongsToMany(Labor::class)->withPivot('id', 'amount')->withTimestamps();
     }
 
     public function materials()

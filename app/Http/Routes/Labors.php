@@ -1,12 +1,12 @@
 <?php
 
 Route::group(['prefix' => 'api/v1'], function () {
-    $controller = DailyLaborsController::class;
+    $controller = LaborsController::class;
 
-    Route::get('daily-labors', "$controller@index");
+    Route::get('labors', "$controller@index");
 
     Route::post(
-        'daily-labors',
+        'labors',
         "$controller@store"
     )->middleware('role:project_manager|field_engineer');
 });
