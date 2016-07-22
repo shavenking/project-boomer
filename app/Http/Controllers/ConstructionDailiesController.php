@@ -11,7 +11,8 @@ use App\Entities\{
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\Repos\Contracts\{
-    ConstructionDaily as ConstructionDailyRepo
+    ConstructionDaily as ConstructionDailyRepo,
+    DailyLabor as DailyLaborRepo
 };
 use Carbon\Carbon;
 use DatePeriod;
@@ -46,22 +47,28 @@ class ConstructionDailiesController extends Controller
     public function getLabors(
         $projectId,
         $date,
-        ConstructionDailyRepo $repo
+        ConstructionDailyRepo $repo,
+        DailyLaborRepo $dailyLaborRepo
     ) {
         $project = Project::findOrFail($projectId);
         $date = new Carbon($date);
 
         $constructionDaily = $repo->getConstructionDaily($project, $date);
-        $dailyLabors = $constructionDaily->labors;
 
-        return response()->json(compact('dailyLabors'));
+        $result = $dailyLaborRepo->transform(
+            $constructionDaily->labors,
+            $constructionDaily
+        );
+
+        return response()->json($result);
     }
 
     public function addLabor(
         $projectId,
         $date,
         ConstructionDailyRepo $repo,
-        Request $request
+        Request $request,
+        DailyLaborRepo $dailyLaborRepo
     ) {
         $this->validate($request, [
             'daily_labor_id' => 'required',
@@ -75,8 +82,14 @@ class ConstructionDailiesController extends Controller
 
         $constructionDaily = $repo->getConstructionDaily($project, $date);
         $repo->addLabor($constructionDaily, $labor, $amount);
+        $dailyLabor = $dailyLaborRepo->firstOrFail($constructionDaily, $labor);
 
-        return response()->json();
+        $result = $dailyLaborRepo->transform(
+            $dailyLabor,
+            $constructionDaily
+        );
+
+        return response()->json($result);
     }
 
     private function datePeriodToCollection(DatePeriod $datePeriod)
