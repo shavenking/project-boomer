@@ -3,12 +3,10 @@
 namespace App\Entities\Transformers;
 
 use League\Fractal\TransformerAbstract;
-use App\Entities\{
-    ConstructionDaily,
-    Labor
-};
+use Illuminate\Database\Eloquent\Model;
+use App\Entities\ConstructionDaily;
 
-class DailyLaborTransformer extends TransformerAbstract
+class DailyThingTransformer extends TransformerAbstract
 {
     protected $constructionDaily;
 
@@ -17,26 +15,26 @@ class DailyLaborTransformer extends TransformerAbstract
         $this->constructionDaily = $constructionDaily;
     }
 
-    public function transform(Labor $labor)
+    public function transform(Model $model)
     {
-        if (is_null($labor->getRelation('pivot'))) {
+        if (is_null($model->getRelation('pivot'))) {
             throw new \Exception;
         }
 
         if (
-            $labor->pivot->construction_daily_id
+            $model->pivot->construction_daily_id
             !== $this->constructionDaily->id
         ) {
             throw new \Exception;
         }
 
         return [
-            'id' => $labor->pivot->id,
-            'name' => $labor->name,
-            'amount' => (int) $labor->pivot->amount,
+            'id' => $model->pivot->id,
+            'name' => $model->name,
+            'amount' => (int) $model->pivot->amount,
             'work_date' => (string) $this->constructionDaily->work_date,
-            'created_at' => (string) $labor->pivot->created_at,
-            'updated_at' => (string) $labor->pivot->updated_at
+            'created_at' => (string) $model->pivot->created_at,
+            'updated_at' => (string) $model->pivot->updated_at
         ];
     }
 }

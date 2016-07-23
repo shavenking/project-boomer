@@ -13,7 +13,7 @@ use League\Fractal\{
     Resource\Item,
     Resource\Collection as ResourceCollection
 };
-use App\Entities\Transformers\DailyLaborTransformer;
+use App\Entities\Transformers\DailyThingTransformer;
 
 class DailyLabor implements Contract
 {
@@ -71,7 +71,7 @@ class DailyLabor implements Contract
     ) {
         return new ResourceCollection(
             $labors,
-            new DailyLaborTransformer(
+            new DailyThingTransformer(
                 $constructionDaily
             ),
             'daily_labor'
@@ -84,7 +84,7 @@ class DailyLabor implements Contract
     ) {
         return new Item(
             $labor,
-            new DailyLaborTransformer(
+            new DailyThingTransformer(
                 $constructionDaily
             ),
             'daily_labor'
