@@ -23,7 +23,10 @@ class ConstructionDaily implements Contract
 
     public function addDailyWork(string $seat, Subcontractor $subcontractor, ProjectWork $work, ConstructionDailyEntity $constructionDaily)
     {
-        $constructionDaily->works()->save($work, compact('seat'));
+        $constructionDaily->works()->save($work, [
+            'seat' => $seat,
+            'subcontractor_id' => $subcontractor->id
+        ]);
 
         // Create checklist
         if ($work->workflow && $work->workflow->checklist) {
