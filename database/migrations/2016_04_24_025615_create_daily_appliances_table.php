@@ -12,16 +12,16 @@ class CreateDailyAppliancesTable extends Migration
      */
     public function up()
     {
-        Schema::create('daily_appliances', function (Blueprint $table) {
+        Schema::create('appliances', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
             $table->timestamps();
         });
 
-        Schema::create('construction_daily_daily_appliance', function (Blueprint $table) {
+        Schema::create('appliance_construction_daily', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('construction_daily_id')->unsigned();
-            $table->integer('daily_appliance_id')->unsigned();
+            $table->integer('appliance_id')->unsigned();
             $table->integer('amount')->unsigned();
             $table->timestamps();
         });
@@ -34,7 +34,7 @@ class CreateDailyAppliancesTable extends Migration
      */
     public function down()
     {
-        Schema::drop('daily_appliances');
-        Schema::drop('construction_daily_daily_appliance');
+        Schema::drop('appliances');
+        Schema::drop('appliance_construction_daily');
     }
 }

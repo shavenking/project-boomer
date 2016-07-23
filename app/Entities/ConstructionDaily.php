@@ -23,6 +23,6 @@ class ConstructionDaily extends Model
 
     public function appliances()
     {
-        return $this->belongsToMany(DailyAppliance::class)->withPivot('id', 'amount')->withTimestamps();
+        return $this->belongsToMany(Appliance::class)->withPivot('id', 'amount')->withTimestamps();
     }
 }

@@ -4,7 +4,7 @@ namespace App\Entities;
 
 use Illuminate\Database\Eloquent\Model;
 
-class DailyAppliance extends Model
+class Appliance extends Model
 {
     protected $fillable = ['name'];
 }
