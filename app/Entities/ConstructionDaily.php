@@ -6,6 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class ConstructionDaily extends Model
 {
+    protected $fillable = ['inspection_record', 'important_record'];
+
     public function works()
     {
         return $this->belongsToMany(ProjectWork::class)->withPivot('id', 'seat')->withTimestamps();

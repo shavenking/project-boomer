@@ -8,6 +8,11 @@ Route::group(['middleware' => ['csrftoken', 'role:*']], function () use ($contro
 });
 
 Route::group(['prefix' => 'api/v1'], function () use ($controller) {
+    Route::put(
+        'projects/{projects}/construction-dailies/{date}',
+        "$controller@update"
+    )->middleware('role:project_manager|field_engineer');
+    
     Route::get(
         'projects/{projects}/construction-dailies/{date}/labors',
         "$controller@getLabors"

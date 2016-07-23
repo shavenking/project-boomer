@@ -41,6 +41,22 @@ class ConstructionDailiesController extends Controller
         return view('project-constructiondailies.show', compact('project', 'date'));
     }
 
+    public function update(
+        $projectId,
+        $date,
+        ConstructionDailyRepo $repo,
+        Request $request
+    ) {
+        $constructionDaily = $repo->getConstructionDaily(
+            Project::findOrFail($projectId),
+            new Carbon($date)
+        );
+
+        $constructionDaily->update($request->all());
+
+        return response()->json();
+    }
+
     public function getLabors(
         $projectId,
         $date,
