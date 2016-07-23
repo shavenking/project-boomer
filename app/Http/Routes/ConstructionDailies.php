@@ -12,7 +12,7 @@ Route::group(['prefix' => 'api/v1'], function () use ($controller) {
         'projects/{projects}/construction-dailies/{date}',
         "$controller@update"
     )->middleware('role:project_manager|field_engineer');
-    
+
     Route::get(
         'projects/{projects}/construction-dailies/{date}/labors',
         "$controller@getLabors"
@@ -24,6 +24,10 @@ Route::group(['prefix' => 'api/v1'], function () use ($controller) {
     Route::get(
         'projects/{projects}/construction-dailies/{date}/appliances',
         "$controller@getAppliances"
+    );
+    Route::get(
+        'projects/{projects}/construction-dailies/{date}/works',
+        "$controller@getWorks"
     );
 
     Route::post(
@@ -37,5 +41,9 @@ Route::group(['prefix' => 'api/v1'], function () use ($controller) {
     Route::post(
         'projects/{projects}/construction-dailies/{date}/appliances',
         "$controller@addAppliance"
+    )->middleware('role:project_manager|field_engineer');
+    Route::post(
+        'projects/{projects}/construction-dailies/{date}/works',
+        "$controller@addWork"
     )->middleware('role:project_manager|field_engineer');
 });

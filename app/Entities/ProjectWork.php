@@ -46,6 +46,11 @@ class ProjectWork extends Model
         return $this->hasOne(Unit::class, 'id', 'unit_id');
     }
 
+    public function checklists()
+    {
+        return $this->hasMany(ProjectChecklist::class);
+    }
+
     public function reCalculateUnitPrice()
     {
         if (!$this->exists) {

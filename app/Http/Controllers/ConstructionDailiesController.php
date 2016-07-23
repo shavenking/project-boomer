@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Entities\{
-    Appliance, Labor, Material, Project, Transformers\DailyThingTransformer
+    Appliance, Labor, Material, Project, ProjectWork, Subcontractor, Transformers\DailyThingTransformer, Transformers\DailyWorkTransformer
 };
 use App\Repos\Contracts\{
     ConstructionDaily as ConstructionDailyRepo,
@@ -223,6 +223,56 @@ class ConstructionDailiesController extends Controller
                 $constructionDaily
             ),
             'daily_appliance'
+        );
+
+        return response()->json($result);
+    }
+
+    public function addWork(
+        $projectId,
+        $date,
+        ConstructionDailyRepo $repo,
+        Request $request
+    ) {
+        $this->validate($request, [
+            'project_work_id' => 'required',
+            'seat' => 'required',
+            'subcontractor_id' => 'required'
+        ]);
+
+        $constructionDaily = $repo->getConstructionDaily(
+            Project::findOrFail($projectId),
+            new Carbon($date)
+        );
+
+        // Create DailyWork and its checklist
+        $repo->addDailyWork(
+            $request->input('seat'),
+            Subcontractor::findOrFail($request->input('subcontractor_id')),
+            ProjectWork::findOrFail($request->input('project_work_id')),
+            $constructionDaily
+        );
+
+        return response()->json();
+    }
+
+    public function getWorks(
+        $projectId,
+        $date,
+        ConstructionDailyRepo $repo
+    ) {
+        $constructionDaily = $repo->getConstructionDaily(
+            Project::findOrFail($projectId),
+            new Carbon($date)
+        );
+
+        $result = call_user_func(
+            app('fractalTransform'),
+            $constructionDaily->works,
+            new DailyWorkTransformer(
+                $constructionDaily
+            ),
+            'daily_work'
         );
 
         return response()->json($result);
