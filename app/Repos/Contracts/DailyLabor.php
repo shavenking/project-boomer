@@ -10,11 +10,6 @@ use App\Entities\{
 
 interface DailyLabor
 {
-    public function transform(
-        $laborOrLabors,
-        ConstructionDailyEntity $constructionDaily
-    ): Collection;
-
     public function firstOrFail(
         ConstructionDailyEntity $constructionDaily,
         LaborEntity $labor

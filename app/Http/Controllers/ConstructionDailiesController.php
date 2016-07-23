@@ -5,11 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Entities\{
-    Labor,
-    Project
+    Labor, Project, Transformers\DailyThingTransformer
 };
-use App\Http\Requests;
-use App\Http\Controllers\Controller;
 use App\Repos\Contracts\{
     ConstructionDaily as ConstructionDailyRepo,
     DailyLabor as DailyLaborRepo
@@ -47,17 +44,20 @@ class ConstructionDailiesController extends Controller
     public function getLabors(
         $projectId,
         $date,
-        ConstructionDailyRepo $repo,
-        DailyLaborRepo $dailyLaborRepo
+        ConstructionDailyRepo $repo
     ) {
         $project = Project::findOrFail($projectId);
         $date = new Carbon($date);
 
         $constructionDaily = $repo->getConstructionDaily($project, $date);
 
-        $result = $dailyLaborRepo->transform(
+        $result = call_user_func(
+            app('fractalTransform'),
             $constructionDaily->labors,
-            $constructionDaily
+            new DailyThingTransformer(
+                $constructionDaily
+            ),
+            'daily_labor'
         );
 
         return response()->json($result);
@@ -84,9 +84,13 @@ class ConstructionDailiesController extends Controller
         $repo->addLabor($constructionDaily, $labor, $amount);
         $dailyLabor = $dailyLaborRepo->firstOrFail($constructionDaily, $labor);
 
-        $result = $dailyLaborRepo->transform(
+        $result = call_user_func(
+            app('fractalTransform'),
             $dailyLabor,
-            $constructionDaily
+            new DailyThingTransformer(
+                $constructionDaily
+            ),
+            'daily_labor'
         );
 
         return response()->json($result);
