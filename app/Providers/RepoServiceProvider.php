@@ -23,11 +23,6 @@ class RepoServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $manager = new \League\Fractal\Manager;
-        $manager->setSerializer(
-            new \League\Fractal\Serializer\JsonApiSerializer
-        );
-
         $this->app->singleton(\App\Repos\Contracts\Access::class, function ($app) {
             return new \App\Repos\Access;
         });
@@ -46,8 +41,8 @@ class RepoServiceProvider extends ServiceProvider
 
         $this->app->singleton(
             \App\Repos\Contracts\DailyLabor::class,
-            function ($app) use ($manager) {
-                return new \App\Repos\DailyLabor($manager);
+            function ($app) {
+                return new \App\Repos\DailyLabor;
             }
         );
     }
