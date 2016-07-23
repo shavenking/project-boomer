@@ -60,4 +60,28 @@ class StatisticsController extends Controller
 
         return response()->json(compact('materials'));
     }
+
+    public function dailyAppliances($projectId)
+    {
+        $project = Project::findOrFail($projectId);
+
+        $constructionDailies = (
+            $project
+                ->constructionDailies()
+                ->with('appliances')
+                ->get()
+        );
+
+        $appliances = (
+            $constructionDailies
+                ->pluck('appliances')
+                ->collapse()
+                ->groupBy('id')
+                ->map(function ($materials) {
+                    return $materials->sum('pivot.amount');
+                })
+        );
+
+        return response()->json(compact('appliances'));
+    }
 }

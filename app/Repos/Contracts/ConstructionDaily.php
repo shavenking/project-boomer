@@ -3,6 +3,7 @@
 namespace App\Repos\Contracts;
 
 use App\Entities\{
+    Appliance as ApplianceEntity,
     ConstructionDaily as ConstructionDailyEntity,
     Labor,
     Project,
@@ -31,10 +32,21 @@ interface ConstructionDaily
         int $amount
     );
 
+    public function addAppliance(
+        ConstructionDailyEntity $constructionDaily,
+        ApplianceEntity $appliance,
+        int $amount
+    );
+
     public function getConstructionDaily(Project $project, Carbon $date);
 
     public function dailyMaterials(
         ConstructionDailyEntity $constructionDaily,
         MaterialEntity $material
+    ): BelongsToMany;
+
+    public function dailyAppliances(
+        ConstructionDailyEntity $constructionDaily,
+        ApplianceEntity $appliance
     ): BelongsToMany;
 }

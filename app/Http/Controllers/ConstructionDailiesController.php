@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Entities\{
-    Labor, Material, Project, Transformers\DailyThingTransformer
+    Appliance, Labor, Material, Project, Transformers\DailyThingTransformer
 };
 use App\Repos\Contracts\{
     ConstructionDaily as ConstructionDailyRepo,
@@ -85,6 +85,28 @@ class ConstructionDailiesController extends Controller
         return response()->json($result);
     }
 
+    public function getAppliances(
+        $projectId,
+        $date,
+        ConstructionDailyRepo $repo
+    ) {
+        $project = Project::findOrFail($projectId);
+        $date = new Carbon($date);
+
+        $constructionDaily = $repo->getConstructionDaily($project, $date);
+
+        $result = call_user_func(
+            app('fractalTransform'),
+            $constructionDaily->appliances,
+            new DailyThingTransformer(
+                $constructionDaily
+            ),
+            'daily_appliance'
+        );
+
+        return response()->json($result);
+    }
+
     public function addLabor(
         $projectId,
         $date,
@@ -149,6 +171,42 @@ class ConstructionDailiesController extends Controller
                 $constructionDaily
             ),
             'daily_material'
+        );
+
+        return response()->json($result);
+    }
+
+    public function addAppliance(
+        $projectId,
+        $date,
+        ConstructionDailyRepo $repo,
+        Request $request
+    ) {
+        $this->validate($request, [
+            'appliance_id' => 'required',
+            'amount' => 'required'
+        ]);
+
+        $project = Project::findOrFail($projectId);
+        $date = new Carbon($date);
+        $appliance = Appliance::findOrFail($request->input('appliance_id'));
+        $amount = (int) $request->input('amount');
+
+        $constructionDaily = $repo->getConstructionDaily($project, $date);
+        $repo->addAppliance($constructionDaily, $appliance, $amount);
+        $dailyAppliance = (
+            $repo
+                ->dailyAppliances($constructionDaily, $appliance)
+                ->firstOrFail()
+        );
+
+        $result = call_user_func(
+            app('fractalTransform'),
+            $dailyAppliance,
+            new DailyThingTransformer(
+                $constructionDaily
+            ),
+            'daily_appliance'
         );
 
         return response()->json($result);

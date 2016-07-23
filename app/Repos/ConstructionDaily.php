@@ -3,7 +3,7 @@
 namespace App\Repos;
 
 use App\Entities\{
-    ConstructionDaily as ConstructionDailyEntity, Labor, Material as MaterialEntity, Project, ProjectWork, ProjectChecklist, Subcontractor
+    Appliance as ApplianceEntity, ConstructionDaily as ConstructionDailyEntity, Labor, Material as MaterialEntity, Project, ProjectWork, ProjectChecklist, Subcontractor
 };
 use App\Repos\Contracts\ConstructionDaily as Contract;
 use Carbon\Carbon;
@@ -90,6 +90,28 @@ class ConstructionDaily implements Contract
         return $constructionDaily->materials()->attach(
             $material,
             compact('amount')
+        );
+    }
+
+    public function addAppliance(
+        ConstructionDailyEntity $constructionDaily,
+        ApplianceEntity $appliance,
+        int $amount
+    ) {
+        return $constructionDaily->appliances()->attach(
+            $appliance,
+            compact('amount')
+        );
+    }
+
+    public function dailyAppliances(
+        ConstructionDailyEntity $constructionDaily,
+        ApplianceEntity $appliance
+    ): BelongsToMany {
+        return (
+            $constructionDaily
+                ->appliances()
+                ->wherePivot('appliance_id', $appliance->id)
         );
     }
 }

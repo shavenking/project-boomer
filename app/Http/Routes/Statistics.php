@@ -8,4 +8,8 @@ Route::group(['prefix' => 'api/v1/statistics'], function () {
         'projects/{projects}/daily-materials',
         "$controller@dailyMaterials"
     );
+    Route::get(
+        'projects/{projects}/daily-appliances',
+        "$controller@dailyAppliances"
+    );
 });
