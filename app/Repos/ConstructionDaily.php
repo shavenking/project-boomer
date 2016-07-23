@@ -3,10 +3,11 @@
 namespace App\Repos;
 
 use App\Entities\{
-    ConstructionDaily as ConstructionDailyEntity, Labor, Project, ProjectWork, ProjectChecklist, Subcontractor
+    ConstructionDaily as ConstructionDailyEntity, Labor, Material as MaterialEntity, Project, ProjectWork, ProjectChecklist, Subcontractor
 };
 use App\Repos\Contracts\ConstructionDaily as Contract;
 use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class ConstructionDaily implements Contract
 {
@@ -67,6 +68,28 @@ class ConstructionDaily implements Contract
                 ->constructionDailies()
                 ->whereDate('work_date', '=', $date)
                 ->firstOrFail()
+        );
+    }
+
+    public function dailyMaterials(
+        ConstructionDailyEntity $constructionDaily,
+        MaterialEntity $material
+    ): BelongsToMany {
+        return (
+            $constructionDaily
+                ->materials()
+                ->wherePivot('material_id', $material->id)
+        );
+    }
+
+    public function addMaterial(
+        ConstructionDailyEntity $constructionDaily,
+        MaterialEntity $material,
+        int $amount
+    ) {
+        return $constructionDaily->materials()->attach(
+            $material,
+            compact('amount')
         );
     }
 }

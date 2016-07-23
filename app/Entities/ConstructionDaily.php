@@ -18,7 +18,7 @@ class ConstructionDaily extends Model
 
     public function materials()
     {
-        return $this->belongsToMany(DailyMaterial::class)->withPivot('id', 'amount')->withTimestamps();
+        return $this->belongsToMany(Material::class)->withPivot('id', 'amount')->withTimestamps();
     }
 
     public function appliances()

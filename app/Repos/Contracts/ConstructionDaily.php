@@ -7,10 +7,11 @@ use App\Entities\{
     Labor,
     Project,
     ProjectWork,
-    Subcontractor
+    Subcontractor,
+    Material as MaterialEntity
 };
-use Illuminate\Database\Eloquent\Model;
 use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 interface ConstructionDaily
 {
@@ -24,5 +25,16 @@ interface ConstructionDaily
         int $amount
     );
 
+    public function addMaterial(
+        ConstructionDailyEntity $constructionDaily,
+        MaterialEntity $material,
+        int $amount
+    );
+
     public function getConstructionDaily(Project $project, Carbon $date);
+
+    public function dailyMaterials(
+        ConstructionDailyEntity $constructionDaily,
+        MaterialEntity $material
+    ): BelongsToMany;
 }

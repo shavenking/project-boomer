@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Entities\{
-    Labor, Project, Transformers\DailyThingTransformer
+    Labor, Material, Project, Transformers\DailyThingTransformer
 };
 use App\Repos\Contracts\{
     ConstructionDaily as ConstructionDailyRepo,
@@ -63,6 +63,28 @@ class ConstructionDailiesController extends Controller
         return response()->json($result);
     }
 
+    public function getMaterials(
+        $projectId,
+        $date,
+        ConstructionDailyRepo $repo
+    ) {
+        $project = Project::findOrFail($projectId);
+        $date = new Carbon($date);
+
+        $constructionDaily = $repo->getConstructionDaily($project, $date);
+
+        $result = call_user_func(
+            app('fractalTransform'),
+            $constructionDaily->materials,
+            new DailyThingTransformer(
+                $constructionDaily
+            ),
+            'daily_material'
+        );
+
+        return response()->json($result);
+    }
+
     public function addLabor(
         $projectId,
         $date,
@@ -91,6 +113,42 @@ class ConstructionDailiesController extends Controller
                 $constructionDaily
             ),
             'daily_labor'
+        );
+
+        return response()->json($result);
+    }
+
+    public function addMaterial(
+        $projectId,
+        $date,
+        ConstructionDailyRepo $repo,
+        Request $request
+    ) {
+        $this->validate($request, [
+            'material_id' => 'required',
+            'amount' => 'required'
+        ]);
+
+        $project = Project::findOrFail($projectId);
+        $date = new Carbon($date);
+        $material = Material::findOrFail($request->input('material_id'));
+        $amount = (int) $request->input('amount');
+
+        $constructionDaily = $repo->getConstructionDaily($project, $date);
+        $repo->addMaterial($constructionDaily, $material, $amount);
+        $dailyMaterial = (
+            $repo
+                ->dailyMaterials($constructionDaily, $material)
+                ->firstOrFail()
+        );
+
+        $result = call_user_func(
+            app('fractalTransform'),
+            $dailyMaterial,
+            new DailyThingTransformer(
+                $constructionDaily
+            ),
+            'daily_material'
         );
 
         return response()->json($result);

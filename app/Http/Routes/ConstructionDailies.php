@@ -12,9 +12,17 @@ Route::group(['prefix' => 'api/v1'], function () use ($controller) {
         'projects/{projects}/construction-dailies/{date}/labors',
         "$controller@getLabors"
     );
+    Route::get(
+        'projects/{projects}/construction-dailies/{date}/materials',
+        "$controller@getMaterials"
+    );
 
     Route::post(
         'projects/{projects}/construction-dailies/{date}/labors',
         "$controller@addLabor"
+    )->middleware('role:project_manager|field_engineer');
+    Route::post(
+        'projects/{projects}/construction-dailies/{date}/materials',
+        "$controller@addMaterial"
     )->middleware('role:project_manager|field_engineer');
 });
