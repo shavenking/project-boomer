@@ -29,6 +29,6 @@ class LaborsController extends Controller
 
         $labor = Labor::create(['name' => $request->input('name')]);
 
-        return response()->json();
+        return response()->json(compact('labor'));
     }
 }

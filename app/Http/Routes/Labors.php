@@ -8,5 +8,5 @@ Route::group(['prefix' => 'api/v1'], function () {
     Route::post(
         'labors',
         "$controller@store"
-    )->middleware('role:project_manager|field_engineer');
+    );
 });

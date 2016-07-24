@@ -29,6 +29,6 @@ class MaterialsController extends Controller
 
         $material = Material::create(['name' => $request->input('name')]);
 
-        return response()->json();
+        return response()->json(compact('material'));
     }
 }

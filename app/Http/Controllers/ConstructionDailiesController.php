@@ -26,9 +26,22 @@ class ConstructionDailiesController extends Controller
         return view('project-constructiondailies.index', compact('project', 'constructionDailies'));
     }
 
-    public function show($projectId, $date)
-    {
+    public function show(
+        $projectId,
+        $date,
+        Request $request,
+        ConstructionDailyRepo $repo
+    ) {
         $project = Project::findOrFail($projectId);
+
+        if ($request->ajax()) {
+            $constructionDaily = $repo->getConstructionDaily(
+                $project,
+                new Carbon($date)
+            );
+
+            return response()->json(compact('constructionDaily'));
+        }
 
         return view('project-constructiondailies.show', compact('project', 'date'));
     }
@@ -145,13 +158,13 @@ class ConstructionDailiesController extends Controller
         DailyLaborRepo $dailyLaborRepo
     ) {
         $this->validate($request, [
-            'daily_labor_id' => 'required',
+            'labor_id' => 'required',
             'amount' => 'required'
         ]);
 
         $project = Project::findOrFail($projectId);
         $date = new Carbon($date);
-        $labor = Labor::findOrFail($request->input('daily_labor_id'));
+        $labor = Labor::findOrFail($request->input('labor_id'));
         $amount = (int) $request->input('amount');
 
         $constructionDaily = $repo->getConstructionDaily($project, $date);

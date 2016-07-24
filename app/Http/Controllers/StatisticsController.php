@@ -30,7 +30,10 @@ class StatisticsController extends Controller
                 ->collapse()
                 ->groupBy('id')
                 ->map(function ($labors) {
-                    return $labors->sum('pivot.amount');
+                    return [
+                        'total_amount' => $labors->sum('pivot.amount'),
+                        'name' => $labors[0]->name
+                    ];
                 })
         );
 
@@ -54,7 +57,10 @@ class StatisticsController extends Controller
                 ->collapse()
                 ->groupBy('id')
                 ->map(function ($materials) {
-                    return $materials->sum('pivot.amount');
+                    return [
+                        'total_amount' => $materials->sum('pivot.amount'),
+                        'name' => $materials[0]->name
+                    ];
                 })
         );
 
@@ -77,8 +83,11 @@ class StatisticsController extends Controller
                 ->pluck('appliances')
                 ->collapse()
                 ->groupBy('id')
-                ->map(function ($materials) {
-                    return $materials->sum('pivot.amount');
+                ->map(function ($appliances) {
+                    return [
+                        'total_amount' => $appliances->sum('pivot.amount'),
+                        'name' => $appliances[0]->name
+                    ];
                 })
         );
 

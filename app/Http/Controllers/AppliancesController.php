@@ -22,8 +22,8 @@ class AppliancesController extends Controller
             'name' => 'required',
         ]);
 
-        Appliance::create(['name' => $request->input('name')]);
+        $appliance = Appliance::create(['name' => $request->input('name')]);
 
-        return response()->json();
+        return response()->json(compact('appliance'));
     }
 }
