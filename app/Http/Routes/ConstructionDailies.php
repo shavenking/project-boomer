@@ -5,6 +5,10 @@ $controller = ConstructionDailiesController::class;
 Route::group(['middleware' => ['csrftoken', 'role:*']], function () use ($controller) {
     Route::get('projects/{projects}/construction-dailies/{date}', "$controller@show")->name('projects.construction-dailies.show');
     Route::get('projects/{projects}/construction-dailies', "$controller@index")->name('projects.construction-dailies.index');
+    Route::post(
+        'projects/{projects}/construction-dailies',
+        "$controller@store"
+    )->name('projects.construction-dailies.store');
 });
 
 Route::group(['prefix' => 'api/v1'], function () use ($controller) {

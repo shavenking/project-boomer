@@ -8,6 +8,8 @@ class ConstructionDaily extends Model
 {
     protected $fillable = ['inspection_record', 'important_record'];
 
+    protected $dates = ['work_date'];
+
     public function works()
     {
         return (

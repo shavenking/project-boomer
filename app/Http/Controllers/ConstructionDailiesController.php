@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Repos\ConstructionDaily;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
 
 use App\Entities\{
@@ -13,32 +15,44 @@ use App\Repos\Contracts\{
 };
 use Carbon\Carbon;
 use DatePeriod;
-use DateInterval;
 
 class ConstructionDailiesController extends Controller
 {
     public function index($projectId)
     {
-        $project = \App\Entities\Project::findOrFail($projectId);
+        $project = Project::findOrFail($projectId);
+        $constructionDailies = $project->constructionDailies;
 
-        $datePeriod = $this->datePeriodToCollection(
-            new DatePeriod(
-                (new Carbon('today'))->subDays('5'),
-                new DateInterval('P1D'),
-                new Carbon('today')
-            )
-        );
-
-        $datePeriod = $datePeriod->reverse();
-
-        return view('project-constructiondailies.index', compact('project', 'datePeriod'));
+        return view('project-constructiondailies.index', compact('project', 'constructionDailies'));
     }
 
     public function show($projectId, $date)
     {
-        $project = \App\Entities\Project::findOrFail($projectId);
+        $project = Project::findOrFail($projectId);
 
         return view('project-constructiondailies.show', compact('project', 'date'));
+    }
+
+    public function store(
+        $projectId,
+        Request $request,
+        ConstructionDailyRepo $repo
+    ) {
+        $this->validate($request, ['date' => 'required']);
+        $project = Project::findOrFail($projectId);
+        $date = new Carbon($request->input('date'));
+
+        try {
+            $repo->getConstructionDaily($project, $date);
+        } catch (ModelNotFoundException $e) {
+            // Create if not found
+            $repo->create(collect(['work_date' => $date]), $project);
+        }
+
+        return redirect(route('projects.construction-dailies.show', [
+            $project->id,
+            $date->toDateString()
+        ]));
     }
 
     public function update(
