@@ -8,7 +8,8 @@ Route::group(['middleware' => ['csrftoken', 'role:*']], function () use ($contro
     Route::post(
         'projects/{projects}/construction-dailies',
         "$controller@store"
-    )->name('projects.construction-dailies.store');
+    )->name('projects.construction-dailies.store')
+    ->middleware('role:project_manager|field_engineer');
 });
 
 Route::group(['prefix' => 'api/v1'], function () use ($controller) {
