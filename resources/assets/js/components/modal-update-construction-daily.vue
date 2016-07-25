@@ -37,7 +37,7 @@
     import isEmpty from 'lodash/lang/isEmpty'
 
     export default {
-        props: ['projectId', 'onSuccess', 'onCancel'],
+        props: ['projectId', 'date', 'onSuccess', 'onCancel'],
 
         methods: {
             openModal() {
@@ -58,7 +58,16 @@
                     { name: this.name }
                 ), isEmpty);
 
-                create(this.projectId, values).then(response => {
+                window.$.post(
+                    '/api/v1' +
+                    '/projects/' + this.projectId +
+                    '/construction-dailies/' + this.date,
+                    {
+                        _method: 'PUT',
+                        inspection_record: values.inspection_record,
+                        important_record: values.important_record
+                    }
+                ).then(() => {
                     this.$els.form.reset()
 
                     if (this.onSuccess) {

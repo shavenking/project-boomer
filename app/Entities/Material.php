@@ -4,7 +4,7 @@ namespace App\Entities;
 
 use Illuminate\Database\Eloquent\Model;
 
-class DailyLabor extends Model
+class Material extends Model
 {
     protected $fillable = ['name'];
 }

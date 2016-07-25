@@ -46,6 +46,11 @@ class ProjectWork extends Model
         return $this->hasOne(Unit::class, 'id', 'unit_id');
     }
 
+    public function checklists()
+    {
+        return $this->hasMany(ProjectChecklist::class);
+    }
+
     public function reCalculateUnitPrice()
     {
         if (!$this->exists) {
@@ -58,5 +63,10 @@ class ProjectWork extends Model
         }
         $this->unit_price = $unitPrice;
         return $this->save();
+    }
+
+    public function constructionDailies()
+    {
+        return $this->belongsToMany(ConstructionDaily::class)->withPivot('id', 'seat')->withTimestamps();
     }
 }

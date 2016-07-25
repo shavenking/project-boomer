@@ -32,14 +32,13 @@
 </template>
 
 <script type="text/babel">
-    import { create as createChecklist } from '../query-helpers/project-checklists'
     import ProjectFlowtypeWorkSelect from './project-flowtype-work-select.vue'
     import SubcontractorSelect from './subcontractor-select.vue'
     import pluck from 'lodash/collection/pluck'
     import zipObject from 'lodash/array/zipObject'
 
     export default {
-        props: ['projectId', 'onSuccess', 'onCancel'],
+        props: ['projectId', 'date', 'onSuccess', 'onCancel'],
 
         components: { ProjectFlowtypeWorkSelect, SubcontractorSelect },
 
@@ -56,10 +55,19 @@
             },
             onApprove() {
                 const inputs = window.$(this.$els.form).serializeArray()
+                const projectId = this.projectId
+                const date = this.date
 
-                const values = zipObject(pluck(inputs, 'name'), pluck(inputs, 'value'))
+                let values = zipObject(pluck(inputs, 'name'), pluck(inputs, 'value'))
+                values['project_work_id'] = values['work_id']
 
-                createChecklist(this.projectId, values).then(response => {
+                window.$.post(
+                        '/api/v1' +
+                        `/projects/${projectId}` +
+                        `/construction-dailies/${date}` +
+                        '/works',
+                        values
+                ).then(() => {
                     this.$els.form.reset()
 
                     if (this.onSuccess) {

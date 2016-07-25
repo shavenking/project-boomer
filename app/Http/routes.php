@@ -13,10 +13,10 @@ Route::group(['middleware' => 'auth'], function () {
     require(app_path('Http/Routes/CostEstimations.php'));
     require(app_path('Http/Routes/FaultImprovements.php'));
     require(app_path('Http/Routes/Bids.php'));
-    require(app_path('Http/Routes/DailyMaterials.php'));
-    require(app_path('Http/Routes/DailyLabors.php'));
-    require(app_path('Http/Routes/DailyAppliances.php'));
-    require(app_path('Http/Routes/DailyRecords.php'));
+    require(app_path('Http/Routes/Materials.php'));
+    require(app_path('Http/Routes/Labors.php'));
+    require(app_path('Http/Routes/Appliances.php'));
+    require(app_path('Http/Routes/Statistics.php'));
     require(app_path('Http/Routes/ProjectMembers.php'));
     require(app_path('Http/Routes/Projects.php'));
     require(app_path('Http/Routes/Subcontractors.php'));
