@@ -110,27 +110,27 @@
 
 	var _constructionDaily2 = _interopRequireDefault(_constructionDaily);
 
-	var _costEstimationSheet = __webpack_require__(181);
+	var _costEstimationSheet = __webpack_require__(185);
 
 	var _costEstimationSheet2 = _interopRequireDefault(_costEstimationSheet);
 
-	var _formCreateProjectWork = __webpack_require__(187);
+	var _formCreateProjectWork = __webpack_require__(191);
 
 	var _formCreateProjectWork2 = _interopRequireDefault(_formCreateProjectWork);
 
-	var _modalProjectMenu = __webpack_require__(193);
+	var _modalProjectMenu = __webpack_require__(197);
 
 	var _modalProjectMenu2 = _interopRequireDefault(_modalProjectMenu);
 
-	var _cardFaultImprovementPhoto = __webpack_require__(196);
+	var _cardFaultImprovementPhoto = __webpack_require__(200);
 
 	var _cardFaultImprovementPhoto2 = _interopRequireDefault(_cardFaultImprovementPhoto);
 
-	var _buttonsFaultImprovementResult = __webpack_require__(204);
+	var _buttonsFaultImprovementResult = __webpack_require__(208);
 
 	var _buttonsFaultImprovementResult2 = _interopRequireDefault(_buttonsFaultImprovementResult);
 
-	var _inputDate = __webpack_require__(207);
+	var _inputDate = __webpack_require__(211);
 
 	var _inputDate2 = _interopRequireDefault(_inputDate);
 
@@ -28229,7 +28229,7 @@
 	    __vue_script__.__esModule &&
 	    Object.keys(__vue_script__).length > 1) {
 	  console.warn("[vue-loader] resources/assets/js/components/construction-daily.vue: named exports in *.vue files are ignored.")}
-	__vue_template__ = __webpack_require__(180)
+	__vue_template__ = __webpack_require__(184)
 	module.exports = __vue_script__ || {}
 	if (module.exports.__esModule) module.exports = module.exports.default
 	if (__vue_template__) {
@@ -28313,15 +28313,15 @@
 
 	var _tableDailyAppliance2 = _interopRequireDefault(_tableDailyAppliance);
 
-	var _modalCreateDailyRecord = __webpack_require__(210);
+	var _modalUpdateConstructionDaily = __webpack_require__(180);
 
-	var _modalCreateDailyRecord2 = _interopRequireDefault(_modalCreateDailyRecord);
+	var _modalUpdateConstructionDaily2 = _interopRequireDefault(_modalUpdateConstructionDaily);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	exports.default = {
 	    props: ['projectId', 'date'],
-	    components: { TableDailyWork: _tableDailyWork2.default, TableDailyMaterial: _tableDailyMaterial2.default, TableDailyLabor: _tableDailyLabor2.default, TableDailyAppliance: _tableDailyAppliance2.default, ModalCreateDailyRecord: _modalCreateDailyRecord2.default },
+	    components: { TableDailyWork: _tableDailyWork2.default, TableDailyMaterial: _tableDailyMaterial2.default, TableDailyLabor: _tableDailyLabor2.default, TableDailyAppliance: _tableDailyAppliance2.default, ModalUpdateConstructionDaily: _modalUpdateConstructionDaily2.default },
 	    data: function data() {
 	        return {
 	            constructionDaily: null
@@ -28399,12 +28399,12 @@
 	//             </tfoot>
 	//         </table>
 	//
-	//         <modal-create-daily-record
+	//         <modal-update-construction-daily
 	//             :project-id="projectId"
 	//             :date="date"
 	//             :on-success="onCreated"
 	//             v-ref:modal
-	//         ></modal-create-daily-record>
+	//         ></modal-update-construction-daily>
 	//     </div>
 	// </template>
 	//
@@ -30391,21 +30391,204 @@
 
 /***/ },
 /* 180 */
-/***/ function(module, exports) {
+/***/ function(module, exports, __webpack_require__) {
 
-	module.exports = "\n<div>\n    <h3 class=\"header\">當日工作項目、位置</h3>\n    <table-daily-work\n        :project-id=\"projectId\"\n        :date=\"date\"\n    ></table-daily-work>\n\n    <h3 class=\"header\">當日材料使用情形</h3>\n    <table-daily-material\n        :project-id=\"projectId\"\n        :date=\"date\"\n    ></table-daily-material>\n\n    <h3 class=\"header\">當日出工人數情形</h3>\n    <table-daily-labor\n        :project-id=\"projectId\"\n        :date=\"date\"\n    ></table-daily-labor>\n\n    <h3 class=\"header\">當日機具使用情形</h3>\n    <table-daily-appliance\n        :project-id=\"projectId\"\n        :date=\"date\"\n    ></table-daily-appliance>\n\n    <table class=\"ui table\">\n        <thead>\n            <tr>\n                <th>主辦單位、監造單位指示</th>\n                <th>重要事項紀錄</th>\n            </tr>\n        </thead>\n        <tbody>\n            <tr>\n                <td>{{ constructionDaily.inspection_record }}</td>\n                <td>{{ constructionDaily.important_record }}</td>\n            </tr>\n        </tbody>\n        <tfoot>\n            <tr>\n                <th colspan=\"5\">\n                    <button class=\"ui right floated primary button\" @click=\"openModal\">新增</button>\n                </th>\n            </tr>\n        </tfoot>\n    </table>\n\n    <modal-create-daily-record\n        :project-id=\"projectId\"\n        :date=\"date\"\n        :on-success=\"onCreated\"\n        v-ref:modal\n    ></modal-create-daily-record>\n</div>\n";
+	var __vue_script__, __vue_template__
+	__vue_script__ = __webpack_require__(181)
+	if (__vue_script__ &&
+	    __vue_script__.__esModule &&
+	    Object.keys(__vue_script__).length > 1) {
+	  console.warn("[vue-loader] resources/assets/js/components/modal-update-construction-daily.vue: named exports in *.vue files are ignored.")}
+	__vue_template__ = __webpack_require__(183)
+	module.exports = __vue_script__ || {}
+	if (module.exports.__esModule) module.exports = module.exports.default
+	if (__vue_template__) {
+	(typeof module.exports === "function" ? (module.exports.options || (module.exports.options = {})) : module.exports).template = __vue_template__
+	}
+	if (false) {(function () {  module.hot.accept()
+	  var hotAPI = require("vue-hot-reload-api")
+	  hotAPI.install(require("vue"), true)
+	  if (!hotAPI.compatible) return
+	  var id = "/Users/shavenking/Code/project-boomer/resources/assets/js/components/modal-update-construction-daily.vue"
+	  if (!module.hot.data) {
+	    hotAPI.createRecord(id, module.exports)
+	  } else {
+	    hotAPI.update(id, module.exports, __vue_template__)
+	  }
+	})()}
 
 /***/ },
 /* 181 */
 /***/ function(module, exports, __webpack_require__) {
 
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+
+	var _dailyRecords = __webpack_require__(182);
+
+	var _pluck = __webpack_require__(91);
+
+	var _pluck2 = _interopRequireDefault(_pluck);
+
+	var _zipObject = __webpack_require__(94);
+
+	var _zipObject2 = _interopRequireDefault(_zipObject);
+
+	var _merge = __webpack_require__(95);
+
+	var _merge2 = _interopRequireDefault(_merge);
+
+	var _omit = __webpack_require__(150);
+
+	var _omit2 = _interopRequireDefault(_omit);
+
+	var _isEmpty = __webpack_require__(162);
+
+	var _isEmpty2 = _interopRequireDefault(_isEmpty);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	// <template>
+	//     <div class="ui basic modal" v-el:modal>
+	//         <div class="content">
+	//             <form action="#" method="POST" class="ui inverted form" @submit="onSubmit" v-el:form>
+	//                 <div class="two fields">
+	//                     <div class="field">
+	//                         <div class="label">主辦單位、監造單位指示</div>
+	//                         <textarea name="inspection_record" id="" cols="30" rows="10"></textarea>
+	//                     </div>
+	//                     <div class="field">
+	//                         <div class="label">重要事項紀錄</div>
+	//                         <textarea name="important_record" id="" cols="30" rows="10"></textarea>
+	//                     </div>
+	//                 </div>
+	//                 <button type="submit" class="pm-visibility-hidden"></button>
+	//             </form>
+	//         </div>
+	//         <div class="actions">
+	//             <div class="ui green inverted ok button">
+	//                 <i class="checkmark icon"></i>
+	//                 送出
+	//             </div>
+	//             <div class="ui inverted cancel button">
+	//                 <i class="remove icon"></i>
+	//                 取消
+	//             </div>
+	//         </div>
+	//     </div>
+	// </template>
+	//
+	// <script type="text/babel">
+	exports.default = {
+	    props: ['projectId', 'date', 'onSuccess', 'onCancel'],
+
+	    methods: {
+	        openModal: function openModal() {
+	            this.$modal.modal('show');
+	        },
+	        onSubmit: function onSubmit(e) {
+	            e.preventDefault();
+
+	            this.onApprove();
+
+	            window.$(this.$els.modal).modal('hide');
+	        },
+	        onApprove: function onApprove() {
+	            var _this = this;
+
+	            var inputs = window.$(this.$els.form).serializeArray();
+
+	            var values = (0, _omit2.default)((0, _merge2.default)((0, _zipObject2.default)((0, _pluck2.default)(inputs, 'name'), (0, _pluck2.default)(inputs, 'value')), { name: this.name }), _isEmpty2.default);
+
+	            window.$.post('/api/v1' + '/projects/' + this.projectId + '/construction-dailies/' + this.date, {
+	                _method: 'PUT',
+	                inspection_record: values.inspection_record,
+	                important_record: values.important_record
+	            }).then(function () {
+	                _this.$els.form.reset();
+
+	                if (_this.onSuccess) {
+	                    _this.onSuccess();
+	                }
+	            });
+	        },
+	        onDeny: function onDeny() {
+	            this.$els.form.reset();
+
+	            if (this.onCancel) {
+	                this.onCancel();
+	            }
+	        }
+	    },
+
+	    data: function data() {
+	        return {};
+	    },
+	    ready: function ready() {
+	        this.$modal = window.$(this.$els.modal).modal({
+	            closable: false,
+	            onApprove: this.onApprove,
+	            onDeny: this.onDeny
+	        });
+	    }
+	};
+	// </script>
+
+/***/ },
+/* 182 */
+/***/ function(module, exports) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	exports.get = get;
+	exports.create = create;
+	function get(projectId) {
+	    var queries = arguments.length <= 1 || arguments[1] === undefined ? {} : arguments[1];
+
+	    var queryArray = [];
+
+	    if (queries.date) {
+	        queryArray.push('date=' + queries.date);
+	    }
+
+	    var queryString = queryArray.join('&');
+
+	    return window.$.getJSON('/api/v1/projects/' + projectId + '/daily-records?' + queryString);
+	}
+
+	function create(projectId, values) {
+	    return window.$.post('/api/v1/projects/' + projectId + '/daily-records', values);
+	}
+
+/***/ },
+/* 183 */
+/***/ function(module, exports) {
+
+	module.exports = "\n<div class=\"ui basic modal\" v-el:modal>\n    <div class=\"content\">\n        <form action=\"#\" method=\"POST\" class=\"ui inverted form\" @submit=\"onSubmit\" v-el:form>\n            <div class=\"two fields\">\n                <div class=\"field\">\n                    <div class=\"label\">主辦單位、監造單位指示</div>\n                    <textarea name=\"inspection_record\" id=\"\" cols=\"30\" rows=\"10\"></textarea>\n                </div>\n                <div class=\"field\">\n                    <div class=\"label\">重要事項紀錄</div>\n                    <textarea name=\"important_record\" id=\"\" cols=\"30\" rows=\"10\"></textarea>\n                </div>\n            </div>\n            <button type=\"submit\" class=\"pm-visibility-hidden\"></button>\n        </form>\n    </div>\n    <div class=\"actions\">\n        <div class=\"ui green inverted ok button\">\n            <i class=\"checkmark icon\"></i>\n            送出\n        </div>\n        <div class=\"ui inverted cancel button\">\n            <i class=\"remove icon\"></i>\n            取消\n        </div>\n    </div>\n</div>\n";
+
+/***/ },
+/* 184 */
+/***/ function(module, exports) {
+
+	module.exports = "\n<div>\n    <h3 class=\"header\">當日工作項目、位置</h3>\n    <table-daily-work\n        :project-id=\"projectId\"\n        :date=\"date\"\n    ></table-daily-work>\n\n    <h3 class=\"header\">當日材料使用情形</h3>\n    <table-daily-material\n        :project-id=\"projectId\"\n        :date=\"date\"\n    ></table-daily-material>\n\n    <h3 class=\"header\">當日出工人數情形</h3>\n    <table-daily-labor\n        :project-id=\"projectId\"\n        :date=\"date\"\n    ></table-daily-labor>\n\n    <h3 class=\"header\">當日機具使用情形</h3>\n    <table-daily-appliance\n        :project-id=\"projectId\"\n        :date=\"date\"\n    ></table-daily-appliance>\n\n    <table class=\"ui table\">\n        <thead>\n            <tr>\n                <th>主辦單位、監造單位指示</th>\n                <th>重要事項紀錄</th>\n            </tr>\n        </thead>\n        <tbody>\n            <tr>\n                <td>{{ constructionDaily.inspection_record }}</td>\n                <td>{{ constructionDaily.important_record }}</td>\n            </tr>\n        </tbody>\n        <tfoot>\n            <tr>\n                <th colspan=\"5\">\n                    <button class=\"ui right floated primary button\" @click=\"openModal\">新增</button>\n                </th>\n            </tr>\n        </tfoot>\n    </table>\n\n    <modal-update-construction-daily\n        :project-id=\"projectId\"\n        :date=\"date\"\n        :on-success=\"onCreated\"\n        v-ref:modal\n    ></modal-update-construction-daily>\n</div>\n";
+
+/***/ },
+/* 185 */
+/***/ function(module, exports, __webpack_require__) {
+
 	var __vue_script__, __vue_template__
-	__vue_script__ = __webpack_require__(182)
+	__vue_script__ = __webpack_require__(186)
 	if (__vue_script__ &&
 	    __vue_script__.__esModule &&
 	    Object.keys(__vue_script__).length > 1) {
 	  console.warn("[vue-loader] resources/assets/js/components/cost-estimation-sheet.vue: named exports in *.vue files are ignored.")}
-	__vue_template__ = __webpack_require__(186)
+	__vue_template__ = __webpack_require__(190)
 	module.exports = __vue_script__ || {}
 	if (module.exports.__esModule) module.exports = module.exports.default
 	if (__vue_template__) {
@@ -30424,7 +30607,7 @@
 	})()}
 
 /***/ },
-/* 182 */
+/* 186 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -30439,7 +30622,7 @@
 
 	var _lodash2 = _interopRequireDefault(_lodash);
 
-	var _modalCreateCostEstimationBounce = __webpack_require__(183);
+	var _modalCreateCostEstimationBounce = __webpack_require__(187);
 
 	var _modalCreateCostEstimationBounce2 = _interopRequireDefault(_modalCreateCostEstimationBounce);
 
@@ -30656,16 +30839,16 @@
 	// <script type="text/babel">
 
 /***/ },
-/* 183 */
+/* 187 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __vue_script__, __vue_template__
-	__vue_script__ = __webpack_require__(184)
+	__vue_script__ = __webpack_require__(188)
 	if (__vue_script__ &&
 	    __vue_script__.__esModule &&
 	    Object.keys(__vue_script__).length > 1) {
 	  console.warn("[vue-loader] resources/assets/js/components/modal-create-cost-estimation-bounce.vue: named exports in *.vue files are ignored.")}
-	__vue_template__ = __webpack_require__(185)
+	__vue_template__ = __webpack_require__(189)
 	module.exports = __vue_script__ || {}
 	if (module.exports.__esModule) module.exports = module.exports.default
 	if (__vue_template__) {
@@ -30684,7 +30867,7 @@
 	})()}
 
 /***/ },
-/* 184 */
+/* 188 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -30853,28 +31036,28 @@
 	// </script>
 
 /***/ },
-/* 185 */
+/* 189 */
 /***/ function(module, exports) {
 
 	module.exports = "\n<div class=\"ui basic modal\" v-el:modal>\n    <div class=\"content\">\n        <form action=\"#\" method=\"POST\" class=\"ui inverted form\" @submit=\"onSubmit\" v-el:form>\n            <div class=\"two fields\">\n                <div class=\"field\">\n                    <div class=\"label\">費用名稱</div>\n                    <div class=\"ui search fluid selection dropdown\" v-el:dropdown>\n                        <input type=\"hidden\" name=\"cost_estimation_bounce_id\">\n                        <i class=\"dropdown icon\"></i>\n                        <div class=\"default text\"></div>\n                        <div class=\"menu\">\n                            <div class=\"item\" v-for=\"costEstimationBounce in costEstimationBounces\" :data-value=\"costEstimationBounce.id\">{{ costEstimationBounce.name }}</div>\n                        </div>\n                    </div>\n                </div>\n                <div class=\"field\">\n                    <div class=\"label\">單位</div>\n                    <unit-select v-ref:unit-dropdown></unit-select>\n                </div>\n                <div class=\"field\">\n                    <div class=\"label\">單價</div>\n                    <input type=\"text\" name=\"unit_price\">\n                </div>\n                <div class=\"field\">\n                    <div class=\"label\">數量</div>\n                    <input type=\"text\" name=\"amount\">\n                </div>\n            </div>\n            <button type=\"submit\" class=\"pm-visibility-hidden\"></button>\n        </form>\n    </div>\n    <div class=\"actions\">\n        <div class=\"ui green inverted ok button\">\n            <i class=\"checkmark icon\"></i>\n            送出\n        </div>\n        <div class=\"ui inverted cancel button\">\n            <i class=\"remove icon\"></i>\n            取消\n        </div>\n    </div>\n</div>\n";
 
 /***/ },
-/* 186 */
+/* 190 */
 /***/ function(module, exports) {
 
 	module.exports = "\n<table class=\"ui table\">\n    <thead>\n        <tr>\n            <th rowspan=\"2\">工作項目</th>\n            <th rowspan=\"2\">單位</th>\n            <th rowspan=\"2\">單價</th>\n            <th colspan=\"2\">合約計數</th>\n            <th colspan=\"2\">以前完成</th>\n            <th colspan=\"2\">本期完成</th>\n            <th colspan=\"2\">合計完成</th>\n        </tr>\n        <tr>\n            <th>數量</th>\n            <th>價值</th>\n            <th>數量</th>\n            <th>價值</th>\n            <th>數量</th>\n            <th>價值</th>\n            <th>數量</th>\n            <th>價值</th>\n        </tr>\n    </thead>\n    <tbody>\n        <tr v-for=\"projectWork in projectWorks\">\n            <td>{{ projectWork.name }}</td>\n            <td>{{ projectWork.unit.name }}</td>\n            <td>{{ projectWork.unit_price }}</td>\n            <td>{{ projectWork.amount }}</td>\n            <td>{{ projectWork.amount * projectWork.unit_price }}</td>\n            <td>{{ previousPassesAmount[projectWork.id] }}</td>\n            <td>{{ previousPassesAmount[projectWork.id] * projectWork.unit_price }}</td>\n            <td>{{ totalPassesAmount[projectWork.id] - previousPassesAmount[projectWork.id] }}</td>\n            <td>{{ (totalPassesAmount[projectWork.id] - previousPassesAmount[projectWork.id]) * projectWork.unit_price }}</td>\n            <td>{{ totalPassesAmount[projectWork.id] }}</td>\n            <td>{{ totalPassesAmount[projectWork.id] * projectWork.unit_price }}</td>\n        </tr>\n    </tbody>\n    <thead>\n        <tr>\n            <th colspan=\"11\">其它費用</th>\n        </tr>\n    </thead>\n    <tbody>\n        <tr v-for=\"bounce in allBounces\">\n            <td>{{ bounce.name }}</td>\n            <td>{{ bounce.unit.name }}</td>\n            <td>-</td>\n            <td>-</td>\n            <td>-</td>\n            <td>-</td>\n            <td>{{ previousPrices[bounce.id] }}</td>\n            <td>-</td>\n            <td>{{ currentPrices[bounce.id] }}</td>\n            <td>-</td>\n            <td>{{ previousPrices[bounce.id] + currentPrices[bounce.id] }}</td>\n        </tr>\n    </tbody>\n    <tfoot v-if=\"costEstimationId\">\n        <tr>\n            <th colspan=\"11\">\n                <button class=\"ui primary button\" @click=\"openModal()\">其它費用</button>\n            </th>\n        </tr>\n    </tfoot>\n</table>\n\n<modal-create-cost-estimation-bounce\n        :project-id.once=\"projectId\"\n        :cost-estimation-id.once=\"costEstimationId\"\n        :on-success.once=\"onCostEstimationBounceCreated\"\n        v-ref:modal\n></modal-create-cost-estimation-bounce>\n";
 
 /***/ },
-/* 187 */
+/* 191 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __vue_script__, __vue_template__
-	__vue_script__ = __webpack_require__(188)
+	__vue_script__ = __webpack_require__(192)
 	if (__vue_script__ &&
 	    __vue_script__.__esModule &&
 	    Object.keys(__vue_script__).length > 1) {
 	  console.warn("[vue-loader] resources/assets/js/components/form-create-project-work.vue: named exports in *.vue files are ignored.")}
-	__vue_template__ = __webpack_require__(192)
+	__vue_template__ = __webpack_require__(196)
 	module.exports = __vue_script__ || {}
 	if (module.exports.__esModule) module.exports = module.exports.default
 	if (__vue_template__) {
@@ -30893,7 +31076,7 @@
 	})()}
 
 /***/ },
-/* 188 */
+/* 192 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -30906,7 +31089,7 @@
 
 	var _flowtypeWorkSelect2 = _interopRequireDefault(_flowtypeWorkSelect);
 
-	var _workflowChart = __webpack_require__(189);
+	var _workflowChart = __webpack_require__(193);
 
 	var _workflowChart2 = _interopRequireDefault(_workflowChart);
 
@@ -30957,16 +31140,16 @@
 	// </script>
 
 /***/ },
-/* 189 */
+/* 193 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __vue_script__, __vue_template__
-	__vue_script__ = __webpack_require__(190)
+	__vue_script__ = __webpack_require__(194)
 	if (__vue_script__ &&
 	    __vue_script__.__esModule &&
 	    Object.keys(__vue_script__).length > 1) {
 	  console.warn("[vue-loader] resources/assets/js/components/workflow-chart.vue: named exports in *.vue files are ignored.")}
-	__vue_template__ = __webpack_require__(191)
+	__vue_template__ = __webpack_require__(195)
 	module.exports = __vue_script__ || {}
 	if (module.exports.__esModule) module.exports = module.exports.default
 	if (__vue_template__) {
@@ -30985,7 +31168,7 @@
 	})()}
 
 /***/ },
-/* 190 */
+/* 194 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -31033,28 +31216,28 @@
 	// <script type="text/babel">
 
 /***/ },
-/* 191 */
+/* 195 */
 /***/ function(module, exports) {
 
 	module.exports = "\n<workflow-node-list :nodes.sync=\"nodes\" read-only=\"true\"></workflow-node-list>\n";
 
 /***/ },
-/* 192 */
+/* 196 */
 /***/ function(module, exports) {
 
 	module.exports = "\n<div class=\"ui two column stackable grid container\">\n    <div class=\"column\">\n        <form method=\"POST\" :action.once=\"action\" class=\"ui form\">\n            <slot></slot>\n\n            <flowtype-work-select\n                select-type-order-label=\"選擇工程類別與工作項目分類\"\n                select-work-label=\"選擇施工流程\"\n                @selected=\"onWorkSelected\"\n            ></flowtype-work-select>\n\n            <div class=\"field\">\n                <label>名稱</label>\n                <input type=\"text\" name=\"name\">\n            </div>\n\n            <button class=\"ui primary button\" type=\"submit\">新增</button>\n            <a :href.once=\"backUrl\" class=\"ui primary button\">返回</a>\n            <a :href.once=\"settingWorkUrl\" class=\"ui primary button\">新增標準工作項目</a>\n        </form>\n    </div>\n    <div class=\"center aligned column\">\n        <h5>流程圖</h5>\n        <workflow-chart v-ref:workflow-chart></workflow-chart>\n    </div>\n</div>\n\n";
 
 /***/ },
-/* 193 */
+/* 197 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __vue_script__, __vue_template__
-	__vue_script__ = __webpack_require__(194)
+	__vue_script__ = __webpack_require__(198)
 	if (__vue_script__ &&
 	    __vue_script__.__esModule &&
 	    Object.keys(__vue_script__).length > 1) {
 	  console.warn("[vue-loader] resources/assets/js/presentation-layer/modal-project-menu.vue: named exports in *.vue files are ignored.")}
-	__vue_template__ = __webpack_require__(195)
+	__vue_template__ = __webpack_require__(199)
 	module.exports = __vue_script__ || {}
 	if (module.exports.__esModule) module.exports = module.exports.default
 	if (__vue_template__) {
@@ -31073,7 +31256,7 @@
 	})()}
 
 /***/ },
-/* 194 */
+/* 198 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -31111,22 +31294,22 @@
 	// </script>
 
 /***/ },
-/* 195 */
+/* 199 */
 /***/ function(module, exports) {
 
 	module.exports = "\n<button class=\"ui fluid button\" @click=\"openMenu()\">選單</button>\n\n<div class=\"ui basic modal\" v-el:modal>\n    <i class=\"close icon\"></i>\n    <div class=\"content\">\n        <slot></slot>\n    </div>\n</div>\n";
 
 /***/ },
-/* 196 */
+/* 200 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __vue_script__, __vue_template__
-	__vue_script__ = __webpack_require__(197)
+	__vue_script__ = __webpack_require__(201)
 	if (__vue_script__ &&
 	    __vue_script__.__esModule &&
 	    Object.keys(__vue_script__).length > 1) {
 	  console.warn("[vue-loader] resources/assets/js/components/card-fault-improvement-photo.vue: named exports in *.vue files are ignored.")}
-	__vue_template__ = __webpack_require__(203)
+	__vue_template__ = __webpack_require__(207)
 	module.exports = __vue_script__ || {}
 	if (module.exports.__esModule) module.exports = module.exports.default
 	if (__vue_template__) {
@@ -31145,7 +31328,7 @@
 	})()}
 
 /***/ },
-/* 197 */
+/* 201 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -31154,11 +31337,11 @@
 	    value: true
 	});
 
-	var _defineProperty2 = __webpack_require__(198);
+	var _defineProperty2 = __webpack_require__(202);
 
 	var _defineProperty3 = _interopRequireDefault(_defineProperty2);
 
-	var _dropzone = __webpack_require__(202);
+	var _dropzone = __webpack_require__(206);
 
 	var _dropzone2 = _interopRequireDefault(_dropzone);
 
@@ -31250,14 +31433,14 @@
 	// <script type="text/babel">
 
 /***/ },
-/* 198 */
+/* 202 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
 
 	exports.__esModule = true;
 
-	var _defineProperty = __webpack_require__(199);
+	var _defineProperty = __webpack_require__(203);
 
 	var _defineProperty2 = _interopRequireDefault(_defineProperty);
 
@@ -31279,22 +31462,22 @@
 	};
 
 /***/ },
-/* 199 */
+/* 203 */
 /***/ function(module, exports, __webpack_require__) {
 
-	module.exports = { "default": __webpack_require__(200), __esModule: true };
+	module.exports = { "default": __webpack_require__(204), __esModule: true };
 
 /***/ },
-/* 200 */
+/* 204 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var $ = __webpack_require__(201);
+	var $ = __webpack_require__(205);
 	module.exports = function defineProperty(it, key, desc){
 	  return $.setDesc(it, key, desc);
 	};
 
 /***/ },
-/* 201 */
+/* 205 */
 /***/ function(module, exports) {
 
 	var $Object = Object;
@@ -31312,7 +31495,7 @@
 	};
 
 /***/ },
-/* 202 */
+/* 206 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(module) {"use strict";
@@ -33091,22 +33274,22 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(113)(module)))
 
 /***/ },
-/* 203 */
+/* 207 */
 /***/ function(module, exports) {
 
 	module.exports = "\n<div class=\"ui basic segment\" :class=\"{ loading: loading }\">\n    <div class=\"ui fluid card\">\n        <div class=\"content\">\n            <div class=\"header\">\n                {{* header }}\n                <div class=\"ui right floated blue label\" style=\"cursor: pointer;\" v-el:file-upload>上傳照片</div>\n            </div>\n        </div>\n        <div class=\"image\">\n            <img :src=\"url\" :alt.once=\"header\" v-if=\"photoName\">\n        </div>\n        <div class=\"extra content\">\n            <p v-show=\"notes\">備註：{{ notes }}</p>\n            <div class=\"ui fluid labeled action input\" v-show=\"!notes\">\n                <div class=\"ui label\">備註：</div>\n                <input type=\"text\" name=\"new_notes\" v-model=\"newNotes\">\n                <button class=\"ui primary button\" @click=\"saveNotes\">儲存</button>\n            </div>\n        </div>\n    </div>\n</div>\n";
 
 /***/ },
-/* 204 */
+/* 208 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __vue_script__, __vue_template__
-	__vue_script__ = __webpack_require__(205)
+	__vue_script__ = __webpack_require__(209)
 	if (__vue_script__ &&
 	    __vue_script__.__esModule &&
 	    Object.keys(__vue_script__).length > 1) {
 	  console.warn("[vue-loader] resources/assets/js/components/buttons-fault-improvement-result.vue: named exports in *.vue files are ignored.")}
-	__vue_template__ = __webpack_require__(206)
+	__vue_template__ = __webpack_require__(210)
 	module.exports = __vue_script__ || {}
 	if (module.exports.__esModule) module.exports = module.exports.default
 	if (__vue_template__) {
@@ -33125,7 +33308,7 @@
 	})()}
 
 /***/ },
-/* 205 */
+/* 209 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -33180,22 +33363,22 @@
 	// </script>
 
 /***/ },
-/* 206 */
+/* 210 */
 /***/ function(module, exports) {
 
 	module.exports = "\n<div class=\"ui basic segment\" :class=\"{ loading: loading }\">\n    <div class=\"ui fluid buttons\">\n        <button class=\"ui button\" :class=\"{ grey: null === result }\" @click=\"updateResult('null')\">未審核</button>\n        <button class=\"ui button\" :class=\"{ green: true === result }\" @click=\"updateResult(1)\">通過</button>\n        <button class=\"ui button\" :class=\"{ red: false === result }\" @click=\"updateResult(0)\">缺失</button>\n    </div>\n</div>\n";
 
 /***/ },
-/* 207 */
+/* 211 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __vue_script__, __vue_template__
-	__vue_script__ = __webpack_require__(208)
+	__vue_script__ = __webpack_require__(212)
 	if (__vue_script__ &&
 	    __vue_script__.__esModule &&
 	    Object.keys(__vue_script__).length > 1) {
 	  console.warn("[vue-loader] resources/assets/js/components/input-date.vue: named exports in *.vue files are ignored.")}
-	__vue_template__ = __webpack_require__(209)
+	__vue_template__ = __webpack_require__(213)
 	module.exports = __vue_script__ || {}
 	if (module.exports.__esModule) module.exports = module.exports.default
 	if (__vue_template__) {
@@ -33214,7 +33397,7 @@
 	})()}
 
 /***/ },
-/* 208 */
+/* 212 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -33242,193 +33425,10 @@
 	// </script>
 
 /***/ },
-/* 209 */
-/***/ function(module, exports) {
-
-	module.exports = "\n<input type=\"text\" :name.once=\"name\" v-el:input>\n";
-
-/***/ },
-/* 210 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var __vue_script__, __vue_template__
-	__vue_script__ = __webpack_require__(211)
-	if (__vue_script__ &&
-	    __vue_script__.__esModule &&
-	    Object.keys(__vue_script__).length > 1) {
-	  console.warn("[vue-loader] resources/assets/js/components/modal-create-daily-record.vue: named exports in *.vue files are ignored.")}
-	__vue_template__ = __webpack_require__(212)
-	module.exports = __vue_script__ || {}
-	if (module.exports.__esModule) module.exports = module.exports.default
-	if (__vue_template__) {
-	(typeof module.exports === "function" ? (module.exports.options || (module.exports.options = {})) : module.exports).template = __vue_template__
-	}
-	if (false) {(function () {  module.hot.accept()
-	  var hotAPI = require("vue-hot-reload-api")
-	  hotAPI.install(require("vue"), true)
-	  if (!hotAPI.compatible) return
-	  var id = "/Users/shavenking/Code/project-boomer/resources/assets/js/components/modal-create-daily-record.vue"
-	  if (!module.hot.data) {
-	    hotAPI.createRecord(id, module.exports)
-	  } else {
-	    hotAPI.update(id, module.exports, __vue_template__)
-	  }
-	})()}
-
-/***/ },
-/* 211 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
-
-	var _dailyRecords = __webpack_require__(213);
-
-	var _pluck = __webpack_require__(91);
-
-	var _pluck2 = _interopRequireDefault(_pluck);
-
-	var _zipObject = __webpack_require__(94);
-
-	var _zipObject2 = _interopRequireDefault(_zipObject);
-
-	var _merge = __webpack_require__(95);
-
-	var _merge2 = _interopRequireDefault(_merge);
-
-	var _omit = __webpack_require__(150);
-
-	var _omit2 = _interopRequireDefault(_omit);
-
-	var _isEmpty = __webpack_require__(162);
-
-	var _isEmpty2 = _interopRequireDefault(_isEmpty);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	// <template>
-	//     <div class="ui basic modal" v-el:modal>
-	//         <div class="content">
-	//             <form action="#" method="POST" class="ui inverted form" @submit="onSubmit" v-el:form>
-	//                 <div class="two fields">
-	//                     <div class="field">
-	//                         <div class="label">主辦單位、監造單位指示</div>
-	//                         <textarea name="inspection_record" id="" cols="30" rows="10"></textarea>
-	//                     </div>
-	//                     <div class="field">
-	//                         <div class="label">重要事項紀錄</div>
-	//                         <textarea name="important_record" id="" cols="30" rows="10"></textarea>
-	//                     </div>
-	//                 </div>
-	//                 <button type="submit" class="pm-visibility-hidden"></button>
-	//             </form>
-	//         </div>
-	//         <div class="actions">
-	//             <div class="ui green inverted ok button">
-	//                 <i class="checkmark icon"></i>
-	//                 送出
-	//             </div>
-	//             <div class="ui inverted cancel button">
-	//                 <i class="remove icon"></i>
-	//                 取消
-	//             </div>
-	//         </div>
-	//     </div>
-	// </template>
-	//
-	// <script type="text/babel">
-	exports.default = {
-	    props: ['projectId', 'date', 'onSuccess', 'onCancel'],
-
-	    methods: {
-	        openModal: function openModal() {
-	            this.$modal.modal('show');
-	        },
-	        onSubmit: function onSubmit(e) {
-	            e.preventDefault();
-
-	            this.onApprove();
-
-	            window.$(this.$els.modal).modal('hide');
-	        },
-	        onApprove: function onApprove() {
-	            var _this = this;
-
-	            var inputs = window.$(this.$els.form).serializeArray();
-
-	            var values = (0, _omit2.default)((0, _merge2.default)((0, _zipObject2.default)((0, _pluck2.default)(inputs, 'name'), (0, _pluck2.default)(inputs, 'value')), { name: this.name }), _isEmpty2.default);
-
-	            window.$.post('/api/v1' + '/projects/' + this.projectId + '/construction-dailies/' + this.date, {
-	                _method: 'PUT',
-	                inspection_record: values.inspection_record,
-	                important_record: values.important_record
-	            }).then(function () {
-	                _this.$els.form.reset();
-
-	                if (_this.onSuccess) {
-	                    _this.onSuccess();
-	                }
-	            });
-	        },
-	        onDeny: function onDeny() {
-	            this.$els.form.reset();
-
-	            if (this.onCancel) {
-	                this.onCancel();
-	            }
-	        }
-	    },
-
-	    data: function data() {
-	        return {};
-	    },
-	    ready: function ready() {
-	        this.$modal = window.$(this.$els.modal).modal({
-	            closable: false,
-	            onApprove: this.onApprove,
-	            onDeny: this.onDeny
-	        });
-	    }
-	};
-	// </script>
-
-/***/ },
-/* 212 */
-/***/ function(module, exports) {
-
-	module.exports = "\n<div class=\"ui basic modal\" v-el:modal>\n    <div class=\"content\">\n        <form action=\"#\" method=\"POST\" class=\"ui inverted form\" @submit=\"onSubmit\" v-el:form>\n            <div class=\"two fields\">\n                <div class=\"field\">\n                    <div class=\"label\">主辦單位、監造單位指示</div>\n                    <textarea name=\"inspection_record\" id=\"\" cols=\"30\" rows=\"10\"></textarea>\n                </div>\n                <div class=\"field\">\n                    <div class=\"label\">重要事項紀錄</div>\n                    <textarea name=\"important_record\" id=\"\" cols=\"30\" rows=\"10\"></textarea>\n                </div>\n            </div>\n            <button type=\"submit\" class=\"pm-visibility-hidden\"></button>\n        </form>\n    </div>\n    <div class=\"actions\">\n        <div class=\"ui green inverted ok button\">\n            <i class=\"checkmark icon\"></i>\n            送出\n        </div>\n        <div class=\"ui inverted cancel button\">\n            <i class=\"remove icon\"></i>\n            取消\n        </div>\n    </div>\n</div>\n";
-
-/***/ },
 /* 213 */
 /***/ function(module, exports) {
 
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
-	exports.get = get;
-	exports.create = create;
-	function get(projectId) {
-	    var queries = arguments.length <= 1 || arguments[1] === undefined ? {} : arguments[1];
-
-	    var queryArray = [];
-
-	    if (queries.date) {
-	        queryArray.push('date=' + queries.date);
-	    }
-
-	    var queryString = queryArray.join('&');
-
-	    return window.$.getJSON('/api/v1/projects/' + projectId + '/daily-records?' + queryString);
-	}
-
-	function create(projectId, values) {
-	    return window.$.post('/api/v1/projects/' + projectId + '/daily-records', values);
-	}
+	module.exports = "\n<input type=\"text\" :name.once=\"name\" v-el:input>\n";
 
 /***/ }
 /******/ ]);

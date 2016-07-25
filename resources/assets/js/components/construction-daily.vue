@@ -46,12 +46,12 @@
             </tfoot>
         </table>
 
-        <modal-create-daily-record
+        <modal-update-construction-daily
             :project-id="projectId"
             :date="date"
             :on-success="onCreated"
             v-ref:modal
-        ></modal-create-daily-record>
+        ></modal-update-construction-daily>
     </div>
 </template>
 
@@ -68,11 +68,11 @@
     import TableDailyMaterial from './table-daily-material.vue'
     import TableDailyLabor from './table-daily-labor.vue'
     import TableDailyAppliance from './table-daily-appliance.vue'
-    import ModalCreateDailyRecord from './modal-create-daily-record.vue'
+    import ModalUpdateConstructionDaily from './modal-update-construction-daily.vue'
 
     export default {
         props: ['projectId', 'date'],
-        components: { TableDailyWork, TableDailyMaterial, TableDailyLabor, TableDailyAppliance, ModalCreateDailyRecord },
+        components: { TableDailyWork, TableDailyMaterial, TableDailyLabor, TableDailyAppliance, ModalUpdateConstructionDaily },
         data() {
             return {
                 constructionDaily: null
