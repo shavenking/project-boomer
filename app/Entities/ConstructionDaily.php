@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class ConstructionDaily extends Model
 {
-    protected $fillable = ['inspection_record', 'important_record'];
+    protected $fillable = ['inspection_record', 'important_record', 'work_date'];
 
     protected $dates = ['work_date'];
 

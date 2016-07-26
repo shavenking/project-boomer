@@ -3,20 +3,18 @@
 namespace App\Repos;
 
 use App\Entities\{
-    Appliance as ApplianceEntity, ConstructionDaily as ConstructionDailyEntity, Labor, Material as MaterialEntity, Project, ProjectWork, ProjectChecklist, Subcontractor
+    Appliance as ApplianceEntity, ConstructionDaily as ConstructionDailyEntity, Labor, Material as MaterialEntity, Project as ProjectEntity, ProjectWork, ProjectChecklist, Subcontractor
 };
 use App\Repos\Contracts\ConstructionDaily as Contract;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Support\Collection;
 
 class ConstructionDaily implements Contract
 {
-    public function create(\ArrayAccess $data, Project $project): ConstructionDailyEntity
+    public function create(Collection $data, ProjectEntity $project): ConstructionDailyEntity
     {
-        $constructionDaily = new ConstructionDailyEntity;
-        $constructionDaily->setAttribute('inspection_record', $data['inspection_record'] ?? '');
-        $constructionDaily->setAttribute('important_record', $data['important_record'] ?? '');
-        $constructionDaily->setAttribute('work_date', $data['work_date']);
+        $constructionDaily = new ConstructionDailyEntity($data->toArray());
 
         return $project->constructionDailies()->save($constructionDaily);
     }
@@ -64,7 +62,7 @@ class ConstructionDaily implements Contract
         );
     }
 
-    public function getConstructionDaily(Project $project, Carbon $date)
+    public function getConstructionDaily(ProjectEntity $project, Carbon $date)
     {
         return (
             $project

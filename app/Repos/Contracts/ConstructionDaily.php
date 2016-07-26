@@ -13,10 +13,11 @@ use App\Entities\{
 };
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Support\Collection;
 
 interface ConstructionDaily
 {
-    public function create(\ArrayAccess $data, Project $project): ConstructionDailyEntity;
+    public function create(Collection $data, Project $project): ConstructionDailyEntity;
 
     public function addDailyWork(string $seat, Subcontractor $subcontractor, ProjectWork $work, ConstructionDailyEntity $constructionDaily);
 
