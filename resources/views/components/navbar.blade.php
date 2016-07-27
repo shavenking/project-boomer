@@ -3,6 +3,9 @@
     <a href="{{ route('index') }}" class="header item">
         {{ trans('all.system_name') }}
     </a>
+    <a class="item">
+       {{ request()->user()->name }}
+    </a>
 
     <div class="right menu">
         <a href="{{ route('projects.index') }}" class="@if (request()->is('*projects*')) active @endif item">
