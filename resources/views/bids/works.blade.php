@@ -1,3 +1,5 @@
+@inject('projectRepo', 'App\Repos\Contracts\Project')
+
 {{-- */ $breadcrumbs = [
     trans_choice('all.projects', 2) => route('projects.index'),
     "{$project->name}" => route('projects.show', $project->id),
@@ -40,6 +42,13 @@
                 <a href="{{ route('projects.works.search', [$project->id]) }}" class="ui button">
                     <i class="search icon"></i>{{ trans('all.search') }}
                 </a>
+            @endif
+            @if ($projectRepo->isRole(request()->user(), $project, 'cost_manager'))
+                <a href="" class="ui green button">送出審核</a>
+            @elseif ($projectRepo->isRole(request()->user(), $project, 'project_manager'))
+                <a href="" class="ui green button">審核通過</a>
+            @else
+                <div class="ui disabled button">送出審核</div>
             @endif
         </div>
         <div class="sixteen wide column">

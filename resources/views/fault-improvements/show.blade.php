@@ -1,3 +1,5 @@
+@inject('projectRepo', 'App\Repos\Contracts\Project')
+
 {{-- */ $breadcrumbs = [
     trans_choice('all.projects', 2) => route('projects.index'),
     "{$project->name}" => route('projects.show', $project->id),
@@ -10,6 +12,14 @@
 @extends('layouts.project')
 
 @section('content')
+
+    @if ($projectRepo->isRole(request()->user(), $project, 'quality_manager'))
+        <a href="" class="ui green button">送出審核</a>
+    @elseif ($projectRepo->isRole(request()->user(), $project, 'field_engineer') || $projectRepo->isRole(request()->user(), $project, 'project_manager'))
+        <a href="" class="ui green button">審核通過</a>
+    @else
+        <div class="ui disabled button">送出審核</div>
+    @endif
 
 <h3 class="ui header">自主檢查表：{{ $faultImprovement->checkitem->checklist->name }}</h3>
 <h4 class="ui header">缺失項目：{{ $faultImprovement->checkitem->name }} - {{$faultImprovement->checkitem->detail }}</h4>
