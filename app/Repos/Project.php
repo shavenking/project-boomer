@@ -141,4 +141,9 @@ class Project implements ProjectContract
     {
         return ProjectEntity::destroy($id);
     }
+
+    public function getRole($user, $project)
+    {
+        return $user->roles($project->id)->first();
+    }
 }
