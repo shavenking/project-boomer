@@ -8,7 +8,7 @@
     <a class="item">
        {{ request()->user()->name }}
     </a>
-    @if (isset($project))
+    @if (isset($project) && $projectRepo->isUserInProject(request()->user(), $project))
         <a href="" class="item">
             {{ $projectRepo->getRole(request()->user(), $project)->display_name }}
         </a>
