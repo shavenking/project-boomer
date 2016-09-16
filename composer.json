@@ -9,7 +9,8 @@
         "laravel/framework": "5.1.*",
         "zizaco/entrust": "dev-laravel-5",
         "league/fractal": "^0.13.0",
-        "barryvdh/laravel-snappy": "^0.3.1"
+        "barryvdh/laravel-snappy": "^0.3.1",
+        "h4cc/wkhtmltopdf-amd64": "^0.12.3"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",
