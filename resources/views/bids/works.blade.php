@@ -50,6 +50,8 @@
             @else
                 <div class="ui disabled button">送出審核</div>
             @endif
+
+            <a href="{{ route('projects.bid.pdf', $project->id) }}" class="ui button">輸出報表（ PDF ）</a>
         </div>
         <div class="sixteen wide column">
             <table-project-works
