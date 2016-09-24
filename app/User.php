@@ -9,6 +9,7 @@ use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
 use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordContract;
 
 use App\Entities\{
+    AbstractEntity,
     Work,
     Workflow,
     Checklist,
@@ -16,7 +17,7 @@ use App\Entities\{
     Project
 };
 
-class User extends Model implements AuthenticatableContract,
+class User extends AbstractEntity implements AuthenticatableContract,
                                     CanResetPasswordContract
 {
     use Authenticatable, CanResetPassword;

@@ -2,9 +2,9 @@
 
 namespace App\Entities;
 
-use Illuminate\Database\Eloquent\Model;
+use App\Entities\AbstractEntity;
 
-class MainflowType extends Model
+class MainflowType extends AbstractEntity
 {
     protected $fillable = ['name'];
 }

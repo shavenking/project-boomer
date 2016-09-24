@@ -2,9 +2,9 @@
 
 namespace App\Entities;
 
-use Illuminate\Database\Eloquent\Model;
+use App\Entities\AbstractEntity;
 
-class Material extends Model
+class Material extends AbstractEntity
 {
     protected $fillable = ['name'];
 }

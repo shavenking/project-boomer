@@ -2,9 +2,9 @@
 
 namespace App\Entities;
 
-use Illuminate\Database\Eloquent\Model;
+use App\Entities\AbstractEntity;
 
-class ProjectCheckitem extends Model
+class ProjectCheckitem extends AbstractEntity
 {
     protected $fillable = ['project_checklist_id', 'name', 'detail', 'passes'];
 

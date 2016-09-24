@@ -2,12 +2,12 @@
 
 namespace App\Entities;
 
-use Illuminate\Database\Eloquent\Model;
+use App\Entities\AbstractEntity;
 
-class CostEstimationBounce extends Model
+class CostEstimationBounce extends AbstractEntity
 {
     protected $fillable = ['name', 'unit_id'];
-    
+
     public function unit()
     {
         return $this->hasOne(Unit::class, 'id', 'unit_id');

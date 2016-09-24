@@ -2,9 +2,9 @@
 
 namespace App\Entities;
 
-use Illuminate\Database\Eloquent\Model;
+use App\Entities\AbstractEntity;
 
-class ProjectWorkitem extends Model
+class ProjectWorkitem extends AbstractEntity
 {
     protected $fillable = [
         'project_work_id',
