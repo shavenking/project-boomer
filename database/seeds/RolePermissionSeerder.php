@@ -13,7 +13,8 @@ class RolePermissionSeerder extends Seeder
         '成本控制人員' => 'cost_manager',
         '估驗計價人員' => 'estimation_manager',
         '權限管理人員' => 'permission_manager',
-        '專案成員' => 'project_member'
+        '專案成員' => 'project_member',
+        '現場工程師' => 'engineer'
     ];
 
     /**
@@ -25,7 +26,6 @@ class RolePermissionSeerder extends Seeder
     {
         DB::table('permission_role')->truncate();
         DB::table('roles')->truncate();
-        DB::table('permissions')->truncate();
 
         foreach ($this->roles as $displayName => $role) {
             Role::create([

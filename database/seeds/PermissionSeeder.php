@@ -65,10 +65,11 @@ class PermissionSeeder extends Seeder
             $type = $class->newInstanceWithoutConstructor()->getResourceType();
 
             return $type;
-        })->filter();
+        })->filter()->merge('bid');
 
         return $types;
     }
+
     private function getActions()
     {
         return [
