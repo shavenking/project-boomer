@@ -4,6 +4,7 @@
 require(app_path('Http/Routes/Auth.php'));
 
 Route::group(['middleware' => 'auth'], function () {
+    require(app_path('Http/Routes/Reviews.php'));
     require(app_path('Http/Routes/Works.php'));
     require(app_path('Http/Routes/Workflows.php'));
     require(app_path('Http/Routes/ProjectWorks.php'));

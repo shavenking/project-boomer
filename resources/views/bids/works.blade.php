@@ -43,15 +43,15 @@
                     <i class="search icon"></i>{{ trans('all.search') }}
                 </a>
             @endif
-            @if ($projectRepo->isRole(request()->user(), $project, 'cost_manager'))
-                <a href="" class="ui green button">送出審核</a>
-            @elseif ($projectRepo->isRole(request()->user(), $project, 'project_manager'))
-                <a href="" class="ui green button">審核通過</a>
-            @else
-                <div class="ui disabled button">送出審核</div>
-            @endif
 
             <a href="{{ route('projects.bid.pdf', $project->id) }}" class="ui button">輸出報表（ PDF ）</a>
+        </div>
+        <div class="sixteen wide column">
+            <review-btns
+                project-id="{{ $project->id }}"
+                resource-type="bid"
+                resource-id="{{ $project->id }}"
+            ></review-btns>
         </div>
         <div class="sixteen wide column">
             <table-project-works

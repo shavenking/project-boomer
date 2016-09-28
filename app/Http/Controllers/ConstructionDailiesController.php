@@ -34,16 +34,16 @@ class ConstructionDailiesController extends Controller
     ) {
         $project = Project::findOrFail($projectId);
 
-        if ($request->ajax()) {
-            $constructionDaily = $repo->getConstructionDaily(
-                $project,
-                new Carbon($date)
-            );
+        $constructionDaily = $repo->getConstructionDaily(
+            $project,
+            new Carbon($date)
+        );
 
+        if ($request->ajax()) {
             return response()->json(compact('constructionDaily'));
         }
 
-        return view('project-constructiondailies.show', compact('project', 'date'));
+        return view('project-constructiondailies.show', compact('project', 'date', 'constructionDaily'));
     }
 
     public function store(

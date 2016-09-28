@@ -12,13 +12,13 @@
 
 @section('content')
 
-    @if ($projectRepo->isRole(request()->user(), $project, 'estimation_manager'))
-        <a href="" class="ui green button">送出審核</a>
-    @elseif ($projectRepo->isRole(request()->user(), $project, 'project_manager'))
-        <a href="" class="ui green button">審核通過</a>
-    @else
-        <div class="ui disabled button">送出審核</div>
-    @endif
+    <div class="sixteen wide column">
+        <review-btns
+            project-id="{{ $project->id }}"
+            resource-type="cost_estimation"
+            resource-id="{{ $costEstimation->id }}"
+        ></review-btns>
+    </div>
 
     <cost-estimation-sheet project-id="{{ $project->id }}" cost-estimation-id="{{ $costEstimation->id }}" date="{{ $date->toDateString() }}"></cost-estimation-sheet>
 

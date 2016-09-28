@@ -12,13 +12,13 @@
 
 @section('content')
 
-    @if ($projectRepo->isRole(request()->user(), $project, 'engineer'))
-        <a href="" class="ui green button">送出審核</a>
-    @elseif ($projectRepo->isRole(request()->user(), $project, 'field_engineer') || $projectRepo->isRole(request()->user(), $project, 'project_manager'))
-        <a href="" class="ui green button">審核通過</a>
-    @else
-        <div class="ui disabled button">送出審核</div>
-    @endif
+    <div class="sixteen wide column">
+        <review-btns
+            project-id="{{ $project->id }}"
+            resource-type="construction_daily"
+            resource-id="{{ $constructionDaily->id }}"
+        ></review-btns>
+    </div>
 
     <construction-daily project-id="{{ $project->id }}" date="{{ $date }}"></construction-daily>
 

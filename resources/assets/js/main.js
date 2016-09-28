@@ -20,6 +20,7 @@ import ModalProjectMenu from './presentation-layer/modal-project-menu.vue'
 import CardFaultImprovementPhoto from './components/card-fault-improvement-photo.vue'
 import ButtonsFaultImprovementResult from './components/buttons-fault-improvement-result.vue'
 import InputDate from './components/input-date.vue'
+import ReviewBtns from './components/review-btns.vue'
 
 new Vue({
     el: 'body',
@@ -44,6 +45,7 @@ new Vue({
         ModalProjectMenu,
         CardFaultImprovementPhoto,
         ButtonsFaultImprovementResult,
-        InputDate
+        InputDate,
+        ReviewBtns
     }
 })
