@@ -2,10 +2,10 @@
 
 namespace App\Entities;
 
-use Illuminate\Database\Eloquent\Model;
+use App\Entities\AbstractEntity;
 use App\Contracts\Role as RoleContract;
 
-class Role extends Model implements RoleContract
+class Role extends AbstractEntity implements RoleContract
 {
     protected $table;
 

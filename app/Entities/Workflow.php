@@ -2,9 +2,9 @@
 
 namespace App\Entities;
 
-use Illuminate\Database\Eloquent\Model;
+use App\Entities\AbstractEntity;
 
-class Workflow extends Model
+class Workflow extends AbstractEntity
 {
     protected $fillable = ['name'];
 

@@ -2,9 +2,9 @@
 
 namespace App\Entities;
 
-use Illuminate\Database\Eloquent\Model;
+use App\Entities\AbstractEntity;
 
-class ConstructionDaily extends Model
+class ConstructionDaily extends AbstractEntity
 {
     protected $fillable = ['inspection_record', 'important_record', 'work_date'];
 
@@ -33,5 +33,10 @@ class ConstructionDaily extends Model
     public function appliances()
     {
         return $this->belongsToMany(Appliance::class)->withPivot('id', 'amount')->withTimestamps();
+    }
+
+    public function getResourceType(): string
+    {
+        return 'construction_daily';
     }
 }

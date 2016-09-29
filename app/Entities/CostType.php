@@ -2,9 +2,9 @@
 
 namespace App\Entities;
 
-use Illuminate\Database\Eloquent\Model;
+use App\Entities\AbstractEntity;
 
-class CostType extends Model
+class CostType extends AbstractEntity
 {
     protected $fillable = ['name'];
 }

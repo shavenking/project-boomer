@@ -134,6 +134,10 @@
 
 	var _inputDate2 = _interopRequireDefault(_inputDate);
 
+	var _reviewBtns = __webpack_require__(214);
+
+	var _reviewBtns2 = _interopRequireDefault(_reviewBtns);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	new _vue2.default({
@@ -159,7 +163,8 @@
 	        ModalProjectMenu: _modalProjectMenu2.default,
 	        CardFaultImprovementPhoto: _cardFaultImprovementPhoto2.default,
 	        ButtonsFaultImprovementResult: _buttonsFaultImprovementResult2.default,
-	        InputDate: _inputDate2.default
+	        InputDate: _inputDate2.default,
+	        ReviewBtns: _reviewBtns2.default
 	    }
 	});
 
@@ -33429,6 +33434,126 @@
 /***/ function(module, exports) {
 
 	module.exports = "\n<input type=\"text\" :name.once=\"name\" v-el:input>\n";
+
+/***/ },
+/* 214 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var __vue_script__, __vue_template__
+	__vue_script__ = __webpack_require__(215)
+	if (__vue_script__ &&
+	    __vue_script__.__esModule &&
+	    Object.keys(__vue_script__).length > 1) {
+	  console.warn("[vue-loader] resources/assets/js/components/review-btns.vue: named exports in *.vue files are ignored.")}
+	__vue_template__ = __webpack_require__(216)
+	module.exports = __vue_script__ || {}
+	if (module.exports.__esModule) module.exports = module.exports.default
+	if (__vue_template__) {
+	(typeof module.exports === "function" ? (module.exports.options || (module.exports.options = {})) : module.exports).template = __vue_template__
+	}
+	if (false) {(function () {  module.hot.accept()
+	  var hotAPI = require("vue-hot-reload-api")
+	  hotAPI.install(require("vue"), true)
+	  if (!hotAPI.compatible) return
+	  var id = "/Users/shavenking/Code/project-boomer/resources/assets/js/components/review-btns.vue"
+	  if (!module.hot.data) {
+	    hotAPI.createRecord(id, module.exports)
+	  } else {
+	    hotAPI.update(id, module.exports, __vue_template__)
+	  }
+	})()}
+
+/***/ },
+/* 215 */
+/***/ function(module, exports) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	// <template>
+	//     <div>
+	//         <a href="#" class="ui green button" v-show="submit" @click.prevent="createSubmission">送出審核</a>
+	//         <a href="#" class="ui button disabled" v-show="!latestReview && !submit">送出審核</a>
+	//         <a href="#" class="ui button disabled" v-show="latestReview.status === 'submitted' && !accept && !reject">等待審核</a>
+	//         <a href="#" class="ui button disabled" v-show="latestReview.status === 'accepted' && !cancel && !accept && !reject && !submit">等待審核</a>
+	//         <a href="#" class="ui green button" v-show="accept" @click.prevent="acceptSubmission">審核通過</a>
+	//         <a href="#" class="ui red button" v-show="reject" @click.prevent="rejectSubmission">審核失敗</a>
+	//         <a href="#" class="ui disabled green button" v-show="latestReview.status === 'finished'">審核完成</a>
+	//         <a href="#" class="ui red button" v-show="cancel" @click.prevent="cancelSubmission">取消審核</a>
+	//     </div>
+	// </template>
+	//
+	// <script>
+	function getStatus(projectId, resourceType, resourceId) {
+	    return window.$.get('/api/v1/projects/' + projectId + '/review?resource_type=' + resourceType + '&resource_id=' + resourceId);
+	}
+
+	exports.default = {
+	    props: ['projectId', 'resourceType', 'resourceId'],
+	    data: function data() {
+	        return {
+	            latestReview: null,
+	            submit: false,
+	            accept: false,
+	            reject: false,
+	            cancel: false
+	        };
+	    },
+
+	    methods: {
+	        createSubmission: function createSubmission() {
+	            var _this = this;
+
+	            window.$.post('/api/v1/projects/' + this.projectId + '/reviews?resource_type=' + this.resourceType + '&resource_id=' + this.resourceId).then(function () {
+	                _this.updateReviewStatus();
+	            });
+	        },
+	        acceptSubmission: function acceptSubmission() {
+	            var _this2 = this;
+
+	            window.$.post('/api/v1/projects/' + this.projectId + '/review?resource_type=' + this.resourceType + '&resource_id=' + this.resourceId + '&accepted=true', { _method: 'PUT' }).then(function () {
+	                _this2.updateReviewStatus();
+	            });
+	        },
+	        rejectSubmission: function rejectSubmission() {
+	            var _this3 = this;
+
+	            window.$.post('/api/v1/projects/' + this.projectId + '/review?resource_type=' + this.resourceType + '&resource_id=' + this.resourceId, { _method: 'PUT' }).then(function () {
+	                _this3.updateReviewStatus();
+	            });
+	        },
+	        cancelSubmission: function cancelSubmission() {
+	            var _this4 = this;
+
+	            window.$.post('/api/v1/projects/' + this.projectId + '/review?resource_type=' + this.resourceType + '&resource_id=' + this.resourceId, { _method: 'DELETE' }).then(function () {
+	                _this4.updateReviewStatus();
+	            });
+	        },
+	        updateReviewStatus: function updateReviewStatus() {
+	            var _this5 = this;
+
+	            getStatus(this.projectId, this.resourceType, this.resourceId).then(function (res) {
+	                _this5.latestReview = res.latestReview;
+	                _this5.submit = res.nextSteps.submit;
+	                _this5.accept = res.nextSteps.accept;
+	                _this5.reject = res.nextSteps.reject;
+	                _this5.cancel = res.nextSteps.cancel;
+	            });
+	        }
+	    },
+	    ready: function ready() {
+	        this.updateReviewStatus();
+	    }
+	};
+	// </script>
+
+/***/ },
+/* 216 */
+/***/ function(module, exports) {
+
+	module.exports = "\n<div>\n    <a href=\"#\" class=\"ui green button\" v-show=\"submit\" @click.prevent=\"createSubmission\">送出審核</a>\n    <a href=\"#\" class=\"ui button disabled\" v-show=\"!latestReview && !submit\">送出審核</a>\n    <a href=\"#\" class=\"ui button disabled\" v-show=\"latestReview.status === 'submitted' && !accept && !reject\">等待審核</a>\n    <a href=\"#\" class=\"ui button disabled\" v-show=\"latestReview.status === 'accepted' && !cancel && !accept && !reject && !submit\">等待審核</a>\n    <a href=\"#\" class=\"ui green button\" v-show=\"accept\" @click.prevent=\"acceptSubmission\">審核通過</a>\n    <a href=\"#\" class=\"ui red button\" v-show=\"reject\" @click.prevent=\"rejectSubmission\">審核失敗</a>\n    <a href=\"#\" class=\"ui disabled green button\" v-show=\"latestReview.status === 'finished'\">審核完成</a>\n    <a href=\"#\" class=\"ui red button\" v-show=\"cancel\" @click.prevent=\"cancelSubmission\">取消審核</a>\n</div>\n";
 
 /***/ }
 /******/ ]);

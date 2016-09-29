@@ -2,9 +2,9 @@
 
 namespace App\Entities;
 
-use Illuminate\Database\Eloquent\Model;
+use App\Entities\AbstractEntity;
 
-class FaultImprovement extends Model
+class FaultImprovement extends AbstractEntity
 {
     protected $fillable = ['project_checkitem_id', 'before_photo', 'current_photo', 'after_photo', 'passes', 'before_notes', 'current_notes', 'after_notes'];
 
