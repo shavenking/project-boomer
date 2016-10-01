@@ -27577,14 +27577,14 @@
 	//                 <td>{{ work.unit.name }}</td>
 	//                 <td>{{ work.unit_price | currency}}</td>
 	//                 <td>
-	//                     <div class="ui input">
+	//                     <div class="ui input" :class="{disabled: isLocked}">
 	//                         <input type="text" name="work_amount[]" v-model="work.amount" @keyup="updateWork(work)">
 	//                     </div>
 	//                 </td>
 	//                 <td>{{ work.unit_price * work.amount | currency }}</td>
 	//                 <td><a href="{{ '/projects/' + projectId + '/works/' + work.id }}">{{ workitemsLabel }}</a></td>
 	//                 <td>
-	//                     <button class="ui icon red button" @click="deleteWork(work.id)"><i class="ui trash icon"></i></button>
+	//                     <button class="ui icon red button" :class="{disabled: isLocked}" @click="deleteWork(work.id)"><i class="ui trash icon"></i></button>
 	//                 </td>
 	//             </tr>
 	//         </tbody>
@@ -27622,7 +27622,7 @@
 	}
 
 	exports.default = {
-	    props: ['projectId', 'query', 'unitLabel', 'nameLabel', 'amountLabel', 'workitemsLabel', 'unitPriceLabel', 'totalPriceLabel', 'typeOrderLabel'],
+	    props: ['projectId', 'query', 'unitLabel', 'nameLabel', 'amountLabel', 'workitemsLabel', 'unitPriceLabel', 'totalPriceLabel', 'typeOrderLabel', 'isLocked'],
 
 	    computed: {
 	        queries: function queries() {
@@ -27695,7 +27695,7 @@
 /* 124 */
 /***/ function(module, exports) {
 
-	module.exports = "\n<table class=\"ui eight column table\">\n    <thead>\n        <tr>\n            <th class=\"four wide center aligned\">{{ typeOrderLabel }}</th>\n            <th>{{ nameLabel }}</th>\n            <th>{{ unitLabel }}</th>\n            <th>{{ unitPriceLabel }}</th>\n            <th>{{ amountLabel }}</th>\n            <th>{{ totalPriceLabel }}</th>\n            <th></th>\n            <th></th>\n        </tr>\n    </thead>\n    <tbody v-for=\"(detailingflowTypeId, works) in groupedWorks\">\n        <tr v-for=\"(idx, work) in works\">\n            <td :rowspan=\"works.length\" v-if=\"0 === idx\" class=\"top aligned center aligned\">\n                {{ work.detailingflow_type.mainflow_type.name }}\n                <br>\n                {{ work.detailingflow_type.name }}\n            </td>\n            <td>{{ work.name }}</td>\n            <td>{{ work.unit.name }}</td>\n            <td>{{ work.unit_price | currency}}</td>\n            <td>\n                <div class=\"ui input\">\n                    <input type=\"text\" name=\"work_amount[]\" v-model=\"work.amount\" @keyup=\"updateWork(work)\">\n                </div>\n            </td>\n            <td>{{ work.unit_price * work.amount | currency }}</td>\n            <td><a href=\"{{ '/projects/' + projectId + '/works/' + work.id }}\">{{ workitemsLabel }}</a></td>\n            <td>\n                <button class=\"ui icon red button\" @click=\"deleteWork(work.id)\"><i class=\"ui trash icon\"></i></button>\n            </td>\n        </tr>\n    </tbody>\n    <tfoot>\n        <tr>\n            <th colspan=\"8\">\n                <div class=\"ui mini five statistics\">\n                    <div class=\"statistic\">\n                        <div class=\"label\">總價</div>\n                        <div class=\"value\">{{ totalWorkPrice | currency }}</div>\n                    </div>\n                    <div class=\"statistic\" v-for=\"costTypeName in costTypes\">\n                        <div class=\"label\">{{ costTypeName }}</div>\n                        <div class=\"value\">{{ statistics[costTypeName] || 0 | currency }}</div>\n                    </div>\n                </div>\n            </th>\n        </tr>\n    </tfoot>\n</table>\n";
+	module.exports = "\n<table class=\"ui eight column table\">\n    <thead>\n        <tr>\n            <th class=\"four wide center aligned\">{{ typeOrderLabel }}</th>\n            <th>{{ nameLabel }}</th>\n            <th>{{ unitLabel }}</th>\n            <th>{{ unitPriceLabel }}</th>\n            <th>{{ amountLabel }}</th>\n            <th>{{ totalPriceLabel }}</th>\n            <th></th>\n            <th></th>\n        </tr>\n    </thead>\n    <tbody v-for=\"(detailingflowTypeId, works) in groupedWorks\">\n        <tr v-for=\"(idx, work) in works\">\n            <td :rowspan=\"works.length\" v-if=\"0 === idx\" class=\"top aligned center aligned\">\n                {{ work.detailingflow_type.mainflow_type.name }}\n                <br>\n                {{ work.detailingflow_type.name }}\n            </td>\n            <td>{{ work.name }}</td>\n            <td>{{ work.unit.name }}</td>\n            <td>{{ work.unit_price | currency}}</td>\n            <td>\n                <div class=\"ui input\" :class=\"{disabled: isLocked}\">\n                    <input type=\"text\" name=\"work_amount[]\" v-model=\"work.amount\" @keyup=\"updateWork(work)\">\n                </div>\n            </td>\n            <td>{{ work.unit_price * work.amount | currency }}</td>\n            <td><a href=\"{{ '/projects/' + projectId + '/works/' + work.id }}\">{{ workitemsLabel }}</a></td>\n            <td>\n                <button class=\"ui icon red button\" :class=\"{disabled: isLocked}\" @click=\"deleteWork(work.id)\"><i class=\"ui trash icon\"></i></button>\n            </td>\n        </tr>\n    </tbody>\n    <tfoot>\n        <tr>\n            <th colspan=\"8\">\n                <div class=\"ui mini five statistics\">\n                    <div class=\"statistic\">\n                        <div class=\"label\">總價</div>\n                        <div class=\"value\">{{ totalWorkPrice | currency }}</div>\n                    </div>\n                    <div class=\"statistic\" v-for=\"costTypeName in costTypes\">\n                        <div class=\"label\">{{ costTypeName }}</div>\n                        <div class=\"value\">{{ statistics[costTypeName] || 0 | currency }}</div>\n                    </div>\n                </div>\n            </th>\n        </tr>\n    </tfoot>\n</table>\n";
 
 /***/ },
 /* 125 */
@@ -28325,7 +28325,7 @@
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	exports.default = {
-	    props: ['projectId', 'date'],
+	    props: ['projectId', 'date', 'isLocked'],
 	    components: { TableDailyWork: _tableDailyWork2.default, TableDailyMaterial: _tableDailyMaterial2.default, TableDailyLabor: _tableDailyLabor2.default, TableDailyAppliance: _tableDailyAppliance2.default, ModalUpdateConstructionDaily: _modalUpdateConstructionDaily2.default },
 	    data: function data() {
 	        return {
@@ -28362,24 +28362,28 @@
 	//         <table-daily-work
 	//             :project-id="projectId"
 	//             :date="date"
+	//             :is-locked="isLocked"
 	//         ></table-daily-work>
 	//
 	//         <h3 class="header">當日材料使用情形</h3>
 	//         <table-daily-material
 	//             :project-id="projectId"
 	//             :date="date"
+	//             :is-locked="isLocked"
 	//         ></table-daily-material>
 	//
 	//         <h3 class="header">當日出工人數情形</h3>
 	//         <table-daily-labor
 	//             :project-id="projectId"
 	//             :date="date"
+	//             :is-locked="isLocked"
 	//         ></table-daily-labor>
 	//
 	//         <h3 class="header">當日機具使用情形</h3>
 	//         <table-daily-appliance
 	//             :project-id="projectId"
 	//             :date="date"
+	//             :is-locked="isLocked"
 	//         ></table-daily-appliance>
 	//
 	//         <table class="ui table">
@@ -28398,7 +28402,7 @@
 	//             <tfoot>
 	//                 <tr>
 	//                     <th colspan="5">
-	//                         <button class="ui right floated primary button" @click="openModal">新增</button>
+	//                         <button class="ui right floated primary button" :class="{disabled: isLocked}" @click="openModal">新增</button>
 	//                     </th>
 	//                 </tr>
 	//             </tfoot>
@@ -28468,7 +28472,7 @@
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	exports.default = {
-	    props: ['projectId', 'date'],
+	    props: ['projectId', 'date', 'isLocked'],
 	    components: { ModalCreateDailyWork: _modalCreateDailyWork2.default },
 	    data: function data() {
 	        return {
@@ -28543,7 +28547,7 @@
 	//             <tfoot>
 	//                 <tr>
 	//                     <th colspan="5">
-	//                         <button class="ui right floated primary button" @click="openModal">新增施工項目</button>
+	//                         <button class="ui right floated primary button" :class="{disabled: isLocked}" @click="openModal">新增施工項目</button>
 	//                     </th>
 	//                 </tr>
 	//             </tfoot>
@@ -28708,7 +28712,7 @@
 /* 144 */
 /***/ function(module, exports) {
 
-	module.exports = "\n<div>\n    <table class=\"ui table\">\n        <thead>\n            <th>工作項目</th>\n            <th>施工位置</th>\n            <th>協力廠商</th>\n            <th>查核與否</th>\n            <th>查核數量</th>\n        </thead>\n        <tbody>\n            <tr v-for=\"dailyWork in dailyWorks\">\n                <td>{{ dailyWork.attributes.name }}</td>\n                <td>{{ dailyWork.attributes.seat }}</td>\n                <td>{{ getSubcontractor(dailyWork).attributes.name }}</td>\n                <td>{{ getChecklist(dailyWork).attributes.is_checked_finished ? '查核完畢' : '未查核完畢' }}</td>\n                <td>{{ getChecklist(dailyWork).attributes.passes_amount }}</td>\n            </tr>\n        </tbody>\n        <tfoot>\n            <tr>\n                <th colspan=\"5\">\n                    <button class=\"ui right floated primary button\" @click=\"openModal\">新增施工項目</button>\n                </th>\n            </tr>\n        </tfoot>\n    </table>\n\n    <modal-create-daily-work :project-id=\"projectId\" :date=\"date\" :on-success=\"onCreated\" v-ref:modal></modal-create-daily-work>\n</div>\n";
+	module.exports = "\n<div>\n    <table class=\"ui table\">\n        <thead>\n            <th>工作項目</th>\n            <th>施工位置</th>\n            <th>協力廠商</th>\n            <th>查核與否</th>\n            <th>查核數量</th>\n        </thead>\n        <tbody>\n            <tr v-for=\"dailyWork in dailyWorks\">\n                <td>{{ dailyWork.attributes.name }}</td>\n                <td>{{ dailyWork.attributes.seat }}</td>\n                <td>{{ getSubcontractor(dailyWork).attributes.name }}</td>\n                <td>{{ getChecklist(dailyWork).attributes.is_checked_finished ? '查核完畢' : '未查核完畢' }}</td>\n                <td>{{ getChecklist(dailyWork).attributes.passes_amount }}</td>\n            </tr>\n        </tbody>\n        <tfoot>\n            <tr>\n                <th colspan=\"5\">\n                    <button class=\"ui right floated primary button\" :class=\"{disabled: isLocked}\" @click=\"openModal\">新增施工項目</button>\n                </th>\n            </tr>\n        </tfoot>\n    </table>\n\n    <modal-create-daily-work :project-id=\"projectId\" :date=\"date\" :on-success=\"onCreated\" v-ref:modal></modal-create-daily-work>\n</div>\n";
 
 /***/ },
 /* 145 */
@@ -28755,7 +28759,7 @@
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	exports.default = {
-	    props: ['projectId', 'date'],
+	    props: ['projectId', 'date', 'isLocked'],
 	    components: { ModalCreateDailyMaterial: _modalCreateDailyMaterial2.default },
 	    data: function data() {
 	        return {
@@ -28836,7 +28840,7 @@
 	//             <tfoot>
 	//                 <tr>
 	//                     <th colspan="5">
-	//                         <button class="ui right floated primary button" @click="openModal">新增</button>
+	//                         <button class="ui right floated primary button" :class="{disabled: isLocked}" @click="openModal">新增</button>
 	//                     </th>
 	//                 </tr>
 	//             </tfoot>
@@ -29616,7 +29620,7 @@
 /* 165 */
 /***/ function(module, exports) {
 
-	module.exports = "\n<div>\n    <table class=\"ui table\">\n        <thead>\n            <tr>\n                <th>材料名稱</th>\n                <th>本日使用數量</th>\n                <th>累積使用數量</th>\n            </tr>\n        </thead>\n        <tbody>\n            <tr v-for=\"amountAndName in statistics\">\n                <td>{{ amountAndName.name }}</td>\n                <td>{{ getDailyMaterial(amountAndName.name) ? getDailyMaterial(amountAndName.name).attributes.amount : 0 }}</td>\n                <td>{{ amountAndName.total_amount }}</td>\n            </tr>\n        </tbody>\n        <tfoot>\n            <tr>\n                <th colspan=\"5\">\n                    <button class=\"ui right floated primary button\" @click=\"openModal\">新增</button>\n                </th>\n            </tr>\n        </tfoot>\n    </table>\n\n    <modal-create-daily-material\n        :project-id=\"projectId\"\n        :date=\"date\"\n        :on-success=\"onCreated\"\n        v-ref:modal\n    ></modal-create-daily-material>\n</div>\n";
+	module.exports = "\n<div>\n    <table class=\"ui table\">\n        <thead>\n            <tr>\n                <th>材料名稱</th>\n                <th>本日使用數量</th>\n                <th>累積使用數量</th>\n            </tr>\n        </thead>\n        <tbody>\n            <tr v-for=\"amountAndName in statistics\">\n                <td>{{ amountAndName.name }}</td>\n                <td>{{ getDailyMaterial(amountAndName.name) ? getDailyMaterial(amountAndName.name).attributes.amount : 0 }}</td>\n                <td>{{ amountAndName.total_amount }}</td>\n            </tr>\n        </tbody>\n        <tfoot>\n            <tr>\n                <th colspan=\"5\">\n                    <button class=\"ui right floated primary button\" :class=\"{disabled: isLocked}\" @click=\"openModal\">新增</button>\n                </th>\n            </tr>\n        </tfoot>\n    </table>\n\n    <modal-create-daily-material\n        :project-id=\"projectId\"\n        :date=\"date\"\n        :on-success=\"onCreated\"\n        v-ref:modal\n    ></modal-create-daily-material>\n</div>\n";
 
 /***/ },
 /* 166 */
@@ -29663,7 +29667,7 @@
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	exports.default = {
-	    props: ['projectId', 'date'],
+	    props: ['projectId', 'date', 'isLocked'],
 	    components: { ModalCreateDailyLabor: _modalCreateDailyLabor2.default },
 	    data: function data() {
 	        return {
@@ -29744,7 +29748,7 @@
 	//             <tfoot>
 	//                 <tr>
 	//                     <th colspan="5">
-	//                         <button class="ui right floated primary button" @click="openModal">新增</button>
+	//                         <button class="ui right floated primary button" :class="{disabled: isLocked}" @click="openModal">新增</button>
 	//                     </th>
 	//                 </tr>
 	//             </tfoot>
@@ -30004,7 +30008,7 @@
 /* 172 */
 /***/ function(module, exports) {
 
-	module.exports = "\n<div>\n    <table class=\"ui table\">\n        <thead>\n            <tr>\n                <th>工別</th>\n                <th>人數</th>\n                <th>累積人數</th>\n            </tr>\n        </thead>\n        <tbody>\n            <tr v-for=\"amountAndName in statistics\">\n                <td>{{ amountAndName.name }}</td>\n                <td>{{ getDailyLabor(amountAndName.name) ? getDailyLabor(amountAndName.name).attributes.amount : 0 }}</td>\n                <td>{{ amountAndName.total_amount }}</td>\n            </tr>\n        </tbody>\n        <tfoot>\n            <tr>\n                <th colspan=\"5\">\n                    <button class=\"ui right floated primary button\" @click=\"openModal\">新增</button>\n                </th>\n            </tr>\n        </tfoot>\n    </table>\n\n    <modal-create-daily-labor\n        :project-id=\"projectId\"\n        :date=\"date\"\n        :on-success=\"onCreated\"\n        v-ref:modal\n    ></modal-create-daily-labor>\n</div>\n";
+	module.exports = "\n<div>\n    <table class=\"ui table\">\n        <thead>\n            <tr>\n                <th>工別</th>\n                <th>人數</th>\n                <th>累積人數</th>\n            </tr>\n        </thead>\n        <tbody>\n            <tr v-for=\"amountAndName in statistics\">\n                <td>{{ amountAndName.name }}</td>\n                <td>{{ getDailyLabor(amountAndName.name) ? getDailyLabor(amountAndName.name).attributes.amount : 0 }}</td>\n                <td>{{ amountAndName.total_amount }}</td>\n            </tr>\n        </tbody>\n        <tfoot>\n            <tr>\n                <th colspan=\"5\">\n                    <button class=\"ui right floated primary button\" :class=\"{disabled: isLocked}\" @click=\"openModal\">新增</button>\n                </th>\n            </tr>\n        </tfoot>\n    </table>\n\n    <modal-create-daily-labor\n        :project-id=\"projectId\"\n        :date=\"date\"\n        :on-success=\"onCreated\"\n        v-ref:modal\n    ></modal-create-daily-labor>\n</div>\n";
 
 /***/ },
 /* 173 */
@@ -30051,7 +30055,7 @@
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	exports.default = {
-	    props: ['projectId', 'date'],
+	    props: ['projectId', 'date', 'isLocked'],
 	    components: { ModalCreateDailyAppliance: _modalCreateDailyAppliance2.default },
 	    data: function data() {
 	        return {
@@ -30132,7 +30136,7 @@
 	//             <tfoot>
 	//             <tr>
 	//                 <th colspan="5">
-	//                     <button class="ui right floated primary button" @click="openModal">新增</button>
+	//                     <button class="ui right floated primary button" :class="{disabled: isLocked}" @click="openModal">新增</button>
 	//                 </th>
 	//             </tr>
 	//             </tfoot>
@@ -30392,7 +30396,7 @@
 /* 179 */
 /***/ function(module, exports) {
 
-	module.exports = "\n<div>\n    <table class=\"ui table\">\n        <thead>\n            <tr>\n                <th>機具</th>\n                <th>數量</th>\n                <th>累積數量</th>\n            </tr>\n        </thead>\n        <tbody>\n            <tr v-for=\"amountAndName in statistics\">\n                <td>{{ amountAndName.name }}</td>\n                <td>{{ getDailyAppliance(amountAndName.name) ? getDailyAppliance(amountAndName.name).attributes.amount : 0 }}</td>\n                <td>{{ amountAndName.total_amount }}</td>\n            </tr>\n        </tbody>\n        <tfoot>\n        <tr>\n            <th colspan=\"5\">\n                <button class=\"ui right floated primary button\" @click=\"openModal\">新增</button>\n            </th>\n        </tr>\n        </tfoot>\n    </table>\n\n    <modal-create-daily-appliance\n        :project-id=\"projectId\"\n        :date=\"date\"\n        :on-success=\"onCreated\"\n        v-ref:modal\n    ></modal-create-daily-appliance>\n</div>\n";
+	module.exports = "\n<div>\n    <table class=\"ui table\">\n        <thead>\n            <tr>\n                <th>機具</th>\n                <th>數量</th>\n                <th>累積數量</th>\n            </tr>\n        </thead>\n        <tbody>\n            <tr v-for=\"amountAndName in statistics\">\n                <td>{{ amountAndName.name }}</td>\n                <td>{{ getDailyAppliance(amountAndName.name) ? getDailyAppliance(amountAndName.name).attributes.amount : 0 }}</td>\n                <td>{{ amountAndName.total_amount }}</td>\n            </tr>\n        </tbody>\n        <tfoot>\n        <tr>\n            <th colspan=\"5\">\n                <button class=\"ui right floated primary button\" :class=\"{disabled: isLocked}\" @click=\"openModal\">新增</button>\n            </th>\n        </tr>\n        </tfoot>\n    </table>\n\n    <modal-create-daily-appliance\n        :project-id=\"projectId\"\n        :date=\"date\"\n        :on-success=\"onCreated\"\n        v-ref:modal\n    ></modal-create-daily-appliance>\n</div>\n";
 
 /***/ },
 /* 180 */
@@ -30581,7 +30585,7 @@
 /* 184 */
 /***/ function(module, exports) {
 
-	module.exports = "\n<div>\n    <h3 class=\"header\">當日工作項目、位置</h3>\n    <table-daily-work\n        :project-id=\"projectId\"\n        :date=\"date\"\n    ></table-daily-work>\n\n    <h3 class=\"header\">當日材料使用情形</h3>\n    <table-daily-material\n        :project-id=\"projectId\"\n        :date=\"date\"\n    ></table-daily-material>\n\n    <h3 class=\"header\">當日出工人數情形</h3>\n    <table-daily-labor\n        :project-id=\"projectId\"\n        :date=\"date\"\n    ></table-daily-labor>\n\n    <h3 class=\"header\">當日機具使用情形</h3>\n    <table-daily-appliance\n        :project-id=\"projectId\"\n        :date=\"date\"\n    ></table-daily-appliance>\n\n    <table class=\"ui table\">\n        <thead>\n            <tr>\n                <th>主辦單位、監造單位指示</th>\n                <th>重要事項紀錄</th>\n            </tr>\n        </thead>\n        <tbody>\n            <tr>\n                <td>{{ constructionDaily.inspection_record }}</td>\n                <td>{{ constructionDaily.important_record }}</td>\n            </tr>\n        </tbody>\n        <tfoot>\n            <tr>\n                <th colspan=\"5\">\n                    <button class=\"ui right floated primary button\" @click=\"openModal\">新增</button>\n                </th>\n            </tr>\n        </tfoot>\n    </table>\n\n    <modal-update-construction-daily\n        :project-id=\"projectId\"\n        :date=\"date\"\n        :on-success=\"onCreated\"\n        v-ref:modal\n    ></modal-update-construction-daily>\n</div>\n";
+	module.exports = "\n<div>\n    <h3 class=\"header\">當日工作項目、位置</h3>\n    <table-daily-work\n        :project-id=\"projectId\"\n        :date=\"date\"\n        :is-locked=\"isLocked\"\n    ></table-daily-work>\n\n    <h3 class=\"header\">當日材料使用情形</h3>\n    <table-daily-material\n        :project-id=\"projectId\"\n        :date=\"date\"\n        :is-locked=\"isLocked\"\n    ></table-daily-material>\n\n    <h3 class=\"header\">當日出工人數情形</h3>\n    <table-daily-labor\n        :project-id=\"projectId\"\n        :date=\"date\"\n        :is-locked=\"isLocked\"\n    ></table-daily-labor>\n\n    <h3 class=\"header\">當日機具使用情形</h3>\n    <table-daily-appliance\n        :project-id=\"projectId\"\n        :date=\"date\"\n        :is-locked=\"isLocked\"\n    ></table-daily-appliance>\n\n    <table class=\"ui table\">\n        <thead>\n            <tr>\n                <th>主辦單位、監造單位指示</th>\n                <th>重要事項紀錄</th>\n            </tr>\n        </thead>\n        <tbody>\n            <tr>\n                <td>{{ constructionDaily.inspection_record }}</td>\n                <td>{{ constructionDaily.important_record }}</td>\n            </tr>\n        </tbody>\n        <tfoot>\n            <tr>\n                <th colspan=\"5\">\n                    <button class=\"ui right floated primary button\" :class=\"{disabled: isLocked}\" @click=\"openModal\">新增</button>\n                </th>\n            </tr>\n        </tfoot>\n    </table>\n\n    <modal-update-construction-daily\n        :project-id=\"projectId\"\n        :date=\"date\"\n        :on-success=\"onCreated\"\n        v-ref:modal\n    ></modal-update-construction-daily>\n</div>\n";
 
 /***/ },
 /* 185 */
@@ -30634,7 +30638,7 @@
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	exports.default = {
-	    props: ['projectId', 'costEstimationId', 'date'],
+	    props: ['projectId', 'costEstimationId', 'date', 'isLocked'],
 
 	    components: { ModalCreateCostEstimationBounce: _modalCreateCostEstimationBounce2.default },
 
@@ -30827,7 +30831,7 @@
 	//         <tfoot v-if="costEstimationId">
 	//             <tr>
 	//                 <th colspan="11">
-	//                     <button class="ui primary button" @click="openModal()">其它費用</button>
+	//                     <button class="ui primary button" :class="{disabled: isLocked}" @click="openModal()">其它費用</button>
 	//                 </th>
 	//             </tr>
 	//         </tfoot>
@@ -31050,7 +31054,7 @@
 /* 190 */
 /***/ function(module, exports) {
 
-	module.exports = "\n<table class=\"ui table\">\n    <thead>\n        <tr>\n            <th rowspan=\"2\">工作項目</th>\n            <th rowspan=\"2\">單位</th>\n            <th rowspan=\"2\">單價</th>\n            <th colspan=\"2\">合約計數</th>\n            <th colspan=\"2\">以前完成</th>\n            <th colspan=\"2\">本期完成</th>\n            <th colspan=\"2\">合計完成</th>\n        </tr>\n        <tr>\n            <th>數量</th>\n            <th>價值</th>\n            <th>數量</th>\n            <th>價值</th>\n            <th>數量</th>\n            <th>價值</th>\n            <th>數量</th>\n            <th>價值</th>\n        </tr>\n    </thead>\n    <tbody>\n        <tr v-for=\"projectWork in projectWorks\">\n            <td>{{ projectWork.name }}</td>\n            <td>{{ projectWork.unit.name }}</td>\n            <td>{{ projectWork.unit_price }}</td>\n            <td>{{ projectWork.amount }}</td>\n            <td>{{ projectWork.amount * projectWork.unit_price }}</td>\n            <td>{{ previousPassesAmount[projectWork.id] }}</td>\n            <td>{{ previousPassesAmount[projectWork.id] * projectWork.unit_price }}</td>\n            <td>{{ totalPassesAmount[projectWork.id] - previousPassesAmount[projectWork.id] }}</td>\n            <td>{{ (totalPassesAmount[projectWork.id] - previousPassesAmount[projectWork.id]) * projectWork.unit_price }}</td>\n            <td>{{ totalPassesAmount[projectWork.id] }}</td>\n            <td>{{ totalPassesAmount[projectWork.id] * projectWork.unit_price }}</td>\n        </tr>\n    </tbody>\n    <thead>\n        <tr>\n            <th colspan=\"11\">其它費用</th>\n        </tr>\n    </thead>\n    <tbody>\n        <tr v-for=\"bounce in allBounces\">\n            <td>{{ bounce.name }}</td>\n            <td>{{ bounce.unit.name }}</td>\n            <td>-</td>\n            <td>-</td>\n            <td>-</td>\n            <td>-</td>\n            <td>{{ previousPrices[bounce.id] }}</td>\n            <td>-</td>\n            <td>{{ currentPrices[bounce.id] }}</td>\n            <td>-</td>\n            <td>{{ previousPrices[bounce.id] + currentPrices[bounce.id] }}</td>\n        </tr>\n    </tbody>\n    <tfoot v-if=\"costEstimationId\">\n        <tr>\n            <th colspan=\"11\">\n                <button class=\"ui primary button\" @click=\"openModal()\">其它費用</button>\n            </th>\n        </tr>\n    </tfoot>\n</table>\n\n<modal-create-cost-estimation-bounce\n        :project-id.once=\"projectId\"\n        :cost-estimation-id.once=\"costEstimationId\"\n        :on-success.once=\"onCostEstimationBounceCreated\"\n        v-ref:modal\n></modal-create-cost-estimation-bounce>\n";
+	module.exports = "\n<table class=\"ui table\">\n    <thead>\n        <tr>\n            <th rowspan=\"2\">工作項目</th>\n            <th rowspan=\"2\">單位</th>\n            <th rowspan=\"2\">單價</th>\n            <th colspan=\"2\">合約計數</th>\n            <th colspan=\"2\">以前完成</th>\n            <th colspan=\"2\">本期完成</th>\n            <th colspan=\"2\">合計完成</th>\n        </tr>\n        <tr>\n            <th>數量</th>\n            <th>價值</th>\n            <th>數量</th>\n            <th>價值</th>\n            <th>數量</th>\n            <th>價值</th>\n            <th>數量</th>\n            <th>價值</th>\n        </tr>\n    </thead>\n    <tbody>\n        <tr v-for=\"projectWork in projectWorks\">\n            <td>{{ projectWork.name }}</td>\n            <td>{{ projectWork.unit.name }}</td>\n            <td>{{ projectWork.unit_price }}</td>\n            <td>{{ projectWork.amount }}</td>\n            <td>{{ projectWork.amount * projectWork.unit_price }}</td>\n            <td>{{ previousPassesAmount[projectWork.id] }}</td>\n            <td>{{ previousPassesAmount[projectWork.id] * projectWork.unit_price }}</td>\n            <td>{{ totalPassesAmount[projectWork.id] - previousPassesAmount[projectWork.id] }}</td>\n            <td>{{ (totalPassesAmount[projectWork.id] - previousPassesAmount[projectWork.id]) * projectWork.unit_price }}</td>\n            <td>{{ totalPassesAmount[projectWork.id] }}</td>\n            <td>{{ totalPassesAmount[projectWork.id] * projectWork.unit_price }}</td>\n        </tr>\n    </tbody>\n    <thead>\n        <tr>\n            <th colspan=\"11\">其它費用</th>\n        </tr>\n    </thead>\n    <tbody>\n        <tr v-for=\"bounce in allBounces\">\n            <td>{{ bounce.name }}</td>\n            <td>{{ bounce.unit.name }}</td>\n            <td>-</td>\n            <td>-</td>\n            <td>-</td>\n            <td>-</td>\n            <td>{{ previousPrices[bounce.id] }}</td>\n            <td>-</td>\n            <td>{{ currentPrices[bounce.id] }}</td>\n            <td>-</td>\n            <td>{{ previousPrices[bounce.id] + currentPrices[bounce.id] }}</td>\n        </tr>\n    </tbody>\n    <tfoot v-if=\"costEstimationId\">\n        <tr>\n            <th colspan=\"11\">\n                <button class=\"ui primary button\" :class=\"{disabled: isLocked}\" @click=\"openModal()\">其它費用</button>\n            </th>\n        </tr>\n    </tfoot>\n</table>\n\n<modal-create-cost-estimation-bounce\n        :project-id.once=\"projectId\"\n        :cost-estimation-id.once=\"costEstimationId\"\n        :on-success.once=\"onCostEstimationBounceCreated\"\n        v-ref:modal\n></modal-create-cost-estimation-bounce>\n";
 
 /***/ },
 /* 191 */
@@ -31353,7 +31357,7 @@
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	exports.default = {
-	    props: ['projectId', 'serializedFaultImprovement', 'header', 'step'],
+	    props: ['projectId', 'serializedFaultImprovement', 'header', 'step', 'isLocked'],
 
 	    computed: {
 	        photoName: function photoName() {
@@ -31417,7 +31421,8 @@
 	//             <div class="content">
 	//                 <div class="header">
 	//                     {{* header }}
-	//                     <div class="ui right floated blue label" style="cursor: pointer;" v-el:file-upload>上傳照片</div>
+	//                     <div class="ui right floated blue label disabled" v-show="isLocked">上傳圖片</div>
+	//                     <div class="ui right floated blue label" style="cursor: pointer;" v-el:file-upload v-show="!isLocked">上傳照片</div>
 	//                 </div>
 	//             </div>
 	//             <div class="image">
@@ -31425,7 +31430,7 @@
 	//             </div>
 	//             <div class="extra content">
 	//                 <p v-show="notes">備註：{{ notes }}</p>
-	//                 <div class="ui fluid labeled action input" v-show="!notes">
+	//                 <div class="ui fluid labeled action input" :class="{disabled: isLocked}" v-show="!notes">
 	//                     <div class="ui label">備註：</div>
 	//                     <input type="text" name="new_notes" v-model="newNotes">
 	//                     <button class="ui primary button" @click="saveNotes">儲存</button>
@@ -33282,7 +33287,7 @@
 /* 207 */
 /***/ function(module, exports) {
 
-	module.exports = "\n<div class=\"ui basic segment\" :class=\"{ loading: loading }\">\n    <div class=\"ui fluid card\">\n        <div class=\"content\">\n            <div class=\"header\">\n                {{* header }}\n                <div class=\"ui right floated blue label\" style=\"cursor: pointer;\" v-el:file-upload>上傳照片</div>\n            </div>\n        </div>\n        <div class=\"image\">\n            <img :src=\"url\" :alt.once=\"header\" v-if=\"photoName\">\n        </div>\n        <div class=\"extra content\">\n            <p v-show=\"notes\">備註：{{ notes }}</p>\n            <div class=\"ui fluid labeled action input\" v-show=\"!notes\">\n                <div class=\"ui label\">備註：</div>\n                <input type=\"text\" name=\"new_notes\" v-model=\"newNotes\">\n                <button class=\"ui primary button\" @click=\"saveNotes\">儲存</button>\n            </div>\n        </div>\n    </div>\n</div>\n";
+	module.exports = "\n<div class=\"ui basic segment\" :class=\"{ loading: loading }\">\n    <div class=\"ui fluid card\">\n        <div class=\"content\">\n            <div class=\"header\">\n                {{* header }}\n                <div class=\"ui right floated blue label disabled\" v-show=\"isLocked\">上傳圖片</div>\n                <div class=\"ui right floated blue label\" style=\"cursor: pointer;\" v-el:file-upload v-show=\"!isLocked\">上傳照片</div>\n            </div>\n        </div>\n        <div class=\"image\">\n            <img :src=\"url\" :alt.once=\"header\" v-if=\"photoName\">\n        </div>\n        <div class=\"extra content\">\n            <p v-show=\"notes\">備註：{{ notes }}</p>\n            <div class=\"ui fluid labeled action input\" :class=\"{disabled: isLocked}\" v-show=\"!notes\">\n                <div class=\"ui label\">備註：</div>\n                <input type=\"text\" name=\"new_notes\" v-model=\"newNotes\">\n                <button class=\"ui primary button\" @click=\"saveNotes\">儲存</button>\n            </div>\n        </div>\n    </div>\n</div>\n";
 
 /***/ },
 /* 208 */
@@ -33324,16 +33329,16 @@
 	// <template>
 	//     <div class="ui basic segment" :class="{ loading: loading }">
 	//         <div class="ui fluid buttons">
-	//             <button class="ui button" :class="{ grey: null === result }" @click="updateResult('null')">未審核</button>
-	//             <button class="ui button" :class="{ green: true === result }" @click="updateResult(1)">通過</button>
-	//             <button class="ui button" :class="{ red: false === result }" @click="updateResult(0)">缺失</button>
+	//             <button class="ui button" :class="{ grey: null === result, disabled: isLocked }" @click="updateResult('null')">未審核</button>
+	//             <button class="ui button" :class="{ green: true === result, disabled: isLocked }" @click="updateResult(1)">通過</button>
+	//             <button class="ui button" :class="{ red: false === result, disabled: isLocked }" @click="updateResult(0)">缺失</button>
 	//         </div>
 	//     </div>
 	// </template>
 	//
 	// <script type="text/babel">
 	exports.default = {
-	    props: ['projectId', 'serializedFaultImprovement'],
+	    props: ['projectId', 'serializedFaultImprovement', 'isLocked'],
 
 	    computed: {
 	        result: function result() {
@@ -33371,7 +33376,7 @@
 /* 210 */
 /***/ function(module, exports) {
 
-	module.exports = "\n<div class=\"ui basic segment\" :class=\"{ loading: loading }\">\n    <div class=\"ui fluid buttons\">\n        <button class=\"ui button\" :class=\"{ grey: null === result }\" @click=\"updateResult('null')\">未審核</button>\n        <button class=\"ui button\" :class=\"{ green: true === result }\" @click=\"updateResult(1)\">通過</button>\n        <button class=\"ui button\" :class=\"{ red: false === result }\" @click=\"updateResult(0)\">缺失</button>\n    </div>\n</div>\n";
+	module.exports = "\n<div class=\"ui basic segment\" :class=\"{ loading: loading }\">\n    <div class=\"ui fluid buttons\">\n        <button class=\"ui button\" :class=\"{ grey: null === result, disabled: isLocked }\" @click=\"updateResult('null')\">未審核</button>\n        <button class=\"ui button\" :class=\"{ green: true === result, disabled: isLocked }\" @click=\"updateResult(1)\">通過</button>\n        <button class=\"ui button\" :class=\"{ red: false === result, disabled: isLocked }\" @click=\"updateResult(0)\">缺失</button>\n    </div>\n</div>\n";
 
 /***/ },
 /* 211 */
@@ -33507,28 +33512,28 @@
 	            var _this = this;
 
 	            window.$.post('/api/v1/projects/' + this.projectId + '/reviews?resource_type=' + this.resourceType + '&resource_id=' + this.resourceId).then(function () {
-	                _this.updateReviewStatus();
+	                _this.refreshPage();
 	            });
 	        },
 	        acceptSubmission: function acceptSubmission() {
 	            var _this2 = this;
 
 	            window.$.post('/api/v1/projects/' + this.projectId + '/review?resource_type=' + this.resourceType + '&resource_id=' + this.resourceId + '&accepted=true', { _method: 'PUT' }).then(function () {
-	                _this2.updateReviewStatus();
+	                _this2.refreshPage();
 	            });
 	        },
 	        rejectSubmission: function rejectSubmission() {
 	            var _this3 = this;
 
 	            window.$.post('/api/v1/projects/' + this.projectId + '/review?resource_type=' + this.resourceType + '&resource_id=' + this.resourceId, { _method: 'PUT' }).then(function () {
-	                _this3.updateReviewStatus();
+	                _this3.refreshPage();
 	            });
 	        },
 	        cancelSubmission: function cancelSubmission() {
 	            var _this4 = this;
 
 	            window.$.post('/api/v1/projects/' + this.projectId + '/review?resource_type=' + this.resourceType + '&resource_id=' + this.resourceId, { _method: 'DELETE' }).then(function () {
-	                _this4.updateReviewStatus();
+	                _this4.refreshPage();
 	            });
 	        },
 	        updateReviewStatus: function updateReviewStatus() {
@@ -33541,6 +33546,9 @@
 	                _this5.reject = res.nextSteps.reject;
 	                _this5.cancel = res.nextSteps.cancel;
 	            });
+	        },
+	        refreshPage: function refreshPage() {
+	            document.location.reload(true);
 	        }
 	    },
 	    ready: function ready() {

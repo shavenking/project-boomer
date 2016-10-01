@@ -23,14 +23,14 @@
                 <td>{{ work.unit.name }}</td>
                 <td>{{ work.unit_price | currency}}</td>
                 <td>
-                    <div class="ui input">
+                    <div class="ui input" :class="{disabled: isLocked}">
                         <input type="text" name="work_amount[]" v-model="work.amount" @keyup="updateWork(work)">
                     </div>
                 </td>
                 <td>{{ work.unit_price * work.amount | currency }}</td>
                 <td><a href="{{ '/projects/' + projectId + '/works/' + work.id }}">{{ workitemsLabel }}</a></td>
                 <td>
-                    <button class="ui icon red button" @click="deleteWork(work.id)"><i class="ui trash icon"></i></button>
+                    <button class="ui icon red button" :class="{disabled: isLocked}" @click="deleteWork(work.id)"><i class="ui trash icon"></i></button>
                 </td>
             </tr>
         </tbody>
@@ -84,7 +84,7 @@
     }
 
     export default {
-        props: ['projectId', 'query', 'unitLabel', 'nameLabel', 'amountLabel', 'workitemsLabel', 'unitPriceLabel', 'totalPriceLabel', 'typeOrderLabel'],
+        props: ['projectId', 'query', 'unitLabel', 'nameLabel', 'amountLabel', 'workitemsLabel', 'unitPriceLabel', 'totalPriceLabel', 'typeOrderLabel', 'isLocked'],
 
         computed: {
             queries() {

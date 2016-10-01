@@ -1,4 +1,8 @@
 @inject('projectRepo', 'App\Repos\Contracts\Project')
+@inject('reviewRepo', 'App\Repos\ReviewRepo');
+{{-- */
+    $isLocked = $reviewRepo->isLocked('bid', $project->id);
+/* --}}
 
 {{-- */ $breadcrumbs = [
     trans_choice('all.projects', 2) => route('projects.index'),
@@ -64,6 +68,7 @@
                 amount-label="{{ trans('all.amount') }}"
                 total-price-label="{{ trans('all.total_price') }}"
                 workitems-label="{{ trans('all.workitems') }}"
+                is-locked="{{ $isLocked }}"
             ></table-project-works>
         </div>
     </div>

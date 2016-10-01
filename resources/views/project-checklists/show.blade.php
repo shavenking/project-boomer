@@ -1,4 +1,8 @@
 @inject('projectRepo', 'App\Repos\Contracts\Project')
+@inject('reviewRepo', 'App\Repos\ReviewRepo');
+{{-- */
+    $isLocked = $reviewRepo->isLocked('project_checklist', $checklist->id);
+/* --}}
 
 {{-- */ $breadcrumbs = [
     trans_choice('all.projects', 2) => route('projects.index'),
@@ -81,14 +85,14 @@
                                         </td>
                                         <td class="collapsing">
                                             <div class="inline fields">
-                                                @include('components.checkitem-radio-buttons', compact('checkitem'))
+                                                @include('components.checkitem-radio-buttons', compact('checkitem', 'isLocked'))
                                             </div>
                                         </td>
                                     </tr>
                                 @endforeach
                                 <tfoot>
                                     <th colspan="4" class="right aligned">
-                                         <div class="inline field">
+                                         <div class="@if ($isLocked) disabled @endif inline field">
                                             <label>完成數量</label>
                                             <input type="text" class="ui fluid" name="passes_amount" value="{{ $checklist->passes_amount }}"></input>
                                             <button class="ui primary button" type="submit">{{ trans('all.save') }}</button>
@@ -129,7 +133,7 @@
                                     </div>
                                     <div class="extra content">
                                         <div class="right floated inline fields">
-                                            @include('components.checkitem-radio-buttons', compact('checkitem'))
+                                            @include('components.checkitem-radio-buttons', compact('checkitem', 'isLocked'))
                                         </div>
                                         @if (!is_null($checkitem->faultImprovement))
                                             @if (is_null($checkitem->faultImprovement->passes))
@@ -161,10 +165,10 @@
                         </div>
 
                         <h4 class="ui dividing header">完成數量</h4>
-                        <div class="field">
-                            <input type="text" name="passes_amount" value="{{ $checklist->passes_amount }}"></input>
+                        <div class="@if ($isLocked) disabled @endif field">
+                            <input type="text" name="passes_amount" value="{{ $checklist->passes_amount }}">
                         </div>
-                        <button class="ui primary button" type="submit">{{ trans('all.save') }}</button>
+                        <button class="ui primary button @if ($isLocked) disabled @endif" type="submit">{{ trans('all.save') }}</button>
                     </form>
                 </div>
             </div>

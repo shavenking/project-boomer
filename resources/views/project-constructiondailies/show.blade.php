@@ -1,4 +1,8 @@
 @inject('projectRepo', 'App\Repos\Contracts\Project')
+@inject('reviewRepo', 'App\Repos\ReviewRepo');
+{{-- */
+    $isLocked = $reviewRepo->isLocked('construction_daily', $constructionDaily->id);
+/* --}}
 
 {{-- */ $breadcrumbs = [
     trans_choice('all.projects', 2) => route('projects.index'),
@@ -20,6 +24,6 @@
         ></review-btns>
     </div>
 
-    <construction-daily project-id="{{ $project->id }}" date="{{ $date }}"></construction-daily>
+    <construction-daily project-id="{{ $project->id }}" date="{{ $date }}" is-locked="{{ $isLocked }}"></construction-daily>
 
 @stop

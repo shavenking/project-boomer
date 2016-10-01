@@ -59,7 +59,7 @@
         <tfoot v-if="costEstimationId">
             <tr>
                 <th colspan="11">
-                    <button class="ui primary button" @click="openModal()">其它費用</button>
+                    <button class="ui primary button" :class="{disabled: isLocked}" @click="openModal()">其它費用</button>
                 </th>
             </tr>
         </tfoot>
@@ -79,7 +79,7 @@
     import ModalCreateCostEstimationBounce from './modal-create-cost-estimation-bounce.vue'
 
     export default {
-        props: ['projectId', 'costEstimationId', 'date'],
+        props: ['projectId', 'costEstimationId', 'date', 'isLocked'],
 
         components: { ModalCreateCostEstimationBounce },
 

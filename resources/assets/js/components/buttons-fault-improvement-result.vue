@@ -1,16 +1,16 @@
 <template>
     <div class="ui basic segment" :class="{ loading: loading }">
         <div class="ui fluid buttons">
-            <button class="ui button" :class="{ grey: null === result }" @click="updateResult('null')">未審核</button>
-            <button class="ui button" :class="{ green: true === result }" @click="updateResult(1)">通過</button>
-            <button class="ui button" :class="{ red: false === result }" @click="updateResult(0)">缺失</button>
+            <button class="ui button" :class="{ grey: null === result, disabled: isLocked }" @click="updateResult('null')">未審核</button>
+            <button class="ui button" :class="{ green: true === result, disabled: isLocked }" @click="updateResult(1)">通過</button>
+            <button class="ui button" :class="{ red: false === result, disabled: isLocked }" @click="updateResult(0)">缺失</button>
         </div>
     </div>
 </template>
 
 <script type="text/babel">
     export default {
-        props: ['projectId', 'serializedFaultImprovement'],
+        props: ['projectId', 'serializedFaultImprovement', 'isLocked'],
 
         computed: {
             result() {
