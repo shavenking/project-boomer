@@ -23,10 +23,10 @@
                 </td>
                 <td class="collapsing">
                     <div class="ui tiny compact right floated icon buttons">
-                        <button class="ui button" @click="editItem(item)">
+                        <button class="ui button" :class="{disabled: isLocked}" @click="editItem(item)">
                             <i class="pencil icon"></i>
                         </button>
-                        <button class="ui button" @click="deleteItem(item)">
+                        <button class="ui button" :class="{disabled: isLocked}" @click="deleteItem(item)">
                             <i class="trash icon"></i>
                         </button>
                     </div>
@@ -49,7 +49,7 @@
     import _ from 'lodash'
 
     export default {
-        props: ['items'],
+        props: ['items', 'isLocked'],
 
         computed: {
             totalPrice() {

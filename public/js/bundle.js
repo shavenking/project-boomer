@@ -14757,7 +14757,7 @@
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	exports.default = {
-	    props: ['items'],
+	    props: ['items', 'isLocked'],
 
 	    computed: {
 	        totalPrice: function totalPrice() {
@@ -14808,10 +14808,10 @@
 	//                 </td>
 	//                 <td class="collapsing">
 	//                     <div class="ui tiny compact right floated icon buttons">
-	//                         <button class="ui button" @click="editItem(item)">
+	//                         <button class="ui button" :class="{disabled: isLocked}" @click="editItem(item)">
 	//                             <i class="pencil icon"></i>
 	//                         </button>
-	//                         <button class="ui button" @click="deleteItem(item)">
+	//                         <button class="ui button" :class="{disabled: isLocked}" @click="deleteItem(item)">
 	//                             <i class="trash icon"></i>
 	//                         </button>
 	//                     </div>
@@ -27210,7 +27210,7 @@
 /* 114 */
 /***/ function(module, exports) {
 
-	module.exports = "\n<table class=\"ui seven column table\">\n    <thead>\n        <tr>\n            <th>名稱</th>\n            <th>單位</th>\n            <th>數量</th>\n            <th>單價</th>\n            <th>總價</th>\n            <th>費用類別</th>\n            <th></th>\n        </tr>\n    </thead>\n    <tbody>\n        <tr v-for=\"item in items\">\n            <td>{{ item.name }}</td>\n            <td>{{ item.unit.name }}</td>\n            <td>{{ item.amount }}</td>\n            <td>{{ item.unit_price | currency }}</td>\n            <td class=\"collapsing\">{{ item.unit_price * item.amount | currency }}</td>\n            <td>\n                {{ item.cost_type.name }}\n            </td>\n            <td class=\"collapsing\">\n                <div class=\"ui tiny compact right floated icon buttons\">\n                    <button class=\"ui button\" @click=\"editItem(item)\">\n                        <i class=\"pencil icon\"></i>\n                    </button>\n                    <button class=\"ui button\" @click=\"deleteItem(item)\">\n                        <i class=\"trash icon\"></i>\n                    </button>\n                </div>\n            </td>\n        </tr>\n    </tbody>\n    <tfoot>\n        <th></th>\n        <th></th>\n        <th></th>\n        <th></th>\n        <th>{{ totalPrice | currency }}</th>\n        <th></th>\n        <th></th>\n    </tfoot>\n</table>\n";
+	module.exports = "\n<table class=\"ui seven column table\">\n    <thead>\n        <tr>\n            <th>名稱</th>\n            <th>單位</th>\n            <th>數量</th>\n            <th>單價</th>\n            <th>總價</th>\n            <th>費用類別</th>\n            <th></th>\n        </tr>\n    </thead>\n    <tbody>\n        <tr v-for=\"item in items\">\n            <td>{{ item.name }}</td>\n            <td>{{ item.unit.name }}</td>\n            <td>{{ item.amount }}</td>\n            <td>{{ item.unit_price | currency }}</td>\n            <td class=\"collapsing\">{{ item.unit_price * item.amount | currency }}</td>\n            <td>\n                {{ item.cost_type.name }}\n            </td>\n            <td class=\"collapsing\">\n                <div class=\"ui tiny compact right floated icon buttons\">\n                    <button class=\"ui button\" :class=\"{disabled: isLocked}\" @click=\"editItem(item)\">\n                        <i class=\"pencil icon\"></i>\n                    </button>\n                    <button class=\"ui button\" :class=\"{disabled: isLocked}\" @click=\"deleteItem(item)\">\n                        <i class=\"trash icon\"></i>\n                    </button>\n                </div>\n            </td>\n        </tr>\n    </tbody>\n    <tfoot>\n        <th></th>\n        <th></th>\n        <th></th>\n        <th></th>\n        <th>{{ totalPrice | currency }}</th>\n        <th></th>\n        <th></th>\n    </tfoot>\n</table>\n";
 
 /***/ },
 /* 115 */
@@ -27905,12 +27905,13 @@
 	//             <div class="sixteen wide column">
 	//                 <table-workitems
 	//                     :items="items"
+	//                     :is-locked="isLocked"
 	//                 ></table-workitems>
 	//             </div>
 	//         </div>
 	//         <div class="row">
 	//             <div class="sixteen wide column">
-	//                 <workitem-form v-ref:form>
+	//                 <workitem-form v-ref:form v-show="!isLocked">
 	//                     <a href="{{ '/projects/' + projectId + '/bid' + '/works'}}" class="ui primary button">返回</a>
 	//                 </workitem-form>
 	//             </div>
@@ -27944,7 +27945,7 @@
 	exports.default = {
 	    components: { WorkitemForm: _workitemForm2.default, TableWorkitems: _tableWorkitems2.default },
 
-	    props: ['projectId', 'workId'],
+	    props: ['projectId', 'workId', 'isLocked'],
 
 	    computed: {
 	        total: function total() {
@@ -28041,7 +28042,7 @@
 /* 130 */
 /***/ function(module, exports) {
 
-	module.exports = "\n<div class=\"ui grid\">\n    <div class=\"row\">\n        <div class=\"sixteen wide column\">\n            <div class=\"ui raised segment\">\n                <div class=\"ui mini five statistics\">\n                    <div class=\"statistic\">\n                        <div class=\"label\">總價</div>\n                        <div class=\"value\">{{ total | currency }}</div>\n                    </div>\n                    <div class=\"statistic\" v-for=\"(key, typeTotal) in typeTotals\">\n                        <div class=\"label\">{{ costTypes[key] }}</div>\n                        <div class=\"value\">{{ typeTotal | currency }}</div>\n                    </div>\n                </div>\n            </div>\n        </div>\n    </div>\n    <div class=\"row\">\n        <div class=\"sixteen wide column\">\n            <table-workitems\n                :items=\"items\"\n            ></table-workitems>\n        </div>\n    </div>\n    <div class=\"row\">\n        <div class=\"sixteen wide column\">\n            <workitem-form v-ref:form>\n                <a href=\"{{ '/projects/' + projectId + '/bid' + '/works'}}\" class=\"ui primary button\">返回</a>\n            </workitem-form>\n        </div>\n    </div>\n</div>\n";
+	module.exports = "\n<div class=\"ui grid\">\n    <div class=\"row\">\n        <div class=\"sixteen wide column\">\n            <div class=\"ui raised segment\">\n                <div class=\"ui mini five statistics\">\n                    <div class=\"statistic\">\n                        <div class=\"label\">總價</div>\n                        <div class=\"value\">{{ total | currency }}</div>\n                    </div>\n                    <div class=\"statistic\" v-for=\"(key, typeTotal) in typeTotals\">\n                        <div class=\"label\">{{ costTypes[key] }}</div>\n                        <div class=\"value\">{{ typeTotal | currency }}</div>\n                    </div>\n                </div>\n            </div>\n        </div>\n    </div>\n    <div class=\"row\">\n        <div class=\"sixteen wide column\">\n            <table-workitems\n                :items=\"items\"\n                :is-locked=\"isLocked\"\n            ></table-workitems>\n        </div>\n    </div>\n    <div class=\"row\">\n        <div class=\"sixteen wide column\">\n            <workitem-form v-ref:form v-show=\"!isLocked\">\n                <a href=\"{{ '/projects/' + projectId + '/bid' + '/works'}}\" class=\"ui primary button\">返回</a>\n            </workitem-form>\n        </div>\n    </div>\n</div>\n";
 
 /***/ },
 /* 131 */
