@@ -1,5 +1,5 @@
 @inject('projectRepo', 'App\Repos\Contracts\Project')
-@inject('reviewRepo', 'App\Repos\ReviewRepo');
+@inject('reviewRepo', 'App\Repos\ReviewRepo')
 {{-- */
     $isLocked = $reviewRepo->isLocked('project_checklist', $checklist->id);
 /* --}}
