@@ -30,22 +30,22 @@
         methods: {
             createSubmission() {
                 window.$.post(`/api/v1/projects/${this.projectId}/reviews?resource_type=${this.resourceType}&resource_id=${this.resourceId}`).then(() => {
-                    this.updateReviewStatus()
+                    this.refreshPage()
                 })
             },
             acceptSubmission() {
                 window.$.post(`/api/v1/projects/${this.projectId}/review?resource_type=${this.resourceType}&resource_id=${this.resourceId}&accepted=true`, {_method: 'PUT'}).then(() => {
-                    this.updateReviewStatus()
+                    this.refreshPage()
                 })
             },
             rejectSubmission() {
                 window.$.post(`/api/v1/projects/${this.projectId}/review?resource_type=${this.resourceType}&resource_id=${this.resourceId}`, {_method: 'PUT'}).then(() => {
-                    this.updateReviewStatus()
+                    this.refreshPage()
                 })
             },
             cancelSubmission() {
                 window.$.post(`/api/v1/projects/${this.projectId}/review?resource_type=${this.resourceType}&resource_id=${this.resourceId}`, {_method: 'DELETE'}).then(() => {
-                    this.updateReviewStatus()
+                    this.refreshPage()
                 })
             },
             updateReviewStatus() {
@@ -56,6 +56,9 @@
                     this.reject = res.nextSteps.reject
                     this.cancel = res.nextSteps.cancel
                 })
+            },
+            refreshPage() {
+                document.location.reload(true)
             }
         },
         ready() {

@@ -18,7 +18,7 @@
             <tfoot>
                 <tr>
                     <th colspan="5">
-                        <button class="ui right floated primary button" @click="openModal">新增</button>
+                        <button class="ui right floated primary button" :class="{disabled: isLocked}" @click="openModal">新增</button>
                     </th>
                 </tr>
             </tfoot>
@@ -36,7 +36,7 @@
 <script>
     import ModalCreateDailyLabor from './modal-create-daily-labor.vue'
     export default {
-        props: ['projectId', 'date'],
+        props: ['projectId', 'date', 'isLocked'],
         components: { ModalCreateDailyLabor },
         data() {
             return {

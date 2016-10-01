@@ -112,4 +112,11 @@ class ReviewRepo
             'status' => $status
         ]);
     }
+
+    public function isLocked($resourceType, $resourceId)
+    {
+        $latestReview = $this->getLatestReview($resourceType, $resourceId);
+
+        return !is_null($latestReview);
+    }
 }

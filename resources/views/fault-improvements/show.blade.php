@@ -1,4 +1,8 @@
 @inject('projectRepo', 'App\Repos\Contracts\Project')
+@inject('reviewRepo', 'App\Repos\ReviewRepo');
+{{-- */
+    $isLocked = $reviewRepo->isLocked('fault_improvement', $faultImprovement->id);
+/* --}}
 
 {{-- */ $breadcrumbs = [
     trans_choice('all.projects', 2) => route('projects.index'),
@@ -35,6 +39,7 @@
                     serialized-fault-improvement="{{ $faultImprovement }}"
                     step="before"
                     header="{{ trans('all.before_photo') }}"
+                    is-locked="{{ $isLocked }}"
             ></card-fault-improvement-photo>
         </div>
 
@@ -44,6 +49,7 @@
                     serialized-fault-improvement="{{ $faultImprovement }}"
                     step="current"
                     header="{{ trans('all.current_photo') }}"
+                    is-locked="{{ $isLocked }}"
             ></card-fault-improvement-photo>
         </div>
 
@@ -53,12 +59,14 @@
                 serialized-fault-improvement="{{ $faultImprovement }}"
                 step="after"
                 header="{{ trans('all.after_photo') }}"
+                is-locked="{{ $isLocked }}"
             ></card-fault-improvement-photo>
         </div>
         <div class="column">
             <buttons-fault-improvement-result
                 project-id="{{ $project->id }}"
                 serialized-fault-improvement="{{ $faultImprovement }}"
+                is-locked="{{ $isLocked }}"
             ></buttons-fault-improvement-result>
         </div>
         <div class="column">

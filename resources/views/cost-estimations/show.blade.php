@@ -1,4 +1,8 @@
 @inject('projectRepo', 'App\Repos\Contracts\Project')
+@inject('reviewRepo', 'App\Repos\ReviewRepo');
+{{-- */
+    $isLocked = $reviewRepo->isLocked('cost_estimation', $costEstimation->id);
+/* --}}
 
 {{-- */ $breadcrumbs = [
     trans_choice('all.projects', 2) => route('projects.index'),
@@ -20,6 +24,6 @@
         ></review-btns>
     </div>
 
-    <cost-estimation-sheet project-id="{{ $project->id }}" cost-estimation-id="{{ $costEstimation->id }}" date="{{ $date->toDateString() }}"></cost-estimation-sheet>
+    <cost-estimation-sheet project-id="{{ $project->id }}" cost-estimation-id="{{ $costEstimation->id }}" date="{{ $date->toDateString() }}" is-locked="{{ $isLocked }}"></cost-estimation-sheet>
 
 @stop

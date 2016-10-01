@@ -4,24 +4,28 @@
         <table-daily-work
             :project-id="projectId"
             :date="date"
+            :is-locked="isLocked"
         ></table-daily-work>
 
         <h3 class="header">當日材料使用情形</h3>
         <table-daily-material
             :project-id="projectId"
             :date="date"
+            :is-locked="isLocked"
         ></table-daily-material>
 
         <h3 class="header">當日出工人數情形</h3>
         <table-daily-labor
             :project-id="projectId"
             :date="date"
+            :is-locked="isLocked"
         ></table-daily-labor>
 
         <h3 class="header">當日機具使用情形</h3>
         <table-daily-appliance
             :project-id="projectId"
             :date="date"
+            :is-locked="isLocked"
         ></table-daily-appliance>
 
         <table class="ui table">
@@ -40,7 +44,7 @@
             <tfoot>
                 <tr>
                     <th colspan="5">
-                        <button class="ui right floated primary button" @click="openModal">新增</button>
+                        <button class="ui right floated primary button" :class="{disabled: isLocked}" @click="openModal">新增</button>
                     </th>
                 </tr>
             </tfoot>
@@ -71,7 +75,7 @@
     import ModalUpdateConstructionDaily from './modal-update-construction-daily.vue'
 
     export default {
-        props: ['projectId', 'date'],
+        props: ['projectId', 'date', 'isLocked'],
         components: { TableDailyWork, TableDailyMaterial, TableDailyLabor, TableDailyAppliance, ModalUpdateConstructionDaily },
         data() {
             return {
