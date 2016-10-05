@@ -88,7 +88,7 @@ class CostEstimationsController extends Controller
             'unit_price' => 'required',
             'amount' => 'required'
         ]);
-        
+
         $project = Project::findOrFail($projectId);
         $costEstimation = $project->costEstimations()->findOrFail($costEstimationId);
 
@@ -150,6 +150,13 @@ class CostEstimationsController extends Controller
             $q->whereNull('passes');
         }, '=', 0)->whereDate('finished_at', '<=', $previousDate)->get();
 
+        $repo = new \App\Repos\ReviewRepo;
+        $pChecklists = $pChecklists->reject(function ($pChecklist) use ($repo) {
+            $latestReview = $repo->getLatestReview('project_checklist', $pChecklist->id);
+
+            return !$latestReview || $latestReview->status !== 'finished';
+        });
+
         return response()->json([
             'project_checklists' => $pChecklists
         ]);
@@ -166,6 +173,13 @@ class CostEstimationsController extends Controller
         })->whereHas('checkitems', function ($q) {
             $q->whereNull('passes');
         }, '=', 0)->whereDate('finished_at', '<=', $date)->get();
+
+        $repo = new \App\Repos\ReviewRepo;
+        $pChecklists = $pChecklists->reject(function ($pChecklist) use ($repo) {
+            $latestReview = $repo->getLatestReview('project_checklist', $pChecklist->id);
+
+            return !$latestReview || $latestReview->status !== 'finished';
+        });
 
         return response()->json([
             'project_checklists' => $pChecklists
