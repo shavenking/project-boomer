@@ -1,7 +1,11 @@
 @inject('projectRepo', 'App\Repos\Contracts\Project')
 @inject('reviewRepo', 'App\Repos\ReviewRepo')
 {{-- */
-    $isLocked = $reviewRepo->isLocked('fault_improvement', $faultImprovement->id);
+    $constructionDaily = $checklist->projectWork->constructionDailies()->wherePivot('seat', $checklist->seat)->first();
+
+    $isLocked = $reviewRepo->isLocked('fault_improvement', $faultImprovement->id)
+        || $reviewRepo->isLocked('project_checklist', $checklist->id)
+        || ($constructionDaily && $reviewRepo->isLocked('construction_daily', $constructionDaily->id));
 /* --}}
 
 {{-- */ $breadcrumbs = [
