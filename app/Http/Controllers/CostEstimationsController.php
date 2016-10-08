@@ -151,10 +151,10 @@ class CostEstimationsController extends Controller
         }, '=', 0)->whereDate('finished_at', '<=', $previousDate)->get();
 
         $repo = new \App\Repos\ReviewRepo;
-        $pChecklists = $pChecklists->reject(function ($pChecklist) use ($repo) {
+        $pChecklists = $pChecklists->reject(function ($pChecklist) use ($repo, $date) {
             $latestReview = $repo->getLatestReview('project_checklist', $pChecklist->id);
 
-            return !$latestReview || $latestReview->status !== 'finished';
+            return !$latestReview || $latestReview->status !== 'finished' || $latestReview->updated_at->gt($date);
         });
 
         return response()->json([
@@ -175,10 +175,10 @@ class CostEstimationsController extends Controller
         }, '=', 0)->whereDate('finished_at', '<=', $date)->get();
 
         $repo = new \App\Repos\ReviewRepo;
-        $pChecklists = $pChecklists->reject(function ($pChecklist) use ($repo) {
+        $pChecklists = $pChecklists->reject(function ($pChecklist) use ($repo, $date) {
             $latestReview = $repo->getLatestReview('project_checklist', $pChecklist->id);
 
-            return !$latestReview || $latestReview->status !== 'finished';
+            return !$latestReview || $latestReview->status !== 'finished' || $latestReview->updated_at->gt($date);
         });
 
         return response()->json([
