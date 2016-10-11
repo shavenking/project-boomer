@@ -24,6 +24,8 @@
         ></review-btns>
     </div>
 
+    <br>
+
     <construction-daily project-id="{{ $project->id }}" date="{{ $date }}" is-locked="{{ $isLocked }}"></construction-daily>
 
 @stop
