@@ -23,8 +23,8 @@
         </div>
 
         <div class="field">
-            <label>{{ trans('all.select_type_order') }}</label>
-            <flowtype-select></flowtype-select>
+            <label>選擇工程類別</label>
+            <mainflow-type-select></mainflow-type-select>
         </div>
 
 

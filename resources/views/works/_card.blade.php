@@ -8,7 +8,7 @@
         </div>
 
         <div class="meta">
-            <span>{{ $work->detailingflowType->mainflowType->name }} - {{ $work->detailingflowType->name }}</span>
+            <span>{{ $work->detailingflowType->mainflowType->name }}</span>
         </div>
 
     </div>

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Entities\DetailingflowType;
 use Illuminate\Http\Request;
 
 use App\Http\Requests\StandardWork\{
@@ -65,12 +66,17 @@ class WorksController extends Controller
         return view('works.create');
     }
 
-    public function store(StoreWorkRequest $request)
+    public function store(Request $request)
     {
         $user = $request->user();
 
+        // since detailingflow_type_id is going to be removed
+        // temporarily use the first detailingflow_type_id of
+        // specified mainflow_type
+        $detailingflowType = DetailingflowType::where('mainflow_type_id', $request->input('mainflow_type_id'))->firstOrFail();
+
         $work = $user->works()->create(
-            array_merge($request->all(), ['unit_price' => 0])
+            array_merge($request->all(), ['unit_price' => 0, 'detailingflow_type_id' => $detailingflowType->id])
         );
 
         return redirect(route('works.show', $work->id));
@@ -109,9 +115,19 @@ class WorksController extends Controller
         return view('works.edit')->withWork($work);
     }
 
-    public function update($workId, UpdateWorkRequest $request)
+    public function update($workId, Request $request)
     {
         $work = Work::findOrFail($workId);
+
+        // since detailingflow_type_id is going to be removed
+        // temporarily use the first detailingflow_type_id of
+        // specified mainflow_type
+        if ($request->has('mainflow_type_id')) {
+            $detailingflowType = DetailingflowType::where('mainflow_type_id', $request->input('mainflow_type_id'))->firstOrFail();
+
+            $work->detailingflow_type_id = $detailingflowType->id;
+        }
+
         $work->update($request->all());
 
         return redirect(route('works.show', $work->id));

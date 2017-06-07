@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Entities\DetailingflowType;
+use App\Entities\MainflowType;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
@@ -195,5 +197,42 @@ class WorkflowsController extends Controller
         $works = app(\App\Entities\Work::class)->whereWorkflowId($workflow->id)->get();
 
         return view('workflows.works')->withWorkflow($workflow)->withWorks($works);
+    }
+
+    /**
+     * Create Work specific to Workflow
+     *
+     * @param $workflowId
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function createWork($workflowId)
+    {
+        $workflow = Workflow::findOrFail($workflowId);
+
+        return view('workflows.createWork', compact('workflow'));
+    }
+
+    public function storeWork($workflowId, Request $request)
+    {
+        $workflow = Workflow::findOrFail($workflowId);
+
+        // since detailingflow_type_id is going to be removed
+        // temporarily use the first detailingflow_type_id of
+        // specified mainflow_type
+        $detailingflowType = DetailingflowType::where('mainflow_type_id', $request->input('mainflow_type_id'))->firstOrFail();
+
+        $work = $request->user()->works()->create(
+            array_merge($request->all(), ['amount' => 1, 'unit_price' => 0, 'detailingflow_type_id' => $detailingflowType->id, 'workflow_id' => $workflow->id])
+        );
+
+        return redirect()->route('workflows.showWorkItems', [$workflowId, $work->id]);
+    }
+
+    public function showWorkItems($workflowId, $workId)
+    {
+        $workflow = Workflow::findOrFail($workflowId);
+        $work = Work::findOrFail($workId);
+
+        return view('workflows.work-items', compact('workflow', 'work'));
     }
 }

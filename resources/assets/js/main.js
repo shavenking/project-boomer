@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import WorkSelect from './components/work-select.vue'
 import FlowtypeSelect from './components/flowtype-select.vue'
+import MainflowTypeSelect from './components/mainflow-type-select.vue'
 import UnitSelect from './components/unit-select.vue'
 import WorkflowSelect from './components/workflow-select.vue'
 import SubcontractorSelect from './components/subcontractor-select.vue'
@@ -28,6 +29,7 @@ new Vue({
         WorkSelect,
         WorkflowNodes,
         FlowtypeSelect,
+        MainflowTypeSelect,
         UnitSelect,
         WorkflowSelect,
         SubcontractorSelect,

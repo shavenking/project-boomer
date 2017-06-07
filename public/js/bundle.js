@@ -42,7 +42,7 @@
 /************************************************************************/
 /******/ ([
 /* 0 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 
@@ -58,83 +58,87 @@
 
 	var _flowtypeSelect2 = _interopRequireDefault(_flowtypeSelect);
 
-	var _unitSelect = __webpack_require__(12);
+	var _mainflowTypeSelect = __webpack_require__(12);
+
+	var _mainflowTypeSelect2 = _interopRequireDefault(_mainflowTypeSelect);
+
+	var _unitSelect = __webpack_require__(15);
 
 	var _unitSelect2 = _interopRequireDefault(_unitSelect);
 
-	var _workflowSelect = __webpack_require__(15);
+	var _workflowSelect = __webpack_require__(18);
 
 	var _workflowSelect2 = _interopRequireDefault(_workflowSelect);
 
-	var _subcontractorSelect = __webpack_require__(18);
+	var _subcontractorSelect = __webpack_require__(21);
 
 	var _subcontractorSelect2 = _interopRequireDefault(_subcontractorSelect);
 
-	var _workflowNodes = __webpack_require__(22);
+	var _workflowNodes = __webpack_require__(25);
 
 	var _workflowNodes2 = _interopRequireDefault(_workflowNodes);
 
-	var _workitemList = __webpack_require__(87);
+	var _workitemList = __webpack_require__(90);
 
 	var _workitemList2 = _interopRequireDefault(_workitemList);
 
-	var _checklist = __webpack_require__(116);
+	var _checklist = __webpack_require__(119);
 
 	var _checklist2 = _interopRequireDefault(_checklist);
 
-	var _flowtypeWorkSelect = __webpack_require__(119);
+	var _flowtypeWorkSelect = __webpack_require__(122);
 
 	var _flowtypeWorkSelect2 = _interopRequireDefault(_flowtypeWorkSelect);
 
-	var _tableProjectWorks = __webpack_require__(122);
+	var _tableProjectWorks = __webpack_require__(125);
 
 	var _tableProjectWorks2 = _interopRequireDefault(_tableProjectWorks);
 
-	var _tableWorkitems = __webpack_require__(110);
+	var _tableWorkitems = __webpack_require__(113);
 
 	var _tableWorkitems2 = _interopRequireDefault(_tableWorkitems);
 
-	var _statisticsWorkitems = __webpack_require__(125);
+	var _statisticsWorkitems = __webpack_require__(128);
 
 	var _statisticsWorkitems2 = _interopRequireDefault(_statisticsWorkitems);
 
-	var _projectWorkitemList = __webpack_require__(128);
+	var _projectWorkitemList = __webpack_require__(131);
 
 	var _projectWorkitemList2 = _interopRequireDefault(_projectWorkitemList);
 
-	var _projectFlowtypeWorkSelect = __webpack_require__(131);
+	var _projectFlowtypeWorkSelect = __webpack_require__(134);
 
 	var _projectFlowtypeWorkSelect2 = _interopRequireDefault(_projectFlowtypeWorkSelect);
 
-	var _constructionDaily = __webpack_require__(135);
+	var _constructionDaily = __webpack_require__(138);
 
 	var _constructionDaily2 = _interopRequireDefault(_constructionDaily);
 
-	var _costEstimationSheet = __webpack_require__(185);
+	var _costEstimationSheet = __webpack_require__(188);
 
 	var _costEstimationSheet2 = _interopRequireDefault(_costEstimationSheet);
 
-	var _formCreateProjectWork = __webpack_require__(191);
+	var _formCreateProjectWork = __webpack_require__(194);
 
 	var _formCreateProjectWork2 = _interopRequireDefault(_formCreateProjectWork);
 
-	var _modalProjectMenu = __webpack_require__(197);
+	var _modalProjectMenu = __webpack_require__(200);
 
 	var _modalProjectMenu2 = _interopRequireDefault(_modalProjectMenu);
 
-	var _cardFaultImprovementPhoto = __webpack_require__(200);
+	var _cardFaultImprovementPhoto = __webpack_require__(203);
 
 	var _cardFaultImprovementPhoto2 = _interopRequireDefault(_cardFaultImprovementPhoto);
 
-	var _buttonsFaultImprovementResult = __webpack_require__(208);
+	var _buttonsFaultImprovementResult = __webpack_require__(211);
 
 	var _buttonsFaultImprovementResult2 = _interopRequireDefault(_buttonsFaultImprovementResult);
 
-	var _inputDate = __webpack_require__(211);
+	var _inputDate = __webpack_require__(214);
 
 	var _inputDate2 = _interopRequireDefault(_inputDate);
 
-	var _reviewBtns = __webpack_require__(214);
+	var _reviewBtns = __webpack_require__(217);
 
 	var _reviewBtns2 = _interopRequireDefault(_reviewBtns);
 
@@ -146,6 +150,7 @@
 	        WorkSelect: _workSelect2.default,
 	        WorkflowNodes: _workflowNodes2.default,
 	        FlowtypeSelect: _flowtypeSelect2.default,
+	        MainflowTypeSelect: _mainflowTypeSelect2.default,
 	        UnitSelect: _unitSelect2.default,
 	        WorkflowSelect: _workflowSelect2.default,
 	        SubcontractorSelect: _subcontractorSelect2.default,
@@ -168,12 +173,12 @@
 	    }
 	});
 
-/***/ },
+/***/ }),
 /* 1 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
-	/* WEBPACK VAR INJECTION */(function(global, process) {/*!
-	 * Vue.js v1.0.21
+	/* WEBPACK VAR INJECTION */(function(process) {/*!
+	 * Vue.js v1.0.28
 	 * (c) 2016 Evan You
 	 * Released under the MIT License.
 	 */
@@ -220,6 +225,10 @@
 	  delete obj[key];
 	  var ob = obj.__ob__;
 	  if (!ob) {
+	    if (obj._isVue) {
+	      delete obj._data[key];
+	      obj._digest();
+	    }
 	    return;
 	  }
 	  ob.dep.notify();
@@ -325,7 +334,7 @@
 	}
 
 	/**
-	 * Camelize a hyphen-delmited string.
+	 * Camelize a hyphen-delimited string.
 	 *
 	 * @param {String} str
 	 * @return {String}
@@ -348,10 +357,10 @@
 	 * @return {String}
 	 */
 
-	var hyphenateRE = /([a-z\d])([A-Z])/g;
+	var hyphenateRE = /([^-])([A-Z])/g;
 
 	function hyphenate(str) {
-	  return str.replace(hyphenateRE, '$1-$2').toLowerCase();
+	  return str.replace(hyphenateRE, '$1-$2').replace(hyphenateRE, '$1-$2').toLowerCase();
 	}
 
 	/**
@@ -568,8 +577,10 @@
 
 	// UA sniffing for working around browser-specific quirks
 	var UA = inBrowser && window.navigator.userAgent.toLowerCase();
+	var isIE = UA && UA.indexOf('trident') > 0;
 	var isIE9 = UA && UA.indexOf('msie 9.0') > 0;
 	var isAndroid = UA && UA.indexOf('android') > 0;
+	var isIOS = UA && /iphone|ipad|ipod|ios/.test(UA);
 
 	var transitionProp = undefined;
 	var transitionEndEvent = undefined;
@@ -586,6 +597,12 @@
 	  animationEndEvent = isWebkitAnim ? 'webkitAnimationEnd' : 'animationend';
 	}
 
+	/* istanbul ignore next */
+	function isNative(Ctor) {
+	  return (/native code/.test(Ctor.toString())
+	  );
+	}
+
 	/**
 	 * Defer a task to execute it asynchronously. Ideally this
 	 * should be executed as a microtask, so we leverage
@@ -599,35 +616,55 @@
 	var nextTick = (function () {
 	  var callbacks = [];
 	  var pending = false;
-	  var timerFunc;
+	  var timerFunc = undefined;
+
 	  function nextTickHandler() {
 	    pending = false;
 	    var copies = callbacks.slice(0);
-	    callbacks = [];
+	    callbacks.length = 0;
 	    for (var i = 0; i < copies.length; i++) {
 	      copies[i]();
 	    }
 	  }
 
+	  // the nextTick behavior leverages the microtask queue, which can be accessed
+	  // via either native Promise.then or MutationObserver.
+	  // MutationObserver has wider support, however it is seriously bugged in
+	  // UIWebView in iOS >= 9.3.3 when triggered in touch event handlers. It
+	  // completely stops working after triggering a few times... so, if native
+	  // Promise is available, we will use it:
 	  /* istanbul ignore if */
-	  if (typeof MutationObserver !== 'undefined') {
+	  if (typeof Promise !== 'undefined' && isNative(Promise)) {
+	    var p = Promise.resolve();
+	    var noop = function noop() {};
+	    timerFunc = function () {
+	      p.then(nextTickHandler);
+	      // in problematic UIWebViews, Promise.then doesn't completely break, but
+	      // it can get stuck in a weird state where callbacks are pushed into the
+	      // microtask queue but the queue isn't being flushed, until the browser
+	      // needs to do some other work, e.g. handle a timer. Therefore we can
+	      // "force" the microtask queue to be flushed by adding an empty timer.
+	      if (isIOS) setTimeout(noop);
+	    };
+	  } else if (typeof MutationObserver !== 'undefined') {
+	    // use MutationObserver where native Promise is not available,
+	    // e.g. IE11, iOS7, Android 4.4
 	    var counter = 1;
 	    var observer = new MutationObserver(nextTickHandler);
-	    var textNode = document.createTextNode(counter);
+	    var textNode = document.createTextNode(String(counter));
 	    observer.observe(textNode, {
 	      characterData: true
 	    });
 	    timerFunc = function () {
 	      counter = (counter + 1) % 2;
-	      textNode.data = counter;
+	      textNode.data = String(counter);
 	    };
 	  } else {
-	    // webpack attempts to inject a shim for setImmediate
-	    // if it is used as a global, so we have to work around that to
-	    // avoid bundling unnecessary code.
-	    var context = inBrowser ? window : typeof global !== 'undefined' ? global : {};
-	    timerFunc = context.setImmediate || setTimeout;
+	    // fallback to setTimeout
+	    /* istanbul ignore next */
+	    timerFunc = setTimeout;
 	  }
+
 	  return function (cb, ctx) {
 	    var func = ctx ? function () {
 	      cb.call(ctx);
@@ -638,6 +675,27 @@
 	    timerFunc(nextTickHandler, 0);
 	  };
 	})();
+
+	var _Set = undefined;
+	/* istanbul ignore if */
+	if (typeof Set !== 'undefined' && isNative(Set)) {
+	  // use native Set when available.
+	  _Set = Set;
+	} else {
+	  // a non-standard Set polyfill that only works with primitive keys.
+	  _Set = function () {
+	    this.set = Object.create(null);
+	  };
+	  _Set.prototype.has = function (key) {
+	    return this.set[key] !== undefined;
+	  };
+	  _Set.prototype.add = function (key) {
+	    this.set[key] = 1;
+	  };
+	  _Set.prototype.clear = function () {
+	    this.set = Object.create(null);
+	  };
+	}
 
 	function Cache(limit) {
 	  this.size = 0;
@@ -661,12 +719,12 @@
 
 	p.put = function (key, value) {
 	  var removed;
-	  if (this.size === this.limit) {
-	    removed = this.shift();
-	  }
 
 	  var entry = this.get(key, true);
 	  if (!entry) {
+	    if (this.size === this.limit) {
+	      removed = this.shift();
+	    }
 	    entry = {
 	      key: key
 	    };
@@ -741,7 +799,6 @@
 	};
 
 	var cache$1 = new Cache(1000);
-	var filterTokenRE = /[^\s'"]+|'[^']*'|"[^"]*"/g;
 	var reservedArgRE = /^in$|^-?\d+/;
 
 	/**
@@ -750,35 +807,167 @@
 
 	var str;
 	var dir;
-	var c;
-	var prev;
-	var i;
-	var l;
-	var lastFilterIndex;
-	var inSingle;
-	var inDouble;
-	var curly;
-	var square;
-	var paren;
-	/**
-	 * Push a filter to the current directive object
-	 */
+	var len;
+	var index;
+	var chr;
+	var state;
+	var startState = 0;
+	var filterState = 1;
+	var filterNameState = 2;
+	var filterArgState = 3;
 
-	function pushFilter() {
-	  var exp = str.slice(lastFilterIndex, i).trim();
-	  var filter;
-	  if (exp) {
-	    filter = {};
-	    var tokens = exp.match(filterTokenRE);
-	    filter.name = tokens[0];
-	    if (tokens.length > 1) {
-	      filter.args = tokens.slice(1).map(processFilterArg);
+	var doubleChr = 0x22;
+	var singleChr = 0x27;
+	var pipeChr = 0x7C;
+	var escapeChr = 0x5C;
+	var spaceChr = 0x20;
+
+	var expStartChr = { 0x5B: 1, 0x7B: 1, 0x28: 1 };
+	var expChrPair = { 0x5B: 0x5D, 0x7B: 0x7D, 0x28: 0x29 };
+
+	function peek() {
+	  return str.charCodeAt(index + 1);
+	}
+
+	function next() {
+	  return str.charCodeAt(++index);
+	}
+
+	function eof() {
+	  return index >= len;
+	}
+
+	function eatSpace() {
+	  while (peek() === spaceChr) {
+	    next();
+	  }
+	}
+
+	function isStringStart(chr) {
+	  return chr === doubleChr || chr === singleChr;
+	}
+
+	function isExpStart(chr) {
+	  return expStartChr[chr];
+	}
+
+	function isExpEnd(start, chr) {
+	  return expChrPair[start] === chr;
+	}
+
+	function parseString() {
+	  var stringQuote = next();
+	  var chr;
+	  while (!eof()) {
+	    chr = next();
+	    // escape char
+	    if (chr === escapeChr) {
+	      next();
+	    } else if (chr === stringQuote) {
+	      break;
 	    }
 	  }
-	  if (filter) {
-	    (dir.filters = dir.filters || []).push(filter);
+	}
+
+	function parseSpecialExp(chr) {
+	  var inExp = 0;
+	  var startChr = chr;
+
+	  while (!eof()) {
+	    chr = peek();
+	    if (isStringStart(chr)) {
+	      parseString();
+	      continue;
+	    }
+
+	    if (startChr === chr) {
+	      inExp++;
+	    }
+	    if (isExpEnd(startChr, chr)) {
+	      inExp--;
+	    }
+
+	    next();
+
+	    if (inExp === 0) {
+	      break;
+	    }
 	  }
-	  lastFilterIndex = i + 1;
+	}
+
+	/**
+	 * syntax:
+	 * expression | filterName  [arg  arg [| filterName arg arg]]
+	 */
+
+	function parseExpression() {
+	  var start = index;
+	  while (!eof()) {
+	    chr = peek();
+	    if (isStringStart(chr)) {
+	      parseString();
+	    } else if (isExpStart(chr)) {
+	      parseSpecialExp(chr);
+	    } else if (chr === pipeChr) {
+	      next();
+	      chr = peek();
+	      if (chr === pipeChr) {
+	        next();
+	      } else {
+	        if (state === startState || state === filterArgState) {
+	          state = filterState;
+	        }
+	        break;
+	      }
+	    } else if (chr === spaceChr && (state === filterNameState || state === filterArgState)) {
+	      eatSpace();
+	      break;
+	    } else {
+	      if (state === filterState) {
+	        state = filterNameState;
+	      }
+	      next();
+	    }
+	  }
+
+	  return str.slice(start + 1, index) || null;
+	}
+
+	function parseFilterList() {
+	  var filters = [];
+	  while (!eof()) {
+	    filters.push(parseFilter());
+	  }
+	  return filters;
+	}
+
+	function parseFilter() {
+	  var filter = {};
+	  var args;
+
+	  state = filterState;
+	  filter.name = parseExpression().trim();
+
+	  state = filterArgState;
+	  args = parseFilterArguments();
+
+	  if (args.length) {
+	    filter.args = args;
+	  }
+	  return filter;
+	}
+
+	function parseFilterArguments() {
+	  var args = [];
+	  while (!eof() && state !== filterState) {
+	    var arg = parseExpression();
+	    if (!arg) {
+	      break;
+	    }
+	    args.push(processFilterArg(arg));
+	  }
+
+	  return args;
 	}
 
 	/**
@@ -830,56 +1019,22 @@
 
 	  // reset parser state
 	  str = s;
-	  inSingle = inDouble = false;
-	  curly = square = paren = 0;
-	  lastFilterIndex = 0;
 	  dir = {};
+	  len = str.length;
+	  index = -1;
+	  chr = '';
+	  state = startState;
 
-	  for (i = 0, l = str.length; i < l; i++) {
-	    prev = c;
-	    c = str.charCodeAt(i);
-	    if (inSingle) {
-	      // check single quote
-	      if (c === 0x27 && prev !== 0x5C) inSingle = !inSingle;
-	    } else if (inDouble) {
-	      // check double quote
-	      if (c === 0x22 && prev !== 0x5C) inDouble = !inDouble;
-	    } else if (c === 0x7C && // pipe
-	    str.charCodeAt(i + 1) !== 0x7C && str.charCodeAt(i - 1) !== 0x7C) {
-	      if (dir.expression == null) {
-	        // first filter, end of expression
-	        lastFilterIndex = i + 1;
-	        dir.expression = str.slice(0, i).trim();
-	      } else {
-	        // already has filter
-	        pushFilter();
-	      }
-	    } else {
-	      switch (c) {
-	        case 0x22:
-	          inDouble = true;break; // "
-	        case 0x27:
-	          inSingle = true;break; // '
-	        case 0x28:
-	          paren++;break; // (
-	        case 0x29:
-	          paren--;break; // )
-	        case 0x5B:
-	          square++;break; // [
-	        case 0x5D:
-	          square--;break; // ]
-	        case 0x7B:
-	          curly++;break; // {
-	        case 0x7D:
-	          curly--;break; // }
-	      }
+	  var filters;
+
+	  if (str.indexOf('|') < 0) {
+	    dir.expression = str.trim();
+	  } else {
+	    dir.expression = parseExpression().trim();
+	    filters = parseFilterList();
+	    if (filters.length) {
+	      dir.filters = filters;
 	    }
-	  }
-
-	  if (dir.expression == null) {
-	    dir.expression = str.slice(0, i).trim();
-	  } else if (lastFilterIndex !== 0) {
-	    pushFilter();
 	  }
 
 	  cache$1.put(s, dir);
@@ -911,7 +1066,7 @@
 	  var unsafeOpen = escapeRegex(config.unsafeDelimiters[0]);
 	  var unsafeClose = escapeRegex(config.unsafeDelimiters[1]);
 	  tagRE = new RegExp(unsafeOpen + '((?:.|\\n)+?)' + unsafeClose + '|' + open + '((?:.|\\n)+?)' + close, 'g');
-	  htmlRE = new RegExp('^' + unsafeOpen + '.*' + unsafeClose + '$');
+	  htmlRE = new RegExp('^' + unsafeOpen + '((?:.|\\n)+?)' + unsafeClose + '$');
 	  // reset cache
 	  cache = new Cache(1000);
 	}
@@ -1283,8 +1438,9 @@
 	 */
 
 	function inDoc(node) {
-	  var doc = document.documentElement;
-	  var parent = node && node.parentNode;
+	  if (!node) return false;
+	  var doc = node.ownerDocument.documentElement;
+	  var parent = node.parentNode;
 	  return doc === node || doc === parent || !!(parent && parent.nodeType === 1 && doc.contains(parent));
 	}
 
@@ -1697,7 +1853,8 @@
 	      return (/HTMLUnknownElement/.test(el.toString()) &&
 	        // Chrome returns unknown for several HTML5 elements.
 	        // https://code.google.com/p/chromium/issues/detail?id=540526
-	        !/^(data|time|rtc|rb)$/.test(tag)
+	        // Firefox returns unknown for some "Interactive elements."
+	        !/^(data|time|rtc|rb|details|dialog|summary)$/.test(tag)
 	      );
 	    }
 	  };
@@ -1719,7 +1876,7 @@
 	    if (resolveAsset(options, 'components', tag)) {
 	      return { id: tag };
 	    } else {
-	      var is = hasAttrs && getIsBinding(el);
+	      var is = hasAttrs && getIsBinding(el, options);
 	      if (is) {
 	        return is;
 	      } else if (process.env.NODE_ENV !== 'production') {
@@ -1732,7 +1889,7 @@
 	      }
 	    }
 	  } else if (hasAttrs) {
-	    return getIsBinding(el);
+	    return getIsBinding(el, options);
 	  }
 	}
 
@@ -1740,14 +1897,18 @@
 	 * Get "is" binding from an element.
 	 *
 	 * @param {Element} el
+	 * @param {Object} options
 	 * @return {Object|undefined}
 	 */
 
-	function getIsBinding(el) {
+	function getIsBinding(el, options) {
 	  // dynamic syntax
-	  var exp = getAttr(el, 'is');
+	  var exp = el.getAttribute('is');
 	  if (exp != null) {
-	    return { id: exp };
+	    if (resolveAsset(options, 'components', exp)) {
+	      el.removeAttribute('is');
+	      return { id: exp };
+	    }
 	  } else {
 	    exp = getBindAttr(el, 'is');
 	    if (exp != null) {
@@ -1858,7 +2019,7 @@
 	 */
 
 	function mergeAssets(parentVal, childVal) {
-	  var res = Object.create(parentVal);
+	  var res = Object.create(parentVal || null);
 	  return childVal ? extend(res, guardArrayAssets(childVal)) : res;
 	}
 
@@ -2017,11 +2178,21 @@
 	function mergeOptions(parent, child, vm) {
 	  guardComponents(child);
 	  guardProps(child);
+	  if (process.env.NODE_ENV !== 'production') {
+	    if (child.propsData && !vm) {
+	      warn('propsData can only be used as an instantiation option.');
+	    }
+	  }
 	  var options = {};
 	  var key;
+	  if (child['extends']) {
+	    parent = typeof child['extends'] === 'function' ? mergeOptions(parent, child['extends'].options, vm) : mergeOptions(parent, child['extends'], vm);
+	  }
 	  if (child.mixins) {
 	    for (var i = 0, l = child.mixins.length; i < l; i++) {
-	      parent = mergeOptions(parent, child.mixins[i], vm);
+	      var mixin = child.mixins[i];
+	      var mixinOptions = mixin.prototype instanceof Vue ? mixin.options : mixin;
+	      parent = mergeOptions(parent, mixinOptions, vm);
 	    }
 	  }
 	  for (key in parent) {
@@ -2449,13 +2620,16 @@
 		hasProto: hasProto,
 		inBrowser: inBrowser,
 		devtools: devtools,
+		isIE: isIE,
 		isIE9: isIE9,
 		isAndroid: isAndroid,
+		isIOS: isIOS,
 		get transitionProp () { return transitionProp; },
 		get transitionEndEvent () { return transitionEndEvent; },
 		get animationProp () { return animationProp; },
 		get animationEndEvent () { return animationEndEvent; },
 		nextTick: nextTick,
+		get _Set () { return _Set; },
 		query: query,
 		inDoc: inDoc,
 		getAttr: getAttr,
@@ -2549,7 +2723,7 @@
 
 	    // fragment:
 	    // if this instance is compiled inside a Fragment, it
-	    // needs to reigster itself as a child of that fragment
+	    // needs to register itself as a child of that fragment
 	    // for attach/detach to work properly.
 	    this._frag = options._frag;
 	    if (this._frag) {
@@ -2568,13 +2742,8 @@
 	    this._updateRef();
 
 	    // initialize data as empty object.
-	    // it will be filled up in _initScope().
+	    // it will be filled up in _initData().
 	    this._data = {};
-
-	    // save raw constructor data before merge
-	    // so that we know which properties are provided at
-	    // instantiation.
-	    this._runtimeData = options.data;
 
 	    // call init hook
 	    this._callHook('init');
@@ -2859,7 +3028,7 @@
 	 */
 
 	function getPath(obj, path) {
-	  return parseExpression(path).get(obj);
+	  return parseExpression$1(path).get(obj);
 	}
 
 	/**
@@ -2894,7 +3063,7 @@
 	    last = obj;
 	    key = path[i];
 	    if (key.charAt(0) === '*') {
-	      key = parseExpression(key.slice(1)).get.call(original, original);
+	      key = parseExpression$1(key.slice(1)).get.call(original, original);
 	    }
 	    if (i < l - 1) {
 	      obj = obj[key];
@@ -2938,11 +3107,13 @@
 
 	var wsRE = /\s/g;
 	var newlineRE = /\n/g;
-	var saveRE = /[\{,]\s*[\w\$_]+\s*:|('(?:[^'\\]|\\.)*'|"(?:[^"\\]|\\.)*"|`(?:[^`\\]|\\.)*\$\{|\}(?:[^`\\]|\\.)*`|`(?:[^`\\]|\\.)*`)|new |typeof |void /g;
+	var saveRE = /[\{,]\s*[\w\$_]+\s*:|('(?:[^'\\]|\\.)*'|"(?:[^"\\]|\\.)*"|`(?:[^`\\]|\\.)*\$\{|\}(?:[^`\\"']|\\.)*`|`(?:[^`\\]|\\.)*`)|new |typeof |void /g;
 	var restoreRE = /"(\d+)"/g;
 	var pathTestRE = /^[A-Za-z_$][\w$]*(?:\.[A-Za-z_$][\w$]*|\['.*?'\]|\[".*?"\]|\[\d+\]|\[[A-Za-z_$][\w$]*\])*$/;
 	var identRE = /[^\w$\.](?:[A-Za-z_$][\w$]*)/g;
-	var booleanLiteralRE = /^(?:true|false)$/;
+	var literalValueRE$1 = /^(?:true|false|null|undefined|Infinity|NaN)$/;
+
+	function noop() {}
 
 	/**
 	 * Save / Rewrite / Restore
@@ -3024,7 +3195,7 @@
 	  // save strings and object literal keys
 	  var body = exp.replace(saveRE, save).replace(wsRE, '');
 	  // rewrite all paths
-	  // pad 1 space here becaue the regex matches 1 extra char
+	  // pad 1 space here because the regex matches 1 extra char
 	  body = (' ' + body).replace(identRE, rewrite).replace(restoreRE, restore);
 	  return makeGetterFn(body);
 	}
@@ -3045,7 +3216,15 @@
 	    return new Function('scope', 'return ' + body + ';');
 	    /* eslint-enable no-new-func */
 	  } catch (e) {
-	    process.env.NODE_ENV !== 'production' && warn('Invalid expression. ' + 'Generated function body: ' + body);
+	    if (process.env.NODE_ENV !== 'production') {
+	      /* istanbul ignore if */
+	      if (e.toString().match(/unsafe-eval|CSP/)) {
+	        warn('It seems you are using the default build of Vue.js in an environment ' + 'with Content Security Policy that prohibits unsafe-eval. ' + 'Use the CSP-compliant build instead: ' + 'http://vuejs.org/guide/installation.html#CSP-compliant-build');
+	      } else {
+	        warn('Invalid expression. ' + 'Generated function body: ' + body);
+	      }
+	    }
+	    return noop;
 	  }
 	}
 
@@ -3075,7 +3254,7 @@
 	 * @return {Function}
 	 */
 
-	function parseExpression(exp, needSet) {
+	function parseExpression$1(exp, needSet) {
 	  exp = exp.trim();
 	  // try cache
 	  var hit = expressionCache.get(exp);
@@ -3107,14 +3286,14 @@
 
 	function isSimplePath(exp) {
 	  return pathTestRE.test(exp) &&
-	  // don't treat true/false as paths
-	  !booleanLiteralRE.test(exp) &&
+	  // don't treat literal values as paths
+	  !literalValueRE$1.test(exp) &&
 	  // Math constants e.g. Math.PI, Math.E etc.
 	  exp.slice(0, 5) !== 'Math.';
 	}
 
 	var expression = Object.freeze({
-	  parseExpression: parseExpression,
+	  parseExpression: parseExpression$1,
 	  isSimplePath: isSimplePath
 	});
 
@@ -3125,24 +3304,22 @@
 	// triggered, the DOM would have already been in updated
 	// state.
 
-	var queueIndex;
 	var queue = [];
 	var userQueue = [];
 	var has = {};
 	var circular = {};
 	var waiting = false;
-	var internalQueueDepleted = false;
 
 	/**
 	 * Reset the batcher's state.
 	 */
 
 	function resetBatcherState() {
-	  queue = [];
-	  userQueue = [];
+	  queue.length = 0;
+	  userQueue.length = 0;
 	  has = {};
 	  circular = {};
-	  waiting = internalQueueDepleted = false;
+	  waiting = false;
 	}
 
 	/**
@@ -3150,15 +3327,26 @@
 	 */
 
 	function flushBatcherQueue() {
-	  runBatcherQueue(queue);
-	  internalQueueDepleted = true;
-	  runBatcherQueue(userQueue);
-	  // dev tool hook
-	  /* istanbul ignore if */
-	  if (devtools && config.devtools) {
-	    devtools.emit('flush');
+	  var _again = true;
+
+	  _function: while (_again) {
+	    _again = false;
+
+	    runBatcherQueue(queue);
+	    runBatcherQueue(userQueue);
+	    // user watchers triggered more watchers,
+	    // keep flushing until it depletes
+	    if (queue.length) {
+	      _again = true;
+	      continue _function;
+	    }
+	    // dev tool hook
+	    /* istanbul ignore if */
+	    if (devtools && config.devtools) {
+	      devtools.emit('flush');
+	    }
+	    resetBatcherState();
 	  }
-	  resetBatcherState();
 	}
 
 	/**
@@ -3170,8 +3358,8 @@
 	function runBatcherQueue(queue) {
 	  // do not cache length because more watchers might be pushed
 	  // as we run existing watchers
-	  for (queueIndex = 0; queueIndex < queue.length; queueIndex++) {
-	    var watcher = queue[queueIndex];
+	  for (var i = 0; i < queue.length; i++) {
+	    var watcher = queue[i];
 	    var id = watcher.id;
 	    has[id] = null;
 	    watcher.run();
@@ -3184,6 +3372,7 @@
 	      }
 	    }
 	  }
+	  queue.length = 0;
 	}
 
 	/**
@@ -3200,20 +3389,14 @@
 	function pushWatcher(watcher) {
 	  var id = watcher.id;
 	  if (has[id] == null) {
-	    if (internalQueueDepleted && !watcher.user) {
-	      // an internal watcher triggered by a user watcher...
-	      // let's run it immediately after current user watcher is done.
-	      userQueue.splice(queueIndex + 1, 0, watcher);
-	    } else {
-	      // push watcher into appropriate queue
-	      var q = watcher.user ? userQueue : queue;
-	      has[id] = q.length;
-	      q.push(watcher);
-	      // queue the flush
-	      if (!waiting) {
-	        waiting = true;
-	        nextTick(flushBatcherQueue);
-	      }
+	    // push watcher into appropriate queue
+	    var q = watcher.user ? userQueue : queue;
+	    has[id] = q.length;
+	    q.push(watcher);
+	    // queue the flush
+	    if (!waiting) {
+	      waiting = true;
+	      nextTick(flushBatcherQueue);
 	    }
 	  }
 	}
@@ -3254,15 +3437,15 @@
 	  this.dirty = this.lazy; // for lazy watchers
 	  this.deps = [];
 	  this.newDeps = [];
-	  this.depIds = Object.create(null);
-	  this.newDepIds = null;
+	  this.depIds = new _Set();
+	  this.newDepIds = new _Set();
 	  this.prevError = null; // for async error stacks
 	  // parse expression for getter/setter
 	  if (isFn) {
 	    this.getter = expOrFn;
 	    this.setter = undefined;
 	  } else {
-	    var res = parseExpression(expOrFn, this.twoWay);
+	    var res = parseExpression$1(expOrFn, this.twoWay);
 	    this.getter = res.get;
 	    this.setter = res.set;
 	  }
@@ -3347,8 +3530,6 @@
 
 	Watcher.prototype.beforeGet = function () {
 	  Dep.target = this;
-	  this.newDepIds = Object.create(null);
-	  this.newDeps.length = 0;
 	};
 
 	/**
@@ -3359,10 +3540,10 @@
 
 	Watcher.prototype.addDep = function (dep) {
 	  var id = dep.id;
-	  if (!this.newDepIds[id]) {
-	    this.newDepIds[id] = true;
+	  if (!this.newDepIds.has(id)) {
+	    this.newDepIds.add(id);
 	    this.newDeps.push(dep);
-	    if (!this.depIds[id]) {
+	    if (!this.depIds.has(id)) {
 	      dep.addSub(this);
 	    }
 	  }
@@ -3377,14 +3558,18 @@
 	  var i = this.deps.length;
 	  while (i--) {
 	    var dep = this.deps[i];
-	    if (!this.newDepIds[dep.id]) {
+	    if (!this.newDepIds.has(dep.id)) {
 	      dep.removeSub(this);
 	    }
 	  }
+	  var tmp = this.depIds;
 	  this.depIds = this.newDepIds;
-	  var tmp = this.deps;
+	  this.newDepIds = tmp;
+	  this.newDepIds.clear();
+	  tmp = this.deps;
 	  this.deps = this.newDeps;
 	  this.newDeps = tmp;
+	  this.newDeps.length = 0;
 	};
 
 	/**
@@ -3508,15 +3693,33 @@
 	 * @param {*} val
 	 */
 
-	function traverse(val) {
-	  var i, keys;
-	  if (isArray(val)) {
-	    i = val.length;
-	    while (i--) traverse(val[i]);
-	  } else if (isObject(val)) {
-	    keys = Object.keys(val);
-	    i = keys.length;
-	    while (i--) traverse(val[keys[i]]);
+	var seenObjects = new _Set();
+	function traverse(val, seen) {
+	  var i = undefined,
+	      keys = undefined;
+	  if (!seen) {
+	    seen = seenObjects;
+	    seen.clear();
+	  }
+	  var isA = isArray(val);
+	  var isO = isObject(val);
+	  if ((isA || isO) && Object.isExtensible(val)) {
+	    if (val.__ob__) {
+	      var depId = val.__ob__.dep.id;
+	      if (seen.has(depId)) {
+	        return;
+	      } else {
+	        seen.add(depId);
+	      }
+	    }
+	    if (isA) {
+	      i = val.length;
+	      while (i--) traverse(val[i], seen);
+	    } else if (isO) {
+	      keys = Object.keys(val);
+	      i = keys.length;
+	      while (i--) traverse(val[keys[i]], seen);
+	    }
 	  }
 	}
 
@@ -3563,6 +3766,7 @@
 
 	var tagRE$1 = /<([\w:-]+)/;
 	var entityRE = /&#?\w+?;/;
+	var commentRE = /<!--/;
 
 	/**
 	 * Convert a string template to a DocumentFragment.
@@ -3585,8 +3789,9 @@
 	  var frag = document.createDocumentFragment();
 	  var tagMatch = templateString.match(tagRE$1);
 	  var entityMatch = entityRE.test(templateString);
+	  var commentMatch = commentRE.test(templateString);
 
-	  if (!tagMatch && !entityMatch) {
+	  if (!tagMatch && !entityMatch && !commentMatch) {
 	    // text only, return a single text node.
 	    frag.appendChild(document.createTextNode(templateString));
 	  } else {
@@ -3625,10 +3830,13 @@
 
 	function nodeToFragment(node) {
 	  // if its a template tag and the browser supports it,
-	  // its content is already a document fragment.
+	  // its content is already a document fragment. However, iOS Safari has
+	  // bug when using directly cloned template content with touch
+	  // events and can cause crashes when the nodes are removed from DOM, so we
+	  // have to treat template elements as string templates. (#2805)
+	  /* istanbul ignore if */
 	  if (isRealTemplate(node)) {
-	    trimNode(node.content);
-	    return node.content;
+	    return stringToFragment(node.innerHTML);
 	  }
 	  // script template
 	  if (node.tagName === 'SCRIPT') {
@@ -4024,7 +4232,7 @@
 	  this.vm = vm;
 	  var template;
 	  var isString = typeof el === 'string';
-	  if (isString || isTemplate(el)) {
+	  if (isString || isTemplate(el) && !el.hasAttribute('v-if')) {
 	    template = parseTemplate(el, true);
 	  } else {
 	    template = document.createDocumentFragment();
@@ -4081,6 +4289,10 @@
 	  params: ['track-by', 'stagger', 'enter-stagger', 'leave-stagger'],
 
 	  bind: function bind() {
+	    if (process.env.NODE_ENV !== 'production' && this.el.hasAttribute('v-if')) {
+	      warn('<' + this.el.tagName.toLowerCase() + ' v-for="' + this.expression + '" v-if="' + this.el.getAttribute('v-if') + '">: ' + 'Using v-if and v-for on the same element is not recommended - ' + 'consider filtering the source Array instead.', this.vm);
+	    }
+
 	    // support "item in/of items" syntax
 	    var inMatch = this.expression.match(/(.*) (?:in|of) (.*)/);
 	    if (inMatch) {
@@ -4191,7 +4403,7 @@
 	          });
 	        }
 	      } else {
-	        // new isntance
+	        // new instance
 	        frag = this.create(value, alias, i, key);
 	        frag.fresh = !init;
 	      }
@@ -4366,7 +4578,15 @@
 	      });
 	      setTimeout(op, staggerAmount);
 	    } else {
-	      frag.before(prevEl.nextSibling);
+	      var target = prevEl.nextSibling;
+	      /* istanbul ignore if */
+	      if (!target) {
+	        // reset end anchor position in case the position was messed up
+	        // by an external drag-n-drop library.
+	        after(this.end, prevEl);
+	        target = this.end;
+	      }
+	      frag.before(target);
 	    }
 	  },
 
@@ -4437,7 +4657,7 @@
 	    var primitive = !isObject(value);
 	    var id;
 	    if (key || trackByKey || primitive) {
-	      id = trackByKey ? trackByKey === '$index' ? index : getPath(value, trackByKey) : key || value;
+	      id = getTrackByKey(index, key, value, trackByKey);
 	      if (!cache[id]) {
 	        cache[id] = frag;
 	      } else if (trackByKey !== '$index') {
@@ -4451,8 +4671,10 @@
 	        } else {
 	          process.env.NODE_ENV !== 'production' && this.warnDuplicate(value);
 	        }
-	      } else {
+	      } else if (Object.isExtensible(value)) {
 	        def(value, id, frag);
+	      } else if (process.env.NODE_ENV !== 'production') {
+	        warn('Frozen v-for objects cannot be automatically tracked, make sure to ' + 'provide a track-by key.');
 	      }
 	    }
 	    frag.raw = value;
@@ -4472,7 +4694,7 @@
 	    var primitive = !isObject(value);
 	    var frag;
 	    if (key || trackByKey || primitive) {
-	      var id = trackByKey ? trackByKey === '$index' ? index : getPath(value, trackByKey) : key || value;
+	      var id = getTrackByKey(index, key, value, trackByKey);
 	      frag = this.cache[id];
 	    } else {
 	      frag = value[this.id];
@@ -4499,7 +4721,7 @@
 	    var key = hasOwn(scope, '$key') && scope.$key;
 	    var primitive = !isObject(value);
 	    if (trackByKey || key || primitive) {
-	      var id = trackByKey ? trackByKey === '$index' ? index : getPath(value, trackByKey) : key || value;
+	      var id = getTrackByKey(index, key, value, trackByKey);
 	      this.cache[id] = null;
 	    } else {
 	      value[this.id] = null;
@@ -4540,7 +4762,7 @@
 	   * the filters. This is passed to and called by the watcher.
 	   *
 	   * It is necessary for this to be called during the
-	   * wathcer's dependency collection phase because we want
+	   * watcher's dependency collection phase because we want
 	   * the v-for to update when the source Object is mutated.
 	   */
 
@@ -4616,24 +4838,6 @@
 	}
 
 	/**
-	 * Find a vm from a fragment.
-	 *
-	 * @param {Fragment} frag
-	 * @return {Vue|undefined}
-	 */
-
-	function findVmFromFrag(frag) {
-	  var node = frag.node;
-	  // handle multi-node frag
-	  if (frag.end) {
-	    while (!node.__vue__ && node !== frag.end && node.nextSibling) {
-	      node = node.nextSibling;
-	    }
-	  }
-	  return node.__vue__;
-	}
-
-	/**
 	 * Create a range array from given number.
 	 *
 	 * @param {Number} n
@@ -4649,10 +4853,41 @@
 	  return ret;
 	}
 
+	/**
+	 * Get the track by key for an item.
+	 *
+	 * @param {Number} index
+	 * @param {String} key
+	 * @param {*} value
+	 * @param {String} [trackByKey]
+	 */
+
+	function getTrackByKey(index, key, value, trackByKey) {
+	  return trackByKey ? trackByKey === '$index' ? index : trackByKey.charAt(0).match(/\w/) ? getPath(value, trackByKey) : value[trackByKey] : key || value;
+	}
+
 	if (process.env.NODE_ENV !== 'production') {
 	  vFor.warnDuplicate = function (value) {
 	    warn('Duplicate value found in v-for="' + this.descriptor.raw + '": ' + JSON.stringify(value) + '. Use track-by="$index" if ' + 'you are expecting duplicate values.', this.vm);
 	  };
+	}
+
+	/**
+	 * Find a vm from a fragment.
+	 *
+	 * @param {Fragment} frag
+	 * @return {Vue|undefined}
+	 */
+
+	function findVmFromFrag(frag) {
+	  var node = frag.node;
+	  // handle multi-node frag
+	  if (frag.end) {
+	    while (!node.__vue__ && node !== frag.end && node.nextSibling) {
+	      node = node.nextSibling;
+	    }
+	  }
+	  return node.__vue__;
 	}
 
 	var vIf = {
@@ -4870,7 +5105,10 @@
 	  },
 
 	  update: function update(value) {
-	    this.el.value = _toString(value);
+	    // #3029 only update when the value changes. This prevent
+	    // browsers from overwriting values like selectionStart
+	    value = _toString(value);
+	    if (value !== this.el.value) this.el.value = value;
 	  },
 
 	  unbind: function unbind() {
@@ -4919,6 +5157,8 @@
 	var select = {
 
 	  bind: function bind() {
+	    var _this = this;
+
 	    var self = this;
 	    var el = this.el;
 
@@ -4950,7 +5190,12 @@
 	    // selectedIndex with value -1 to 0 when the element
 	    // is appended to a new parent, therefore we have to
 	    // force a DOM update whenever that happens...
-	    this.vm.$on('hook:attached', this.forceUpdate);
+	    this.vm.$on('hook:attached', function () {
+	      nextTick(_this.forceUpdate);
+	    });
+	    if (!inDoc(el)) {
+	      nextTick(this.forceUpdate);
+	    }
 	  },
 
 	  update: function update(value) {
@@ -5042,15 +5287,16 @@
 	    }
 
 	    this.listener = function () {
-	      var model = self._watcher.value;
+	      var model = self._watcher.get();
 	      if (isArray(model)) {
 	        var val = self.getValue();
+	        var i = indexOf(model, val);
 	        if (el.checked) {
-	          if (indexOf(model, val) < 0) {
-	            model.push(val);
+	          if (i < 0) {
+	            self.set(model.concat(val));
 	          }
-	        } else {
-	          model.$remove(val);
+	        } else if (i > -1) {
+	          self.set(model.slice(0, i).concat(model.slice(i + 1)));
 	        }
 	      } else {
 	        self.set(getBooleanValue());
@@ -5250,7 +5496,7 @@
 	    }
 	    // key filter
 	    var keys = Object.keys(this.modifiers).filter(function (key) {
-	      return key !== 'stop' && key !== 'prevent' && key !== 'self';
+	      return key !== 'stop' && key !== 'prevent' && key !== 'self' && key !== 'capture';
 	    });
 	    if (keys.length) {
 	      handler = keyFilter(handler, keys);
@@ -5379,6 +5625,12 @@
 	  }
 	  var i = prefixes.length;
 	  var prefixed;
+	  if (camel !== 'filter' && camel in testEl.style) {
+	    return {
+	      kebab: prop,
+	      camel: camel
+	    };
+	  }
 	  while (i--) {
 	    prefixed = camelPrefixes[i] + upper;
 	    if (prefixed in testEl.style) {
@@ -5387,12 +5639,6 @@
 	        camel: prefixed
 	      };
 	    }
-	  }
-	  if (camel in testEl.style) {
-	    return {
-	      kebab: prop,
-	      camel: camel
-	    };
 	  }
 	}
 
@@ -5482,8 +5728,12 @@
 	      attr = camelize(attr);
 	    }
 	    if (!interp && attrWithPropsRE.test(attr) && attr in el) {
-	      el[attr] = attr === 'value' ? value == null // IE9 will set input.value to "null" for null...
+	      var attrValue = attr === 'value' ? value == null // IE9 will set input.value to "null" for null...
 	      ? '' : value : value;
+
+	      if (el[attr] !== attrValue) {
+	        el[attr] = attrValue;
+	      }
 	    }
 	    // set model props
 	    var modelProp = modelProps[attr];
@@ -5563,6 +5813,12 @@
 	  }
 	};
 
+	// logic control
+	// two-way binding
+	// event handling
+	// attributes
+	// ref & el
+	// cloak
 	// must export plain object
 	var directives = {
 	  text: text$1,
@@ -5583,66 +5839,66 @@
 	  deep: true,
 
 	  update: function update(value) {
-	    if (value && typeof value === 'string') {
-	      this.handleObject(stringToObject(value));
-	    } else if (isPlainObject(value)) {
-	      this.handleObject(value);
-	    } else if (isArray(value)) {
-	      this.handleArray(value);
-	    } else {
+	    if (!value) {
 	      this.cleanup();
+	    } else if (typeof value === 'string') {
+	      this.setClass(value.trim().split(/\s+/));
+	    } else {
+	      this.setClass(normalize$1(value));
 	    }
 	  },
 
-	  handleObject: function handleObject(value) {
-	    this.cleanup(value);
-	    this.prevKeys = Object.keys(value);
-	    setObjectClasses(this.el, value);
-	  },
-
-	  handleArray: function handleArray(value) {
+	  setClass: function setClass(value) {
 	    this.cleanup(value);
 	    for (var i = 0, l = value.length; i < l; i++) {
 	      var val = value[i];
-	      if (val && isPlainObject(val)) {
-	        setObjectClasses(this.el, val);
-	      } else if (val && typeof val === 'string') {
-	        addClass(this.el, val);
+	      if (val) {
+	        apply(this.el, val, addClass);
 	      }
 	    }
-	    this.prevKeys = value.slice();
+	    this.prevKeys = value;
 	  },
 
 	  cleanup: function cleanup(value) {
-	    if (!this.prevKeys) return;
-
-	    var i = this.prevKeys.length;
+	    var prevKeys = this.prevKeys;
+	    if (!prevKeys) return;
+	    var i = prevKeys.length;
 	    while (i--) {
-	      var key = this.prevKeys[i];
-	      if (!key) continue;
-
-	      var keys = isPlainObject(key) ? Object.keys(key) : [key];
-	      for (var j = 0, l = keys.length; j < l; j++) {
-	        toggleClasses(this.el, keys[j], removeClass);
+	      var key = prevKeys[i];
+	      if (!value || value.indexOf(key) < 0) {
+	        apply(this.el, key, removeClass);
 	      }
 	    }
 	  }
 	};
 
-	function setObjectClasses(el, obj) {
-	  var keys = Object.keys(obj);
-	  for (var i = 0, l = keys.length; i < l; i++) {
-	    var key = keys[i];
-	    if (!obj[key]) continue;
-	    toggleClasses(el, key, addClass);
-	  }
-	}
+	/**
+	 * Normalize objects and arrays (potentially containing objects)
+	 * into array of strings.
+	 *
+	 * @param {Object|Array<String|Object>} value
+	 * @return {Array<String>}
+	 */
 
-	function stringToObject(value) {
-	  var res = {};
-	  var keys = value.trim().split(/\s+/);
-	  for (var i = 0, l = keys.length; i < l; i++) {
-	    res[keys[i]] = true;
+	function normalize$1(value) {
+	  var res = [];
+	  if (isArray(value)) {
+	    for (var i = 0, l = value.length; i < l; i++) {
+	      var _key = value[i];
+	      if (_key) {
+	        if (typeof _key === 'string') {
+	          res.push(_key);
+	        } else {
+	          for (var k in _key) {
+	            if (_key[k]) res.push(k);
+	          }
+	        }
+	      }
+	    }
+	  } else if (isObject(value)) {
+	    for (var key in value) {
+	      if (value[key]) res.push(key);
+	    }
 	  }
 	  return res;
 	}
@@ -5658,14 +5914,12 @@
 	 * @param {Function} fn
 	 */
 
-	function toggleClasses(el, key, fn) {
+	function apply(el, key, fn) {
 	  key = key.trim();
-
 	  if (key.indexOf(' ') === -1) {
 	    fn(el, key);
 	    return;
 	  }
-
 	  // The key contains one or more space characters.
 	  // Since a class name doesn't accept such characters, we
 	  // treat it as multiple classes.
@@ -5716,6 +5970,7 @@
 	      // cached, when the component is used elsewhere this attribute
 	      // will remain at link time.
 	      this.el.removeAttribute('is');
+	      this.el.removeAttribute(':is');
 	      // remove ref, same as above
 	      if (this.descriptor.ref) {
 	        this.el.removeAttribute('v-ref:' + hyphenate(this.descriptor.ref));
@@ -6055,6 +6310,7 @@
 
 	function compileProps(el, propOptions, vm) {
 	  var props = [];
+	  var propsData = vm.$options.propsData;
 	  var names = Object.keys(propOptions);
 	  var i = names.length;
 	  var options, name, attr, value, path, parsed, prop;
@@ -6122,13 +6378,16 @@
 	    } else if ((value = getAttr(el, attr)) !== null) {
 	      // has literal binding!
 	      prop.raw = value;
+	    } else if (propsData && (value = propsData[name] || propsData[path]) !== null) {
+	      // has propsData
+	      prop.raw = value;
 	    } else if (process.env.NODE_ENV !== 'production') {
 	      // check possible camelCase prop usage
 	      var lowerCaseName = path.toLowerCase();
 	      value = /[A-Z\-]/.test(name) && (el.getAttribute(lowerCaseName) || el.getAttribute(':' + lowerCaseName) || el.getAttribute('v-bind:' + lowerCaseName) || el.getAttribute(':' + lowerCaseName + '.once') || el.getAttribute('v-bind:' + lowerCaseName + '.once') || el.getAttribute(':' + lowerCaseName + '.sync') || el.getAttribute('v-bind:' + lowerCaseName + '.sync'));
 	      if (value) {
 	        warn('Possible usage error for prop `' + lowerCaseName + '` - ' + 'did you mean `' + attr + '`? HTML is case-insensitive, remember to use ' + 'kebab-case for props in templates.', vm);
-	      } else if (options.required) {
+	      } else if (options.required && (!propsData || !(name in propsData) && !(path in propsData))) {
 	        // warn missing required
 	        warn('Missing required prop: ' + name, vm);
 	      }
@@ -6150,6 +6409,7 @@
 	  return function propsLinkFn(vm, scope) {
 	    // store resolved props info
 	    vm._props = {};
+	    var inlineProps = vm.$options.propsData;
 	    var i = props.length;
 	    var prop, path, options, value, raw;
 	    while (i--) {
@@ -6158,7 +6418,9 @@
 	      path = prop.path;
 	      options = prop.options;
 	      vm._props[path] = prop;
-	      if (raw === null) {
+	      if (inlineProps && hasOwn(inlineProps, path)) {
+	        initProp(vm, prop, inlineProps[path]);
+	      }if (raw === null) {
 	        // initialize absent prop
 	        initProp(vm, prop, undefined);
 	      } else if (prop.dynamic) {
@@ -6214,7 +6476,7 @@
 	  if (value === undefined) {
 	    value = getPropDefaultValue(vm, prop);
 	  }
-	  value = coerceProp(prop, value);
+	  value = coerceProp(prop, value, vm);
 	  var coerced = value !== rawValue;
 	  if (!assertProp(prop, value, vm)) {
 	    value = undefined;
@@ -6333,13 +6595,17 @@
 	 * @return {*}
 	 */
 
-	function coerceProp(prop, value) {
+	function coerceProp(prop, value, vm) {
 	  var coerce = prop.options.coerce;
 	  if (!coerce) {
 	    return value;
 	  }
-	  // coerce is a function
-	  return coerce(value);
+	  if (typeof coerce === 'function') {
+	    return coerce(value);
+	  } else {
+	    process.env.NODE_ENV !== 'production' && warn('Invalid coerce for prop "' + prop.name + '": expected function, got ' + typeof coerce + '.', vm);
+	    return value;
+	  }
 	}
 
 	/**
@@ -6871,10 +7137,9 @@
 	    // resolve on owner vm
 	    var hooks = resolveAsset(this.vm.$options, 'transitions', id);
 	    id = id || 'v';
+	    oldId = oldId || 'v';
 	    el.__v_trans = new Transition(el, id, hooks, this.vm);
-	    if (oldId) {
-	      removeClass(el, oldId + '-transition');
-	    }
+	    removeClass(el, oldId + '-transition');
 	    addClass(el, id + '-transition');
 	  }
 	};
@@ -6919,7 +7184,7 @@
 	  // link function for the node itself.
 	  var nodeLinkFn = partial || !options._asComponent ? compileNode(el, options) : null;
 	  // link function for the childNodes
-	  var childLinkFn = !(nodeLinkFn && nodeLinkFn.terminal) && el.tagName !== 'SCRIPT' && el.hasChildNodes() ? compileNodeList(el.childNodes, options) : null;
+	  var childLinkFn = !(nodeLinkFn && nodeLinkFn.terminal) && !isScript(el) && el.hasChildNodes() ? compileNodeList(el.childNodes, options) : null;
 
 	  /**
 	   * A composite linker function to be called on a already
@@ -6967,7 +7232,7 @@
 	  var originalDirCount = vm._directives.length;
 	  linker();
 	  var dirs = vm._directives.slice(originalDirCount);
-	  dirs.sort(directiveComparator);
+	  sortDirectives(dirs);
 	  for (var i = 0, l = dirs.length; i < l; i++) {
 	    dirs[i]._bind();
 	  }
@@ -6975,16 +7240,37 @@
 	}
 
 	/**
-	 * Directive priority sort comparator
+	 * sort directives by priority (stable sort)
 	 *
-	 * @param {Object} a
-	 * @param {Object} b
+	 * @param {Array} dirs
 	 */
+	function sortDirectives(dirs) {
+	  if (dirs.length === 0) return;
 
-	function directiveComparator(a, b) {
-	  a = a.descriptor.def.priority || DEFAULT_PRIORITY;
-	  b = b.descriptor.def.priority || DEFAULT_PRIORITY;
-	  return a > b ? -1 : a === b ? 0 : 1;
+	  var groupedMap = {};
+	  var i, j, k, l;
+	  var index = 0;
+	  var priorities = [];
+	  for (i = 0, j = dirs.length; i < j; i++) {
+	    var dir = dirs[i];
+	    var priority = dir.descriptor.def.priority || DEFAULT_PRIORITY;
+	    var array = groupedMap[priority];
+	    if (!array) {
+	      array = groupedMap[priority] = [];
+	      priorities.push(priority);
+	    }
+	    array.push(dir);
+	  }
+
+	  priorities.sort(function (a, b) {
+	    return a > b ? -1 : a === b ? 0 : 1;
+	  });
+	  for (i = 0, j = priorities.length; i < j; i++) {
+	    var group = groupedMap[priorities[i]];
+	    for (k = 0, l = group.length; k < l; k++) {
+	      dirs[index++] = group[k];
+	    }
+	  }
 	}
 
 	/**
@@ -7102,7 +7388,13 @@
 	    });
 	    if (names.length) {
 	      var plural = names.length > 1;
-	      warn('Attribute' + (plural ? 's ' : ' ') + names.join(', ') + (plural ? ' are' : ' is') + ' ignored on component ' + '<' + options.el.tagName.toLowerCase() + '> because ' + 'the component is a fragment instance: ' + 'http://vuejs.org/guide/components.html#Fragment_Instance');
+
+	      var componentName = options.el.tagName.toLowerCase();
+	      if (componentName === 'component' && options.name) {
+	        componentName += ':' + options.name;
+	      }
+
+	      warn('Attribute' + (plural ? 's ' : ' ') + names.join(', ') + (plural ? ' are' : ' is') + ' ignored on component ' + '<' + componentName + '> because ' + 'the component is a fragment instance: ' + 'http://vuejs.org/guide/components.html#Fragment-Instance');
 	    }
 	  }
 
@@ -7139,7 +7431,7 @@
 
 	function compileNode(node, options) {
 	  var type = node.nodeType;
-	  if (type === 1 && node.tagName !== 'SCRIPT') {
+	  if (type === 1 && !isScript(node)) {
 	    return compileElement(node, options);
 	  } else if (type === 3 && node.data.trim()) {
 	    return compileTextNode(node, options);
@@ -7161,6 +7453,10 @@
 	  // textarea treats its text content as the initial value.
 	  // just bind it as an attr directive for value.
 	  if (el.tagName === 'TEXTAREA') {
+	    // a textarea which has v-pre attr should skip complie.
+	    if (getAttr(el, 'v-pre') !== null) {
+	      return skip;
+	    }
 	    var tokens = parseText(el.value);
 	    if (tokens) {
 	      el.setAttribute(':value', tokensToExp(tokens));
@@ -7299,7 +7595,7 @@
 	          if (token.html) {
 	            replace(node, parseTemplate(value, true));
 	          } else {
-	            node.data = value;
+	            node.data = _toString(value);
 	          }
 	        } else {
 	          vm._bindDir(token.descriptor, node, host, scope);
@@ -7434,7 +7730,6 @@
 	  var attr, name, value, modifiers, matched, dirName, rawName, arg, def, termDef;
 	  for (var i = 0, j = attrs.length; i < j; i++) {
 	    attr = attrs[i];
-	    modifiers = parseModifiers(attr.name);
 	    name = attr.name.replace(modifierRE, '');
 	    if (matched = name.match(dirAttrRE)) {
 	      def = resolveAsset(options, 'directives', matched[1]);
@@ -7442,6 +7737,7 @@
 	        if (!termDef || (def.priority || DEFAULT_TERMINAL_PRIORITY) > termDef.priority) {
 	          termDef = def;
 	          rawName = attr.name;
+	          modifiers = parseModifiers(attr.name);
 	          value = attr.value;
 	          dirName = matched[1];
 	          arg = matched[2];
@@ -7487,7 +7783,7 @@
 	    modifiers: modifiers,
 	    def: def
 	  };
-	  // check ref for v-for and router-view
+	  // check ref for v-for, v-if and router-view
 	  if (dirName === 'for' || dirName === 'router-view') {
 	    descriptor.ref = findRef(el);
 	  }
@@ -7662,6 +7958,10 @@
 	  }
 	}
 
+	function isScript(el) {
+	  return el.tagName === 'SCRIPT' && (!el.hasAttribute('type') || el.getAttribute('type') === 'text/javascript');
+	}
+
 	var specialCharRE = /[^\w\-:\.]/;
 
 	/**
@@ -7723,6 +8023,9 @@
 	  var frag = parseTemplate(template, true);
 	  if (frag) {
 	    var replacer = frag.firstChild;
+	    if (!replacer) {
+	      return frag;
+	    }
 	    var tag = replacer.tagName && replacer.tagName.toLowerCase();
 	    if (options.replace) {
 	      /* istanbul ignore if */
@@ -7791,8 +8094,8 @@
 	    value = attrs[i].value;
 	    if (!to.hasAttribute(name) && !specialCharRE.test(name)) {
 	      to.setAttribute(name, value);
-	    } else if (name === 'class' && !parseText(value)) {
-	      value.trim().split(/\s+/).forEach(function (cls) {
+	    } else if (name === 'class' && !parseText(value) && (value = value.trim())) {
+	      value.split(/\s+/).forEach(function (cls) {
 	        addClass(to, cls);
 	      });
 	    }
@@ -7831,6 +8134,10 @@
 	    contents[name] = extractFragment(contents[name], content);
 	  }
 	  if (content.hasChildNodes()) {
+	    var nodes = content.childNodes;
+	    if (nodes.length === 1 && nodes[0].nodeType === 3 && !nodes[0].data.trim()) {
+	      return;
+	    }
 	    contents['default'] = extractFragment(content.childNodes, content);
 	  }
 	}
@@ -7849,7 +8156,7 @@
 	    var node = nodes[i];
 	    if (isTemplate(node) && !node.hasAttribute('v-if') && !node.hasAttribute('v-for')) {
 	      parent.removeChild(node);
-	      node = parseTemplate(node);
+	      node = parseTemplate(node, true);
 	    }
 	    frag.appendChild(node);
 	  }
@@ -7930,7 +8237,6 @@
 	      process.env.NODE_ENV !== 'production' && warn('data functions should return an object.', this);
 	    }
 	    var props = this._props;
-	    var runtimeData = this._runtimeData ? typeof this._runtimeData === 'function' ? this._runtimeData() : this._runtimeData : null;
 	    // proxy data on instance
 	    var keys = Object.keys(data);
 	    var i, key;
@@ -7941,10 +8247,10 @@
 	      // 1. it's not already defined as a prop
 	      // 2. it's provided via a instantiation option AND there are no
 	      //    template prop present
-	      if (!props || !hasOwn(props, key) || runtimeData && hasOwn(runtimeData, key) && props[key].raw === null) {
+	      if (!props || !hasOwn(props, key)) {
 	        this._proxy(key);
 	      } else if (process.env.NODE_ENV !== 'production') {
-	        warn('Data field "' + key + '" is already defined ' + 'as a prop. Use prop default value instead.', this);
+	        warn('Data field "' + key + '" is already defined ' + 'as a prop. To provide default value for a prop, use the "default" ' + 'prop option; if you want to pass prop values to an instantiation ' + 'call, use the "propsData" option.', this);
 	      }
 	    }
 	    // observe data
@@ -8134,18 +8440,21 @@
 
 	  function registerComponentEvents(vm, el) {
 	    var attrs = el.attributes;
-	    var name, handler;
+	    var name, value, handler;
 	    for (var i = 0, l = attrs.length; i < l; i++) {
 	      name = attrs[i].name;
 	      if (eventRE.test(name)) {
 	        name = name.replace(eventRE, '');
-	        handler = (vm._scope || vm._context).$eval(attrs[i].value, true);
-	        if (typeof handler === 'function') {
-	          handler._fromParent = true;
-	          vm.$on(name.replace(eventRE), handler);
-	        } else if (process.env.NODE_ENV !== 'production') {
-	          warn('v-on:' + name + '="' + attrs[i].value + '" ' + 'expects a function value, got ' + handler, vm);
+	        // force the expression into a statement so that
+	        // it always dynamically resolves the method to call (#2670)
+	        // kinda ugly hack, but does the job.
+	        value = attrs[i].value;
+	        if (isSimplePath(value)) {
+	          value += '.apply(this, $arguments)';
 	        }
+	        handler = (vm._scope || vm._context).$eval(value, true);
+	        handler._fromParent = true;
+	        vm.$on(name.replace(eventRE), handler);
 	      }
 	    }
 	  }
@@ -8273,7 +8582,7 @@
 	  };
 	}
 
-	function noop() {}
+	function noop$1() {}
 
 	/**
 	 * A directive links a DOM element with a piece of data,
@@ -8372,7 +8681,7 @@
 	        }
 	      };
 	    } else {
-	      this._update = noop;
+	      this._update = noop$1;
 	    }
 	    var preProcess = this._preProcess ? bind(this._preProcess, this) : null;
 	    var postProcess = this._postProcess ? bind(this._postProcess, this) : null;
@@ -8469,7 +8778,7 @@
 	Directive.prototype._checkStatement = function () {
 	  var expression = this.expression;
 	  if (expression && this.acceptStatement && !isSimplePath(expression)) {
-	    var fn = parseExpression(expression).get;
+	    var fn = parseExpression$1(expression).get;
 	    var scope = this._scope || this.vm;
 	    var handler = function handler(e) {
 	      scope.$event = e;
@@ -8796,7 +9105,7 @@
 	    }
 	    // remove reference from data ob
 	    // frozen object may not have observer.
-	    if (this._data.__ob__) {
+	    if (this._data && this._data.__ob__) {
 	      this._data.__ob__.removeVm(this);
 	    }
 	    // Clean up references to private properties and other
@@ -8869,6 +9178,7 @@
 	    } else {
 	      factory = resolveAsset(this.$options, 'components', value, true);
 	    }
+	    /* istanbul ignore if */
 	    if (!factory) {
 	      return;
 	    }
@@ -8916,9 +9226,9 @@
 	   */
 
 	  Vue.prototype.$get = function (exp, asStatement) {
-	    var res = parseExpression(exp);
+	    var res = parseExpression$1(exp);
 	    if (res) {
-	      if (asStatement && !isSimplePath(exp)) {
+	      if (asStatement) {
 	        var self = this;
 	        return function statementHandler() {
 	          self.$arguments = toArray(arguments);
@@ -8944,7 +9254,7 @@
 	   */
 
 	  Vue.prototype.$set = function (exp, val) {
-	    var res = parseExpression(exp, true);
+	    var res = parseExpression$1(exp, true);
 	    if (res && res.set) {
 	      res.set.call(this, this, val);
 	    }
@@ -9707,7 +10017,7 @@
 	}
 
 	/**
-	 * Filter filter for arrays
+	 * Order filter for arrays
 	 *
 	 * @param {String|Array<String>|Function} ...sortKeys
 	 * @param {Number} [order]
@@ -9809,7 +10119,7 @@
 
 	  json: {
 	    read: function read(value, indent) {
-	      return typeof value === 'string' ? value : JSON.stringify(value, null, Number(indent) || 2);
+	      return typeof value === 'string' ? value : JSON.stringify(value, null, arguments.length > 1 ? indent : 2);
 	    },
 	    write: function write(value) {
 	      try {
@@ -9850,17 +10160,19 @@
 	   * 12345 => $12,345.00
 	   *
 	   * @param {String} sign
+	   * @param {Number} decimals Decimal places
 	   */
 
-	  currency: function currency(value, _currency) {
+	  currency: function currency(value, _currency, decimals) {
 	    value = parseFloat(value);
 	    if (!isFinite(value) || !value && value !== 0) return '';
 	    _currency = _currency != null ? _currency : '$';
-	    var stringified = Math.abs(value).toFixed(2);
-	    var _int = stringified.slice(0, -3);
+	    decimals = decimals != null ? decimals : 2;
+	    var stringified = Math.abs(value).toFixed(decimals);
+	    var _int = decimals ? stringified.slice(0, -1 - decimals) : stringified;
 	    var i = _int.length % 3;
 	    var head = i > 0 ? _int.slice(0, i) + (_int.length > 3 ? ',' : '') : '';
-	    var _float = stringified.slice(-3);
+	    var _float = decimals ? stringified.slice(-1 - decimals) : '';
 	    var sign = value < 0 ? '-' : '';
 	    return sign + _currency + head + _int.slice(i).replace(digitsRE, '$1,') + _float;
 	  },
@@ -9880,7 +10192,13 @@
 
 	  pluralize: function pluralize(value) {
 	    var args = toArray(arguments, 1);
-	    return args.length > 1 ? args[value % 10 - 1] || args[args.length - 1] : args[0] + (value === 1 ? '' : 's');
+	    var length = args.length;
+	    if (length > 1) {
+	      var index = value % 10 - 1;
+	      return index in args ? args[index] : args[length - 1];
+	    } else {
+	      return args[0] + (value === 1 ? '' : 's');
+	    }
 	  },
 
 	  /**
@@ -10065,7 +10383,9 @@
 	          }
 	        }
 	        if (type === 'component' && isPlainObject(definition)) {
-	          definition.name = id;
+	          if (!definition.name) {
+	            definition.name = id;
+	          }
 	          definition = Vue.extend(definition);
 	        }
 	        this.options[type + 's'][id] = definition;
@@ -10080,7 +10400,7 @@
 
 	installGlobalAPI(Vue);
 
-	Vue.version = '1.0.21';
+	Vue.version = '1.0.28';
 
 	// devtools global hook
 	/* istanbul ignore next */
@@ -10095,21 +10415,110 @@
 	}, 0);
 
 	module.exports = Vue;
-	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }()), __webpack_require__(2)))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2)))
 
-/***/ },
+/***/ }),
 /* 2 */
-/***/ function(module, exports) {
+/***/ (function(module, exports) {
 
 	// shim for using process in browser
-
 	var process = module.exports = {};
+
+	// cached from whatever global is present so that test runners that stub it
+	// don't break things.  But we need to wrap it in a try catch in case it is
+	// wrapped in strict mode code which doesn't define any globals.  It's inside a
+	// function because try/catches deoptimize in certain engines.
+
+	var cachedSetTimeout;
+	var cachedClearTimeout;
+
+	function defaultSetTimout() {
+	    throw new Error('setTimeout has not been defined');
+	}
+	function defaultClearTimeout () {
+	    throw new Error('clearTimeout has not been defined');
+	}
+	(function () {
+	    try {
+	        if (typeof setTimeout === 'function') {
+	            cachedSetTimeout = setTimeout;
+	        } else {
+	            cachedSetTimeout = defaultSetTimout;
+	        }
+	    } catch (e) {
+	        cachedSetTimeout = defaultSetTimout;
+	    }
+	    try {
+	        if (typeof clearTimeout === 'function') {
+	            cachedClearTimeout = clearTimeout;
+	        } else {
+	            cachedClearTimeout = defaultClearTimeout;
+	        }
+	    } catch (e) {
+	        cachedClearTimeout = defaultClearTimeout;
+	    }
+	} ())
+	function runTimeout(fun) {
+	    if (cachedSetTimeout === setTimeout) {
+	        //normal enviroments in sane situations
+	        return setTimeout(fun, 0);
+	    }
+	    // if setTimeout wasn't available but was latter defined
+	    if ((cachedSetTimeout === defaultSetTimout || !cachedSetTimeout) && setTimeout) {
+	        cachedSetTimeout = setTimeout;
+	        return setTimeout(fun, 0);
+	    }
+	    try {
+	        // when when somebody has screwed with setTimeout but no I.E. maddness
+	        return cachedSetTimeout(fun, 0);
+	    } catch(e){
+	        try {
+	            // When we are in I.E. but the script has been evaled so I.E. doesn't trust the global object when called normally
+	            return cachedSetTimeout.call(null, fun, 0);
+	        } catch(e){
+	            // same as above but when it's a version of I.E. that must have the global object for 'this', hopfully our context correct otherwise it will throw a global error
+	            return cachedSetTimeout.call(this, fun, 0);
+	        }
+	    }
+
+
+	}
+	function runClearTimeout(marker) {
+	    if (cachedClearTimeout === clearTimeout) {
+	        //normal enviroments in sane situations
+	        return clearTimeout(marker);
+	    }
+	    // if clearTimeout wasn't available but was latter defined
+	    if ((cachedClearTimeout === defaultClearTimeout || !cachedClearTimeout) && clearTimeout) {
+	        cachedClearTimeout = clearTimeout;
+	        return clearTimeout(marker);
+	    }
+	    try {
+	        // when when somebody has screwed with setTimeout but no I.E. maddness
+	        return cachedClearTimeout(marker);
+	    } catch (e){
+	        try {
+	            // When we are in I.E. but the script has been evaled so I.E. doesn't  trust the global object when called normally
+	            return cachedClearTimeout.call(null, marker);
+	        } catch (e){
+	            // same as above but when it's a version of I.E. that must have the global object for 'this', hopfully our context correct otherwise it will throw a global error.
+	            // Some versions of I.E. have different rules for clearTimeout vs setTimeout
+	            return cachedClearTimeout.call(this, marker);
+	        }
+	    }
+
+
+
+	}
 	var queue = [];
 	var draining = false;
 	var currentQueue;
 	var queueIndex = -1;
 
 	function cleanUpNextTick() {
+	    if (!draining || !currentQueue) {
+	        return;
+	    }
 	    draining = false;
 	    if (currentQueue.length) {
 	        queue = currentQueue.concat(queue);
@@ -10125,7 +10534,7 @@
 	    if (draining) {
 	        return;
 	    }
-	    var timeout = setTimeout(cleanUpNextTick);
+	    var timeout = runTimeout(cleanUpNextTick);
 	    draining = true;
 
 	    var len = queue.length;
@@ -10142,7 +10551,7 @@
 	    }
 	    currentQueue = null;
 	    draining = false;
-	    clearTimeout(timeout);
+	    runClearTimeout(timeout);
 	}
 
 	process.nextTick = function (fun) {
@@ -10154,7 +10563,7 @@
 	    }
 	    queue.push(new Item(fun, args));
 	    if (queue.length === 1 && !draining) {
-	        setTimeout(drainQueue, 0);
+	        runTimeout(drainQueue);
 	    }
 	};
 
@@ -10182,6 +10591,10 @@
 	process.removeListener = noop;
 	process.removeAllListeners = noop;
 	process.emit = noop;
+	process.prependListener = noop;
+	process.prependOnceListener = noop;
+
+	process.listeners = function (name) { return [] }
 
 	process.binding = function (name) {
 	    throw new Error('process.binding is not supported');
@@ -10194,27 +10607,32 @@
 	process.umask = function() { return 0; };
 
 
-/***/ },
+/***/ }),
 /* 3 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	var __vue_script__, __vue_template__
+	var __vue_styles__ = {}
 	__vue_script__ = __webpack_require__(4)
-	if (__vue_script__ &&
-	    __vue_script__.__esModule &&
-	    Object.keys(__vue_script__).length > 1) {
+	if (Object.keys(__vue_script__).some(function (key) { return key !== "default" && key !== "__esModule" })) {
 	  console.warn("[vue-loader] resources/assets/js/components/work-select.vue: named exports in *.vue files are ignored.")}
 	__vue_template__ = __webpack_require__(8)
 	module.exports = __vue_script__ || {}
 	if (module.exports.__esModule) module.exports = module.exports.default
+	var __vue_options__ = typeof module.exports === "function" ? (module.exports.options || (module.exports.options = {})) : module.exports
 	if (__vue_template__) {
-	(typeof module.exports === "function" ? (module.exports.options || (module.exports.options = {})) : module.exports).template = __vue_template__
+	__vue_options__.template = __vue_template__
 	}
+	if (!__vue_options__.computed) __vue_options__.computed = {}
+	Object.keys(__vue_styles__).forEach(function (key) {
+	var module = __vue_styles__[key]
+	__vue_options__.computed[key] = function () { return module }
+	})
 	if (false) {(function () {  module.hot.accept()
 	  var hotAPI = require("vue-hot-reload-api")
-	  hotAPI.install(require("vue"), true)
+	  hotAPI.install(require("vue"), false)
 	  if (!hotAPI.compatible) return
-	  var id = "/Users/shavenking/Code/project-boomer/resources/assets/js/components/work-select.vue"
+	  var id = "_v-32dc3a81/work-select.vue"
 	  if (!module.hot.data) {
 	    hotAPI.createRecord(id, module.exports)
 	  } else {
@@ -10222,9 +10640,9 @@
 	  }
 	})()}
 
-/***/ },
+/***/ }),
 /* 4 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 
@@ -10251,8 +10669,6 @@
 	// </template>
 	//
 	// <script type="text/babel">
-
-
 	exports.default = {
 	    components: { DropdownSelect: _dropdownSelect2.default },
 
@@ -10271,27 +10687,32 @@
 	};
 	// </script>
 
-/***/ },
+/***/ }),
 /* 5 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	var __vue_script__, __vue_template__
+	var __vue_styles__ = {}
 	__vue_script__ = __webpack_require__(6)
-	if (__vue_script__ &&
-	    __vue_script__.__esModule &&
-	    Object.keys(__vue_script__).length > 1) {
+	if (Object.keys(__vue_script__).some(function (key) { return key !== "default" && key !== "__esModule" })) {
 	  console.warn("[vue-loader] resources/assets/js/components/dropdown-select.vue: named exports in *.vue files are ignored.")}
 	__vue_template__ = __webpack_require__(7)
 	module.exports = __vue_script__ || {}
 	if (module.exports.__esModule) module.exports = module.exports.default
+	var __vue_options__ = typeof module.exports === "function" ? (module.exports.options || (module.exports.options = {})) : module.exports
 	if (__vue_template__) {
-	(typeof module.exports === "function" ? (module.exports.options || (module.exports.options = {})) : module.exports).template = __vue_template__
+	__vue_options__.template = __vue_template__
 	}
+	if (!__vue_options__.computed) __vue_options__.computed = {}
+	Object.keys(__vue_styles__).forEach(function (key) {
+	var module = __vue_styles__[key]
+	__vue_options__.computed[key] = function () { return module }
+	})
 	if (false) {(function () {  module.hot.accept()
 	  var hotAPI = require("vue-hot-reload-api")
-	  hotAPI.install(require("vue"), true)
+	  hotAPI.install(require("vue"), false)
 	  if (!hotAPI.compatible) return
-	  var id = "/Users/shavenking/Code/project-boomer/resources/assets/js/components/dropdown-select.vue"
+	  var id = "_v-427add01/dropdown-select.vue"
 	  if (!module.hot.data) {
 	    hotAPI.createRecord(id, module.exports)
 	  } else {
@@ -10299,9 +10720,9 @@
 	  }
 	})()}
 
-/***/ },
+/***/ }),
 /* 6 */
-/***/ function(module, exports) {
+/***/ (function(module, exports) {
 
 	'use strict';
 
@@ -10389,39 +10810,44 @@
 	};
 	// </script>
 
-/***/ },
+/***/ }),
 /* 7 */
-/***/ function(module, exports) {
+/***/ (function(module, exports) {
 
 	module.exports = "\n<div\n    class=\"ui fluid selection dropdown\"\n    :class=\"{ 'multiple': multiple, 'disabled': isEmpty }\"\n    id=\"vue-dropdown-select-{{ _uid }}\"\n>\n    <input type=\"hidden\" v-bind:name=\"inputName\">\n    <i class=\"dropdown icon\"></i>\n    <div class=\"default text\"></div>\n    <div class=\"menu\">\n        <div\n            v-for=\"option in options\"\n            class=\"item\"\n            v-bind:data-value.once=\"option[optionValueName]\"\n        >\n            {{ option[optionTextName] }}\n        </div>\n    </div>\n</div>\n";
 
-/***/ },
+/***/ }),
 /* 8 */
-/***/ function(module, exports) {
+/***/ (function(module, exports) {
 
 	module.exports = "\n<dropdown-select\n    input-name=\"work_ids\"\n    :options=\"works\"\n    option-value-name=\"id\"\n    option-text-name=\"name\"\n    :multiple.once=\"true\"\n></dropdown-select>\n";
 
-/***/ },
+/***/ }),
 /* 9 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	var __vue_script__, __vue_template__
+	var __vue_styles__ = {}
 	__vue_script__ = __webpack_require__(10)
-	if (__vue_script__ &&
-	    __vue_script__.__esModule &&
-	    Object.keys(__vue_script__).length > 1) {
+	if (Object.keys(__vue_script__).some(function (key) { return key !== "default" && key !== "__esModule" })) {
 	  console.warn("[vue-loader] resources/assets/js/components/flowtype-select.vue: named exports in *.vue files are ignored.")}
 	__vue_template__ = __webpack_require__(11)
 	module.exports = __vue_script__ || {}
 	if (module.exports.__esModule) module.exports = module.exports.default
+	var __vue_options__ = typeof module.exports === "function" ? (module.exports.options || (module.exports.options = {})) : module.exports
 	if (__vue_template__) {
-	(typeof module.exports === "function" ? (module.exports.options || (module.exports.options = {})) : module.exports).template = __vue_template__
+	__vue_options__.template = __vue_template__
 	}
+	if (!__vue_options__.computed) __vue_options__.computed = {}
+	Object.keys(__vue_styles__).forEach(function (key) {
+	var module = __vue_styles__[key]
+	__vue_options__.computed[key] = function () { return module }
+	})
 	if (false) {(function () {  module.hot.accept()
 	  var hotAPI = require("vue-hot-reload-api")
-	  hotAPI.install(require("vue"), true)
+	  hotAPI.install(require("vue"), false)
 	  if (!hotAPI.compatible) return
-	  var id = "/Users/shavenking/Code/project-boomer/resources/assets/js/components/flowtype-select.vue"
+	  var id = "_v-12edeb4a/flowtype-select.vue"
 	  if (!module.hot.data) {
 	    hotAPI.createRecord(id, module.exports)
 	  } else {
@@ -10429,9 +10855,9 @@
 	  }
 	})()}
 
-/***/ },
+/***/ }),
 /* 10 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 
@@ -10475,8 +10901,6 @@
 	// </template>
 	//
 	// <script type="text/babel">
-
-
 	function getMainflowTypes() {
 	    return window.$.getJSON('/api/v1/mainflow-types');
 	}
@@ -10541,33 +10965,38 @@
 	};
 	// </script>
 
-/***/ },
+/***/ }),
 /* 11 */
-/***/ function(module, exports) {
+/***/ (function(module, exports) {
 
 	module.exports = "\n<div class=\"two fields\">\n    <div class=\"field\">\n        <dropdown-select\n            input-name=\"mainflow_type_id\"\n            :options=\"mainflowTypes\"\n            option-value-name=\"id\"\n            option-text-name=\"name\"\n            @selected=\"onMainflowTypeSelected\"\n            v-ref:mainflow-type-select\n        ></dropdown-select>\n    </div>\n    <div class=\"field\">\n        <dropdown-select\n            input-name=\"detailingflow_type_id\"\n            :options=\"detailingflowTypes\"\n            option-value-name=\"id\"\n            option-text-name=\"name\"\n            @selected=\"onDetailingflowTypeSelected\"\n            v-ref:detailingflow-type-select\n        ></dropdown-select>\n    </div>\n</div>\n";
 
-/***/ },
+/***/ }),
 /* 12 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	var __vue_script__, __vue_template__
+	var __vue_styles__ = {}
 	__vue_script__ = __webpack_require__(13)
-	if (__vue_script__ &&
-	    __vue_script__.__esModule &&
-	    Object.keys(__vue_script__).length > 1) {
-	  console.warn("[vue-loader] resources/assets/js/components/unit-select.vue: named exports in *.vue files are ignored.")}
+	if (Object.keys(__vue_script__).some(function (key) { return key !== "default" && key !== "__esModule" })) {
+	  console.warn("[vue-loader] resources/assets/js/components/mainflow-type-select.vue: named exports in *.vue files are ignored.")}
 	__vue_template__ = __webpack_require__(14)
 	module.exports = __vue_script__ || {}
 	if (module.exports.__esModule) module.exports = module.exports.default
+	var __vue_options__ = typeof module.exports === "function" ? (module.exports.options || (module.exports.options = {})) : module.exports
 	if (__vue_template__) {
-	(typeof module.exports === "function" ? (module.exports.options || (module.exports.options = {})) : module.exports).template = __vue_template__
+	__vue_options__.template = __vue_template__
 	}
+	if (!__vue_options__.computed) __vue_options__.computed = {}
+	Object.keys(__vue_styles__).forEach(function (key) {
+	var module = __vue_styles__[key]
+	__vue_options__.computed[key] = function () { return module }
+	})
 	if (false) {(function () {  module.hot.accept()
 	  var hotAPI = require("vue-hot-reload-api")
-	  hotAPI.install(require("vue"), true)
+	  hotAPI.install(require("vue"), false)
 	  if (!hotAPI.compatible) return
-	  var id = "/Users/shavenking/Code/project-boomer/resources/assets/js/components/unit-select.vue"
+	  var id = "_v-043dcde0/mainflow-type-select.vue"
 	  if (!module.hot.data) {
 	    hotAPI.createRecord(id, module.exports)
 	  } else {
@@ -10575,9 +11004,111 @@
 	  }
 	})()}
 
-/***/ },
+/***/ }),
 /* 13 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+
+	var _vue = __webpack_require__(1);
+
+	var _vue2 = _interopRequireDefault(_vue);
+
+	var _dropdownSelect = __webpack_require__(5);
+
+	var _dropdownSelect2 = _interopRequireDefault(_dropdownSelect);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	// <template>
+	//     <div class="field">
+	//         <dropdown-select
+	//             input-name="mainflow_type_id"
+	//             :options="mainflowTypes"
+	//             option-value-name="id"
+	//             option-text-name="name"
+	//             v-ref:mainflow-type-select
+	//         ></dropdown-select>
+	//     </div>
+	// </template>
+	//
+	// <script type="text/babel">
+	function getMainflowTypes() {
+	    return window.$.getJSON('/api/v1/mainflow-types');
+	}
+
+	exports.default = {
+	    components: { DropdownSelect: _dropdownSelect2.default },
+
+	    props: ['mainDefault'],
+
+	    data: function data() {
+	        return {
+	            mainflowTypes: []
+	        };
+	    },
+	    ready: function ready() {
+	        var _this = this;
+
+	        getMainflowTypes().then(function (response) {
+	            _this.mainflowTypes = response.mainflow_types;
+
+	            if (_this.mainDefault) {
+	                _this.$nextTick(function () {
+	                    _this.$refs.mainflowTypeSelect.select(_this.mainDefault);
+	                });
+	            }
+	        });
+	    }
+	};
+	// </script>
+
+/***/ }),
+/* 14 */
+/***/ (function(module, exports) {
+
+	module.exports = "\n<div class=\"field\">\n    <dropdown-select\n        input-name=\"mainflow_type_id\"\n        :options=\"mainflowTypes\"\n        option-value-name=\"id\"\n        option-text-name=\"name\"\n        v-ref:mainflow-type-select\n    ></dropdown-select>\n</div>\n";
+
+/***/ }),
+/* 15 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	var __vue_script__, __vue_template__
+	var __vue_styles__ = {}
+	__vue_script__ = __webpack_require__(16)
+	if (Object.keys(__vue_script__).some(function (key) { return key !== "default" && key !== "__esModule" })) {
+	  console.warn("[vue-loader] resources/assets/js/components/unit-select.vue: named exports in *.vue files are ignored.")}
+	__vue_template__ = __webpack_require__(17)
+	module.exports = __vue_script__ || {}
+	if (module.exports.__esModule) module.exports = module.exports.default
+	var __vue_options__ = typeof module.exports === "function" ? (module.exports.options || (module.exports.options = {})) : module.exports
+	if (__vue_template__) {
+	__vue_options__.template = __vue_template__
+	}
+	if (!__vue_options__.computed) __vue_options__.computed = {}
+	Object.keys(__vue_styles__).forEach(function (key) {
+	var module = __vue_styles__[key]
+	__vue_options__.computed[key] = function () { return module }
+	})
+	if (false) {(function () {  module.hot.accept()
+	  var hotAPI = require("vue-hot-reload-api")
+	  hotAPI.install(require("vue"), false)
+	  if (!hotAPI.compatible) return
+	  var id = "_v-7feb322e/unit-select.vue"
+	  if (!module.hot.data) {
+	    hotAPI.createRecord(id, module.exports)
+	  } else {
+	    hotAPI.update(id, module.exports, __vue_template__)
+	  }
+	})()}
+
+/***/ }),
+/* 16 */
+/***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 
@@ -10604,8 +11135,6 @@
 	// </template>
 	//
 	// <script type="text/babel">
-
-
 	exports.default = {
 	    props: ['default'],
 
@@ -10641,33 +11170,38 @@
 	};
 	// </script>
 
-/***/ },
-/* 14 */
-/***/ function(module, exports) {
+/***/ }),
+/* 17 */
+/***/ (function(module, exports) {
 
 	module.exports = "\n<dropdown-select\n    input-name=\"unit_id\"\n    :options=\"units\"\n    option-value-name=\"id\"\n    option-text-name=\"name\"\n    v-ref:dropdown\n></dropdown-select>\n";
 
-/***/ },
-/* 15 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ }),
+/* 18 */
+/***/ (function(module, exports, __webpack_require__) {
 
 	var __vue_script__, __vue_template__
-	__vue_script__ = __webpack_require__(16)
-	if (__vue_script__ &&
-	    __vue_script__.__esModule &&
-	    Object.keys(__vue_script__).length > 1) {
+	var __vue_styles__ = {}
+	__vue_script__ = __webpack_require__(19)
+	if (Object.keys(__vue_script__).some(function (key) { return key !== "default" && key !== "__esModule" })) {
 	  console.warn("[vue-loader] resources/assets/js/components/workflow-select.vue: named exports in *.vue files are ignored.")}
-	__vue_template__ = __webpack_require__(17)
+	__vue_template__ = __webpack_require__(20)
 	module.exports = __vue_script__ || {}
 	if (module.exports.__esModule) module.exports = module.exports.default
+	var __vue_options__ = typeof module.exports === "function" ? (module.exports.options || (module.exports.options = {})) : module.exports
 	if (__vue_template__) {
-	(typeof module.exports === "function" ? (module.exports.options || (module.exports.options = {})) : module.exports).template = __vue_template__
+	__vue_options__.template = __vue_template__
 	}
+	if (!__vue_options__.computed) __vue_options__.computed = {}
+	Object.keys(__vue_styles__).forEach(function (key) {
+	var module = __vue_styles__[key]
+	__vue_options__.computed[key] = function () { return module }
+	})
 	if (false) {(function () {  module.hot.accept()
 	  var hotAPI = require("vue-hot-reload-api")
-	  hotAPI.install(require("vue"), true)
+	  hotAPI.install(require("vue"), false)
 	  if (!hotAPI.compatible) return
-	  var id = "/Users/shavenking/Code/project-boomer/resources/assets/js/components/workflow-select.vue"
+	  var id = "_v-bc5a5eda/workflow-select.vue"
 	  if (!module.hot.data) {
 	    hotAPI.createRecord(id, module.exports)
 	  } else {
@@ -10675,9 +11209,9 @@
 	  }
 	})()}
 
-/***/ },
-/* 16 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ }),
+/* 19 */
+/***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 
@@ -10704,8 +11238,6 @@
 	// </template>
 	//
 	// <script type="text/babel">
-
-
 	exports.default = {
 	    components: { DropdownSelect: _dropdownSelect2.default },
 
@@ -10732,33 +11264,38 @@
 	};
 	// </script>
 
-/***/ },
-/* 17 */
-/***/ function(module, exports) {
+/***/ }),
+/* 20 */
+/***/ (function(module, exports) {
 
 	module.exports = "\n<dropdown-select\n    input-name=\"workflow_id\"\n    :options=\"workflows\"\n    option-value-name=\"id\"\n    option-text-name=\"name\"\n    v-ref:dropdown\n></dropdown-select>\n";
 
-/***/ },
-/* 18 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ }),
+/* 21 */
+/***/ (function(module, exports, __webpack_require__) {
 
 	var __vue_script__, __vue_template__
-	__vue_script__ = __webpack_require__(19)
-	if (__vue_script__ &&
-	    __vue_script__.__esModule &&
-	    Object.keys(__vue_script__).length > 1) {
+	var __vue_styles__ = {}
+	__vue_script__ = __webpack_require__(22)
+	if (Object.keys(__vue_script__).some(function (key) { return key !== "default" && key !== "__esModule" })) {
 	  console.warn("[vue-loader] resources/assets/js/components/subcontractor-select.vue: named exports in *.vue files are ignored.")}
-	__vue_template__ = __webpack_require__(21)
+	__vue_template__ = __webpack_require__(24)
 	module.exports = __vue_script__ || {}
 	if (module.exports.__esModule) module.exports = module.exports.default
+	var __vue_options__ = typeof module.exports === "function" ? (module.exports.options || (module.exports.options = {})) : module.exports
 	if (__vue_template__) {
-	(typeof module.exports === "function" ? (module.exports.options || (module.exports.options = {})) : module.exports).template = __vue_template__
+	__vue_options__.template = __vue_template__
 	}
+	if (!__vue_options__.computed) __vue_options__.computed = {}
+	Object.keys(__vue_styles__).forEach(function (key) {
+	var module = __vue_styles__[key]
+	__vue_options__.computed[key] = function () { return module }
+	})
 	if (false) {(function () {  module.hot.accept()
 	  var hotAPI = require("vue-hot-reload-api")
-	  hotAPI.install(require("vue"), true)
+	  hotAPI.install(require("vue"), false)
 	  if (!hotAPI.compatible) return
-	  var id = "/Users/shavenking/Code/project-boomer/resources/assets/js/components/subcontractor-select.vue"
+	  var id = "_v-6359981b/subcontractor-select.vue"
 	  if (!module.hot.data) {
 	    hotAPI.createRecord(id, module.exports)
 	  } else {
@@ -10766,9 +11303,9 @@
 	  }
 	})()}
 
-/***/ },
-/* 19 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ }),
+/* 22 */
+/***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 
@@ -10780,7 +11317,7 @@
 
 	var _dropdownSelect2 = _interopRequireDefault(_dropdownSelect);
 
-	var _subcontractors = __webpack_require__(20);
+	var _subcontractors = __webpack_require__(23);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -10830,9 +11367,9 @@
 	};
 	// </script>
 
-/***/ },
-/* 20 */
-/***/ function(module, exports) {
+/***/ }),
+/* 23 */
+/***/ (function(module, exports) {
 
 	"use strict";
 
@@ -10844,33 +11381,38 @@
 	    return window.$.getJSON("/api/v1/subcontractors");
 	}
 
-/***/ },
-/* 21 */
-/***/ function(module, exports) {
+/***/ }),
+/* 24 */
+/***/ (function(module, exports) {
 
 	module.exports = "\n<dropdown-select\n    input-name=\"subcontractor_id\"\n    :options=\"subcontractors\"\n    option-value-name=\"id\"\n    option-text-name=\"name\"\n    v-ref:dropdown\n></dropdown-select>\n";
 
-/***/ },
-/* 22 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ }),
+/* 25 */
+/***/ (function(module, exports, __webpack_require__) {
 
 	var __vue_script__, __vue_template__
-	__vue_script__ = __webpack_require__(23)
-	if (__vue_script__ &&
-	    __vue_script__.__esModule &&
-	    Object.keys(__vue_script__).length > 1) {
+	var __vue_styles__ = {}
+	__vue_script__ = __webpack_require__(26)
+	if (Object.keys(__vue_script__).some(function (key) { return key !== "default" && key !== "__esModule" })) {
 	  console.warn("[vue-loader] resources/assets/js/components/workflow-nodes.vue: named exports in *.vue files are ignored.")}
-	__vue_template__ = __webpack_require__(86)
+	__vue_template__ = __webpack_require__(89)
 	module.exports = __vue_script__ || {}
 	if (module.exports.__esModule) module.exports = module.exports.default
+	var __vue_options__ = typeof module.exports === "function" ? (module.exports.options || (module.exports.options = {})) : module.exports
 	if (__vue_template__) {
-	(typeof module.exports === "function" ? (module.exports.options || (module.exports.options = {})) : module.exports).template = __vue_template__
+	__vue_options__.template = __vue_template__
 	}
+	if (!__vue_options__.computed) __vue_options__.computed = {}
+	Object.keys(__vue_styles__).forEach(function (key) {
+	var module = __vue_styles__[key]
+	__vue_options__.computed[key] = function () { return module }
+	})
 	if (false) {(function () {  module.hot.accept()
 	  var hotAPI = require("vue-hot-reload-api")
-	  hotAPI.install(require("vue"), true)
+	  hotAPI.install(require("vue"), false)
 	  if (!hotAPI.compatible) return
-	  var id = "/Users/shavenking/Code/project-boomer/resources/assets/js/components/workflow-nodes.vue"
+	  var id = "_v-14a1e1ea/workflow-nodes.vue"
 	  if (!module.hot.data) {
 	    hotAPI.createRecord(id, module.exports)
 	  } else {
@@ -10878,9 +11420,9 @@
 	  }
 	})()}
 
-/***/ },
-/* 23 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ }),
+/* 26 */
+/***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 
@@ -10888,11 +11430,11 @@
 	    value: true
 	});
 
-	var _orderTitleInput = __webpack_require__(24);
+	var _orderTitleInput = __webpack_require__(27);
 
 	var _orderTitleInput2 = _interopRequireDefault(_orderTitleInput);
 
-	var _workflowNodeList = __webpack_require__(27);
+	var _workflowNodeList = __webpack_require__(30);
 
 	var _workflowNodeList2 = _interopRequireDefault(_workflowNodeList);
 
@@ -10918,8 +11460,6 @@
 	// </template>
 	//
 	// <script type="text/babel">
-
-
 	function getNodes(workflowId) {
 	    return window.$.getJSON('/api/v1/workflows/' + workflowId + '/nodes');
 	}
@@ -10994,27 +11534,32 @@
 	};
 	// </script>
 
-/***/ },
-/* 24 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ }),
+/* 27 */
+/***/ (function(module, exports, __webpack_require__) {
 
 	var __vue_script__, __vue_template__
-	__vue_script__ = __webpack_require__(25)
-	if (__vue_script__ &&
-	    __vue_script__.__esModule &&
-	    Object.keys(__vue_script__).length > 1) {
+	var __vue_styles__ = {}
+	__vue_script__ = __webpack_require__(28)
+	if (Object.keys(__vue_script__).some(function (key) { return key !== "default" && key !== "__esModule" })) {
 	  console.warn("[vue-loader] resources/assets/js/components/order-title-input.vue: named exports in *.vue files are ignored.")}
-	__vue_template__ = __webpack_require__(26)
+	__vue_template__ = __webpack_require__(29)
 	module.exports = __vue_script__ || {}
 	if (module.exports.__esModule) module.exports = module.exports.default
+	var __vue_options__ = typeof module.exports === "function" ? (module.exports.options || (module.exports.options = {})) : module.exports
 	if (__vue_template__) {
-	(typeof module.exports === "function" ? (module.exports.options || (module.exports.options = {})) : module.exports).template = __vue_template__
+	__vue_options__.template = __vue_template__
 	}
+	if (!__vue_options__.computed) __vue_options__.computed = {}
+	Object.keys(__vue_styles__).forEach(function (key) {
+	var module = __vue_styles__[key]
+	__vue_options__.computed[key] = function () { return module }
+	})
 	if (false) {(function () {  module.hot.accept()
 	  var hotAPI = require("vue-hot-reload-api")
-	  hotAPI.install(require("vue"), true)
+	  hotAPI.install(require("vue"), false)
 	  if (!hotAPI.compatible) return
-	  var id = "/Users/shavenking/Code/project-boomer/resources/assets/js/components/order-title-input.vue"
+	  var id = "_v-4915c0c2/order-title-input.vue"
 	  if (!module.hot.data) {
 	    hotAPI.createRecord(id, module.exports)
 	  } else {
@@ -11022,9 +11567,9 @@
 	  }
 	})()}
 
-/***/ },
-/* 25 */
-/***/ function(module, exports) {
+/***/ }),
+/* 28 */
+/***/ (function(module, exports) {
 
 	'use strict';
 
@@ -11087,37 +11632,43 @@
 	            };
 	        }
 	    }
-	};
-	// </script>
+	    // </script>
 
-/***/ },
-/* 26 */
-/***/ function(module, exports) {
+	};
+
+/***/ }),
+/* 29 */
+/***/ (function(module, exports) {
 
 	module.exports = "\n<input type=\"text\" v-model=\"orderTitle\" v-on:keypress.enter=\"onKeypress\">\n";
 
-/***/ },
-/* 27 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ }),
+/* 30 */
+/***/ (function(module, exports, __webpack_require__) {
 
 	var __vue_script__, __vue_template__
-	__webpack_require__(28)
-	__vue_script__ = __webpack_require__(32)
-	if (__vue_script__ &&
-	    __vue_script__.__esModule &&
-	    Object.keys(__vue_script__).length > 1) {
+	var __vue_styles__ = {}
+	__webpack_require__(31)
+	__vue_script__ = __webpack_require__(35)
+	if (Object.keys(__vue_script__).some(function (key) { return key !== "default" && key !== "__esModule" })) {
 	  console.warn("[vue-loader] resources/assets/js/components/workflow-node-list.vue: named exports in *.vue files are ignored.")}
-	__vue_template__ = __webpack_require__(85)
+	__vue_template__ = __webpack_require__(88)
 	module.exports = __vue_script__ || {}
 	if (module.exports.__esModule) module.exports = module.exports.default
+	var __vue_options__ = typeof module.exports === "function" ? (module.exports.options || (module.exports.options = {})) : module.exports
 	if (__vue_template__) {
-	(typeof module.exports === "function" ? (module.exports.options || (module.exports.options = {})) : module.exports).template = __vue_template__
+	__vue_options__.template = __vue_template__
 	}
+	if (!__vue_options__.computed) __vue_options__.computed = {}
+	Object.keys(__vue_styles__).forEach(function (key) {
+	var module = __vue_styles__[key]
+	__vue_options__.computed[key] = function () { return module }
+	})
 	if (false) {(function () {  module.hot.accept()
 	  var hotAPI = require("vue-hot-reload-api")
-	  hotAPI.install(require("vue"), true)
+	  hotAPI.install(require("vue"), false)
 	  if (!hotAPI.compatible) return
-	  var id = "/Users/shavenking/Code/project-boomer/resources/assets/js/components/workflow-node-list.vue"
+	  var id = "_v-374cc042/workflow-node-list.vue"
 	  if (!module.hot.data) {
 	    hotAPI.createRecord(id, module.exports)
 	  } else {
@@ -11125,24 +11676,24 @@
 	  }
 	})()}
 
-/***/ },
-/* 28 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ }),
+/* 31 */
+/***/ (function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(29);
+	var content = __webpack_require__(32);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
-	var update = __webpack_require__(31)(content, {});
+	var update = __webpack_require__(34)(content, {});
 	if(content.locals) module.exports = content.locals;
 	// Hot Module Replacement
 	if(false) {
 		// When the styles change, update the <style> tags
 		if(!content.locals) {
-			module.hot.accept("!!./../../../../node_modules/css-loader/index.js!./../../../../node_modules/vue-loader/lib/style-rewriter.js!./../../../../node_modules/vue-loader/lib/selector.js?type=style&index=0!./workflow-node-list.vue", function() {
-				var newContent = require("!!./../../../../node_modules/css-loader/index.js!./../../../../node_modules/vue-loader/lib/style-rewriter.js!./../../../../node_modules/vue-loader/lib/selector.js?type=style&index=0!./workflow-node-list.vue");
+			module.hot.accept("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/style-rewriter.js!../../../../node_modules/vue-loader/lib/selector.js?type=style&index=0!./workflow-node-list.vue", function() {
+				var newContent = require("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/style-rewriter.js!../../../../node_modules/vue-loader/lib/selector.js?type=style&index=0!./workflow-node-list.vue");
 				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 				update(newContent);
 			});
@@ -11151,23 +11702,23 @@
 		module.hot.dispose(function() { update(); });
 	}
 
-/***/ },
-/* 29 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ }),
+/* 32 */
+/***/ (function(module, exports, __webpack_require__) {
 
-	exports = module.exports = __webpack_require__(30)();
+	exports = module.exports = __webpack_require__(33)();
 	// imports
 
 
 	// module
-	exports.push([module.id, "\n.item .vue-divider {\n    margin-top: 1.5em;\n    margin-bottom: 1em;\n}\n", ""]);
+	exports.push([module.id, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n.item .vue-divider {\n    margin-top: 1.5em;\n    margin-bottom: 1em;\n}\n", ""]);
 
 	// exports
 
 
-/***/ },
-/* 30 */
-/***/ function(module, exports) {
+/***/ }),
+/* 33 */
+/***/ (function(module, exports) {
 
 	/*
 		MIT License http://www.opensource.org/licenses/mit-license.php
@@ -11221,9 +11772,9 @@
 	};
 
 
-/***/ },
-/* 31 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ }),
+/* 34 */
+/***/ (function(module, exports, __webpack_require__) {
 
 	/*
 		MIT License http://www.opensource.org/licenses/mit-license.php
@@ -11443,9 +11994,9 @@
 	}
 
 
-/***/ },
-/* 32 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ }),
+/* 35 */
+/***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 
@@ -11453,15 +12004,15 @@
 	    value: true
 	});
 
-	var _sortBy = __webpack_require__(33);
+	var _sortBy = __webpack_require__(36);
 
 	var _sortBy2 = _interopRequireDefault(_sortBy);
 
-	var _last = __webpack_require__(67);
+	var _last = __webpack_require__(70);
 
 	var _last2 = _interopRequireDefault(_last);
 
-	var _take = __webpack_require__(84);
+	var _take = __webpack_require__(87);
 
 	var _take2 = _interopRequireDefault(_take);
 
@@ -11487,9 +12038,9 @@
 	            return (0, _last2.default)(this.sortedNodes);
 	        }
 	    }
-	};
-	// </script>
-	// <template>
+	    // </script>
+
+	}; // <template>
 	//     <div class="ui items">
 	//         <div class="item" v-for="node in nodesExceptLast">
 	//             <div class="middle aligned content">
@@ -11522,15 +12073,15 @@
 	//
 	// <script type="text/babel">
 
-/***/ },
-/* 33 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ }),
+/* 36 */
+/***/ (function(module, exports, __webpack_require__) {
 
-	var baseCallback = __webpack_require__(34),
-	    baseMap = __webpack_require__(74),
-	    baseSortBy = __webpack_require__(80),
-	    compareAscending = __webpack_require__(81),
-	    isIterateeCall = __webpack_require__(83);
+	var baseCallback = __webpack_require__(37),
+	    baseMap = __webpack_require__(77),
+	    baseSortBy = __webpack_require__(83),
+	    compareAscending = __webpack_require__(84),
+	    isIterateeCall = __webpack_require__(86);
 
 	/**
 	 * Creates an array of elements, sorted in ascending order by the results of
@@ -11599,15 +12150,15 @@
 	module.exports = sortBy;
 
 
-/***/ },
-/* 34 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ }),
+/* 37 */
+/***/ (function(module, exports, __webpack_require__) {
 
-	var baseMatches = __webpack_require__(35),
-	    baseMatchesProperty = __webpack_require__(63),
-	    bindCallback = __webpack_require__(70),
-	    identity = __webpack_require__(71),
-	    property = __webpack_require__(72);
+	var baseMatches = __webpack_require__(38),
+	    baseMatchesProperty = __webpack_require__(66),
+	    bindCallback = __webpack_require__(73),
+	    identity = __webpack_require__(74),
+	    property = __webpack_require__(75);
 
 	/**
 	 * The base implementation of `_.callback` which supports specifying the
@@ -11640,13 +12191,13 @@
 	module.exports = baseCallback;
 
 
-/***/ },
-/* 35 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ }),
+/* 38 */
+/***/ (function(module, exports, __webpack_require__) {
 
-	var baseIsMatch = __webpack_require__(36),
-	    getMatchData = __webpack_require__(60),
-	    toObject = __webpack_require__(59);
+	var baseIsMatch = __webpack_require__(39),
+	    getMatchData = __webpack_require__(63),
+	    toObject = __webpack_require__(62);
 
 	/**
 	 * The base implementation of `_.matches` which does not clone `source`.
@@ -11676,12 +12227,12 @@
 	module.exports = baseMatches;
 
 
-/***/ },
-/* 36 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ }),
+/* 39 */
+/***/ (function(module, exports, __webpack_require__) {
 
-	var baseIsEqual = __webpack_require__(37),
-	    toObject = __webpack_require__(59);
+	var baseIsEqual = __webpack_require__(40),
+	    toObject = __webpack_require__(62);
 
 	/**
 	 * The base implementation of `_.isMatch` without support for callback
@@ -11734,13 +12285,13 @@
 	module.exports = baseIsMatch;
 
 
-/***/ },
-/* 37 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ }),
+/* 40 */
+/***/ (function(module, exports, __webpack_require__) {
 
-	var baseIsEqualDeep = __webpack_require__(38),
-	    isObject = __webpack_require__(47),
-	    isObjectLike = __webpack_require__(48);
+	var baseIsEqualDeep = __webpack_require__(41),
+	    isObject = __webpack_require__(50),
+	    isObjectLike = __webpack_require__(51);
 
 	/**
 	 * The base implementation of `_.isEqual` without support for `this` binding
@@ -11768,15 +12319,15 @@
 	module.exports = baseIsEqual;
 
 
-/***/ },
-/* 38 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ }),
+/* 41 */
+/***/ (function(module, exports, __webpack_require__) {
 
-	var equalArrays = __webpack_require__(39),
-	    equalByTag = __webpack_require__(41),
-	    equalObjects = __webpack_require__(42),
-	    isArray = __webpack_require__(55),
-	    isTypedArray = __webpack_require__(58);
+	var equalArrays = __webpack_require__(42),
+	    equalByTag = __webpack_require__(44),
+	    equalObjects = __webpack_require__(45),
+	    isArray = __webpack_require__(58),
+	    isTypedArray = __webpack_require__(61);
 
 	/** `Object#toString` result references. */
 	var argsTag = '[object Arguments]',
@@ -11876,11 +12427,11 @@
 	module.exports = baseIsEqualDeep;
 
 
-/***/ },
-/* 39 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ }),
+/* 42 */
+/***/ (function(module, exports, __webpack_require__) {
 
-	var arraySome = __webpack_require__(40);
+	var arraySome = __webpack_require__(43);
 
 	/**
 	 * A specialized version of `baseIsEqualDeep` for arrays with support for
@@ -11933,9 +12484,9 @@
 	module.exports = equalArrays;
 
 
-/***/ },
-/* 40 */
-/***/ function(module, exports) {
+/***/ }),
+/* 43 */
+/***/ (function(module, exports) {
 
 	/**
 	 * A specialized version of `_.some` for arrays without support for callback
@@ -11962,9 +12513,9 @@
 	module.exports = arraySome;
 
 
-/***/ },
-/* 41 */
-/***/ function(module, exports) {
+/***/ }),
+/* 44 */
+/***/ (function(module, exports) {
 
 	/** `Object#toString` result references. */
 	var boolTag = '[object Boolean]',
@@ -12016,11 +12567,11 @@
 	module.exports = equalByTag;
 
 
-/***/ },
-/* 42 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ }),
+/* 45 */
+/***/ (function(module, exports, __webpack_require__) {
 
-	var keys = __webpack_require__(43);
+	var keys = __webpack_require__(46);
 
 	/** Used for native method references. */
 	var objectProto = Object.prototype;
@@ -12089,14 +12640,14 @@
 	module.exports = equalObjects;
 
 
-/***/ },
-/* 43 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ }),
+/* 46 */
+/***/ (function(module, exports, __webpack_require__) {
 
-	var getNative = __webpack_require__(44),
-	    isArrayLike = __webpack_require__(49),
-	    isObject = __webpack_require__(47),
-	    shimKeys = __webpack_require__(53);
+	var getNative = __webpack_require__(47),
+	    isArrayLike = __webpack_require__(52),
+	    isObject = __webpack_require__(50),
+	    shimKeys = __webpack_require__(56);
 
 	/* Native method references for those with the same name as other `lodash` methods. */
 	var nativeKeys = getNative(Object, 'keys');
@@ -12140,11 +12691,11 @@
 	module.exports = keys;
 
 
-/***/ },
-/* 44 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ }),
+/* 47 */
+/***/ (function(module, exports, __webpack_require__) {
 
-	var isNative = __webpack_require__(45);
+	var isNative = __webpack_require__(48);
 
 	/**
 	 * Gets the native function at `key` of `object`.
@@ -12162,12 +12713,12 @@
 	module.exports = getNative;
 
 
-/***/ },
-/* 45 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ }),
+/* 48 */
+/***/ (function(module, exports, __webpack_require__) {
 
-	var isFunction = __webpack_require__(46),
-	    isObjectLike = __webpack_require__(48);
+	var isFunction = __webpack_require__(49),
+	    isObjectLike = __webpack_require__(51);
 
 	/** Used to detect host constructors (Safari > 5). */
 	var reIsHostCtor = /^\[object .+?Constructor\]$/;
@@ -12216,11 +12767,11 @@
 	module.exports = isNative;
 
 
-/***/ },
-/* 46 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ }),
+/* 49 */
+/***/ (function(module, exports, __webpack_require__) {
 
-	var isObject = __webpack_require__(47);
+	var isObject = __webpack_require__(50);
 
 	/** `Object#toString` result references. */
 	var funcTag = '[object Function]';
@@ -12260,9 +12811,9 @@
 	module.exports = isFunction;
 
 
-/***/ },
-/* 47 */
-/***/ function(module, exports) {
+/***/ }),
+/* 50 */
+/***/ (function(module, exports) {
 
 	/**
 	 * Checks if `value` is the [language type](https://es5.github.io/#x8) of `Object`.
@@ -12294,9 +12845,9 @@
 	module.exports = isObject;
 
 
-/***/ },
-/* 48 */
-/***/ function(module, exports) {
+/***/ }),
+/* 51 */
+/***/ (function(module, exports) {
 
 	/**
 	 * Checks if `value` is object-like.
@@ -12312,12 +12863,12 @@
 	module.exports = isObjectLike;
 
 
-/***/ },
-/* 49 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ }),
+/* 52 */
+/***/ (function(module, exports, __webpack_require__) {
 
-	var getLength = __webpack_require__(50),
-	    isLength = __webpack_require__(52);
+	var getLength = __webpack_require__(53),
+	    isLength = __webpack_require__(55);
 
 	/**
 	 * Checks if `value` is array-like.
@@ -12333,11 +12884,11 @@
 	module.exports = isArrayLike;
 
 
-/***/ },
-/* 50 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ }),
+/* 53 */
+/***/ (function(module, exports, __webpack_require__) {
 
-	var baseProperty = __webpack_require__(51);
+	var baseProperty = __webpack_require__(54);
 
 	/**
 	 * Gets the "length" property value of `object`.
@@ -12354,9 +12905,9 @@
 	module.exports = getLength;
 
 
-/***/ },
-/* 51 */
-/***/ function(module, exports) {
+/***/ }),
+/* 54 */
+/***/ (function(module, exports) {
 
 	/**
 	 * The base implementation of `_.property` without support for deep paths.
@@ -12374,9 +12925,9 @@
 	module.exports = baseProperty;
 
 
-/***/ },
-/* 52 */
-/***/ function(module, exports) {
+/***/ }),
+/* 55 */
+/***/ (function(module, exports) {
 
 	/**
 	 * Used as the [maximum length](http://ecma-international.org/ecma-262/6.0/#sec-number.max_safe_integer)
@@ -12400,15 +12951,15 @@
 	module.exports = isLength;
 
 
-/***/ },
-/* 53 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ }),
+/* 56 */
+/***/ (function(module, exports, __webpack_require__) {
 
-	var isArguments = __webpack_require__(54),
-	    isArray = __webpack_require__(55),
-	    isIndex = __webpack_require__(56),
-	    isLength = __webpack_require__(52),
-	    keysIn = __webpack_require__(57);
+	var isArguments = __webpack_require__(57),
+	    isArray = __webpack_require__(58),
+	    isIndex = __webpack_require__(59),
+	    isLength = __webpack_require__(55),
+	    keysIn = __webpack_require__(60);
 
 	/** Used for native method references. */
 	var objectProto = Object.prototype;
@@ -12447,12 +12998,12 @@
 	module.exports = shimKeys;
 
 
-/***/ },
-/* 54 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ }),
+/* 57 */
+/***/ (function(module, exports, __webpack_require__) {
 
-	var isArrayLike = __webpack_require__(49),
-	    isObjectLike = __webpack_require__(48);
+	var isArrayLike = __webpack_require__(52),
+	    isObjectLike = __webpack_require__(51);
 
 	/** Used for native method references. */
 	var objectProto = Object.prototype;
@@ -12487,13 +13038,13 @@
 	module.exports = isArguments;
 
 
-/***/ },
-/* 55 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ }),
+/* 58 */
+/***/ (function(module, exports, __webpack_require__) {
 
-	var getNative = __webpack_require__(44),
-	    isLength = __webpack_require__(52),
-	    isObjectLike = __webpack_require__(48);
+	var getNative = __webpack_require__(47),
+	    isLength = __webpack_require__(55),
+	    isObjectLike = __webpack_require__(51);
 
 	/** `Object#toString` result references. */
 	var arrayTag = '[object Array]';
@@ -12533,9 +13084,9 @@
 	module.exports = isArray;
 
 
-/***/ },
-/* 56 */
-/***/ function(module, exports) {
+/***/ }),
+/* 59 */
+/***/ (function(module, exports) {
 
 	/** Used to detect unsigned integer values. */
 	var reIsUint = /^\d+$/;
@@ -12563,15 +13114,15 @@
 	module.exports = isIndex;
 
 
-/***/ },
-/* 57 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ }),
+/* 60 */
+/***/ (function(module, exports, __webpack_require__) {
 
-	var isArguments = __webpack_require__(54),
-	    isArray = __webpack_require__(55),
-	    isIndex = __webpack_require__(56),
-	    isLength = __webpack_require__(52),
-	    isObject = __webpack_require__(47);
+	var isArguments = __webpack_require__(57),
+	    isArray = __webpack_require__(58),
+	    isIndex = __webpack_require__(59),
+	    isLength = __webpack_require__(55),
+	    isObject = __webpack_require__(50);
 
 	/** Used for native method references. */
 	var objectProto = Object.prototype;
@@ -12633,12 +13184,12 @@
 	module.exports = keysIn;
 
 
-/***/ },
-/* 58 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ }),
+/* 61 */
+/***/ (function(module, exports, __webpack_require__) {
 
-	var isLength = __webpack_require__(52),
-	    isObjectLike = __webpack_require__(48);
+	var isLength = __webpack_require__(55),
+	    isObjectLike = __webpack_require__(51);
 
 	/** `Object#toString` result references. */
 	var argsTag = '[object Arguments]',
@@ -12713,11 +13264,11 @@
 	module.exports = isTypedArray;
 
 
-/***/ },
-/* 59 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ }),
+/* 62 */
+/***/ (function(module, exports, __webpack_require__) {
 
-	var isObject = __webpack_require__(47);
+	var isObject = __webpack_require__(50);
 
 	/**
 	 * Converts `value` to an object if it's not one.
@@ -12733,12 +13284,12 @@
 	module.exports = toObject;
 
 
-/***/ },
-/* 60 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ }),
+/* 63 */
+/***/ (function(module, exports, __webpack_require__) {
 
-	var isStrictComparable = __webpack_require__(61),
-	    pairs = __webpack_require__(62);
+	var isStrictComparable = __webpack_require__(64),
+	    pairs = __webpack_require__(65);
 
 	/**
 	 * Gets the propery names, values, and compare flags of `object`.
@@ -12760,11 +13311,11 @@
 	module.exports = getMatchData;
 
 
-/***/ },
-/* 61 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ }),
+/* 64 */
+/***/ (function(module, exports, __webpack_require__) {
 
-	var isObject = __webpack_require__(47);
+	var isObject = __webpack_require__(50);
 
 	/**
 	 * Checks if `value` is suitable for strict equality comparisons, i.e. `===`.
@@ -12781,12 +13332,12 @@
 	module.exports = isStrictComparable;
 
 
-/***/ },
-/* 62 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ }),
+/* 65 */
+/***/ (function(module, exports, __webpack_require__) {
 
-	var keys = __webpack_require__(43),
-	    toObject = __webpack_require__(59);
+	var keys = __webpack_require__(46),
+	    toObject = __webpack_require__(62);
 
 	/**
 	 * Creates a two dimensional array of the key-value pairs for `object`,
@@ -12820,19 +13371,19 @@
 	module.exports = pairs;
 
 
-/***/ },
-/* 63 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ }),
+/* 66 */
+/***/ (function(module, exports, __webpack_require__) {
 
-	var baseGet = __webpack_require__(64),
-	    baseIsEqual = __webpack_require__(37),
-	    baseSlice = __webpack_require__(65),
-	    isArray = __webpack_require__(55),
-	    isKey = __webpack_require__(66),
-	    isStrictComparable = __webpack_require__(61),
-	    last = __webpack_require__(67),
-	    toObject = __webpack_require__(59),
-	    toPath = __webpack_require__(68);
+	var baseGet = __webpack_require__(67),
+	    baseIsEqual = __webpack_require__(40),
+	    baseSlice = __webpack_require__(68),
+	    isArray = __webpack_require__(58),
+	    isKey = __webpack_require__(69),
+	    isStrictComparable = __webpack_require__(64),
+	    last = __webpack_require__(70),
+	    toObject = __webpack_require__(62),
+	    toPath = __webpack_require__(71);
 
 	/**
 	 * The base implementation of `_.matchesProperty` which does not clone `srcValue`.
@@ -12871,11 +13422,11 @@
 	module.exports = baseMatchesProperty;
 
 
-/***/ },
-/* 64 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ }),
+/* 67 */
+/***/ (function(module, exports, __webpack_require__) {
 
-	var toObject = __webpack_require__(59);
+	var toObject = __webpack_require__(62);
 
 	/**
 	 * The base implementation of `get` without support for string paths
@@ -12906,9 +13457,9 @@
 	module.exports = baseGet;
 
 
-/***/ },
-/* 65 */
-/***/ function(module, exports) {
+/***/ }),
+/* 68 */
+/***/ (function(module, exports) {
 
 	/**
 	 * The base implementation of `_.slice` without an iteratee call guard.
@@ -12944,12 +13495,12 @@
 	module.exports = baseSlice;
 
 
-/***/ },
-/* 66 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ }),
+/* 69 */
+/***/ (function(module, exports, __webpack_require__) {
 
-	var isArray = __webpack_require__(55),
-	    toObject = __webpack_require__(59);
+	var isArray = __webpack_require__(58),
+	    toObject = __webpack_require__(62);
 
 	/** Used to match property names within property paths. */
 	var reIsDeepProp = /\.|\[(?:[^[\]]*|(["'])(?:(?!\1)[^\n\\]|\\.)*?\1)\]/,
@@ -12978,9 +13529,9 @@
 	module.exports = isKey;
 
 
-/***/ },
-/* 67 */
-/***/ function(module, exports) {
+/***/ }),
+/* 70 */
+/***/ (function(module, exports) {
 
 	/**
 	 * Gets the last element of `array`.
@@ -13003,12 +13554,12 @@
 	module.exports = last;
 
 
-/***/ },
-/* 68 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ }),
+/* 71 */
+/***/ (function(module, exports, __webpack_require__) {
 
-	var baseToString = __webpack_require__(69),
-	    isArray = __webpack_require__(55);
+	var baseToString = __webpack_require__(72),
+	    isArray = __webpack_require__(58);
 
 	/** Used to match property names within property paths. */
 	var rePropName = /[^.[\]]+|\[(?:(-?\d+(?:\.\d+)?)|(["'])((?:(?!\2)[^\n\\]|\\.)*?)\2)\]/g;
@@ -13037,9 +13588,9 @@
 	module.exports = toPath;
 
 
-/***/ },
-/* 69 */
-/***/ function(module, exports) {
+/***/ }),
+/* 72 */
+/***/ (function(module, exports) {
 
 	/**
 	 * Converts `value` to a string if it's not one. An empty string is returned
@@ -13056,11 +13607,11 @@
 	module.exports = baseToString;
 
 
-/***/ },
-/* 70 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ }),
+/* 73 */
+/***/ (function(module, exports, __webpack_require__) {
 
-	var identity = __webpack_require__(71);
+	var identity = __webpack_require__(74);
 
 	/**
 	 * A specialized version of `baseCallback` which only supports `this` binding
@@ -13101,9 +13652,9 @@
 	module.exports = bindCallback;
 
 
-/***/ },
-/* 71 */
-/***/ function(module, exports) {
+/***/ }),
+/* 74 */
+/***/ (function(module, exports) {
 
 	/**
 	 * This method returns the first argument provided to it.
@@ -13127,13 +13678,13 @@
 	module.exports = identity;
 
 
-/***/ },
-/* 72 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ }),
+/* 75 */
+/***/ (function(module, exports, __webpack_require__) {
 
-	var baseProperty = __webpack_require__(51),
-	    basePropertyDeep = __webpack_require__(73),
-	    isKey = __webpack_require__(66);
+	var baseProperty = __webpack_require__(54),
+	    basePropertyDeep = __webpack_require__(76),
+	    isKey = __webpack_require__(69);
 
 	/**
 	 * Creates a function that returns the property value at `path` on a
@@ -13164,12 +13715,12 @@
 	module.exports = property;
 
 
-/***/ },
-/* 73 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ }),
+/* 76 */
+/***/ (function(module, exports, __webpack_require__) {
 
-	var baseGet = __webpack_require__(64),
-	    toPath = __webpack_require__(68);
+	var baseGet = __webpack_require__(67),
+	    toPath = __webpack_require__(71);
 
 	/**
 	 * A specialized version of `baseProperty` which supports deep paths.
@@ -13189,12 +13740,12 @@
 	module.exports = basePropertyDeep;
 
 
-/***/ },
-/* 74 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ }),
+/* 77 */
+/***/ (function(module, exports, __webpack_require__) {
 
-	var baseEach = __webpack_require__(75),
-	    isArrayLike = __webpack_require__(49);
+	var baseEach = __webpack_require__(78),
+	    isArrayLike = __webpack_require__(52);
 
 	/**
 	 * The base implementation of `_.map` without support for callback shorthands
@@ -13218,12 +13769,12 @@
 	module.exports = baseMap;
 
 
-/***/ },
-/* 75 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ }),
+/* 78 */
+/***/ (function(module, exports, __webpack_require__) {
 
-	var baseForOwn = __webpack_require__(76),
-	    createBaseEach = __webpack_require__(79);
+	var baseForOwn = __webpack_require__(79),
+	    createBaseEach = __webpack_require__(82);
 
 	/**
 	 * The base implementation of `_.forEach` without support for callback
@@ -13239,12 +13790,12 @@
 	module.exports = baseEach;
 
 
-/***/ },
-/* 76 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ }),
+/* 79 */
+/***/ (function(module, exports, __webpack_require__) {
 
-	var baseFor = __webpack_require__(77),
-	    keys = __webpack_require__(43);
+	var baseFor = __webpack_require__(80),
+	    keys = __webpack_require__(46);
 
 	/**
 	 * The base implementation of `_.forOwn` without support for callback
@@ -13262,11 +13813,11 @@
 	module.exports = baseForOwn;
 
 
-/***/ },
-/* 77 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ }),
+/* 80 */
+/***/ (function(module, exports, __webpack_require__) {
 
-	var createBaseFor = __webpack_require__(78);
+	var createBaseFor = __webpack_require__(81);
 
 	/**
 	 * The base implementation of `baseForIn` and `baseForOwn` which iterates
@@ -13285,11 +13836,11 @@
 	module.exports = baseFor;
 
 
-/***/ },
-/* 78 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ }),
+/* 81 */
+/***/ (function(module, exports, __webpack_require__) {
 
-	var toObject = __webpack_require__(59);
+	var toObject = __webpack_require__(62);
 
 	/**
 	 * Creates a base function for `_.forIn` or `_.forInRight`.
@@ -13318,13 +13869,13 @@
 	module.exports = createBaseFor;
 
 
-/***/ },
-/* 79 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ }),
+/* 82 */
+/***/ (function(module, exports, __webpack_require__) {
 
-	var getLength = __webpack_require__(50),
-	    isLength = __webpack_require__(52),
-	    toObject = __webpack_require__(59);
+	var getLength = __webpack_require__(53),
+	    isLength = __webpack_require__(55),
+	    toObject = __webpack_require__(62);
 
 	/**
 	 * Creates a `baseEach` or `baseEachRight` function.
@@ -13355,9 +13906,9 @@
 	module.exports = createBaseEach;
 
 
-/***/ },
-/* 80 */
-/***/ function(module, exports) {
+/***/ }),
+/* 83 */
+/***/ (function(module, exports) {
 
 	/**
 	 * The base implementation of `_.sortBy` which uses `comparer` to define
@@ -13382,11 +13933,11 @@
 	module.exports = baseSortBy;
 
 
-/***/ },
-/* 81 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ }),
+/* 84 */
+/***/ (function(module, exports, __webpack_require__) {
 
-	var baseCompareAscending = __webpack_require__(82);
+	var baseCompareAscending = __webpack_require__(85);
 
 	/**
 	 * Used by `_.sortBy` to compare transformed elements of a collection and stable
@@ -13404,9 +13955,9 @@
 	module.exports = compareAscending;
 
 
-/***/ },
-/* 82 */
-/***/ function(module, exports) {
+/***/ }),
+/* 85 */
+/***/ (function(module, exports) {
 
 	/**
 	 * The base implementation of `compareAscending` which compares values and
@@ -13444,13 +13995,13 @@
 	module.exports = baseCompareAscending;
 
 
-/***/ },
-/* 83 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ }),
+/* 86 */
+/***/ (function(module, exports, __webpack_require__) {
 
-	var isArrayLike = __webpack_require__(49),
-	    isIndex = __webpack_require__(56),
-	    isObject = __webpack_require__(47);
+	var isArrayLike = __webpack_require__(52),
+	    isIndex = __webpack_require__(59),
+	    isObject = __webpack_require__(50);
 
 	/**
 	 * Checks if the provided arguments are from an iteratee call.
@@ -13478,12 +14029,12 @@
 	module.exports = isIterateeCall;
 
 
-/***/ },
-/* 84 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ }),
+/* 87 */
+/***/ (function(module, exports, __webpack_require__) {
 
-	var baseSlice = __webpack_require__(65),
-	    isIterateeCall = __webpack_require__(83);
+	var baseSlice = __webpack_require__(68),
+	    isIterateeCall = __webpack_require__(86);
 
 	/**
 	 * Creates a slice of `array` with `n` elements taken from the beginning.
@@ -13523,39 +14074,44 @@
 	module.exports = take;
 
 
-/***/ },
-/* 85 */
-/***/ function(module, exports) {
+/***/ }),
+/* 88 */
+/***/ (function(module, exports) {
 
 	module.exports = "\n<div class=\"ui items\">\n    <div class=\"item\" v-for=\"node in nodesExceptLast\">\n        <div class=\"middle aligned content\">\n            <div class=\"header\">\n                {{ node.order }}.&nbsp;{{ node.title }}\n                <i class=\"red trash link icon\" @click=\"deleteNode(node)\" v-if=\"!readOnly\"></i>\n            </div>\n            <div class=\"vue-divider\">\n                <i class=\"large grey long arrow down icon\"></i>\n            </div>\n        </div>\n    </div>\n    <div class=\"item\" v-if=\"lastNode\">\n        <div class=\"middle aligned content\">\n            <div class=\"header\">\n                {{ lastNode.order }}.&nbsp;{{ lastNode.title }}\n                <i class=\"red trash link icon\" @click=\"deleteNode(lastNode)\" v-if=\"!readOnly\"></i>\n            </div>\n        </div>\n    </div>\n</div>\n";
 
-/***/ },
-/* 86 */
-/***/ function(module, exports) {
+/***/ }),
+/* 89 */
+/***/ (function(module, exports) {
 
 	module.exports = "\n<div class=\"ui grid\">\n    <div class=\"nine wide center aligned column\">\n        <workflow-node-list :nodes.sync=\"nodes\"></workflow-node-list>\n    </div>\n\n    <div class=\"seven wide column\">\n        <div class=\"ui sticky form\" id=\"vue-order-title-input-{{ _uid }}\">\n            <div class=\"field\">\n                <label>{{ labelText }}</label>\n                <order-title-input v-on:valid=\"onValid\" v-on:invalid=\"onInvalid\"></order-title-input>\n            </div>\n            <a href=\"{{ '/workflows/' + workflowId + '/works' }}\" class=\"ui primary button\"><i class=\"plus icon\"></i>設定工作項目</a>\n            <a href=\"{{ '/workflows/' + workflowId + '/checklist' }}\" class=\"ui primary button\"><i class=\"plus icon\"></i>設定自主檢查表</a>\n        </div>\n    </div>\n</div>\n";
 
-/***/ },
-/* 87 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ }),
+/* 90 */
+/***/ (function(module, exports, __webpack_require__) {
 
 	var __vue_script__, __vue_template__
-	__vue_script__ = __webpack_require__(88)
-	if (__vue_script__ &&
-	    __vue_script__.__esModule &&
-	    Object.keys(__vue_script__).length > 1) {
+	var __vue_styles__ = {}
+	__vue_script__ = __webpack_require__(91)
+	if (Object.keys(__vue_script__).some(function (key) { return key !== "default" && key !== "__esModule" })) {
 	  console.warn("[vue-loader] resources/assets/js/components/workitem-list.vue: named exports in *.vue files are ignored.")}
-	__vue_template__ = __webpack_require__(115)
+	__vue_template__ = __webpack_require__(118)
 	module.exports = __vue_script__ || {}
 	if (module.exports.__esModule) module.exports = module.exports.default
+	var __vue_options__ = typeof module.exports === "function" ? (module.exports.options || (module.exports.options = {})) : module.exports
 	if (__vue_template__) {
-	(typeof module.exports === "function" ? (module.exports.options || (module.exports.options = {})) : module.exports).template = __vue_template__
+	__vue_options__.template = __vue_template__
 	}
+	if (!__vue_options__.computed) __vue_options__.computed = {}
+	Object.keys(__vue_styles__).forEach(function (key) {
+	var module = __vue_styles__[key]
+	__vue_options__.computed[key] = function () { return module }
+	})
 	if (false) {(function () {  module.hot.accept()
 	  var hotAPI = require("vue-hot-reload-api")
-	  hotAPI.install(require("vue"), true)
+	  hotAPI.install(require("vue"), false)
 	  if (!hotAPI.compatible) return
-	  var id = "/Users/shavenking/Code/project-boomer/resources/assets/js/components/workitem-list.vue"
+	  var id = "_v-36f836b0/workitem-list.vue"
 	  if (!module.hot.data) {
 	    hotAPI.createRecord(id, module.exports)
 	  } else {
@@ -13563,9 +14119,9 @@
 	  }
 	})()}
 
-/***/ },
-/* 88 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ }),
+/* 91 */
+/***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 
@@ -13573,23 +14129,23 @@
 	    value: true
 	});
 
-	var _workitemForm = __webpack_require__(89);
+	var _workitemForm = __webpack_require__(92);
 
 	var _workitemForm2 = _interopRequireDefault(_workitemForm);
 
-	var _tableWorkitems = __webpack_require__(110);
+	var _tableWorkitems = __webpack_require__(113);
 
 	var _tableWorkitems2 = _interopRequireDefault(_tableWorkitems);
 
-	var _zipObject = __webpack_require__(94);
+	var _zipObject = __webpack_require__(97);
 
 	var _zipObject2 = _interopRequireDefault(_zipObject);
 
-	var _pluck = __webpack_require__(91);
+	var _pluck = __webpack_require__(94);
 
 	var _pluck2 = _interopRequireDefault(_pluck);
 
-	var _merge = __webpack_require__(95);
+	var _merge = __webpack_require__(98);
 
 	var _merge2 = _interopRequireDefault(_merge);
 
@@ -13752,27 +14308,32 @@
 	};
 	// </script>
 
-/***/ },
-/* 89 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ }),
+/* 92 */
+/***/ (function(module, exports, __webpack_require__) {
 
 	var __vue_script__, __vue_template__
-	__vue_script__ = __webpack_require__(90)
-	if (__vue_script__ &&
-	    __vue_script__.__esModule &&
-	    Object.keys(__vue_script__).length > 1) {
+	var __vue_styles__ = {}
+	__vue_script__ = __webpack_require__(93)
+	if (Object.keys(__vue_script__).some(function (key) { return key !== "default" && key !== "__esModule" })) {
 	  console.warn("[vue-loader] resources/assets/js/components/workitem-form.vue: named exports in *.vue files are ignored.")}
-	__vue_template__ = __webpack_require__(109)
+	__vue_template__ = __webpack_require__(112)
 	module.exports = __vue_script__ || {}
 	if (module.exports.__esModule) module.exports = module.exports.default
+	var __vue_options__ = typeof module.exports === "function" ? (module.exports.options || (module.exports.options = {})) : module.exports
 	if (__vue_template__) {
-	(typeof module.exports === "function" ? (module.exports.options || (module.exports.options = {})) : module.exports).template = __vue_template__
+	__vue_options__.template = __vue_template__
 	}
+	if (!__vue_options__.computed) __vue_options__.computed = {}
+	Object.keys(__vue_styles__).forEach(function (key) {
+	var module = __vue_styles__[key]
+	__vue_options__.computed[key] = function () { return module }
+	})
 	if (false) {(function () {  module.hot.accept()
 	  var hotAPI = require("vue-hot-reload-api")
-	  hotAPI.install(require("vue"), true)
+	  hotAPI.install(require("vue"), false)
 	  if (!hotAPI.compatible) return
-	  var id = "/Users/shavenking/Code/project-boomer/resources/assets/js/components/workitem-form.vue"
+	  var id = "_v-02ff0fd6/workitem-form.vue"
 	  if (!module.hot.data) {
 	    hotAPI.createRecord(id, module.exports)
 	  } else {
@@ -13780,9 +14341,9 @@
 	  }
 	})()}
 
-/***/ },
-/* 90 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ }),
+/* 93 */
+/***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 
@@ -13790,23 +14351,23 @@
 	    value: true
 	});
 
-	var _pluck = __webpack_require__(91);
+	var _pluck = __webpack_require__(94);
 
 	var _pluck2 = _interopRequireDefault(_pluck);
 
-	var _zipObject = __webpack_require__(94);
+	var _zipObject = __webpack_require__(97);
 
 	var _zipObject2 = _interopRequireDefault(_zipObject);
 
-	var _merge = __webpack_require__(95);
+	var _merge = __webpack_require__(98);
 
 	var _merge2 = _interopRequireDefault(_merge);
 
-	var _unitSelect = __webpack_require__(12);
+	var _unitSelect = __webpack_require__(15);
 
 	var _unitSelect2 = _interopRequireDefault(_unitSelect);
 
-	var _costTypeSelect = __webpack_require__(106);
+	var _costTypeSelect = __webpack_require__(109);
 
 	var _costTypeSelect2 = _interopRequireDefault(_costTypeSelect);
 
@@ -13901,12 +14462,12 @@
 	//
 	// <script type="text/babel">
 
-/***/ },
-/* 91 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ }),
+/* 94 */
+/***/ (function(module, exports, __webpack_require__) {
 
-	var map = __webpack_require__(92),
-	    property = __webpack_require__(72);
+	var map = __webpack_require__(95),
+	    property = __webpack_require__(75);
 
 	/**
 	 * Gets the property value of `path` from all elements in `collection`.
@@ -13938,14 +14499,14 @@
 	module.exports = pluck;
 
 
-/***/ },
-/* 92 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ }),
+/* 95 */
+/***/ (function(module, exports, __webpack_require__) {
 
-	var arrayMap = __webpack_require__(93),
-	    baseCallback = __webpack_require__(34),
-	    baseMap = __webpack_require__(74),
-	    isArray = __webpack_require__(55);
+	var arrayMap = __webpack_require__(96),
+	    baseCallback = __webpack_require__(37),
+	    baseMap = __webpack_require__(77),
+	    isArray = __webpack_require__(58);
 
 	/**
 	 * Creates an array of values by running each element in `collection` through
@@ -14012,9 +14573,9 @@
 	module.exports = map;
 
 
-/***/ },
-/* 93 */
-/***/ function(module, exports) {
+/***/ }),
+/* 96 */
+/***/ (function(module, exports) {
 
 	/**
 	 * A specialized version of `_.map` for arrays without support for callback
@@ -14039,11 +14600,11 @@
 	module.exports = arrayMap;
 
 
-/***/ },
-/* 94 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ }),
+/* 97 */
+/***/ (function(module, exports, __webpack_require__) {
 
-	var isArray = __webpack_require__(55);
+	var isArray = __webpack_require__(58);
 
 	/**
 	 * The inverse of `_.pairs`; this method returns an object composed from arrays
@@ -14088,12 +14649,12 @@
 	module.exports = zipObject;
 
 
-/***/ },
-/* 95 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ }),
+/* 98 */
+/***/ (function(module, exports, __webpack_require__) {
 
-	var baseMerge = __webpack_require__(96),
-	    createAssigner = __webpack_require__(104);
+	var baseMerge = __webpack_require__(99),
+	    createAssigner = __webpack_require__(107);
 
 	/**
 	 * Recursively merges own enumerable properties of the source object(s), that
@@ -14148,18 +14709,18 @@
 	module.exports = merge;
 
 
-/***/ },
-/* 96 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ }),
+/* 99 */
+/***/ (function(module, exports, __webpack_require__) {
 
-	var arrayEach = __webpack_require__(97),
-	    baseMergeDeep = __webpack_require__(98),
-	    isArray = __webpack_require__(55),
-	    isArrayLike = __webpack_require__(49),
-	    isObject = __webpack_require__(47),
-	    isObjectLike = __webpack_require__(48),
-	    isTypedArray = __webpack_require__(58),
-	    keys = __webpack_require__(43);
+	var arrayEach = __webpack_require__(100),
+	    baseMergeDeep = __webpack_require__(101),
+	    isArray = __webpack_require__(58),
+	    isArrayLike = __webpack_require__(52),
+	    isObject = __webpack_require__(50),
+	    isObjectLike = __webpack_require__(51),
+	    isTypedArray = __webpack_require__(61),
+	    keys = __webpack_require__(46);
 
 	/**
 	 * The base implementation of `_.merge` without support for argument juggling,
@@ -14210,9 +14771,9 @@
 	module.exports = baseMerge;
 
 
-/***/ },
-/* 97 */
-/***/ function(module, exports) {
+/***/ }),
+/* 100 */
+/***/ (function(module, exports) {
 
 	/**
 	 * A specialized version of `_.forEach` for arrays without support for callback
@@ -14238,17 +14799,17 @@
 	module.exports = arrayEach;
 
 
-/***/ },
-/* 98 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ }),
+/* 101 */
+/***/ (function(module, exports, __webpack_require__) {
 
-	var arrayCopy = __webpack_require__(99),
-	    isArguments = __webpack_require__(54),
-	    isArray = __webpack_require__(55),
-	    isArrayLike = __webpack_require__(49),
-	    isPlainObject = __webpack_require__(100),
-	    isTypedArray = __webpack_require__(58),
-	    toPlainObject = __webpack_require__(102);
+	var arrayCopy = __webpack_require__(102),
+	    isArguments = __webpack_require__(57),
+	    isArray = __webpack_require__(58),
+	    isArrayLike = __webpack_require__(52),
+	    isPlainObject = __webpack_require__(103),
+	    isTypedArray = __webpack_require__(61),
+	    toPlainObject = __webpack_require__(105);
 
 	/**
 	 * A specialized version of `baseMerge` for arrays and objects which performs
@@ -14311,9 +14872,9 @@
 	module.exports = baseMergeDeep;
 
 
-/***/ },
-/* 99 */
-/***/ function(module, exports) {
+/***/ }),
+/* 102 */
+/***/ (function(module, exports) {
 
 	/**
 	 * Copies the values of `source` to `array`.
@@ -14337,13 +14898,13 @@
 	module.exports = arrayCopy;
 
 
-/***/ },
-/* 100 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ }),
+/* 103 */
+/***/ (function(module, exports, __webpack_require__) {
 
-	var baseForIn = __webpack_require__(101),
-	    isArguments = __webpack_require__(54),
-	    isObjectLike = __webpack_require__(48);
+	var baseForIn = __webpack_require__(104),
+	    isArguments = __webpack_require__(57),
+	    isObjectLike = __webpack_require__(51);
 
 	/** `Object#toString` result references. */
 	var objectTag = '[object Object]';
@@ -14414,12 +14975,12 @@
 	module.exports = isPlainObject;
 
 
-/***/ },
-/* 101 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ }),
+/* 104 */
+/***/ (function(module, exports, __webpack_require__) {
 
-	var baseFor = __webpack_require__(77),
-	    keysIn = __webpack_require__(57);
+	var baseFor = __webpack_require__(80),
+	    keysIn = __webpack_require__(60);
 
 	/**
 	 * The base implementation of `_.forIn` without support for callback
@@ -14437,12 +14998,12 @@
 	module.exports = baseForIn;
 
 
-/***/ },
-/* 102 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ }),
+/* 105 */
+/***/ (function(module, exports, __webpack_require__) {
 
-	var baseCopy = __webpack_require__(103),
-	    keysIn = __webpack_require__(57);
+	var baseCopy = __webpack_require__(106),
+	    keysIn = __webpack_require__(60);
 
 	/**
 	 * Converts `value` to a plain object flattening inherited enumerable
@@ -14474,9 +15035,9 @@
 	module.exports = toPlainObject;
 
 
-/***/ },
-/* 103 */
-/***/ function(module, exports) {
+/***/ }),
+/* 106 */
+/***/ (function(module, exports) {
 
 	/**
 	 * Copies properties of `source` to `object`.
@@ -14503,13 +15064,13 @@
 	module.exports = baseCopy;
 
 
-/***/ },
-/* 104 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ }),
+/* 107 */
+/***/ (function(module, exports, __webpack_require__) {
 
-	var bindCallback = __webpack_require__(70),
-	    isIterateeCall = __webpack_require__(83),
-	    restParam = __webpack_require__(105);
+	var bindCallback = __webpack_require__(73),
+	    isIterateeCall = __webpack_require__(86),
+	    restParam = __webpack_require__(108);
 
 	/**
 	 * Creates a `_.assign`, `_.defaults`, or `_.merge` function.
@@ -14550,9 +15111,9 @@
 	module.exports = createAssigner;
 
 
-/***/ },
-/* 105 */
-/***/ function(module, exports) {
+/***/ }),
+/* 108 */
+/***/ (function(module, exports) {
 
 	/** Used as the `TypeError` message for "Functions" methods. */
 	var FUNC_ERROR_TEXT = 'Expected a function';
@@ -14614,27 +15175,32 @@
 	module.exports = restParam;
 
 
-/***/ },
-/* 106 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ }),
+/* 109 */
+/***/ (function(module, exports, __webpack_require__) {
 
 	var __vue_script__, __vue_template__
-	__vue_script__ = __webpack_require__(107)
-	if (__vue_script__ &&
-	    __vue_script__.__esModule &&
-	    Object.keys(__vue_script__).length > 1) {
+	var __vue_styles__ = {}
+	__vue_script__ = __webpack_require__(110)
+	if (Object.keys(__vue_script__).some(function (key) { return key !== "default" && key !== "__esModule" })) {
 	  console.warn("[vue-loader] resources/assets/js/components/cost-type-select.vue: named exports in *.vue files are ignored.")}
-	__vue_template__ = __webpack_require__(108)
+	__vue_template__ = __webpack_require__(111)
 	module.exports = __vue_script__ || {}
 	if (module.exports.__esModule) module.exports = module.exports.default
+	var __vue_options__ = typeof module.exports === "function" ? (module.exports.options || (module.exports.options = {})) : module.exports
 	if (__vue_template__) {
-	(typeof module.exports === "function" ? (module.exports.options || (module.exports.options = {})) : module.exports).template = __vue_template__
+	__vue_options__.template = __vue_template__
 	}
+	if (!__vue_options__.computed) __vue_options__.computed = {}
+	Object.keys(__vue_styles__).forEach(function (key) {
+	var module = __vue_styles__[key]
+	__vue_options__.computed[key] = function () { return module }
+	})
 	if (false) {(function () {  module.hot.accept()
 	  var hotAPI = require("vue-hot-reload-api")
-	  hotAPI.install(require("vue"), true)
+	  hotAPI.install(require("vue"), false)
 	  if (!hotAPI.compatible) return
-	  var id = "/Users/shavenking/Code/project-boomer/resources/assets/js/components/cost-type-select.vue"
+	  var id = "_v-6b0749f6/cost-type-select.vue"
 	  if (!module.hot.data) {
 	    hotAPI.createRecord(id, module.exports)
 	  } else {
@@ -14642,9 +15208,9 @@
 	  }
 	})()}
 
-/***/ },
-/* 107 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ }),
+/* 110 */
+/***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 
@@ -14671,8 +15237,6 @@
 	// </template>
 	//
 	// <script type="text/babel">
-
-
 	exports.default = {
 	    components: { DropdownSelect: _dropdownSelect2.default },
 
@@ -14700,39 +15264,44 @@
 	};
 	// </script>
 
-/***/ },
-/* 108 */
-/***/ function(module, exports) {
+/***/ }),
+/* 111 */
+/***/ (function(module, exports) {
 
 	module.exports = "\n<dropdown-select\n    input-name=\"cost_type_id\"\n    :options=\"costTypes\"\n    option-value-name=\"id\"\n    option-text-name=\"name\"\n    v-ref:dropdown\n></dropdown-select>\n";
 
-/***/ },
-/* 109 */
-/***/ function(module, exports) {
+/***/ }),
+/* 112 */
+/***/ (function(module, exports) {
 
 	module.exports = "\n<form class=\"ui form\" @submit.prevent=\"onSubmit\">\n    <div class=\"ui dividing header\">{{ isEditing ? item.name : '新增工料項目' }}</div>\n    <div class=\"field\">\n        <label>名稱</label>\n        <input type=\"text\" name=\"name\" v-model=\"item.name\">\n    </div>\n    <div class=\"field\">\n        <label>數量</label>\n        <input type=\"text\" name=\"amount\" v-model=\"item.amount\">\n    </div>\n    <div class=\"field\">\n        <label>單價</label>\n        <input type=\"text\" name=\"unit_price\" v-model=\"item.unit_price\">\n    </div>\n    <div class=\"field\">\n        <label>單位</label>\n        <unit-select v-ref:unit-select></unit-select>\n    </div>\n    <div class=\"field\">\n        <label>費用分類</label>\n        <cost-type-select v-ref:cost-type-select></cost-type-select>\n    </div>\n    <button type=\"submit\" class=\"ui primary button\"><i class=\"plus icon\"></i>{{ isEditing ? '儲存' : '新增' }}</button>\n    <button type=\"button\" class=\"ui button\" @click=\"clearForm\">{{ isEditing ? '取消' : '重填' }}</button>\n    <slot></slot>\n</form>\n";
 
-/***/ },
-/* 110 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ }),
+/* 113 */
+/***/ (function(module, exports, __webpack_require__) {
 
 	var __vue_script__, __vue_template__
-	__vue_script__ = __webpack_require__(111)
-	if (__vue_script__ &&
-	    __vue_script__.__esModule &&
-	    Object.keys(__vue_script__).length > 1) {
+	var __vue_styles__ = {}
+	__vue_script__ = __webpack_require__(114)
+	if (Object.keys(__vue_script__).some(function (key) { return key !== "default" && key !== "__esModule" })) {
 	  console.warn("[vue-loader] resources/assets/js/components/table-workitems.vue: named exports in *.vue files are ignored.")}
-	__vue_template__ = __webpack_require__(114)
+	__vue_template__ = __webpack_require__(117)
 	module.exports = __vue_script__ || {}
 	if (module.exports.__esModule) module.exports = module.exports.default
+	var __vue_options__ = typeof module.exports === "function" ? (module.exports.options || (module.exports.options = {})) : module.exports
 	if (__vue_template__) {
-	(typeof module.exports === "function" ? (module.exports.options || (module.exports.options = {})) : module.exports).template = __vue_template__
+	__vue_options__.template = __vue_template__
 	}
+	if (!__vue_options__.computed) __vue_options__.computed = {}
+	Object.keys(__vue_styles__).forEach(function (key) {
+	var module = __vue_styles__[key]
+	__vue_options__.computed[key] = function () { return module }
+	})
 	if (false) {(function () {  module.hot.accept()
 	  var hotAPI = require("vue-hot-reload-api")
-	  hotAPI.install(require("vue"), true)
+	  hotAPI.install(require("vue"), false)
 	  if (!hotAPI.compatible) return
-	  var id = "/Users/shavenking/Code/project-boomer/resources/assets/js/components/table-workitems.vue"
+	  var id = "_v-91431a4e/table-workitems.vue"
 	  if (!module.hot.data) {
 	    hotAPI.createRecord(id, module.exports)
 	  } else {
@@ -14740,9 +15309,9 @@
 	  }
 	})()}
 
-/***/ },
-/* 111 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ }),
+/* 114 */
+/***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 
@@ -14750,7 +15319,7 @@
 	    value: true
 	});
 
-	var _lodash = __webpack_require__(112);
+	var _lodash = __webpack_require__(115);
 
 	var _lodash2 = _interopRequireDefault(_lodash);
 
@@ -14781,9 +15350,9 @@
 	            this.$parent.$emit('delete', item);
 	        }
 	    }
-	};
-	// </script>
-	// <template>
+	    // </script>
+
+	}; // <template>
 	//     <table class="ui seven column table">
 	//         <thead>
 	//             <tr>
@@ -14832,9 +15401,9 @@
 	//
 	// <script type="text/babel">
 
-/***/ },
-/* 112 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ }),
+/* 115 */
+/***/ (function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_RESULT__;/* WEBPACK VAR INJECTION */(function(module, global) {/**
 	 * @license
@@ -27188,11 +27757,11 @@
 	  }
 	}.call(this));
 
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(113)(module), (function() { return this; }())))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(116)(module), (function() { return this; }())))
 
-/***/ },
-/* 113 */
-/***/ function(module, exports) {
+/***/ }),
+/* 116 */
+/***/ (function(module, exports) {
 
 	module.exports = function(module) {
 		if(!module.webpackPolyfill) {
@@ -27206,39 +27775,44 @@
 	}
 
 
-/***/ },
-/* 114 */
-/***/ function(module, exports) {
+/***/ }),
+/* 117 */
+/***/ (function(module, exports) {
 
 	module.exports = "\n<table class=\"ui seven column table\">\n    <thead>\n        <tr>\n            <th>名稱</th>\n            <th>單位</th>\n            <th>數量</th>\n            <th>單價</th>\n            <th>總價</th>\n            <th>費用類別</th>\n            <th></th>\n        </tr>\n    </thead>\n    <tbody>\n        <tr v-for=\"item in items\">\n            <td>{{ item.name }}</td>\n            <td>{{ item.unit.name }}</td>\n            <td>{{ item.amount }}</td>\n            <td>{{ item.unit_price | currency }}</td>\n            <td class=\"collapsing\">{{ item.unit_price * item.amount | currency }}</td>\n            <td>\n                {{ item.cost_type.name }}\n            </td>\n            <td class=\"collapsing\">\n                <div class=\"ui tiny compact right floated icon buttons\">\n                    <button class=\"ui button\" :class=\"{disabled: isLocked}\" @click=\"editItem(item)\">\n                        <i class=\"pencil icon\"></i>\n                    </button>\n                    <button class=\"ui button\" :class=\"{disabled: isLocked}\" @click=\"deleteItem(item)\">\n                        <i class=\"trash icon\"></i>\n                    </button>\n                </div>\n            </td>\n        </tr>\n    </tbody>\n    <tfoot>\n        <th></th>\n        <th></th>\n        <th></th>\n        <th></th>\n        <th>{{ totalPrice | currency }}</th>\n        <th></th>\n        <th></th>\n    </tfoot>\n</table>\n";
 
-/***/ },
-/* 115 */
-/***/ function(module, exports) {
+/***/ }),
+/* 118 */
+/***/ (function(module, exports) {
 
 	module.exports = "\n<div class=\"ui grid\">\n    <div class=\"row\">\n        <div class=\"sixteen wide column\">\n            <div class=\"ui raised segment\">\n                <div class=\"ui mini five statistics\">\n                    <div class=\"statistic\">\n                        <div class=\"label\">總價</div>\n                        <div class=\"value\">{{ total | currency }}</div>\n                    </div>\n                    <div class=\"statistic\" v-for=\"(key, typeTotal) in typeTotals\">\n                        <div class=\"label\">{{ costTypes[key] }}</div>\n                        <div class=\"value\">{{ typeTotal | currency }}</div>\n                    </div>\n                </div>\n            </div>\n        </div>\n    </div>\n    <div class=\"row\">\n        <div class=\"sixteen wide column\">\n            <table-workitems\n                :items=\"items\"\n            ></table-workitems>\n        </div>\n    </div>\n    <div class=\"row\">\n        <div class=\"sixteen wide column\">\n            <workitem-form v-ref:form>\n                <a href=\"{{ '/works/' + workId+ '/workflow' }}\" class=\"ui primary button\">參考施工流程圖</a>\n                <a href=\"{{ '/works/' + workId }}\" class=\"ui primary button\">返回</a>\n            </workitem-form>\n        </div>\n    </div>\n</div>\n";
 
-/***/ },
-/* 116 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ }),
+/* 119 */
+/***/ (function(module, exports, __webpack_require__) {
 
 	var __vue_script__, __vue_template__
-	__vue_script__ = __webpack_require__(117)
-	if (__vue_script__ &&
-	    __vue_script__.__esModule &&
-	    Object.keys(__vue_script__).length > 1) {
+	var __vue_styles__ = {}
+	__vue_script__ = __webpack_require__(120)
+	if (Object.keys(__vue_script__).some(function (key) { return key !== "default" && key !== "__esModule" })) {
 	  console.warn("[vue-loader] resources/assets/js/components/checklist.vue: named exports in *.vue files are ignored.")}
-	__vue_template__ = __webpack_require__(118)
+	__vue_template__ = __webpack_require__(121)
 	module.exports = __vue_script__ || {}
 	if (module.exports.__esModule) module.exports = module.exports.default
+	var __vue_options__ = typeof module.exports === "function" ? (module.exports.options || (module.exports.options = {})) : module.exports
 	if (__vue_template__) {
-	(typeof module.exports === "function" ? (module.exports.options || (module.exports.options = {})) : module.exports).template = __vue_template__
+	__vue_options__.template = __vue_template__
 	}
+	if (!__vue_options__.computed) __vue_options__.computed = {}
+	Object.keys(__vue_styles__).forEach(function (key) {
+	var module = __vue_styles__[key]
+	__vue_options__.computed[key] = function () { return module }
+	})
 	if (false) {(function () {  module.hot.accept()
 	  var hotAPI = require("vue-hot-reload-api")
-	  hotAPI.install(require("vue"), true)
+	  hotAPI.install(require("vue"), false)
 	  if (!hotAPI.compatible) return
-	  var id = "/Users/shavenking/Code/project-boomer/resources/assets/js/components/checklist.vue"
+	  var id = "_v-42d8aa2f/checklist.vue"
 	  if (!module.hot.data) {
 	    hotAPI.createRecord(id, module.exports)
 	  } else {
@@ -27246,9 +27820,9 @@
 	  }
 	})()}
 
-/***/ },
-/* 117 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ }),
+/* 120 */
+/***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 
@@ -27256,7 +27830,7 @@
 	    value: true
 	});
 
-	var _lodash = __webpack_require__(112);
+	var _lodash = __webpack_require__(115);
 
 	var _lodash2 = _interopRequireDefault(_lodash);
 
@@ -27367,33 +27941,38 @@
 	};
 	// </script>
 
-/***/ },
-/* 118 */
-/***/ function(module, exports) {
+/***/ }),
+/* 121 */
+/***/ (function(module, exports) {
 
 	module.exports = "\n<table class=\"ui celled structured table\">\n    <thead>\n        <tr>\n            <th class=\"four wide center aligned\">{{ titleLabel }}</th>\n            <th class=\"twelve wide\">{{ detailLabel }}</th>\n        </tr>\n    </thead>\n    <tbody v-for=\"(title, items) in groupedItems\">\n        <tr v-for=\"(idx, item) in items\">\n            <td :rowspan=\"items.length\" v-if=\"0 === idx\" class=\"top aligned center aligned\">{{ title }}</td>\n            <td v-if=\"item.detail\">\n                {{ item.detail }}\n                <a href=\"#\" @click=\"deleteItem(item, $event)\"><i class=\"ui red trash icon\"></i></a>\n            </td>\n            <td v-if=\"!item.detail\" >\n                <div class=\"ui fluid icon input\">\n                    <input type=\"text\" @keypress.enter=\"onSubmit(title, $event)\">\n                    <i class=\"plus icon\"></i>\n                </div>\n            </td>\n        </tr>\n    </tbody>\n</table>\n";
 
-/***/ },
-/* 119 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ }),
+/* 122 */
+/***/ (function(module, exports, __webpack_require__) {
 
 	var __vue_script__, __vue_template__
-	__vue_script__ = __webpack_require__(120)
-	if (__vue_script__ &&
-	    __vue_script__.__esModule &&
-	    Object.keys(__vue_script__).length > 1) {
+	var __vue_styles__ = {}
+	__vue_script__ = __webpack_require__(123)
+	if (Object.keys(__vue_script__).some(function (key) { return key !== "default" && key !== "__esModule" })) {
 	  console.warn("[vue-loader] resources/assets/js/components/flowtype-work-select.vue: named exports in *.vue files are ignored.")}
-	__vue_template__ = __webpack_require__(121)
+	__vue_template__ = __webpack_require__(124)
 	module.exports = __vue_script__ || {}
 	if (module.exports.__esModule) module.exports = module.exports.default
+	var __vue_options__ = typeof module.exports === "function" ? (module.exports.options || (module.exports.options = {})) : module.exports
 	if (__vue_template__) {
-	(typeof module.exports === "function" ? (module.exports.options || (module.exports.options = {})) : module.exports).template = __vue_template__
+	__vue_options__.template = __vue_template__
 	}
+	if (!__vue_options__.computed) __vue_options__.computed = {}
+	Object.keys(__vue_styles__).forEach(function (key) {
+	var module = __vue_styles__[key]
+	__vue_options__.computed[key] = function () { return module }
+	})
 	if (false) {(function () {  module.hot.accept()
 	  var hotAPI = require("vue-hot-reload-api")
-	  hotAPI.install(require("vue"), true)
+	  hotAPI.install(require("vue"), false)
 	  if (!hotAPI.compatible) return
-	  var id = "/Users/shavenking/Code/project-boomer/resources/assets/js/components/flowtype-work-select.vue"
+	  var id = "_v-5db409da/flowtype-work-select.vue"
 	  if (!module.hot.data) {
 	    hotAPI.createRecord(id, module.exports)
 	  } else {
@@ -27401,9 +27980,9 @@
 	  }
 	})()}
 
-/***/ },
-/* 120 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ }),
+/* 123 */
+/***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 
@@ -27440,8 +28019,6 @@
 	// </template>
 	//
 	// <script type="text/babel">
-
-
 	function getWorks(detailingflowTypeId) {
 	    if (!detailingflowTypeId) {
 	        return window.$.getJSON('/api/v1/works');
@@ -27488,33 +28065,38 @@
 	};
 	// </script>
 
-/***/ },
-/* 121 */
-/***/ function(module, exports) {
+/***/ }),
+/* 124 */
+/***/ (function(module, exports) {
 
 	module.exports = "\n<div class=\"field\">\n    <label>{{ selectTypeOrderLabel }}</label>\n    <flowtype-select :on-selected.once=\"onFlowtypeSelected\"></flowtype-select>\n</div>\n<div class=\"field\">\n    <label>{{ selectWorkLabel }}</label>\n    <dropdown-select\n        input-name=\"work_id\"\n        :options=\"works\"\n        option-value-name=\"id\"\n        option-text-name=\"name\"\n        :multiple.once=\"false\"\n        v-ref:work-select\n    ></dropdown-select>\n</div>\n";
 
-/***/ },
-/* 122 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ }),
+/* 125 */
+/***/ (function(module, exports, __webpack_require__) {
 
 	var __vue_script__, __vue_template__
-	__vue_script__ = __webpack_require__(123)
-	if (__vue_script__ &&
-	    __vue_script__.__esModule &&
-	    Object.keys(__vue_script__).length > 1) {
+	var __vue_styles__ = {}
+	__vue_script__ = __webpack_require__(126)
+	if (Object.keys(__vue_script__).some(function (key) { return key !== "default" && key !== "__esModule" })) {
 	  console.warn("[vue-loader] resources/assets/js/components/table-project-works.vue: named exports in *.vue files are ignored.")}
-	__vue_template__ = __webpack_require__(124)
+	__vue_template__ = __webpack_require__(127)
 	module.exports = __vue_script__ || {}
 	if (module.exports.__esModule) module.exports = module.exports.default
+	var __vue_options__ = typeof module.exports === "function" ? (module.exports.options || (module.exports.options = {})) : module.exports
 	if (__vue_template__) {
-	(typeof module.exports === "function" ? (module.exports.options || (module.exports.options = {})) : module.exports).template = __vue_template__
+	__vue_options__.template = __vue_template__
 	}
+	if (!__vue_options__.computed) __vue_options__.computed = {}
+	Object.keys(__vue_styles__).forEach(function (key) {
+	var module = __vue_styles__[key]
+	__vue_options__.computed[key] = function () { return module }
+	})
 	if (false) {(function () {  module.hot.accept()
 	  var hotAPI = require("vue-hot-reload-api")
-	  hotAPI.install(require("vue"), true)
+	  hotAPI.install(require("vue"), false)
 	  if (!hotAPI.compatible) return
-	  var id = "/Users/shavenking/Code/project-boomer/resources/assets/js/components/table-project-works.vue"
+	  var id = "_v-39ea9a50/table-project-works.vue"
 	  if (!module.hot.data) {
 	    hotAPI.createRecord(id, module.exports)
 	  } else {
@@ -27522,9 +28104,9 @@
 	  }
 	})()}
 
-/***/ },
-/* 123 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ }),
+/* 126 */
+/***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 
@@ -27532,7 +28114,7 @@
 	    value: true
 	});
 
-	var _lodash = __webpack_require__(112);
+	var _lodash = __webpack_require__(115);
 
 	var _lodash2 = _interopRequireDefault(_lodash);
 
@@ -27691,33 +28273,38 @@
 	};
 	// </script>
 
-/***/ },
-/* 124 */
-/***/ function(module, exports) {
+/***/ }),
+/* 127 */
+/***/ (function(module, exports) {
 
 	module.exports = "\n<table class=\"ui eight column table\">\n    <thead>\n        <tr>\n            <th class=\"four wide center aligned\">{{ typeOrderLabel }}</th>\n            <th>{{ nameLabel }}</th>\n            <th>{{ unitLabel }}</th>\n            <th>{{ unitPriceLabel }}</th>\n            <th>{{ amountLabel }}</th>\n            <th>{{ totalPriceLabel }}</th>\n            <th></th>\n            <th></th>\n        </tr>\n    </thead>\n    <tbody v-for=\"(detailingflowTypeId, works) in groupedWorks\">\n        <tr v-for=\"(idx, work) in works\">\n            <td :rowspan=\"works.length\" v-if=\"0 === idx\" class=\"top aligned center aligned\">\n                {{ work.detailingflow_type.mainflow_type.name }}\n                <br>\n                {{ work.detailingflow_type.name }}\n            </td>\n            <td>{{ work.name }}</td>\n            <td>{{ work.unit.name }}</td>\n            <td>{{ work.unit_price | currency}}</td>\n            <td>\n                <div class=\"ui input\" :class=\"{disabled: isLocked}\">\n                    <input type=\"text\" name=\"work_amount[]\" v-model=\"work.amount\" @keyup=\"updateWork(work)\">\n                </div>\n            </td>\n            <td>{{ work.unit_price * work.amount | currency }}</td>\n            <td><a href=\"{{ '/projects/' + projectId + '/works/' + work.id }}\">{{ workitemsLabel }}</a></td>\n            <td>\n                <button class=\"ui icon red button\" :class=\"{disabled: isLocked}\" @click=\"deleteWork(work.id)\"><i class=\"ui trash icon\"></i></button>\n            </td>\n        </tr>\n    </tbody>\n    <tfoot>\n        <tr>\n            <th colspan=\"8\">\n                <div class=\"ui mini five statistics\">\n                    <div class=\"statistic\">\n                        <div class=\"label\">總價</div>\n                        <div class=\"value\">{{ totalWorkPrice | currency }}</div>\n                    </div>\n                    <div class=\"statistic\" v-for=\"costTypeName in costTypes\">\n                        <div class=\"label\">{{ costTypeName }}</div>\n                        <div class=\"value\">{{ statistics[costTypeName] || 0 | currency }}</div>\n                    </div>\n                </div>\n            </th>\n        </tr>\n    </tfoot>\n</table>\n";
 
-/***/ },
-/* 125 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ }),
+/* 128 */
+/***/ (function(module, exports, __webpack_require__) {
 
 	var __vue_script__, __vue_template__
-	__vue_script__ = __webpack_require__(126)
-	if (__vue_script__ &&
-	    __vue_script__.__esModule &&
-	    Object.keys(__vue_script__).length > 1) {
+	var __vue_styles__ = {}
+	__vue_script__ = __webpack_require__(129)
+	if (Object.keys(__vue_script__).some(function (key) { return key !== "default" && key !== "__esModule" })) {
 	  console.warn("[vue-loader] resources/assets/js/components/statistics-workitems.vue: named exports in *.vue files are ignored.")}
-	__vue_template__ = __webpack_require__(127)
+	__vue_template__ = __webpack_require__(130)
 	module.exports = __vue_script__ || {}
 	if (module.exports.__esModule) module.exports = module.exports.default
+	var __vue_options__ = typeof module.exports === "function" ? (module.exports.options || (module.exports.options = {})) : module.exports
 	if (__vue_template__) {
-	(typeof module.exports === "function" ? (module.exports.options || (module.exports.options = {})) : module.exports).template = __vue_template__
+	__vue_options__.template = __vue_template__
 	}
+	if (!__vue_options__.computed) __vue_options__.computed = {}
+	Object.keys(__vue_styles__).forEach(function (key) {
+	var module = __vue_styles__[key]
+	__vue_options__.computed[key] = function () { return module }
+	})
 	if (false) {(function () {  module.hot.accept()
 	  var hotAPI = require("vue-hot-reload-api")
-	  hotAPI.install(require("vue"), true)
+	  hotAPI.install(require("vue"), false)
 	  if (!hotAPI.compatible) return
-	  var id = "/Users/shavenking/Code/project-boomer/resources/assets/js/components/statistics-workitems.vue"
+	  var id = "_v-632b85ac/statistics-workitems.vue"
 	  if (!module.hot.data) {
 	    hotAPI.createRecord(id, module.exports)
 	  } else {
@@ -27725,9 +28312,9 @@
 	  }
 	})()}
 
-/***/ },
-/* 126 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ }),
+/* 129 */
+/***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 
@@ -27735,7 +28322,7 @@
 	    value: true
 	});
 
-	var _lodash = __webpack_require__(112);
+	var _lodash = __webpack_require__(115);
 
 	var _lodash2 = _interopRequireDefault(_lodash);
 
@@ -27815,33 +28402,38 @@
 	};
 	// </script>
 
-/***/ },
-/* 127 */
-/***/ function(module, exports) {
+/***/ }),
+/* 130 */
+/***/ (function(module, exports) {
 
 	module.exports = "\n<div class=\"ui mini five statistics\">\n    <div class=\"statistic\">\n        <div class=\"label\">{{ totalPriceLabel }}</div>\n        <div class=\"value\">{{ totalPrice | currency }}</div>\n    </div>\n    <div class=\"statistic\" v-for=\"(costTypeId, totalPrice) in totalPriceByTypes\">\n        <div class=\"label\">{{ costTypes[costTypeId] }}</div>\n        <div class=\"value\">{{ totalPrice | currency }}</div>\n    </div>\n</div>\n";
 
-/***/ },
-/* 128 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ }),
+/* 131 */
+/***/ (function(module, exports, __webpack_require__) {
 
 	var __vue_script__, __vue_template__
-	__vue_script__ = __webpack_require__(129)
-	if (__vue_script__ &&
-	    __vue_script__.__esModule &&
-	    Object.keys(__vue_script__).length > 1) {
+	var __vue_styles__ = {}
+	__vue_script__ = __webpack_require__(132)
+	if (Object.keys(__vue_script__).some(function (key) { return key !== "default" && key !== "__esModule" })) {
 	  console.warn("[vue-loader] resources/assets/js/components/project-workitem-list.vue: named exports in *.vue files are ignored.")}
-	__vue_template__ = __webpack_require__(130)
+	__vue_template__ = __webpack_require__(133)
 	module.exports = __vue_script__ || {}
 	if (module.exports.__esModule) module.exports = module.exports.default
+	var __vue_options__ = typeof module.exports === "function" ? (module.exports.options || (module.exports.options = {})) : module.exports
 	if (__vue_template__) {
-	(typeof module.exports === "function" ? (module.exports.options || (module.exports.options = {})) : module.exports).template = __vue_template__
+	__vue_options__.template = __vue_template__
 	}
+	if (!__vue_options__.computed) __vue_options__.computed = {}
+	Object.keys(__vue_styles__).forEach(function (key) {
+	var module = __vue_styles__[key]
+	__vue_options__.computed[key] = function () { return module }
+	})
 	if (false) {(function () {  module.hot.accept()
 	  var hotAPI = require("vue-hot-reload-api")
-	  hotAPI.install(require("vue"), true)
+	  hotAPI.install(require("vue"), false)
 	  if (!hotAPI.compatible) return
-	  var id = "/Users/shavenking/Code/project-boomer/resources/assets/js/components/project-workitem-list.vue"
+	  var id = "_v-acbde808/project-workitem-list.vue"
 	  if (!module.hot.data) {
 	    hotAPI.createRecord(id, module.exports)
 	  } else {
@@ -27849,9 +28441,9 @@
 	  }
 	})()}
 
-/***/ },
-/* 129 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ }),
+/* 132 */
+/***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 
@@ -27859,23 +28451,23 @@
 	    value: true
 	});
 
-	var _workitemForm = __webpack_require__(89);
+	var _workitemForm = __webpack_require__(92);
 
 	var _workitemForm2 = _interopRequireDefault(_workitemForm);
 
-	var _tableWorkitems = __webpack_require__(110);
+	var _tableWorkitems = __webpack_require__(113);
 
 	var _tableWorkitems2 = _interopRequireDefault(_tableWorkitems);
 
-	var _zipObject = __webpack_require__(94);
+	var _zipObject = __webpack_require__(97);
 
 	var _zipObject2 = _interopRequireDefault(_zipObject);
 
-	var _pluck = __webpack_require__(91);
+	var _pluck = __webpack_require__(94);
 
 	var _pluck2 = _interopRequireDefault(_pluck);
 
-	var _merge = __webpack_require__(95);
+	var _merge = __webpack_require__(98);
 
 	var _merge2 = _interopRequireDefault(_merge);
 
@@ -28038,33 +28630,38 @@
 	};
 	// </script>
 
-/***/ },
-/* 130 */
-/***/ function(module, exports) {
+/***/ }),
+/* 133 */
+/***/ (function(module, exports) {
 
 	module.exports = "\n<div class=\"ui grid\">\n    <div class=\"row\">\n        <div class=\"sixteen wide column\">\n            <div class=\"ui raised segment\">\n                <div class=\"ui mini five statistics\">\n                    <div class=\"statistic\">\n                        <div class=\"label\">總價</div>\n                        <div class=\"value\">{{ total | currency }}</div>\n                    </div>\n                    <div class=\"statistic\" v-for=\"(key, typeTotal) in typeTotals\">\n                        <div class=\"label\">{{ costTypes[key] }}</div>\n                        <div class=\"value\">{{ typeTotal | currency }}</div>\n                    </div>\n                </div>\n            </div>\n        </div>\n    </div>\n    <div class=\"row\">\n        <div class=\"sixteen wide column\">\n            <table-workitems\n                :items=\"items\"\n                :is-locked=\"isLocked\"\n            ></table-workitems>\n        </div>\n    </div>\n    <div class=\"row\">\n        <div class=\"sixteen wide column\">\n            <workitem-form v-ref:form v-show=\"!isLocked\">\n                <a href=\"{{ '/projects/' + projectId + '/bid' + '/works'}}\" class=\"ui primary button\">返回</a>\n            </workitem-form>\n        </div>\n    </div>\n</div>\n";
 
-/***/ },
-/* 131 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ }),
+/* 134 */
+/***/ (function(module, exports, __webpack_require__) {
 
 	var __vue_script__, __vue_template__
-	__vue_script__ = __webpack_require__(132)
-	if (__vue_script__ &&
-	    __vue_script__.__esModule &&
-	    Object.keys(__vue_script__).length > 1) {
+	var __vue_styles__ = {}
+	__vue_script__ = __webpack_require__(135)
+	if (Object.keys(__vue_script__).some(function (key) { return key !== "default" && key !== "__esModule" })) {
 	  console.warn("[vue-loader] resources/assets/js/components/project-flowtype-work-select.vue: named exports in *.vue files are ignored.")}
-	__vue_template__ = __webpack_require__(134)
+	__vue_template__ = __webpack_require__(137)
 	module.exports = __vue_script__ || {}
 	if (module.exports.__esModule) module.exports = module.exports.default
+	var __vue_options__ = typeof module.exports === "function" ? (module.exports.options || (module.exports.options = {})) : module.exports
 	if (__vue_template__) {
-	(typeof module.exports === "function" ? (module.exports.options || (module.exports.options = {})) : module.exports).template = __vue_template__
+	__vue_options__.template = __vue_template__
 	}
+	if (!__vue_options__.computed) __vue_options__.computed = {}
+	Object.keys(__vue_styles__).forEach(function (key) {
+	var module = __vue_styles__[key]
+	__vue_options__.computed[key] = function () { return module }
+	})
 	if (false) {(function () {  module.hot.accept()
 	  var hotAPI = require("vue-hot-reload-api")
-	  hotAPI.install(require("vue"), true)
+	  hotAPI.install(require("vue"), false)
 	  if (!hotAPI.compatible) return
-	  var id = "/Users/shavenking/Code/project-boomer/resources/assets/js/components/project-flowtype-work-select.vue"
+	  var id = "_v-4f3ae70e/project-flowtype-work-select.vue"
 	  if (!module.hot.data) {
 	    hotAPI.createRecord(id, module.exports)
 	  } else {
@@ -28072,9 +28669,9 @@
 	  }
 	})()}
 
-/***/ },
-/* 132 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ }),
+/* 135 */
+/***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 
@@ -28090,7 +28687,7 @@
 
 	var _dropdownSelect2 = _interopRequireDefault(_dropdownSelect);
 
-	var _projectWorks = __webpack_require__(133);
+	var _projectWorks = __webpack_require__(136);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -28160,9 +28757,9 @@
 	//
 	// <script type="text/babel">
 
-/***/ },
-/* 133 */
-/***/ function(module, exports) {
+/***/ }),
+/* 136 */
+/***/ (function(module, exports) {
 
 	'use strict';
 
@@ -28173,7 +28770,7 @@
 	exports.getPreviousEstimations = getPreviousEstimations;
 	exports.getEstimations = getEstimations;
 	function getProjectWorks(projectId) {
-	    var queries = arguments.length <= 1 || arguments[1] === undefined ? [] : arguments[1];
+	    var queries = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : [];
 
 	    var queryArray = [];
 
@@ -28191,7 +28788,7 @@
 	}
 
 	function getPreviousEstimations(pId, pWorkId) {
-	    var queries = arguments.length <= 2 || arguments[2] === undefined ? [] : arguments[2];
+	    var queries = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : [];
 
 	    var queryArray = [];
 
@@ -28205,7 +28802,7 @@
 	}
 
 	function getEstimations(pId, pWorkId) {
-	    var queries = arguments.length <= 2 || arguments[2] === undefined ? [] : arguments[2];
+	    var queries = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : [];
 
 	    var queryArray = [];
 
@@ -28218,34 +28815,39 @@
 	    return window.$.getJSON('/api/v1/projects/' + pId + '/works/' + pWorkId + '/cost-estimations?' + queryString);
 	}
 
-/***/ },
-/* 134 */
-/***/ function(module, exports) {
+/***/ }),
+/* 137 */
+/***/ (function(module, exports) {
 
 	module.exports = "\n<div class=\"field\">\n    <flowtype-select :on-selected.once=\"onFlowtypeSelected\"></flowtype-select>\n</div>\n<div class=\"field\">\n    <dropdown-select\n        :input-name.once=\"workFieldName\"\n        :options=\"works\"\n        option-value-name=\"id\"\n        option-text-name=\"name\"\n        :multiple.once=\"isMultiple\"\n        v-ref:work-select\n    ></dropdown-select>\n</div>\n";
 
-/***/ },
-/* 135 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ }),
+/* 138 */
+/***/ (function(module, exports, __webpack_require__) {
 
 	var __vue_script__, __vue_template__
-	__webpack_require__(136)
-	__vue_script__ = __webpack_require__(138)
-	if (__vue_script__ &&
-	    __vue_script__.__esModule &&
-	    Object.keys(__vue_script__).length > 1) {
+	var __vue_styles__ = {}
+	__webpack_require__(139)
+	__vue_script__ = __webpack_require__(141)
+	if (Object.keys(__vue_script__).some(function (key) { return key !== "default" && key !== "__esModule" })) {
 	  console.warn("[vue-loader] resources/assets/js/components/construction-daily.vue: named exports in *.vue files are ignored.")}
-	__vue_template__ = __webpack_require__(184)
+	__vue_template__ = __webpack_require__(187)
 	module.exports = __vue_script__ || {}
 	if (module.exports.__esModule) module.exports = module.exports.default
+	var __vue_options__ = typeof module.exports === "function" ? (module.exports.options || (module.exports.options = {})) : module.exports
 	if (__vue_template__) {
-	(typeof module.exports === "function" ? (module.exports.options || (module.exports.options = {})) : module.exports).template = __vue_template__
+	__vue_options__.template = __vue_template__
 	}
+	if (!__vue_options__.computed) __vue_options__.computed = {}
+	Object.keys(__vue_styles__).forEach(function (key) {
+	var module = __vue_styles__[key]
+	__vue_options__.computed[key] = function () { return module }
+	})
 	if (false) {(function () {  module.hot.accept()
 	  var hotAPI = require("vue-hot-reload-api")
-	  hotAPI.install(require("vue"), true)
+	  hotAPI.install(require("vue"), false)
 	  if (!hotAPI.compatible) return
-	  var id = "/Users/shavenking/Code/project-boomer/resources/assets/js/components/construction-daily.vue"
+	  var id = "_v-210fd464/construction-daily.vue"
 	  if (!module.hot.data) {
 	    hotAPI.createRecord(id, module.exports)
 	  } else {
@@ -28253,24 +28855,24 @@
 	  }
 	})()}
 
-/***/ },
-/* 136 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ }),
+/* 139 */
+/***/ (function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(137);
+	var content = __webpack_require__(140);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
-	var update = __webpack_require__(31)(content, {});
+	var update = __webpack_require__(34)(content, {});
 	if(content.locals) module.exports = content.locals;
 	// Hot Module Replacement
 	if(false) {
 		// When the styles change, update the <style> tags
 		if(!content.locals) {
-			module.hot.accept("!!./../../../../node_modules/css-loader/index.js!./../../../../node_modules/vue-loader/lib/style-rewriter.js!./../../../../node_modules/vue-loader/lib/selector.js?type=style&index=0!./construction-daily.vue", function() {
-				var newContent = require("!!./../../../../node_modules/css-loader/index.js!./../../../../node_modules/vue-loader/lib/style-rewriter.js!./../../../../node_modules/vue-loader/lib/selector.js?type=style&index=0!./construction-daily.vue");
+			module.hot.accept("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/style-rewriter.js!../../../../node_modules/vue-loader/lib/selector.js?type=style&index=0!./construction-daily.vue", function() {
+				var newContent = require("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/style-rewriter.js!../../../../node_modules/vue-loader/lib/selector.js?type=style&index=0!./construction-daily.vue");
 				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 				update(newContent);
 			});
@@ -28279,23 +28881,23 @@
 		module.hot.dispose(function() { update(); });
 	}
 
-/***/ },
-/* 137 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ }),
+/* 140 */
+/***/ (function(module, exports, __webpack_require__) {
 
-	exports = module.exports = __webpack_require__(30)();
+	exports = module.exports = __webpack_require__(33)();
 	// imports
 
 
 	// module
-	exports.push([module.id, "\n.pm-visibility-hidden {\n    position: absolute;\n    tabindex: -1;\n    left: -999999px;\n}\n", ""]);
+	exports.push([module.id, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n.pm-visibility-hidden {\n    position: absolute;\n    tabindex: -1;\n    left: -999999px;\n}\n", ""]);
 
 	// exports
 
 
-/***/ },
-/* 138 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ }),
+/* 141 */
+/***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 
@@ -28303,23 +28905,23 @@
 	    value: true
 	});
 
-	var _tableDailyWork = __webpack_require__(139);
+	var _tableDailyWork = __webpack_require__(142);
 
 	var _tableDailyWork2 = _interopRequireDefault(_tableDailyWork);
 
-	var _tableDailyMaterial = __webpack_require__(145);
+	var _tableDailyMaterial = __webpack_require__(148);
 
 	var _tableDailyMaterial2 = _interopRequireDefault(_tableDailyMaterial);
 
-	var _tableDailyLabor = __webpack_require__(166);
+	var _tableDailyLabor = __webpack_require__(169);
 
 	var _tableDailyLabor2 = _interopRequireDefault(_tableDailyLabor);
 
-	var _tableDailyAppliance = __webpack_require__(173);
+	var _tableDailyAppliance = __webpack_require__(176);
 
 	var _tableDailyAppliance2 = _interopRequireDefault(_tableDailyAppliance);
 
-	var _modalUpdateConstructionDaily = __webpack_require__(180);
+	var _modalUpdateConstructionDaily = __webpack_require__(183);
 
 	var _modalUpdateConstructionDaily2 = _interopRequireDefault(_modalUpdateConstructionDaily);
 
@@ -28428,27 +29030,32 @@
 	//
 	// <script type="text/babel">
 
-/***/ },
-/* 139 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ }),
+/* 142 */
+/***/ (function(module, exports, __webpack_require__) {
 
 	var __vue_script__, __vue_template__
-	__vue_script__ = __webpack_require__(140)
-	if (__vue_script__ &&
-	    __vue_script__.__esModule &&
-	    Object.keys(__vue_script__).length > 1) {
+	var __vue_styles__ = {}
+	__vue_script__ = __webpack_require__(143)
+	if (Object.keys(__vue_script__).some(function (key) { return key !== "default" && key !== "__esModule" })) {
 	  console.warn("[vue-loader] resources/assets/js/components/table-daily-work.vue: named exports in *.vue files are ignored.")}
-	__vue_template__ = __webpack_require__(144)
+	__vue_template__ = __webpack_require__(147)
 	module.exports = __vue_script__ || {}
 	if (module.exports.__esModule) module.exports = module.exports.default
+	var __vue_options__ = typeof module.exports === "function" ? (module.exports.options || (module.exports.options = {})) : module.exports
 	if (__vue_template__) {
-	(typeof module.exports === "function" ? (module.exports.options || (module.exports.options = {})) : module.exports).template = __vue_template__
+	__vue_options__.template = __vue_template__
 	}
+	if (!__vue_options__.computed) __vue_options__.computed = {}
+	Object.keys(__vue_styles__).forEach(function (key) {
+	var module = __vue_styles__[key]
+	__vue_options__.computed[key] = function () { return module }
+	})
 	if (false) {(function () {  module.hot.accept()
 	  var hotAPI = require("vue-hot-reload-api")
-	  hotAPI.install(require("vue"), true)
+	  hotAPI.install(require("vue"), false)
 	  if (!hotAPI.compatible) return
-	  var id = "/Users/shavenking/Code/project-boomer/resources/assets/js/components/table-daily-work.vue"
+	  var id = "_v-d78d27aa/table-daily-work.vue"
 	  if (!module.hot.data) {
 	    hotAPI.createRecord(id, module.exports)
 	  } else {
@@ -28456,9 +29063,9 @@
 	  }
 	})()}
 
-/***/ },
-/* 140 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ }),
+/* 143 */
+/***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 
@@ -28466,7 +29073,7 @@
 	    value: true
 	});
 
-	var _modalCreateDailyWork = __webpack_require__(141);
+	var _modalCreateDailyWork = __webpack_require__(144);
 
 	var _modalCreateDailyWork2 = _interopRequireDefault(_modalCreateDailyWork);
 
@@ -28560,27 +29167,32 @@
 	//
 	// <script>
 
-/***/ },
-/* 141 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ }),
+/* 144 */
+/***/ (function(module, exports, __webpack_require__) {
 
 	var __vue_script__, __vue_template__
-	__vue_script__ = __webpack_require__(142)
-	if (__vue_script__ &&
-	    __vue_script__.__esModule &&
-	    Object.keys(__vue_script__).length > 1) {
+	var __vue_styles__ = {}
+	__vue_script__ = __webpack_require__(145)
+	if (Object.keys(__vue_script__).some(function (key) { return key !== "default" && key !== "__esModule" })) {
 	  console.warn("[vue-loader] resources/assets/js/components/modal-create-daily-work.vue: named exports in *.vue files are ignored.")}
-	__vue_template__ = __webpack_require__(143)
+	__vue_template__ = __webpack_require__(146)
 	module.exports = __vue_script__ || {}
 	if (module.exports.__esModule) module.exports = module.exports.default
+	var __vue_options__ = typeof module.exports === "function" ? (module.exports.options || (module.exports.options = {})) : module.exports
 	if (__vue_template__) {
-	(typeof module.exports === "function" ? (module.exports.options || (module.exports.options = {})) : module.exports).template = __vue_template__
+	__vue_options__.template = __vue_template__
 	}
+	if (!__vue_options__.computed) __vue_options__.computed = {}
+	Object.keys(__vue_styles__).forEach(function (key) {
+	var module = __vue_styles__[key]
+	__vue_options__.computed[key] = function () { return module }
+	})
 	if (false) {(function () {  module.hot.accept()
 	  var hotAPI = require("vue-hot-reload-api")
-	  hotAPI.install(require("vue"), true)
+	  hotAPI.install(require("vue"), false)
 	  if (!hotAPI.compatible) return
-	  var id = "/Users/shavenking/Code/project-boomer/resources/assets/js/components/modal-create-daily-work.vue"
+	  var id = "_v-3badb75f/modal-create-daily-work.vue"
 	  if (!module.hot.data) {
 	    hotAPI.createRecord(id, module.exports)
 	  } else {
@@ -28588,9 +29200,9 @@
 	  }
 	})()}
 
-/***/ },
-/* 142 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ }),
+/* 145 */
+/***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 
@@ -28598,19 +29210,19 @@
 	    value: true
 	});
 
-	var _projectFlowtypeWorkSelect = __webpack_require__(131);
+	var _projectFlowtypeWorkSelect = __webpack_require__(134);
 
 	var _projectFlowtypeWorkSelect2 = _interopRequireDefault(_projectFlowtypeWorkSelect);
 
-	var _subcontractorSelect = __webpack_require__(18);
+	var _subcontractorSelect = __webpack_require__(21);
 
 	var _subcontractorSelect2 = _interopRequireDefault(_subcontractorSelect);
 
-	var _pluck = __webpack_require__(91);
+	var _pluck = __webpack_require__(94);
 
 	var _pluck2 = _interopRequireDefault(_pluck);
 
-	var _zipObject = __webpack_require__(94);
+	var _zipObject = __webpack_require__(97);
 
 	var _zipObject2 = _interopRequireDefault(_zipObject);
 
@@ -28703,39 +29315,44 @@
 	};
 	// </script>
 
-/***/ },
-/* 143 */
-/***/ function(module, exports) {
+/***/ }),
+/* 146 */
+/***/ (function(module, exports) {
 
 	module.exports = "\n<div class=\"ui basic modal\" v-el:modal>\n    <div class=\"content\">\n        <form action=\"#\" method=\"POST\" class=\"ui inverted form\" @submit=\"onSubmit\" v-el:form>\n            <h4 class=\"ui inverted dividing header\">選擇施工工項</h4>\n            <project-flowtype-work-select :project-id.once=\"projectId\"></project-flowtype-work-select>\n\n            <h4 class=\"ui inverted dividing header\">施工部位</h4>\n            <div class=\"field\">\n                <input type=\"text\" name=\"seat\">\n            </div>\n\n            <h4 class=\"ui inverted dividing header\">選擇協力廠商</h4>\n            <div class=\"field\">\n                <subcontractor-select></subcontractor-select>\n            </div>\n\n            <button type=\"submit\" class=\"pm-visibility-hidden\"></button>\n        </form>\n    </div>\n    <div class=\"actions\">\n        <div class=\"ui green inverted ok button\">\n            <i class=\"checkmark icon\"></i>\n            送出\n        </div>\n        <div class=\"ui inverted cancel button\">\n            <i class=\"remove icon\"></i>\n            取消\n        </div>\n    </div>\n</div>\n";
 
-/***/ },
-/* 144 */
-/***/ function(module, exports) {
+/***/ }),
+/* 147 */
+/***/ (function(module, exports) {
 
 	module.exports = "\n<div>\n    <table class=\"ui table\">\n        <thead>\n            <th>工作項目</th>\n            <th>施工位置</th>\n            <th>協力廠商</th>\n            <th>查核與否</th>\n            <th>查核數量</th>\n        </thead>\n        <tbody>\n            <tr v-for=\"dailyWork in dailyWorks\">\n                <td>{{ dailyWork.attributes.name }}</td>\n                <td>{{ dailyWork.attributes.seat }}</td>\n                <td>{{ getSubcontractor(dailyWork).attributes.name }}</td>\n                <td>{{ getChecklist(dailyWork).attributes.is_checked_finished ? '查核完畢' : '未查核完畢' }}</td>\n                <td>{{ getChecklist(dailyWork).attributes.passes_amount }}</td>\n            </tr>\n        </tbody>\n        <tfoot>\n            <tr>\n                <th colspan=\"5\">\n                    <button class=\"ui right floated primary button\" :class=\"{disabled: isLocked}\" @click=\"openModal\">新增施工項目</button>\n                </th>\n            </tr>\n        </tfoot>\n    </table>\n\n    <modal-create-daily-work :project-id=\"projectId\" :date=\"date\" :on-success=\"onCreated\" v-ref:modal></modal-create-daily-work>\n</div>\n";
 
-/***/ },
-/* 145 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ }),
+/* 148 */
+/***/ (function(module, exports, __webpack_require__) {
 
 	var __vue_script__, __vue_template__
-	__vue_script__ = __webpack_require__(146)
-	if (__vue_script__ &&
-	    __vue_script__.__esModule &&
-	    Object.keys(__vue_script__).length > 1) {
+	var __vue_styles__ = {}
+	__vue_script__ = __webpack_require__(149)
+	if (Object.keys(__vue_script__).some(function (key) { return key !== "default" && key !== "__esModule" })) {
 	  console.warn("[vue-loader] resources/assets/js/components/table-daily-material.vue: named exports in *.vue files are ignored.")}
-	__vue_template__ = __webpack_require__(165)
+	__vue_template__ = __webpack_require__(168)
 	module.exports = __vue_script__ || {}
 	if (module.exports.__esModule) module.exports = module.exports.default
+	var __vue_options__ = typeof module.exports === "function" ? (module.exports.options || (module.exports.options = {})) : module.exports
 	if (__vue_template__) {
-	(typeof module.exports === "function" ? (module.exports.options || (module.exports.options = {})) : module.exports).template = __vue_template__
+	__vue_options__.template = __vue_template__
 	}
+	if (!__vue_options__.computed) __vue_options__.computed = {}
+	Object.keys(__vue_styles__).forEach(function (key) {
+	var module = __vue_styles__[key]
+	__vue_options__.computed[key] = function () { return module }
+	})
 	if (false) {(function () {  module.hot.accept()
 	  var hotAPI = require("vue-hot-reload-api")
-	  hotAPI.install(require("vue"), true)
+	  hotAPI.install(require("vue"), false)
 	  if (!hotAPI.compatible) return
-	  var id = "/Users/shavenking/Code/project-boomer/resources/assets/js/components/table-daily-material.vue"
+	  var id = "_v-f002837e/table-daily-material.vue"
 	  if (!module.hot.data) {
 	    hotAPI.createRecord(id, module.exports)
 	  } else {
@@ -28743,9 +29360,9 @@
 	  }
 	})()}
 
-/***/ },
-/* 146 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ }),
+/* 149 */
+/***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 
@@ -28753,7 +29370,7 @@
 	    value: true
 	});
 
-	var _modalCreateDailyMaterial = __webpack_require__(147);
+	var _modalCreateDailyMaterial = __webpack_require__(150);
 
 	var _modalCreateDailyMaterial2 = _interopRequireDefault(_modalCreateDailyMaterial);
 
@@ -28858,27 +29475,32 @@
 	//
 	// <script>
 
-/***/ },
-/* 147 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ }),
+/* 150 */
+/***/ (function(module, exports, __webpack_require__) {
 
 	var __vue_script__, __vue_template__
-	__vue_script__ = __webpack_require__(148)
-	if (__vue_script__ &&
-	    __vue_script__.__esModule &&
-	    Object.keys(__vue_script__).length > 1) {
+	var __vue_styles__ = {}
+	__vue_script__ = __webpack_require__(151)
+	if (Object.keys(__vue_script__).some(function (key) { return key !== "default" && key !== "__esModule" })) {
 	  console.warn("[vue-loader] resources/assets/js/components/modal-create-daily-material.vue: named exports in *.vue files are ignored.")}
-	__vue_template__ = __webpack_require__(164)
+	__vue_template__ = __webpack_require__(167)
 	module.exports = __vue_script__ || {}
 	if (module.exports.__esModule) module.exports = module.exports.default
+	var __vue_options__ = typeof module.exports === "function" ? (module.exports.options || (module.exports.options = {})) : module.exports
 	if (__vue_template__) {
-	(typeof module.exports === "function" ? (module.exports.options || (module.exports.options = {})) : module.exports).template = __vue_template__
+	__vue_options__.template = __vue_template__
 	}
+	if (!__vue_options__.computed) __vue_options__.computed = {}
+	Object.keys(__vue_styles__).forEach(function (key) {
+	var module = __vue_styles__[key]
+	__vue_options__.computed[key] = function () { return module }
+	})
 	if (false) {(function () {  module.hot.accept()
 	  var hotAPI = require("vue-hot-reload-api")
-	  hotAPI.install(require("vue"), true)
+	  hotAPI.install(require("vue"), false)
 	  if (!hotAPI.compatible) return
-	  var id = "/Users/shavenking/Code/project-boomer/resources/assets/js/components/modal-create-daily-material.vue"
+	  var id = "_v-79324f75/modal-create-daily-material.vue"
 	  if (!module.hot.data) {
 	    hotAPI.createRecord(id, module.exports)
 	  } else {
@@ -28886,9 +29508,9 @@
 	  }
 	})()}
 
-/***/ },
-/* 148 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ }),
+/* 151 */
+/***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 
@@ -28896,25 +29518,25 @@
 	    value: true
 	});
 
-	var _dailyMaterials = __webpack_require__(149);
+	var _dailyMaterials = __webpack_require__(152);
 
-	var _pluck = __webpack_require__(91);
+	var _pluck = __webpack_require__(94);
 
 	var _pluck2 = _interopRequireDefault(_pluck);
 
-	var _zipObject = __webpack_require__(94);
+	var _zipObject = __webpack_require__(97);
 
 	var _zipObject2 = _interopRequireDefault(_zipObject);
 
-	var _merge = __webpack_require__(95);
+	var _merge = __webpack_require__(98);
 
 	var _merge2 = _interopRequireDefault(_merge);
 
-	var _omit = __webpack_require__(150);
+	var _omit = __webpack_require__(153);
 
 	var _omit2 = _interopRequireDefault(_omit);
 
-	var _isEmpty = __webpack_require__(162);
+	var _isEmpty = __webpack_require__(165);
 
 	var _isEmpty2 = _interopRequireDefault(_isEmpty);
 
@@ -29052,9 +29674,9 @@
 	};
 	// </script>
 
-/***/ },
-/* 149 */
-/***/ function(module, exports) {
+/***/ }),
+/* 152 */
+/***/ (function(module, exports) {
 
 	'use strict';
 
@@ -29070,7 +29692,7 @@
 	}
 
 	function get(projectId) {
-	    var queries = arguments.length <= 1 || arguments[1] === undefined ? {} : arguments[1];
+	    var queries = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
 
 	    var queryArray = [];
 
@@ -29091,18 +29713,18 @@
 	    return window.$.post('/api/v1/projects/' + projectId + '/daily-materials', values);
 	}
 
-/***/ },
-/* 150 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ }),
+/* 153 */
+/***/ (function(module, exports, __webpack_require__) {
 
-	var arrayMap = __webpack_require__(93),
-	    baseDifference = __webpack_require__(151),
-	    baseFlatten = __webpack_require__(158),
-	    bindCallback = __webpack_require__(70),
-	    keysIn = __webpack_require__(57),
-	    pickByArray = __webpack_require__(160),
-	    pickByCallback = __webpack_require__(161),
-	    restParam = __webpack_require__(105);
+	var arrayMap = __webpack_require__(96),
+	    baseDifference = __webpack_require__(154),
+	    baseFlatten = __webpack_require__(161),
+	    bindCallback = __webpack_require__(73),
+	    keysIn = __webpack_require__(60),
+	    pickByArray = __webpack_require__(163),
+	    pickByCallback = __webpack_require__(164),
+	    restParam = __webpack_require__(108);
 
 	/**
 	 * The opposite of `_.pick`; this method creates an object composed of the
@@ -29144,13 +29766,13 @@
 	module.exports = omit;
 
 
-/***/ },
-/* 151 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ }),
+/* 154 */
+/***/ (function(module, exports, __webpack_require__) {
 
-	var baseIndexOf = __webpack_require__(152),
-	    cacheIndexOf = __webpack_require__(154),
-	    createCache = __webpack_require__(155);
+	var baseIndexOf = __webpack_require__(155),
+	    cacheIndexOf = __webpack_require__(157),
+	    createCache = __webpack_require__(158);
 
 	/** Used as the size to enable large array optimizations. */
 	var LARGE_ARRAY_SIZE = 200;
@@ -29205,11 +29827,11 @@
 	module.exports = baseDifference;
 
 
-/***/ },
-/* 152 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ }),
+/* 155 */
+/***/ (function(module, exports, __webpack_require__) {
 
-	var indexOfNaN = __webpack_require__(153);
+	var indexOfNaN = __webpack_require__(156);
 
 	/**
 	 * The base implementation of `_.indexOf` without support for binary searches.
@@ -29238,9 +29860,9 @@
 	module.exports = baseIndexOf;
 
 
-/***/ },
-/* 153 */
-/***/ function(module, exports) {
+/***/ }),
+/* 156 */
+/***/ (function(module, exports) {
 
 	/**
 	 * Gets the index at which the first occurrence of `NaN` is found in `array`.
@@ -29267,11 +29889,11 @@
 	module.exports = indexOfNaN;
 
 
-/***/ },
-/* 154 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ }),
+/* 157 */
+/***/ (function(module, exports, __webpack_require__) {
 
-	var isObject = __webpack_require__(47);
+	var isObject = __webpack_require__(50);
 
 	/**
 	 * Checks if `value` is in `cache` mimicking the return signature of
@@ -29292,12 +29914,12 @@
 	module.exports = cacheIndexOf;
 
 
-/***/ },
-/* 155 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ }),
+/* 158 */
+/***/ (function(module, exports, __webpack_require__) {
 
-	/* WEBPACK VAR INJECTION */(function(global) {var SetCache = __webpack_require__(156),
-	    getNative = __webpack_require__(44);
+	/* WEBPACK VAR INJECTION */(function(global) {var SetCache = __webpack_require__(159),
+	    getNative = __webpack_require__(47);
 
 	/** Native method references. */
 	var Set = getNative(global, 'Set');
@@ -29320,12 +29942,12 @@
 
 	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }())))
 
-/***/ },
-/* 156 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ }),
+/* 159 */
+/***/ (function(module, exports, __webpack_require__) {
 
-	/* WEBPACK VAR INJECTION */(function(global) {var cachePush = __webpack_require__(157),
-	    getNative = __webpack_require__(44);
+	/* WEBPACK VAR INJECTION */(function(global) {var cachePush = __webpack_require__(160),
+	    getNative = __webpack_require__(47);
 
 	/** Native method references. */
 	var Set = getNative(global, 'Set');
@@ -29356,11 +29978,11 @@
 
 	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }())))
 
-/***/ },
-/* 157 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ }),
+/* 160 */
+/***/ (function(module, exports, __webpack_require__) {
 
-	var isObject = __webpack_require__(47);
+	var isObject = __webpack_require__(50);
 
 	/**
 	 * Adds `value` to the cache.
@@ -29382,15 +30004,15 @@
 	module.exports = cachePush;
 
 
-/***/ },
-/* 158 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ }),
+/* 161 */
+/***/ (function(module, exports, __webpack_require__) {
 
-	var arrayPush = __webpack_require__(159),
-	    isArguments = __webpack_require__(54),
-	    isArray = __webpack_require__(55),
-	    isArrayLike = __webpack_require__(49),
-	    isObjectLike = __webpack_require__(48);
+	var arrayPush = __webpack_require__(162),
+	    isArguments = __webpack_require__(57),
+	    isArray = __webpack_require__(58),
+	    isArrayLike = __webpack_require__(52),
+	    isObjectLike = __webpack_require__(51);
 
 	/**
 	 * The base implementation of `_.flatten` with added support for restricting
@@ -29429,9 +30051,9 @@
 	module.exports = baseFlatten;
 
 
-/***/ },
-/* 159 */
-/***/ function(module, exports) {
+/***/ }),
+/* 162 */
+/***/ (function(module, exports) {
 
 	/**
 	 * Appends the elements of `values` to `array`.
@@ -29455,11 +30077,11 @@
 	module.exports = arrayPush;
 
 
-/***/ },
-/* 160 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ }),
+/* 163 */
+/***/ (function(module, exports, __webpack_require__) {
 
-	var toObject = __webpack_require__(59);
+	var toObject = __webpack_require__(62);
 
 	/**
 	 * A specialized version of `_.pick` which picks `object` properties specified
@@ -29489,11 +30111,11 @@
 	module.exports = pickByArray;
 
 
-/***/ },
-/* 161 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ }),
+/* 164 */
+/***/ (function(module, exports, __webpack_require__) {
 
-	var baseForIn = __webpack_require__(101);
+	var baseForIn = __webpack_require__(104);
 
 	/**
 	 * A specialized version of `_.pick` which picks `object` properties `predicate`
@@ -29517,17 +30139,17 @@
 	module.exports = pickByCallback;
 
 
-/***/ },
-/* 162 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ }),
+/* 165 */
+/***/ (function(module, exports, __webpack_require__) {
 
-	var isArguments = __webpack_require__(54),
-	    isArray = __webpack_require__(55),
-	    isArrayLike = __webpack_require__(49),
-	    isFunction = __webpack_require__(46),
-	    isObjectLike = __webpack_require__(48),
-	    isString = __webpack_require__(163),
-	    keys = __webpack_require__(43);
+	var isArguments = __webpack_require__(57),
+	    isArray = __webpack_require__(58),
+	    isArrayLike = __webpack_require__(52),
+	    isFunction = __webpack_require__(49),
+	    isObjectLike = __webpack_require__(51),
+	    isString = __webpack_require__(166),
+	    keys = __webpack_require__(46);
 
 	/**
 	 * Checks if `value` is empty. A value is considered empty unless it's an
@@ -29570,11 +30192,11 @@
 	module.exports = isEmpty;
 
 
-/***/ },
-/* 163 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ }),
+/* 166 */
+/***/ (function(module, exports, __webpack_require__) {
 
-	var isObjectLike = __webpack_require__(48);
+	var isObjectLike = __webpack_require__(51);
 
 	/** `Object#toString` result references. */
 	var stringTag = '[object String]';
@@ -29611,39 +30233,44 @@
 	module.exports = isString;
 
 
-/***/ },
-/* 164 */
-/***/ function(module, exports) {
+/***/ }),
+/* 167 */
+/***/ (function(module, exports) {
 
 	module.exports = "\n<div class=\"ui basic modal\" v-el:modal>\n    <div class=\"content\">\n        <form action=\"#\" method=\"POST\" class=\"ui inverted form\" @submit=\"onSubmit\" v-el:form>\n            <div class=\"two fields\">\n                <div class=\"field\">\n                    <div class=\"label\">材料名稱</div>\n                    <div class=\"ui search fluid selection dropdown\" v-el:dropdown>\n                        <input type=\"hidden\" name=\"material_id\">\n                        <i class=\"dropdown icon\"></i>\n                        <div class=\"default text\"></div>\n                        <div class=\"menu\">\n                            <div class=\"item\" v-for=\"material in materials\" :data-value=\"material.id\">{{ material.name }}</div>\n                        </div>\n                    </div>\n                </div>\n                <div class=\"field\">\n                    <div class=\"label\">材料數量</div>\n                    <input type=\"text\" name=\"amount\">\n                </div>\n            </div>\n            <button type=\"submit\" class=\"pm-visibility-hidden\"></button>\n        </form>\n    </div>\n    <div class=\"actions\">\n        <div class=\"ui green inverted ok button\">\n            <i class=\"checkmark icon\"></i>\n            送出\n        </div>\n        <div class=\"ui inverted cancel button\">\n            <i class=\"remove icon\"></i>\n            取消\n        </div>\n    </div>\n</div>\n";
 
-/***/ },
-/* 165 */
-/***/ function(module, exports) {
+/***/ }),
+/* 168 */
+/***/ (function(module, exports) {
 
 	module.exports = "\n<div>\n    <table class=\"ui table\">\n        <thead>\n            <tr>\n                <th>材料名稱</th>\n                <th>本日使用數量</th>\n                <th>累積使用數量</th>\n            </tr>\n        </thead>\n        <tbody>\n            <tr v-for=\"amountAndName in statistics\">\n                <td>{{ amountAndName.name }}</td>\n                <td>{{ getDailyMaterial(amountAndName.name) ? getDailyMaterial(amountAndName.name).attributes.amount : 0 }}</td>\n                <td>{{ amountAndName.total_amount }}</td>\n            </tr>\n        </tbody>\n        <tfoot>\n            <tr>\n                <th colspan=\"5\">\n                    <button class=\"ui right floated primary button\" :class=\"{disabled: isLocked}\" @click=\"openModal\">新增</button>\n                </th>\n            </tr>\n        </tfoot>\n    </table>\n\n    <modal-create-daily-material\n        :project-id=\"projectId\"\n        :date=\"date\"\n        :on-success=\"onCreated\"\n        v-ref:modal\n    ></modal-create-daily-material>\n</div>\n";
 
-/***/ },
-/* 166 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ }),
+/* 169 */
+/***/ (function(module, exports, __webpack_require__) {
 
 	var __vue_script__, __vue_template__
-	__vue_script__ = __webpack_require__(167)
-	if (__vue_script__ &&
-	    __vue_script__.__esModule &&
-	    Object.keys(__vue_script__).length > 1) {
+	var __vue_styles__ = {}
+	__vue_script__ = __webpack_require__(170)
+	if (Object.keys(__vue_script__).some(function (key) { return key !== "default" && key !== "__esModule" })) {
 	  console.warn("[vue-loader] resources/assets/js/components/table-daily-labor.vue: named exports in *.vue files are ignored.")}
-	__vue_template__ = __webpack_require__(172)
+	__vue_template__ = __webpack_require__(175)
 	module.exports = __vue_script__ || {}
 	if (module.exports.__esModule) module.exports = module.exports.default
+	var __vue_options__ = typeof module.exports === "function" ? (module.exports.options || (module.exports.options = {})) : module.exports
 	if (__vue_template__) {
-	(typeof module.exports === "function" ? (module.exports.options || (module.exports.options = {})) : module.exports).template = __vue_template__
+	__vue_options__.template = __vue_template__
 	}
+	if (!__vue_options__.computed) __vue_options__.computed = {}
+	Object.keys(__vue_styles__).forEach(function (key) {
+	var module = __vue_styles__[key]
+	__vue_options__.computed[key] = function () { return module }
+	})
 	if (false) {(function () {  module.hot.accept()
 	  var hotAPI = require("vue-hot-reload-api")
-	  hotAPI.install(require("vue"), true)
+	  hotAPI.install(require("vue"), false)
 	  if (!hotAPI.compatible) return
-	  var id = "/Users/shavenking/Code/project-boomer/resources/assets/js/components/table-daily-labor.vue"
+	  var id = "_v-bc7fcff4/table-daily-labor.vue"
 	  if (!module.hot.data) {
 	    hotAPI.createRecord(id, module.exports)
 	  } else {
@@ -29651,9 +30278,9 @@
 	  }
 	})()}
 
-/***/ },
-/* 167 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ }),
+/* 170 */
+/***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 
@@ -29661,7 +30288,7 @@
 	    value: true
 	});
 
-	var _modalCreateDailyLabor = __webpack_require__(168);
+	var _modalCreateDailyLabor = __webpack_require__(171);
 
 	var _modalCreateDailyLabor2 = _interopRequireDefault(_modalCreateDailyLabor);
 
@@ -29766,27 +30393,32 @@
 	//
 	// <script>
 
-/***/ },
-/* 168 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ }),
+/* 171 */
+/***/ (function(module, exports, __webpack_require__) {
 
 	var __vue_script__, __vue_template__
-	__vue_script__ = __webpack_require__(169)
-	if (__vue_script__ &&
-	    __vue_script__.__esModule &&
-	    Object.keys(__vue_script__).length > 1) {
+	var __vue_styles__ = {}
+	__vue_script__ = __webpack_require__(172)
+	if (Object.keys(__vue_script__).some(function (key) { return key !== "default" && key !== "__esModule" })) {
 	  console.warn("[vue-loader] resources/assets/js/components/modal-create-daily-labor.vue: named exports in *.vue files are ignored.")}
-	__vue_template__ = __webpack_require__(171)
+	__vue_template__ = __webpack_require__(174)
 	module.exports = __vue_script__ || {}
 	if (module.exports.__esModule) module.exports = module.exports.default
+	var __vue_options__ = typeof module.exports === "function" ? (module.exports.options || (module.exports.options = {})) : module.exports
 	if (__vue_template__) {
-	(typeof module.exports === "function" ? (module.exports.options || (module.exports.options = {})) : module.exports).template = __vue_template__
+	__vue_options__.template = __vue_template__
 	}
+	if (!__vue_options__.computed) __vue_options__.computed = {}
+	Object.keys(__vue_styles__).forEach(function (key) {
+	var module = __vue_styles__[key]
+	__vue_options__.computed[key] = function () { return module }
+	})
 	if (false) {(function () {  module.hot.accept()
 	  var hotAPI = require("vue-hot-reload-api")
-	  hotAPI.install(require("vue"), true)
+	  hotAPI.install(require("vue"), false)
 	  if (!hotAPI.compatible) return
-	  var id = "/Users/shavenking/Code/project-boomer/resources/assets/js/components/modal-create-daily-labor.vue"
+	  var id = "_v-2e55995c/modal-create-daily-labor.vue"
 	  if (!module.hot.data) {
 	    hotAPI.createRecord(id, module.exports)
 	  } else {
@@ -29794,9 +30426,9 @@
 	  }
 	})()}
 
-/***/ },
-/* 169 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ }),
+/* 172 */
+/***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 
@@ -29804,25 +30436,25 @@
 	    value: true
 	});
 
-	var _dailyLabors = __webpack_require__(170);
+	var _dailyLabors = __webpack_require__(173);
 
-	var _pluck = __webpack_require__(91);
+	var _pluck = __webpack_require__(94);
 
 	var _pluck2 = _interopRequireDefault(_pluck);
 
-	var _zipObject = __webpack_require__(94);
+	var _zipObject = __webpack_require__(97);
 
 	var _zipObject2 = _interopRequireDefault(_zipObject);
 
-	var _merge = __webpack_require__(95);
+	var _merge = __webpack_require__(98);
 
 	var _merge2 = _interopRequireDefault(_merge);
 
-	var _omit = __webpack_require__(150);
+	var _omit = __webpack_require__(153);
 
 	var _omit2 = _interopRequireDefault(_omit);
 
-	var _isEmpty = __webpack_require__(162);
+	var _isEmpty = __webpack_require__(165);
 
 	var _isEmpty2 = _interopRequireDefault(_isEmpty);
 
@@ -29960,9 +30592,9 @@
 	};
 	// </script>
 
-/***/ },
-/* 170 */
-/***/ function(module, exports) {
+/***/ }),
+/* 173 */
+/***/ (function(module, exports) {
 
 	'use strict';
 
@@ -29978,7 +30610,7 @@
 	}
 
 	function get(projectId) {
-	    var queries = arguments.length <= 1 || arguments[1] === undefined ? {} : arguments[1];
+	    var queries = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
 
 	    var queryArray = [];
 
@@ -29999,39 +30631,44 @@
 	    return window.$.post('/api/v1/projects/' + projectId + '/daily-labors', values);
 	}
 
-/***/ },
-/* 171 */
-/***/ function(module, exports) {
+/***/ }),
+/* 174 */
+/***/ (function(module, exports) {
 
 	module.exports = "\n<div class=\"ui basic modal\" v-el:modal>\n    <div class=\"content\">\n        <form action=\"#\" method=\"POST\" class=\"ui inverted form\" @submit=\"onSubmit\" v-el:form>\n            <div class=\"two fields\">\n                <div class=\"field\">\n                    <div class=\"label\">工別</div>\n                    <div class=\"ui search fluid selection dropdown\" v-el:dropdown>\n                        <input type=\"hidden\" name=\"labor_id\">\n                        <i class=\"dropdown icon\"></i>\n                        <div class=\"default text\"></div>\n                        <div class=\"menu\">\n                            <div class=\"item\" v-for=\"labor in labors\" :data-value=\"labor.id\">{{ labor.name }}</div>\n                        </div>\n                    </div>\n                </div>\n                <div class=\"field\">\n                    <div class=\"label\">人數</div>\n                    <input type=\"text\" name=\"amount\">\n                </div>\n            </div>\n            <button type=\"submit\" class=\"pm-visibility-hidden\"></button>\n        </form>\n    </div>\n    <div class=\"actions\">\n        <div class=\"ui green inverted ok button\">\n            <i class=\"checkmark icon\"></i>\n            送出\n        </div>\n        <div class=\"ui inverted cancel button\">\n            <i class=\"remove icon\"></i>\n            取消\n        </div>\n    </div>\n</div>\n";
 
-/***/ },
-/* 172 */
-/***/ function(module, exports) {
+/***/ }),
+/* 175 */
+/***/ (function(module, exports) {
 
 	module.exports = "\n<div>\n    <table class=\"ui table\">\n        <thead>\n            <tr>\n                <th>工別</th>\n                <th>人數</th>\n                <th>累積人數</th>\n            </tr>\n        </thead>\n        <tbody>\n            <tr v-for=\"amountAndName in statistics\">\n                <td>{{ amountAndName.name }}</td>\n                <td>{{ getDailyLabor(amountAndName.name) ? getDailyLabor(amountAndName.name).attributes.amount : 0 }}</td>\n                <td>{{ amountAndName.total_amount }}</td>\n            </tr>\n        </tbody>\n        <tfoot>\n            <tr>\n                <th colspan=\"5\">\n                    <button class=\"ui right floated primary button\" :class=\"{disabled: isLocked}\" @click=\"openModal\">新增</button>\n                </th>\n            </tr>\n        </tfoot>\n    </table>\n\n    <modal-create-daily-labor\n        :project-id=\"projectId\"\n        :date=\"date\"\n        :on-success=\"onCreated\"\n        v-ref:modal\n    ></modal-create-daily-labor>\n</div>\n";
 
-/***/ },
-/* 173 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ }),
+/* 176 */
+/***/ (function(module, exports, __webpack_require__) {
 
 	var __vue_script__, __vue_template__
-	__vue_script__ = __webpack_require__(174)
-	if (__vue_script__ &&
-	    __vue_script__.__esModule &&
-	    Object.keys(__vue_script__).length > 1) {
+	var __vue_styles__ = {}
+	__vue_script__ = __webpack_require__(177)
+	if (Object.keys(__vue_script__).some(function (key) { return key !== "default" && key !== "__esModule" })) {
 	  console.warn("[vue-loader] resources/assets/js/components/table-daily-appliance.vue: named exports in *.vue files are ignored.")}
-	__vue_template__ = __webpack_require__(179)
+	__vue_template__ = __webpack_require__(182)
 	module.exports = __vue_script__ || {}
 	if (module.exports.__esModule) module.exports = module.exports.default
+	var __vue_options__ = typeof module.exports === "function" ? (module.exports.options || (module.exports.options = {})) : module.exports
 	if (__vue_template__) {
-	(typeof module.exports === "function" ? (module.exports.options || (module.exports.options = {})) : module.exports).template = __vue_template__
+	__vue_options__.template = __vue_template__
 	}
+	if (!__vue_options__.computed) __vue_options__.computed = {}
+	Object.keys(__vue_styles__).forEach(function (key) {
+	var module = __vue_styles__[key]
+	__vue_options__.computed[key] = function () { return module }
+	})
 	if (false) {(function () {  module.hot.accept()
 	  var hotAPI = require("vue-hot-reload-api")
-	  hotAPI.install(require("vue"), true)
+	  hotAPI.install(require("vue"), false)
 	  if (!hotAPI.compatible) return
-	  var id = "/Users/shavenking/Code/project-boomer/resources/assets/js/components/table-daily-appliance.vue"
+	  var id = "_v-45572803/table-daily-appliance.vue"
 	  if (!module.hot.data) {
 	    hotAPI.createRecord(id, module.exports)
 	  } else {
@@ -30039,9 +30676,9 @@
 	  }
 	})()}
 
-/***/ },
-/* 174 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ }),
+/* 177 */
+/***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 
@@ -30049,7 +30686,7 @@
 	    value: true
 	});
 
-	var _modalCreateDailyAppliance = __webpack_require__(175);
+	var _modalCreateDailyAppliance = __webpack_require__(178);
 
 	var _modalCreateDailyAppliance2 = _interopRequireDefault(_modalCreateDailyAppliance);
 
@@ -30154,27 +30791,32 @@
 	//
 	// <script>
 
-/***/ },
-/* 175 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ }),
+/* 178 */
+/***/ (function(module, exports, __webpack_require__) {
 
 	var __vue_script__, __vue_template__
-	__vue_script__ = __webpack_require__(176)
-	if (__vue_script__ &&
-	    __vue_script__.__esModule &&
-	    Object.keys(__vue_script__).length > 1) {
+	var __vue_styles__ = {}
+	__vue_script__ = __webpack_require__(179)
+	if (Object.keys(__vue_script__).some(function (key) { return key !== "default" && key !== "__esModule" })) {
 	  console.warn("[vue-loader] resources/assets/js/components/modal-create-daily-appliance.vue: named exports in *.vue files are ignored.")}
-	__vue_template__ = __webpack_require__(178)
+	__vue_template__ = __webpack_require__(181)
 	module.exports = __vue_script__ || {}
 	if (module.exports.__esModule) module.exports = module.exports.default
+	var __vue_options__ = typeof module.exports === "function" ? (module.exports.options || (module.exports.options = {})) : module.exports
 	if (__vue_template__) {
-	(typeof module.exports === "function" ? (module.exports.options || (module.exports.options = {})) : module.exports).template = __vue_template__
+	__vue_options__.template = __vue_template__
 	}
+	if (!__vue_options__.computed) __vue_options__.computed = {}
+	Object.keys(__vue_styles__).forEach(function (key) {
+	var module = __vue_styles__[key]
+	__vue_options__.computed[key] = function () { return module }
+	})
 	if (false) {(function () {  module.hot.accept()
 	  var hotAPI = require("vue-hot-reload-api")
-	  hotAPI.install(require("vue"), true)
+	  hotAPI.install(require("vue"), false)
 	  if (!hotAPI.compatible) return
-	  var id = "/Users/shavenking/Code/project-boomer/resources/assets/js/components/modal-create-daily-appliance.vue"
+	  var id = "_v-7a95bd4f/modal-create-daily-appliance.vue"
 	  if (!module.hot.data) {
 	    hotAPI.createRecord(id, module.exports)
 	  } else {
@@ -30182,9 +30824,9 @@
 	  }
 	})()}
 
-/***/ },
-/* 176 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ }),
+/* 179 */
+/***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 
@@ -30192,25 +30834,25 @@
 	    value: true
 	});
 
-	var _dailyAppliances = __webpack_require__(177);
+	var _dailyAppliances = __webpack_require__(180);
 
-	var _pluck = __webpack_require__(91);
+	var _pluck = __webpack_require__(94);
 
 	var _pluck2 = _interopRequireDefault(_pluck);
 
-	var _zipObject = __webpack_require__(94);
+	var _zipObject = __webpack_require__(97);
 
 	var _zipObject2 = _interopRequireDefault(_zipObject);
 
-	var _merge = __webpack_require__(95);
+	var _merge = __webpack_require__(98);
 
 	var _merge2 = _interopRequireDefault(_merge);
 
-	var _omit = __webpack_require__(150);
+	var _omit = __webpack_require__(153);
 
 	var _omit2 = _interopRequireDefault(_omit);
 
-	var _isEmpty = __webpack_require__(162);
+	var _isEmpty = __webpack_require__(165);
 
 	var _isEmpty2 = _interopRequireDefault(_isEmpty);
 
@@ -30348,9 +30990,9 @@
 	};
 	// </script>
 
-/***/ },
-/* 177 */
-/***/ function(module, exports) {
+/***/ }),
+/* 180 */
+/***/ (function(module, exports) {
 
 	'use strict';
 
@@ -30366,7 +31008,7 @@
 	}
 
 	function get(projectId) {
-	    var queries = arguments.length <= 1 || arguments[1] === undefined ? {} : arguments[1];
+	    var queries = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
 
 	    var queryArray = [];
 
@@ -30387,39 +31029,44 @@
 	    return window.$.post('/api/v1/projects/' + projectId + '/daily-appliances', values);
 	}
 
-/***/ },
-/* 178 */
-/***/ function(module, exports) {
+/***/ }),
+/* 181 */
+/***/ (function(module, exports) {
 
 	module.exports = "\n<div class=\"ui basic modal\" v-el:modal>\n    <div class=\"content\">\n        <form action=\"#\" method=\"POST\" class=\"ui inverted form\" @submit=\"onSubmit\" v-el:form>\n            <div class=\"two fields\">\n                <div class=\"field\">\n                    <div class=\"label\">機具名稱</div>\n                    <div class=\"ui search fluid selection dropdown\" v-el:dropdown>\n                        <input type=\"hidden\" name=\"appliance_id\">\n                        <i class=\"dropdown icon\"></i>\n                        <div class=\"default text\"></div>\n                        <div class=\"menu\">\n                            <div class=\"item\" v-for=\"appliance in appliances\" :data-value=\"appliance.id\">{{ appliance.name }}</div>\n                        </div>\n                    </div>\n                </div>\n                <div class=\"field\">\n                    <div class=\"label\">數量</div>\n                    <input type=\"text\" name=\"amount\">\n                </div>\n            </div>\n            <button type=\"submit\" class=\"pm-visibility-hidden\"></button>\n        </form>\n    </div>\n    <div class=\"actions\">\n        <div class=\"ui green inverted ok button\">\n            <i class=\"checkmark icon\"></i>\n            送出\n        </div>\n        <div class=\"ui inverted cancel button\">\n            <i class=\"remove icon\"></i>\n            取消\n        </div>\n    </div>\n</div>\n";
 
-/***/ },
-/* 179 */
-/***/ function(module, exports) {
+/***/ }),
+/* 182 */
+/***/ (function(module, exports) {
 
 	module.exports = "\n<div>\n    <table class=\"ui table\">\n        <thead>\n            <tr>\n                <th>機具</th>\n                <th>數量</th>\n                <th>累積數量</th>\n            </tr>\n        </thead>\n        <tbody>\n            <tr v-for=\"amountAndName in statistics\">\n                <td>{{ amountAndName.name }}</td>\n                <td>{{ getDailyAppliance(amountAndName.name) ? getDailyAppliance(amountAndName.name).attributes.amount : 0 }}</td>\n                <td>{{ amountAndName.total_amount }}</td>\n            </tr>\n        </tbody>\n        <tfoot>\n        <tr>\n            <th colspan=\"5\">\n                <button class=\"ui right floated primary button\" :class=\"{disabled: isLocked}\" @click=\"openModal\">新增</button>\n            </th>\n        </tr>\n        </tfoot>\n    </table>\n\n    <modal-create-daily-appliance\n        :project-id=\"projectId\"\n        :date=\"date\"\n        :on-success=\"onCreated\"\n        v-ref:modal\n    ></modal-create-daily-appliance>\n</div>\n";
 
-/***/ },
-/* 180 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ }),
+/* 183 */
+/***/ (function(module, exports, __webpack_require__) {
 
 	var __vue_script__, __vue_template__
-	__vue_script__ = __webpack_require__(181)
-	if (__vue_script__ &&
-	    __vue_script__.__esModule &&
-	    Object.keys(__vue_script__).length > 1) {
+	var __vue_styles__ = {}
+	__vue_script__ = __webpack_require__(184)
+	if (Object.keys(__vue_script__).some(function (key) { return key !== "default" && key !== "__esModule" })) {
 	  console.warn("[vue-loader] resources/assets/js/components/modal-update-construction-daily.vue: named exports in *.vue files are ignored.")}
-	__vue_template__ = __webpack_require__(183)
+	__vue_template__ = __webpack_require__(186)
 	module.exports = __vue_script__ || {}
 	if (module.exports.__esModule) module.exports = module.exports.default
+	var __vue_options__ = typeof module.exports === "function" ? (module.exports.options || (module.exports.options = {})) : module.exports
 	if (__vue_template__) {
-	(typeof module.exports === "function" ? (module.exports.options || (module.exports.options = {})) : module.exports).template = __vue_template__
+	__vue_options__.template = __vue_template__
 	}
+	if (!__vue_options__.computed) __vue_options__.computed = {}
+	Object.keys(__vue_styles__).forEach(function (key) {
+	var module = __vue_styles__[key]
+	__vue_options__.computed[key] = function () { return module }
+	})
 	if (false) {(function () {  module.hot.accept()
 	  var hotAPI = require("vue-hot-reload-api")
-	  hotAPI.install(require("vue"), true)
+	  hotAPI.install(require("vue"), false)
 	  if (!hotAPI.compatible) return
-	  var id = "/Users/shavenking/Code/project-boomer/resources/assets/js/components/modal-update-construction-daily.vue"
+	  var id = "_v-1c656a6c/modal-update-construction-daily.vue"
 	  if (!module.hot.data) {
 	    hotAPI.createRecord(id, module.exports)
 	  } else {
@@ -30427,9 +31074,9 @@
 	  }
 	})()}
 
-/***/ },
-/* 181 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ }),
+/* 184 */
+/***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 
@@ -30437,25 +31084,25 @@
 	    value: true
 	});
 
-	var _dailyRecords = __webpack_require__(182);
+	var _dailyRecords = __webpack_require__(185);
 
-	var _pluck = __webpack_require__(91);
+	var _pluck = __webpack_require__(94);
 
 	var _pluck2 = _interopRequireDefault(_pluck);
 
-	var _zipObject = __webpack_require__(94);
+	var _zipObject = __webpack_require__(97);
 
 	var _zipObject2 = _interopRequireDefault(_zipObject);
 
-	var _merge = __webpack_require__(95);
+	var _merge = __webpack_require__(98);
 
 	var _merge2 = _interopRequireDefault(_merge);
 
-	var _omit = __webpack_require__(150);
+	var _omit = __webpack_require__(153);
 
 	var _omit2 = _interopRequireDefault(_omit);
 
-	var _isEmpty = __webpack_require__(162);
+	var _isEmpty = __webpack_require__(165);
 
 	var _isEmpty2 = _interopRequireDefault(_isEmpty);
 
@@ -30547,9 +31194,9 @@
 	};
 	// </script>
 
-/***/ },
-/* 182 */
-/***/ function(module, exports) {
+/***/ }),
+/* 185 */
+/***/ (function(module, exports) {
 
 	'use strict';
 
@@ -30559,7 +31206,7 @@
 	exports.get = get;
 	exports.create = create;
 	function get(projectId) {
-	    var queries = arguments.length <= 1 || arguments[1] === undefined ? {} : arguments[1];
+	    var queries = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
 
 	    var queryArray = [];
 
@@ -30576,39 +31223,44 @@
 	    return window.$.post('/api/v1/projects/' + projectId + '/daily-records', values);
 	}
 
-/***/ },
-/* 183 */
-/***/ function(module, exports) {
+/***/ }),
+/* 186 */
+/***/ (function(module, exports) {
 
 	module.exports = "\n<div class=\"ui basic modal\" v-el:modal>\n    <div class=\"content\">\n        <form action=\"#\" method=\"POST\" class=\"ui inverted form\" @submit=\"onSubmit\" v-el:form>\n            <div class=\"two fields\">\n                <div class=\"field\">\n                    <div class=\"label\">主辦單位、監造單位指示</div>\n                    <textarea name=\"inspection_record\" id=\"\" cols=\"30\" rows=\"10\"></textarea>\n                </div>\n                <div class=\"field\">\n                    <div class=\"label\">重要事項紀錄</div>\n                    <textarea name=\"important_record\" id=\"\" cols=\"30\" rows=\"10\"></textarea>\n                </div>\n            </div>\n            <button type=\"submit\" class=\"pm-visibility-hidden\"></button>\n        </form>\n    </div>\n    <div class=\"actions\">\n        <div class=\"ui green inverted ok button\">\n            <i class=\"checkmark icon\"></i>\n            送出\n        </div>\n        <div class=\"ui inverted cancel button\">\n            <i class=\"remove icon\"></i>\n            取消\n        </div>\n    </div>\n</div>\n";
 
-/***/ },
-/* 184 */
-/***/ function(module, exports) {
+/***/ }),
+/* 187 */
+/***/ (function(module, exports) {
 
 	module.exports = "\n<div>\n    <h3 class=\"header\">當日工作項目、位置</h3>\n    <table-daily-work\n        :project-id=\"projectId\"\n        :date=\"date\"\n        :is-locked=\"isLocked\"\n    ></table-daily-work>\n\n    <h3 class=\"header\">當日材料使用情形</h3>\n    <table-daily-material\n        :project-id=\"projectId\"\n        :date=\"date\"\n        :is-locked=\"isLocked\"\n    ></table-daily-material>\n\n    <h3 class=\"header\">當日出工人數情形</h3>\n    <table-daily-labor\n        :project-id=\"projectId\"\n        :date=\"date\"\n        :is-locked=\"isLocked\"\n    ></table-daily-labor>\n\n    <h3 class=\"header\">當日機具使用情形</h3>\n    <table-daily-appliance\n        :project-id=\"projectId\"\n        :date=\"date\"\n        :is-locked=\"isLocked\"\n    ></table-daily-appliance>\n\n    <table class=\"ui table\">\n        <thead>\n            <tr>\n                <th>主辦單位、監造單位指示</th>\n                <th>重要事項紀錄</th>\n            </tr>\n        </thead>\n        <tbody>\n            <tr>\n                <td>{{ constructionDaily.inspection_record }}</td>\n                <td>{{ constructionDaily.important_record }}</td>\n            </tr>\n        </tbody>\n        <tfoot>\n            <tr>\n                <th colspan=\"5\">\n                    <button class=\"ui right floated primary button\" :class=\"{disabled: isLocked}\" @click=\"openModal\">新增</button>\n                </th>\n            </tr>\n        </tfoot>\n    </table>\n\n    <modal-update-construction-daily\n        :project-id=\"projectId\"\n        :date=\"date\"\n        :on-success=\"onCreated\"\n        v-ref:modal\n    ></modal-update-construction-daily>\n</div>\n";
 
-/***/ },
-/* 185 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ }),
+/* 188 */
+/***/ (function(module, exports, __webpack_require__) {
 
 	var __vue_script__, __vue_template__
-	__vue_script__ = __webpack_require__(186)
-	if (__vue_script__ &&
-	    __vue_script__.__esModule &&
-	    Object.keys(__vue_script__).length > 1) {
+	var __vue_styles__ = {}
+	__vue_script__ = __webpack_require__(189)
+	if (Object.keys(__vue_script__).some(function (key) { return key !== "default" && key !== "__esModule" })) {
 	  console.warn("[vue-loader] resources/assets/js/components/cost-estimation-sheet.vue: named exports in *.vue files are ignored.")}
-	__vue_template__ = __webpack_require__(190)
+	__vue_template__ = __webpack_require__(193)
 	module.exports = __vue_script__ || {}
 	if (module.exports.__esModule) module.exports = module.exports.default
+	var __vue_options__ = typeof module.exports === "function" ? (module.exports.options || (module.exports.options = {})) : module.exports
 	if (__vue_template__) {
-	(typeof module.exports === "function" ? (module.exports.options || (module.exports.options = {})) : module.exports).template = __vue_template__
+	__vue_options__.template = __vue_template__
 	}
+	if (!__vue_options__.computed) __vue_options__.computed = {}
+	Object.keys(__vue_styles__).forEach(function (key) {
+	var module = __vue_styles__[key]
+	__vue_options__.computed[key] = function () { return module }
+	})
 	if (false) {(function () {  module.hot.accept()
 	  var hotAPI = require("vue-hot-reload-api")
-	  hotAPI.install(require("vue"), true)
+	  hotAPI.install(require("vue"), false)
 	  if (!hotAPI.compatible) return
-	  var id = "/Users/shavenking/Code/project-boomer/resources/assets/js/components/cost-estimation-sheet.vue"
+	  var id = "_v-050f7ab4/cost-estimation-sheet.vue"
 	  if (!module.hot.data) {
 	    hotAPI.createRecord(id, module.exports)
 	  } else {
@@ -30616,9 +31268,9 @@
 	  }
 	})()}
 
-/***/ },
-/* 186 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ }),
+/* 189 */
+/***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 
@@ -30626,13 +31278,13 @@
 	    value: true
 	});
 
-	var _projectWorks = __webpack_require__(133);
+	var _projectWorks = __webpack_require__(136);
 
-	var _lodash = __webpack_require__(112);
+	var _lodash = __webpack_require__(115);
 
 	var _lodash2 = _interopRequireDefault(_lodash);
 
-	var _modalCreateCostEstimationBounce = __webpack_require__(187);
+	var _modalCreateCostEstimationBounce = __webpack_require__(190);
 
 	var _modalCreateCostEstimationBounce2 = _interopRequireDefault(_modalCreateCostEstimationBounce);
 
@@ -30848,27 +31500,32 @@
 	//
 	// <script type="text/babel">
 
-/***/ },
-/* 187 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ }),
+/* 190 */
+/***/ (function(module, exports, __webpack_require__) {
 
 	var __vue_script__, __vue_template__
-	__vue_script__ = __webpack_require__(188)
-	if (__vue_script__ &&
-	    __vue_script__.__esModule &&
-	    Object.keys(__vue_script__).length > 1) {
+	var __vue_styles__ = {}
+	__vue_script__ = __webpack_require__(191)
+	if (Object.keys(__vue_script__).some(function (key) { return key !== "default" && key !== "__esModule" })) {
 	  console.warn("[vue-loader] resources/assets/js/components/modal-create-cost-estimation-bounce.vue: named exports in *.vue files are ignored.")}
-	__vue_template__ = __webpack_require__(189)
+	__vue_template__ = __webpack_require__(192)
 	module.exports = __vue_script__ || {}
 	if (module.exports.__esModule) module.exports = module.exports.default
+	var __vue_options__ = typeof module.exports === "function" ? (module.exports.options || (module.exports.options = {})) : module.exports
 	if (__vue_template__) {
-	(typeof module.exports === "function" ? (module.exports.options || (module.exports.options = {})) : module.exports).template = __vue_template__
+	__vue_options__.template = __vue_template__
 	}
+	if (!__vue_options__.computed) __vue_options__.computed = {}
+	Object.keys(__vue_styles__).forEach(function (key) {
+	var module = __vue_styles__[key]
+	__vue_options__.computed[key] = function () { return module }
+	})
 	if (false) {(function () {  module.hot.accept()
 	  var hotAPI = require("vue-hot-reload-api")
-	  hotAPI.install(require("vue"), true)
+	  hotAPI.install(require("vue"), false)
 	  if (!hotAPI.compatible) return
-	  var id = "/Users/shavenking/Code/project-boomer/resources/assets/js/components/modal-create-cost-estimation-bounce.vue"
+	  var id = "_v-7d2957b8/modal-create-cost-estimation-bounce.vue"
 	  if (!module.hot.data) {
 	    hotAPI.createRecord(id, module.exports)
 	  } else {
@@ -30876,9 +31533,9 @@
 	  }
 	})()}
 
-/***/ },
-/* 188 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ }),
+/* 191 */
+/***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 
@@ -30886,27 +31543,27 @@
 	    value: true
 	});
 
-	var _unitSelect = __webpack_require__(12);
+	var _unitSelect = __webpack_require__(15);
 
 	var _unitSelect2 = _interopRequireDefault(_unitSelect);
 
-	var _pluck = __webpack_require__(91);
+	var _pluck = __webpack_require__(94);
 
 	var _pluck2 = _interopRequireDefault(_pluck);
 
-	var _zipObject = __webpack_require__(94);
+	var _zipObject = __webpack_require__(97);
 
 	var _zipObject2 = _interopRequireDefault(_zipObject);
 
-	var _merge = __webpack_require__(95);
+	var _merge = __webpack_require__(98);
 
 	var _merge2 = _interopRequireDefault(_merge);
 
-	var _omit = __webpack_require__(150);
+	var _omit = __webpack_require__(153);
 
 	var _omit2 = _interopRequireDefault(_omit);
 
-	var _isEmpty = __webpack_require__(162);
+	var _isEmpty = __webpack_require__(165);
 
 	var _isEmpty2 = _interopRequireDefault(_isEmpty);
 
@@ -31045,39 +31702,44 @@
 	};
 	// </script>
 
-/***/ },
-/* 189 */
-/***/ function(module, exports) {
+/***/ }),
+/* 192 */
+/***/ (function(module, exports) {
 
 	module.exports = "\n<div class=\"ui basic modal\" v-el:modal>\n    <div class=\"content\">\n        <form action=\"#\" method=\"POST\" class=\"ui inverted form\" @submit=\"onSubmit\" v-el:form>\n            <div class=\"two fields\">\n                <div class=\"field\">\n                    <div class=\"label\">費用名稱</div>\n                    <div class=\"ui search fluid selection dropdown\" v-el:dropdown>\n                        <input type=\"hidden\" name=\"cost_estimation_bounce_id\">\n                        <i class=\"dropdown icon\"></i>\n                        <div class=\"default text\"></div>\n                        <div class=\"menu\">\n                            <div class=\"item\" v-for=\"costEstimationBounce in costEstimationBounces\" :data-value=\"costEstimationBounce.id\">{{ costEstimationBounce.name }}</div>\n                        </div>\n                    </div>\n                </div>\n                <div class=\"field\">\n                    <div class=\"label\">單位</div>\n                    <unit-select v-ref:unit-dropdown></unit-select>\n                </div>\n                <div class=\"field\">\n                    <div class=\"label\">單價</div>\n                    <input type=\"text\" name=\"unit_price\">\n                </div>\n                <div class=\"field\">\n                    <div class=\"label\">數量</div>\n                    <input type=\"text\" name=\"amount\">\n                </div>\n            </div>\n            <button type=\"submit\" class=\"pm-visibility-hidden\"></button>\n        </form>\n    </div>\n    <div class=\"actions\">\n        <div class=\"ui green inverted ok button\">\n            <i class=\"checkmark icon\"></i>\n            送出\n        </div>\n        <div class=\"ui inverted cancel button\">\n            <i class=\"remove icon\"></i>\n            取消\n        </div>\n    </div>\n</div>\n";
 
-/***/ },
-/* 190 */
-/***/ function(module, exports) {
+/***/ }),
+/* 193 */
+/***/ (function(module, exports) {
 
 	module.exports = "\n<table class=\"ui table\">\n    <thead>\n        <tr>\n            <th rowspan=\"2\">工作項目</th>\n            <th rowspan=\"2\">單位</th>\n            <th rowspan=\"2\">單價</th>\n            <th colspan=\"2\">合約計數</th>\n            <th colspan=\"2\">以前完成</th>\n            <th colspan=\"2\">本期完成</th>\n            <th colspan=\"2\">合計完成</th>\n        </tr>\n        <tr>\n            <th>數量</th>\n            <th>價值</th>\n            <th>數量</th>\n            <th>價值</th>\n            <th>數量</th>\n            <th>價值</th>\n            <th>數量</th>\n            <th>價值</th>\n        </tr>\n    </thead>\n    <tbody>\n        <tr v-for=\"projectWork in projectWorks\">\n            <td>{{ projectWork.name }}</td>\n            <td>{{ projectWork.unit.name }}</td>\n            <td>{{ projectWork.unit_price }}</td>\n            <td>{{ projectWork.amount }}</td>\n            <td>{{ projectWork.amount * projectWork.unit_price }}</td>\n            <td>{{ previousPassesAmount[projectWork.id] }}</td>\n            <td>{{ previousPassesAmount[projectWork.id] * projectWork.unit_price }}</td>\n            <td>{{ totalPassesAmount[projectWork.id] - previousPassesAmount[projectWork.id] }}</td>\n            <td>{{ (totalPassesAmount[projectWork.id] - previousPassesAmount[projectWork.id]) * projectWork.unit_price }}</td>\n            <td>{{ totalPassesAmount[projectWork.id] }}</td>\n            <td>{{ totalPassesAmount[projectWork.id] * projectWork.unit_price }}</td>\n        </tr>\n    </tbody>\n    <thead>\n        <tr>\n            <th colspan=\"11\">其它費用</th>\n        </tr>\n    </thead>\n    <tbody>\n        <tr v-for=\"bounce in allBounces\">\n            <td>{{ bounce.name }}</td>\n            <td>{{ bounce.unit.name }}</td>\n            <td>-</td>\n            <td>-</td>\n            <td>-</td>\n            <td>-</td>\n            <td>{{ previousPrices[bounce.id] }}</td>\n            <td>-</td>\n            <td>{{ currentPrices[bounce.id] }}</td>\n            <td>-</td>\n            <td>{{ previousPrices[bounce.id] + currentPrices[bounce.id] }}</td>\n        </tr>\n    </tbody>\n    <tfoot v-if=\"costEstimationId\">\n        <tr>\n            <th colspan=\"11\">\n                <button class=\"ui primary button\" :class=\"{disabled: isLocked}\" @click=\"openModal()\">其它費用</button>\n            </th>\n        </tr>\n    </tfoot>\n</table>\n\n<modal-create-cost-estimation-bounce\n        :project-id.once=\"projectId\"\n        :cost-estimation-id.once=\"costEstimationId\"\n        :on-success.once=\"onCostEstimationBounceCreated\"\n        v-ref:modal\n></modal-create-cost-estimation-bounce>\n";
 
-/***/ },
-/* 191 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ }),
+/* 194 */
+/***/ (function(module, exports, __webpack_require__) {
 
 	var __vue_script__, __vue_template__
-	__vue_script__ = __webpack_require__(192)
-	if (__vue_script__ &&
-	    __vue_script__.__esModule &&
-	    Object.keys(__vue_script__).length > 1) {
+	var __vue_styles__ = {}
+	__vue_script__ = __webpack_require__(195)
+	if (Object.keys(__vue_script__).some(function (key) { return key !== "default" && key !== "__esModule" })) {
 	  console.warn("[vue-loader] resources/assets/js/components/form-create-project-work.vue: named exports in *.vue files are ignored.")}
-	__vue_template__ = __webpack_require__(196)
+	__vue_template__ = __webpack_require__(199)
 	module.exports = __vue_script__ || {}
 	if (module.exports.__esModule) module.exports = module.exports.default
+	var __vue_options__ = typeof module.exports === "function" ? (module.exports.options || (module.exports.options = {})) : module.exports
 	if (__vue_template__) {
-	(typeof module.exports === "function" ? (module.exports.options || (module.exports.options = {})) : module.exports).template = __vue_template__
+	__vue_options__.template = __vue_template__
 	}
+	if (!__vue_options__.computed) __vue_options__.computed = {}
+	Object.keys(__vue_styles__).forEach(function (key) {
+	var module = __vue_styles__[key]
+	__vue_options__.computed[key] = function () { return module }
+	})
 	if (false) {(function () {  module.hot.accept()
 	  var hotAPI = require("vue-hot-reload-api")
-	  hotAPI.install(require("vue"), true)
+	  hotAPI.install(require("vue"), false)
 	  if (!hotAPI.compatible) return
-	  var id = "/Users/shavenking/Code/project-boomer/resources/assets/js/components/form-create-project-work.vue"
+	  var id = "_v-1a6ebef4/form-create-project-work.vue"
 	  if (!module.hot.data) {
 	    hotAPI.createRecord(id, module.exports)
 	  } else {
@@ -31085,9 +31747,9 @@
 	  }
 	})()}
 
-/***/ },
-/* 192 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ }),
+/* 195 */
+/***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 
@@ -31095,11 +31757,11 @@
 	    value: true
 	});
 
-	var _flowtypeWorkSelect = __webpack_require__(119);
+	var _flowtypeWorkSelect = __webpack_require__(122);
 
 	var _flowtypeWorkSelect2 = _interopRequireDefault(_flowtypeWorkSelect);
 
-	var _workflowChart = __webpack_require__(193);
+	var _workflowChart = __webpack_require__(196);
 
 	var _workflowChart2 = _interopRequireDefault(_workflowChart);
 
@@ -31146,30 +31808,36 @@
 	            this.$refs.workflowChart.showByWorkId(workId);
 	        }
 	    }
-	};
-	// </script>
+	    // </script>
 
-/***/ },
-/* 193 */
-/***/ function(module, exports, __webpack_require__) {
+	};
+
+/***/ }),
+/* 196 */
+/***/ (function(module, exports, __webpack_require__) {
 
 	var __vue_script__, __vue_template__
-	__vue_script__ = __webpack_require__(194)
-	if (__vue_script__ &&
-	    __vue_script__.__esModule &&
-	    Object.keys(__vue_script__).length > 1) {
+	var __vue_styles__ = {}
+	__vue_script__ = __webpack_require__(197)
+	if (Object.keys(__vue_script__).some(function (key) { return key !== "default" && key !== "__esModule" })) {
 	  console.warn("[vue-loader] resources/assets/js/components/workflow-chart.vue: named exports in *.vue files are ignored.")}
-	__vue_template__ = __webpack_require__(195)
+	__vue_template__ = __webpack_require__(198)
 	module.exports = __vue_script__ || {}
 	if (module.exports.__esModule) module.exports = module.exports.default
+	var __vue_options__ = typeof module.exports === "function" ? (module.exports.options || (module.exports.options = {})) : module.exports
 	if (__vue_template__) {
-	(typeof module.exports === "function" ? (module.exports.options || (module.exports.options = {})) : module.exports).template = __vue_template__
+	__vue_options__.template = __vue_template__
 	}
+	if (!__vue_options__.computed) __vue_options__.computed = {}
+	Object.keys(__vue_styles__).forEach(function (key) {
+	var module = __vue_styles__[key]
+	__vue_options__.computed[key] = function () { return module }
+	})
 	if (false) {(function () {  module.hot.accept()
 	  var hotAPI = require("vue-hot-reload-api")
-	  hotAPI.install(require("vue"), true)
+	  hotAPI.install(require("vue"), false)
 	  if (!hotAPI.compatible) return
-	  var id = "/Users/shavenking/Code/project-boomer/resources/assets/js/components/workflow-chart.vue"
+	  var id = "_v-56134897/workflow-chart.vue"
 	  if (!module.hot.data) {
 	    hotAPI.createRecord(id, module.exports)
 	  } else {
@@ -31177,9 +31845,9 @@
 	  }
 	})()}
 
-/***/ },
-/* 194 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ }),
+/* 197 */
+/***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 
@@ -31187,7 +31855,7 @@
 	    value: true
 	});
 
-	var _workflowNodeList = __webpack_require__(27);
+	var _workflowNodeList = __webpack_require__(30);
 
 	var _workflowNodeList2 = _interopRequireDefault(_workflowNodeList);
 
@@ -31225,39 +31893,44 @@
 	//
 	// <script type="text/babel">
 
-/***/ },
-/* 195 */
-/***/ function(module, exports) {
+/***/ }),
+/* 198 */
+/***/ (function(module, exports) {
 
 	module.exports = "\n<workflow-node-list :nodes.sync=\"nodes\" read-only=\"true\"></workflow-node-list>\n";
 
-/***/ },
-/* 196 */
-/***/ function(module, exports) {
+/***/ }),
+/* 199 */
+/***/ (function(module, exports) {
 
 	module.exports = "\n<div class=\"ui two column stackable grid container\">\n    <div class=\"column\">\n        <form method=\"POST\" :action.once=\"action\" class=\"ui form\">\n            <slot></slot>\n\n            <flowtype-work-select\n                select-type-order-label=\"選擇工程類別與工作項目分類\"\n                select-work-label=\"選擇施工流程\"\n                @selected=\"onWorkSelected\"\n            ></flowtype-work-select>\n\n            <div class=\"field\">\n                <label>名稱</label>\n                <input type=\"text\" name=\"name\">\n            </div>\n\n            <button class=\"ui primary button\" type=\"submit\">新增</button>\n            <a :href.once=\"backUrl\" class=\"ui primary button\">返回</a>\n            <a :href.once=\"settingWorkUrl\" class=\"ui primary button\">新增標準工作項目</a>\n        </form>\n    </div>\n    <div class=\"center aligned column\">\n        <h5>流程圖</h5>\n        <workflow-chart v-ref:workflow-chart></workflow-chart>\n    </div>\n</div>\n\n";
 
-/***/ },
-/* 197 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ }),
+/* 200 */
+/***/ (function(module, exports, __webpack_require__) {
 
 	var __vue_script__, __vue_template__
-	__vue_script__ = __webpack_require__(198)
-	if (__vue_script__ &&
-	    __vue_script__.__esModule &&
-	    Object.keys(__vue_script__).length > 1) {
+	var __vue_styles__ = {}
+	__vue_script__ = __webpack_require__(201)
+	if (Object.keys(__vue_script__).some(function (key) { return key !== "default" && key !== "__esModule" })) {
 	  console.warn("[vue-loader] resources/assets/js/presentation-layer/modal-project-menu.vue: named exports in *.vue files are ignored.")}
-	__vue_template__ = __webpack_require__(199)
+	__vue_template__ = __webpack_require__(202)
 	module.exports = __vue_script__ || {}
 	if (module.exports.__esModule) module.exports = module.exports.default
+	var __vue_options__ = typeof module.exports === "function" ? (module.exports.options || (module.exports.options = {})) : module.exports
 	if (__vue_template__) {
-	(typeof module.exports === "function" ? (module.exports.options || (module.exports.options = {})) : module.exports).template = __vue_template__
+	__vue_options__.template = __vue_template__
 	}
+	if (!__vue_options__.computed) __vue_options__.computed = {}
+	Object.keys(__vue_styles__).forEach(function (key) {
+	var module = __vue_styles__[key]
+	__vue_options__.computed[key] = function () { return module }
+	})
 	if (false) {(function () {  module.hot.accept()
 	  var hotAPI = require("vue-hot-reload-api")
-	  hotAPI.install(require("vue"), true)
+	  hotAPI.install(require("vue"), false)
 	  if (!hotAPI.compatible) return
-	  var id = "/Users/shavenking/Code/project-boomer/resources/assets/js/presentation-layer/modal-project-menu.vue"
+	  var id = "_v-74f5b532/modal-project-menu.vue"
 	  if (!module.hot.data) {
 	    hotAPI.createRecord(id, module.exports)
 	  } else {
@@ -31265,9 +31938,9 @@
 	  }
 	})()}
 
-/***/ },
-/* 198 */
-/***/ function(module, exports) {
+/***/ }),
+/* 201 */
+/***/ (function(module, exports) {
 
 	'use strict';
 
@@ -31303,33 +31976,38 @@
 	};
 	// </script>
 
-/***/ },
-/* 199 */
-/***/ function(module, exports) {
+/***/ }),
+/* 202 */
+/***/ (function(module, exports) {
 
 	module.exports = "\n<button class=\"ui fluid button\" @click=\"openMenu()\">選單</button>\n\n<div class=\"ui basic modal\" v-el:modal>\n    <i class=\"close icon\"></i>\n    <div class=\"content\">\n        <slot></slot>\n    </div>\n</div>\n";
 
-/***/ },
-/* 200 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ }),
+/* 203 */
+/***/ (function(module, exports, __webpack_require__) {
 
 	var __vue_script__, __vue_template__
-	__vue_script__ = __webpack_require__(201)
-	if (__vue_script__ &&
-	    __vue_script__.__esModule &&
-	    Object.keys(__vue_script__).length > 1) {
+	var __vue_styles__ = {}
+	__vue_script__ = __webpack_require__(204)
+	if (Object.keys(__vue_script__).some(function (key) { return key !== "default" && key !== "__esModule" })) {
 	  console.warn("[vue-loader] resources/assets/js/components/card-fault-improvement-photo.vue: named exports in *.vue files are ignored.")}
-	__vue_template__ = __webpack_require__(207)
+	__vue_template__ = __webpack_require__(210)
 	module.exports = __vue_script__ || {}
 	if (module.exports.__esModule) module.exports = module.exports.default
+	var __vue_options__ = typeof module.exports === "function" ? (module.exports.options || (module.exports.options = {})) : module.exports
 	if (__vue_template__) {
-	(typeof module.exports === "function" ? (module.exports.options || (module.exports.options = {})) : module.exports).template = __vue_template__
+	__vue_options__.template = __vue_template__
 	}
+	if (!__vue_options__.computed) __vue_options__.computed = {}
+	Object.keys(__vue_styles__).forEach(function (key) {
+	var module = __vue_styles__[key]
+	__vue_options__.computed[key] = function () { return module }
+	})
 	if (false) {(function () {  module.hot.accept()
 	  var hotAPI = require("vue-hot-reload-api")
-	  hotAPI.install(require("vue"), true)
+	  hotAPI.install(require("vue"), false)
 	  if (!hotAPI.compatible) return
-	  var id = "/Users/shavenking/Code/project-boomer/resources/assets/js/components/card-fault-improvement-photo.vue"
+	  var id = "_v-9ac4c74c/card-fault-improvement-photo.vue"
 	  if (!module.hot.data) {
 	    hotAPI.createRecord(id, module.exports)
 	  } else {
@@ -31337,9 +32015,9 @@
 	  }
 	})()}
 
-/***/ },
-/* 201 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ }),
+/* 204 */
+/***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 
@@ -31347,11 +32025,11 @@
 	    value: true
 	});
 
-	var _defineProperty2 = __webpack_require__(202);
+	var _defineProperty2 = __webpack_require__(205);
 
 	var _defineProperty3 = _interopRequireDefault(_defineProperty2);
 
-	var _dropzone = __webpack_require__(206);
+	var _dropzone = __webpack_require__(209);
 
 	var _dropzone2 = _interopRequireDefault(_dropzone);
 
@@ -31443,15 +32121,15 @@
 	//
 	// <script type="text/babel">
 
-/***/ },
-/* 202 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ }),
+/* 205 */
+/***/ (function(module, exports, __webpack_require__) {
 
 	"use strict";
 
 	exports.__esModule = true;
 
-	var _defineProperty = __webpack_require__(203);
+	var _defineProperty = __webpack_require__(206);
 
 	var _defineProperty2 = _interopRequireDefault(_defineProperty);
 
@@ -31472,24 +32150,24 @@
 	  return obj;
 	};
 
-/***/ },
-/* 203 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ }),
+/* 206 */
+/***/ (function(module, exports, __webpack_require__) {
 
-	module.exports = { "default": __webpack_require__(204), __esModule: true };
+	module.exports = { "default": __webpack_require__(207), __esModule: true };
 
-/***/ },
-/* 204 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ }),
+/* 207 */
+/***/ (function(module, exports, __webpack_require__) {
 
-	var $ = __webpack_require__(205);
+	var $ = __webpack_require__(208);
 	module.exports = function defineProperty(it, key, desc){
 	  return $.setDesc(it, key, desc);
 	};
 
-/***/ },
-/* 205 */
-/***/ function(module, exports) {
+/***/ }),
+/* 208 */
+/***/ (function(module, exports) {
 
 	var $Object = Object;
 	module.exports = {
@@ -31505,9 +32183,9 @@
 	  each:       [].forEach
 	};
 
-/***/ },
-/* 206 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ }),
+/* 209 */
+/***/ (function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(module) {"use strict";
 
@@ -33282,35 +33960,40 @@
 
 	  contentLoaded(window, Dropzone._autoDiscoverFunction);
 	}).call(undefined);
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(113)(module)))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(116)(module)))
 
-/***/ },
-/* 207 */
-/***/ function(module, exports) {
+/***/ }),
+/* 210 */
+/***/ (function(module, exports) {
 
 	module.exports = "\n<div class=\"ui basic segment\" :class=\"{ loading: loading }\">\n    <div class=\"ui fluid card\">\n        <div class=\"content\">\n            <div class=\"header\">\n                {{* header }}\n                <div class=\"ui right floated blue label disabled\" v-show=\"isLocked\">上傳圖片</div>\n                <div class=\"ui right floated blue label\" style=\"cursor: pointer;\" v-el:file-upload v-show=\"!isLocked\">上傳照片</div>\n            </div>\n        </div>\n        <div class=\"image\">\n            <img :src=\"url\" :alt.once=\"header\" v-if=\"photoName\">\n        </div>\n        <div class=\"extra content\">\n            <p v-show=\"notes\">備註：{{ notes }}</p>\n            <div class=\"ui fluid labeled action input\" :class=\"{disabled: isLocked}\" v-show=\"!notes\">\n                <div class=\"ui label\">備註：</div>\n                <input type=\"text\" name=\"new_notes\" v-model=\"newNotes\">\n                <button class=\"ui primary button\" @click=\"saveNotes\">儲存</button>\n            </div>\n        </div>\n    </div>\n</div>\n";
 
-/***/ },
-/* 208 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ }),
+/* 211 */
+/***/ (function(module, exports, __webpack_require__) {
 
 	var __vue_script__, __vue_template__
-	__vue_script__ = __webpack_require__(209)
-	if (__vue_script__ &&
-	    __vue_script__.__esModule &&
-	    Object.keys(__vue_script__).length > 1) {
+	var __vue_styles__ = {}
+	__vue_script__ = __webpack_require__(212)
+	if (Object.keys(__vue_script__).some(function (key) { return key !== "default" && key !== "__esModule" })) {
 	  console.warn("[vue-loader] resources/assets/js/components/buttons-fault-improvement-result.vue: named exports in *.vue files are ignored.")}
-	__vue_template__ = __webpack_require__(210)
+	__vue_template__ = __webpack_require__(213)
 	module.exports = __vue_script__ || {}
 	if (module.exports.__esModule) module.exports = module.exports.default
+	var __vue_options__ = typeof module.exports === "function" ? (module.exports.options || (module.exports.options = {})) : module.exports
 	if (__vue_template__) {
-	(typeof module.exports === "function" ? (module.exports.options || (module.exports.options = {})) : module.exports).template = __vue_template__
+	__vue_options__.template = __vue_template__
 	}
+	if (!__vue_options__.computed) __vue_options__.computed = {}
+	Object.keys(__vue_styles__).forEach(function (key) {
+	var module = __vue_styles__[key]
+	__vue_options__.computed[key] = function () { return module }
+	})
 	if (false) {(function () {  module.hot.accept()
 	  var hotAPI = require("vue-hot-reload-api")
-	  hotAPI.install(require("vue"), true)
+	  hotAPI.install(require("vue"), false)
 	  if (!hotAPI.compatible) return
-	  var id = "/Users/shavenking/Code/project-boomer/resources/assets/js/components/buttons-fault-improvement-result.vue"
+	  var id = "_v-8d839f5c/buttons-fault-improvement-result.vue"
 	  if (!module.hot.data) {
 	    hotAPI.createRecord(id, module.exports)
 	  } else {
@@ -33318,9 +34001,9 @@
 	  }
 	})()}
 
-/***/ },
-/* 209 */
-/***/ function(module, exports) {
+/***/ }),
+/* 212 */
+/***/ (function(module, exports) {
 
 	'use strict';
 
@@ -33370,36 +34053,42 @@
 	            });
 	        }
 	    }
-	};
-	// </script>
+	    // </script>
 
-/***/ },
-/* 210 */
-/***/ function(module, exports) {
+	};
+
+/***/ }),
+/* 213 */
+/***/ (function(module, exports) {
 
 	module.exports = "\n<div class=\"ui basic segment\" :class=\"{ loading: loading }\">\n    <div class=\"ui fluid buttons\">\n        <button class=\"ui button\" :class=\"{ grey: null === result, disabled: isLocked }\" @click=\"updateResult('null')\">未審核</button>\n        <button class=\"ui button\" :class=\"{ green: true === result, disabled: isLocked }\" @click=\"updateResult(1)\">通過</button>\n        <button class=\"ui button\" :class=\"{ red: false === result, disabled: isLocked }\" @click=\"updateResult(0)\">缺失</button>\n    </div>\n</div>\n";
 
-/***/ },
-/* 211 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ }),
+/* 214 */
+/***/ (function(module, exports, __webpack_require__) {
 
 	var __vue_script__, __vue_template__
-	__vue_script__ = __webpack_require__(212)
-	if (__vue_script__ &&
-	    __vue_script__.__esModule &&
-	    Object.keys(__vue_script__).length > 1) {
+	var __vue_styles__ = {}
+	__vue_script__ = __webpack_require__(215)
+	if (Object.keys(__vue_script__).some(function (key) { return key !== "default" && key !== "__esModule" })) {
 	  console.warn("[vue-loader] resources/assets/js/components/input-date.vue: named exports in *.vue files are ignored.")}
-	__vue_template__ = __webpack_require__(213)
+	__vue_template__ = __webpack_require__(216)
 	module.exports = __vue_script__ || {}
 	if (module.exports.__esModule) module.exports = module.exports.default
+	var __vue_options__ = typeof module.exports === "function" ? (module.exports.options || (module.exports.options = {})) : module.exports
 	if (__vue_template__) {
-	(typeof module.exports === "function" ? (module.exports.options || (module.exports.options = {})) : module.exports).template = __vue_template__
+	__vue_options__.template = __vue_template__
 	}
+	if (!__vue_options__.computed) __vue_options__.computed = {}
+	Object.keys(__vue_styles__).forEach(function (key) {
+	var module = __vue_styles__[key]
+	__vue_options__.computed[key] = function () { return module }
+	})
 	if (false) {(function () {  module.hot.accept()
 	  var hotAPI = require("vue-hot-reload-api")
-	  hotAPI.install(require("vue"), true)
+	  hotAPI.install(require("vue"), false)
 	  if (!hotAPI.compatible) return
-	  var id = "/Users/shavenking/Code/project-boomer/resources/assets/js/components/input-date.vue"
+	  var id = "_v-24461f18/input-date.vue"
 	  if (!module.hot.data) {
 	    hotAPI.createRecord(id, module.exports)
 	  } else {
@@ -33407,9 +34096,9 @@
 	  }
 	})()}
 
-/***/ },
-/* 212 */
-/***/ function(module, exports) {
+/***/ }),
+/* 215 */
+/***/ (function(module, exports) {
 
 	'use strict';
 
@@ -33435,33 +34124,38 @@
 	};
 	// </script>
 
-/***/ },
-/* 213 */
-/***/ function(module, exports) {
+/***/ }),
+/* 216 */
+/***/ (function(module, exports) {
 
 	module.exports = "\n<input type=\"text\" :name.once=\"name\" v-el:input>\n";
 
-/***/ },
-/* 214 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ }),
+/* 217 */
+/***/ (function(module, exports, __webpack_require__) {
 
 	var __vue_script__, __vue_template__
-	__vue_script__ = __webpack_require__(215)
-	if (__vue_script__ &&
-	    __vue_script__.__esModule &&
-	    Object.keys(__vue_script__).length > 1) {
+	var __vue_styles__ = {}
+	__vue_script__ = __webpack_require__(218)
+	if (Object.keys(__vue_script__).some(function (key) { return key !== "default" && key !== "__esModule" })) {
 	  console.warn("[vue-loader] resources/assets/js/components/review-btns.vue: named exports in *.vue files are ignored.")}
-	__vue_template__ = __webpack_require__(216)
+	__vue_template__ = __webpack_require__(219)
 	module.exports = __vue_script__ || {}
 	if (module.exports.__esModule) module.exports = module.exports.default
+	var __vue_options__ = typeof module.exports === "function" ? (module.exports.options || (module.exports.options = {})) : module.exports
 	if (__vue_template__) {
-	(typeof module.exports === "function" ? (module.exports.options || (module.exports.options = {})) : module.exports).template = __vue_template__
+	__vue_options__.template = __vue_template__
 	}
+	if (!__vue_options__.computed) __vue_options__.computed = {}
+	Object.keys(__vue_styles__).forEach(function (key) {
+	var module = __vue_styles__[key]
+	__vue_options__.computed[key] = function () { return module }
+	})
 	if (false) {(function () {  module.hot.accept()
 	  var hotAPI = require("vue-hot-reload-api")
-	  hotAPI.install(require("vue"), true)
+	  hotAPI.install(require("vue"), false)
 	  if (!hotAPI.compatible) return
-	  var id = "/Users/shavenking/Code/project-boomer/resources/assets/js/components/review-btns.vue"
+	  var id = "_v-5b2f9c35/review-btns.vue"
 	  if (!module.hot.data) {
 	    hotAPI.createRecord(id, module.exports)
 	  } else {
@@ -33469,9 +34163,9 @@
 	  }
 	})()}
 
-/***/ },
-/* 215 */
-/***/ function(module, exports) {
+/***/ }),
+/* 218 */
+/***/ (function(module, exports) {
 
 	'use strict';
 
@@ -33613,11 +34307,11 @@
 	};
 	// </script>
 
-/***/ },
-/* 216 */
-/***/ function(module, exports) {
+/***/ }),
+/* 219 */
+/***/ (function(module, exports) {
 
 	module.exports = "\n<div>\n    <div class=\"ui ordered stackable steps\">\n        <div class=\"step\" :class=\"{completed: isComplete(step), active: isActive(step) || isNotStarted(step)}\" v-for=\"step in progress\">\n            <div class=\"content\">\n                <div class=\"title\">{{ getStepName(step) }}</div>\n                <div class=\"description\" v-if=\"isComplete(step)\">審核完畢</div>\n                <div class=\"description\" v-if=\"isActive(step)\">審核中</div>\n                <div class=\"description\" v-if=\"isNotStarted(step)\">尚未送出審核</div>\n            </div>\n        </div>\n    </div>\n    <p>\n        <a href=\"#\" class=\"ui green button\" v-show=\"submit\" @click.prevent=\"createSubmission\">送出審核</a>\n        <a href=\"#\" class=\"ui green button\" v-show=\"accept\" @click.prevent=\"acceptSubmission\">審核通過</a>\n        <a href=\"#\" class=\"ui red button\" v-show=\"reject\" @click.prevent=\"rejectSubmission\">審核失敗</a>\n        <a href=\"#\" class=\"ui red button\" v-show=\"cancel\" @click.prevent=\"cancelSubmission\">取消審核</a>\n    </p>\n</div>\n";
 
-/***/ }
+/***/ })
 /******/ ]);

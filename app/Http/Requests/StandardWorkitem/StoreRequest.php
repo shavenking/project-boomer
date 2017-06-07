@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Http\Requests;
+namespace App\Http\Requests\StandardWorkitem;
 
 use App\Http\Requests\AuthorizeTraits\StandardWorkCreatedByUser;
 use App\Http\Requests\Request;
 
-class StoreWorkitemRequest extends Request
+class StoreRequest extends Request
 {
     use StandardWorkCreatedByUser;
 
