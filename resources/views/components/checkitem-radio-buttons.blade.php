@@ -1,4 +1,4 @@
-{{-- $checkitem --}}
+{{-- $checkitem, $isLocked --}}
 <div class="field">
     <div class="ui radio checkbox">
         <input
@@ -7,6 +7,7 @@
             value="null"
             tabindex="0"
             @if (is_null($checkitem->passes)) checked @endif
+            @if ($isLocked) disabled @endif
         >
         <label>{{ trans('all.unchecked') }}</label>
     </div>
@@ -19,6 +20,7 @@
             value="1"
             tabindex="0"
             @if (!is_null($checkitem->passes) && $checkitem->passes) checked @endif
+            @if ($isLocked) disabled @endif
         >
         <label>{{ trans('all.passes') }}</label>
     </div>
@@ -31,6 +33,7 @@
             value="0"
             tabindex="0"
             @if (!is_null($checkitem->passes) && !$checkitem->passes) checked @endif
+            @if ($isLocked) disabled @endif
         >
         <label>{{ trans('all.failed') }}</label>
     </div>

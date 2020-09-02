@@ -6,11 +6,11 @@
                     <div class="field">
                         <div class="label">機具名稱</div>
                         <div class="ui search fluid selection dropdown" v-el:dropdown>
-                            <input type="hidden" name="daily_appliance_id">
+                            <input type="hidden" name="appliance_id">
                             <i class="dropdown icon"></i>
                             <div class="default text"></div>
                             <div class="menu">
-                                <div class="item" v-for="dailyAppliance in dailyAppliances" :data-value="dailyAppliance.id">{{ dailyAppliance.name }}</div>
+                                <div class="item" v-for="appliance in appliances" :data-value="appliance.id">{{ appliance.name }}</div>
                             </div>
                         </div>
                     </div>
@@ -44,7 +44,7 @@
     import isEmpty from 'lodash/lang/isEmpty'
 
     export default {
-        props: ['projectId', 'onSuccess', 'onCancel'],
+        props: ['projectId', 'date', 'onSuccess', 'onCancel'],
 
         methods: {
             openModal() {
@@ -59,25 +59,45 @@
             },
             onApprove() {
                 const inputs = window.$(this.$els.form).serializeArray()
+                const projectId = this.projectId
+                const date = this.date
 
                 const values = omit(merge(
                     zipObject(pluck(inputs, 'name'), pluck(inputs, 'value')),
                     { name: this.name }
                 ), isEmpty);
 
-                createDailyAppliance(this.projectId, values).then(response => {
-                    if (values.name) {
-                        getAll().then(response => {
-                            this.dailyAppliances = response.daily_appliances
+                // Create new appliance
+                if (values.name) {
+                    window.$.post('/api/v1/appliances', values).then(response => {
+                        this.fetchAppliances()
+                        window.$.post(
+                            '/api/v1' +
+                            `/projects/${projectId}` +
+                            `/construction-dailies/${date}` +
+                            '/appliances',
+                            {
+                                appliance_id: response.appliance.id,
+                                amount: values.amount
+                            }
+                        ).then(() => {
+                            this.onSuccess()
                         })
-                    }
-
-                    this.$els.form.reset()
-
-                    if (this.onSuccess) {
+                    })
+                } else {
+                    window.$.post(
+                        '/api/v1' +
+                        `/projects/${projectId}` +
+                        `/construction-dailies/${date}` +
+                        '/appliances',
+                        {
+                            appliance_id: values.appliance_id,
+                            amount: values.amount
+                        }
+                    ).then(() => {
                         this.onSuccess()
-                    }
-                })
+                    })
+                }
             },
             onDeny() {
                 this.$els.form.reset()
@@ -93,19 +113,24 @@
             },
             onChange(val) {
                 this.name = ''
+            },
+            fetchAppliances() {
+                return (
+                    window.$.getJSON(`/api/v1/appliances`).then(rep => {
+                        this.appliances = rep.appliances
+                    })
+                )
             }
         },
 
         data() {
             return {
-                'dailyAppliances': []
+                'appliances': []
             }
         },
 
         ready() {
-            getAll().then(response => {
-                this.dailyAppliances = response.daily_appliances
-            })
+            this.fetchAppliances()
 
             this.$modal = window.$(this.$els.modal).modal({
                 closable: false,

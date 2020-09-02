@@ -1,3 +1,8 @@
+@inject('reviewRepo', 'App\Repos\ReviewRepo')
+{{-- */
+    $isLocked = $reviewRepo->isLocked('bid', $project->id);
+/* --}}
+
 {{-- */ $breadcrumbs = [
     trans('all.projects') => route('projects.index'),
     "{$project->name}" => route('projects.show', $project->id),
@@ -15,6 +20,7 @@
     <project-workitem-list
         project-id="{{ $project->id }}"
         work-id="{{ $work->id }}"
+        is-locked="{{ $isLocked }}"
     ></project-workitem-list>
 
 @stop

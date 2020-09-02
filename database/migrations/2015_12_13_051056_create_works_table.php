@@ -18,6 +18,7 @@ class CreateWorksTable extends Migration
             $table->integer('detailingflow_type_id')->unsigned();
             $table->integer('unit_id')->unsigned();
             $table->integer('workflow_id')->unsigned();
+            $table->integer('user_id')->unsigned();
 
             $table->string('name');
 

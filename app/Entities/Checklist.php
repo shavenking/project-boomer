@@ -2,9 +2,9 @@
 
 namespace App\Entities;
 
-use Illuminate\Database\Eloquent\Model;
+use App\Entities\AbstractEntity;
 
-class Checklist extends Model
+class Checklist extends AbstractEntity
 {
     protected $fillable = ['workflow_id', 'name'];
 

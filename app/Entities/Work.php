@@ -2,9 +2,9 @@
 
 namespace App\Entities;
 
-use Illuminate\Database\Eloquent\Model;
+use App\Entities\AbstractEntity;
 
-class Work extends Model
+class Work extends AbstractEntity
 {
     protected $fillable = [
         'detailingflow_type_id',

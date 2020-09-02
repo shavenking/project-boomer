@@ -1,3 +1,9 @@
+@inject('projectRepo', 'App\Repos\Contracts\Project')
+@inject('reviewRepo', 'App\Repos\ReviewRepo')
+{{-- */
+    $isLocked = $reviewRepo->isLocked('construction_daily', $constructionDaily->id);
+/* --}}
+
 {{-- */ $breadcrumbs = [
     trans_choice('all.projects', 2) => route('projects.index'),
     "{$project->name}" => route('projects.show', $project->id),
@@ -10,6 +16,16 @@
 
 @section('content')
 
-    <construction-daily project-id="{{ $project->id }}" date="{{ $date }}"></construction-daily>
+    <div class="sixteen wide column">
+        <review-btns
+            project-id="{{ $project->id }}"
+            resource-type="construction_daily"
+            resource-id="{{ $constructionDaily->id }}"
+        ></review-btns>
+    </div>
+
+    <br>
+
+    <construction-daily project-id="{{ $project->id }}" date="{{ $date }}" is-locked="{{ $isLocked }}"></construction-daily>
 
 @stop

@@ -20,7 +20,7 @@
             @forelse ($works as $work)
                 <tr>
                     <td class="selectable">
-                        <a href="{{ route('works.show', $work->id) }}">{{ $work->name }}</a>
+                        <a href="{{ route('workflows.showWorkItems', [$workflow->id, $work->id]) }}">{{ $work->name }}</a>
                     </td>
                 </tr>
             @empty
@@ -31,7 +31,7 @@
         </tbody>
     </table>
 
-    <a href="{{ route('works.create') }}" class="ui primary button"><i class="plus icon"></i>{{ trans('all.create_work') }}</a>
+    <a href="{{ route('workflows.createWork', $workflow->id) }}" class="ui primary button"><i class="plus icon"></i>{{ trans('all.create_work') }}</a>
     <a href="{{ route('workflows.show', $workflow->id) }}" class="ui primary button">{{ trans('all.back_workflows') }}</a>
 
 @stop

@@ -9,9 +9,14 @@
 
 @section('content')
 
-    <a href="{{ route('projects.construction-dailies.show', [$project->id, 'today']) }}" class="ui primary button">
-        填寫今日施工日報表
-    </a>
+    <form action="{{ route('projects.construction-dailies.store', $project->id) }}" method="POST" class="ui inline form">
+        {{ csrf_field() }}
+        <div class="inline field">
+            <label>填寫該日施工日報表</label>
+            <input-date name="date"></input-date>
+            <input type="submit" class="ui button" value="填寫該日施工日報表">
+        </div>
+    </form>
 
     <table class="ui table">
         <thead>
@@ -20,9 +25,13 @@
             </tr>
         </thead>
         <tbody>
-            @foreach ($datePeriod as $date)
+            @foreach ($constructionDailies as $constructionDaily)
                 <tr>
-                   <td class="selectable"><a href="{{ route('projects.construction-dailies.show', [$project->id, $date]) }}">{{ $date }}</a></td>
+                   <td class="selectable">
+                       <a href="{{ route('projects.construction-dailies.show', [$project->id, $constructionDaily->work_date->toDateString()]) }}">
+                           {{ $constructionDaily->work_date->toDateString() }}
+                       </a>
+                   </td>
                 </tr>
             @endforeach
         </tbody>

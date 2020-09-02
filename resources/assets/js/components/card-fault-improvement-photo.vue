@@ -4,7 +4,8 @@
             <div class="content">
                 <div class="header">
                     {{* header }}
-                    <div class="ui right floated blue label" style="cursor: pointer;" v-el:file-upload>上傳照片</div>
+                    <div class="ui right floated blue label disabled" v-show="isLocked">上傳圖片</div>
+                    <div class="ui right floated blue label" style="cursor: pointer;" v-el:file-upload v-show="!isLocked">上傳照片</div>
                 </div>
             </div>
             <div class="image">
@@ -12,7 +13,7 @@
             </div>
             <div class="extra content">
                 <p v-show="notes">備註：{{ notes }}</p>
-                <div class="ui fluid labeled action input" v-show="!notes">
+                <div class="ui fluid labeled action input" :class="{disabled: isLocked}" v-show="!notes">
                     <div class="ui label">備註：</div>
                     <input type="text" name="new_notes" v-model="newNotes">
                     <button class="ui primary button" @click="saveNotes">儲存</button>
@@ -26,7 +27,7 @@
     import Dropzone from '../vendor/dropzone'
 
     export default {
-        props: ['projectId', 'serializedFaultImprovement', 'header', 'step'],
+        props: ['projectId', 'serializedFaultImprovement', 'header', 'step', 'isLocked'],
 
         computed: {
             photoName() {

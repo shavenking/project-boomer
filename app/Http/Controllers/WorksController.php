@@ -2,9 +2,22 @@
 
 namespace App\Http\Controllers;
 
+use App\Entities\DetailingflowType;
 use Illuminate\Http\Request;
 
-use App\Http\Requests;
+use App\Http\Requests\StandardWork\{
+    StoreRequest as StoreWorkRequest,
+    EditRequest as EditWorkRequest,
+    UpdateRequest as UpdateWorkRequest,
+    DestroyRequest as DestroyWorkRequest
+};
+
+use App\Http\Requests\StandardWorkitem\{
+    UpdateRequest as UpdateWorkitemRequest,
+    StoreRequest as StoreWorkitemRequest,
+    DestroyRequest as DestroyWorkitemRequest
+};
+
 use App\Http\Controllers\Controller;
 
 use App\Entities\Work;
@@ -55,30 +68,22 @@ class WorksController extends Controller
 
     public function store(Request $request)
     {
-        $this->validate($request, [
-            'detailingflow_type_id' => 'required',
-            'unit_id' => 'required',
-            'workflow_id' => 'required',
-            'name' => 'required',
-            'amount' => 'required'
-        ]);
+        $user = $request->user();
 
-        $work = Work::create(array_merge($request->all(), ['unit_price' => 0]));
+        // since detailingflow_type_id is going to be removed
+        // temporarily use the first detailingflow_type_id of
+        // specified mainflow_type
+        $detailingflowType = DetailingflowType::where('mainflow_type_id', $request->input('mainflow_type_id'))->firstOrFail();
+
+        $work = $user->works()->create(
+            array_merge($request->all(), ['unit_price' => 0, 'detailingflow_type_id' => $detailingflowType->id])
+        );
 
         return redirect(route('works.show', $work->id));
     }
 
-    public function storeOfWorkitems($workId, Request $request)
+    public function storeOfWorkitems($workId, StoreWorkitemRequest $request)
     {
-        $this->validate($request, [
-            'unit_id' => 'required',
-            'cost_type_id' => 'required',
-            'name' => 'required',
-            'order' => 'required',
-            'amount' => 'required',
-            'unit_price' => 'required'
-        ]);
-
         $work = app(\App\Entities\Work::class)->findOrFail($workId);
 
         $workItem = WorkItem::create(array_merge($request->all(), [
@@ -103,7 +108,7 @@ class WorksController extends Controller
         return view('works.show')->withWork($work);
     }
 
-    public function edit($workId)
+    public function edit($workId, EditWorkRequest $request)
     {
         $work = Work::findOrFail($workId);
 
@@ -112,31 +117,24 @@ class WorksController extends Controller
 
     public function update($workId, Request $request)
     {
-        $this->validate($request, [
-            'detailingflow_type_id' => 'required',
-            'unit_id' => 'required',
-            'workflow_id' => 'required',
-            'name' => 'required',
-            'amount' => 'required'
-        ]);
-
         $work = Work::findOrFail($workId);
+
+        // since detailingflow_type_id is going to be removed
+        // temporarily use the first detailingflow_type_id of
+        // specified mainflow_type
+        if ($request->has('mainflow_type_id')) {
+            $detailingflowType = DetailingflowType::where('mainflow_type_id', $request->input('mainflow_type_id'))->firstOrFail();
+
+            $work->detailingflow_type_id = $detailingflowType->id;
+        }
+
         $work->update($request->all());
 
         return redirect(route('works.show', $work->id));
     }
 
-    public function updateOfWorkitems($workId, $itemId, Request $request)
+    public function updateOfWorkitems($workId, $itemId, UpdateWorkitemRequest $request)
     {
-        $this->validate($request, [
-            'unit_id' => 'required',
-            'cost_type_id' => 'required',
-            'name' => 'required',
-            'order' => 'required',
-            'amount' => 'required',
-            'unit_price' => 'required'
-        ]);
-
         $work = Work::findOrFail($workId);
         $workItem = WorkItem::findOrFail($itemId);
 
@@ -148,7 +146,7 @@ class WorksController extends Controller
         ]);
     }
 
-    public function destroy($id)
+    public function destroy($id, DestroyWorkRequest $request)
     {
         $work = app(\App\Entities\Work::class)->findOrFail($id);
 
@@ -158,7 +156,7 @@ class WorksController extends Controller
         return redirect()->route('works.index');
     }
 
-    public function destroyOfWorkitems($workId, $itemId)
+    public function destroyOfWorkitems($workId, $itemId, DestroyWorkitemRequest $request)
     {
         $workItem = WorkItem::findOrFail($itemId);
 

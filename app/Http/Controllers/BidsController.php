@@ -25,6 +25,9 @@ class BidsController extends Controller
 
         $query = \App\Entities\ProjectWork::query();
 
+        $mainflowTypeName = null;
+        $detailingflowTypeName = null;
+
         if (!empty($mainflowTypeId)) {
             $query->whereHas('detailingflowType', function ($query) use ($mainflowTypeId) {
                 $query->whereMainflowTypeId($mainflowTypeId);
@@ -42,5 +45,40 @@ class BidsController extends Controller
         $works = $query->get();
 
         return view('bids.works', compact('project', 'works', 'mainflowTypeName', 'detailingflowTypeName'));
+    }
+
+    public function pdf($projectId, Request $request)
+    {
+        $mainflowTypeId = $request->query('mainflow_type_id');
+        $detailingflowTypeId = $request->query('detailingflow_type_id');
+
+        $project = \App\Entities\Project::findOrFail($projectId);
+
+        $query = \App\Entities\ProjectWork::query();
+
+        $query->whereProjectId($project->id);
+
+        if (!empty($mainflowTypeId)) {
+            $query->whereHas('detailingflowType', function ($query) use ($mainflowTypeId) {
+                $query->whereMainflowTypeId($mainflowTypeId);
+            });
+
+            $mainflowTypeName = \App\Entities\MainflowType::findOrFail($mainflowTypeId)->name;
+        }
+
+        if (!empty($detailingflowTypeId)) {
+            $query->whereDetailingflowTypeId($detailingflowTypeId);
+
+            $detailingflowTypeName = \App\Entities\DetailingflowType::findOrFail($detailingflowTypeId)->name;
+        }
+
+        $works = $query->with('detailingflowType.mainflowType', 'unit')->get();
+        $pdf = \PDF::loadView('reports.bid', compact('works'))
+            ->setPaper('a4')
+            ->setOption('page-offset', 0)
+            ->setOption('header-html', view('reports.header', compact('project')))
+            ->setOption('footer-html', view('reports.footer'));
+
+        return $pdf->download('bid.pdf');
     }
 }

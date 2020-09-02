@@ -2,32 +2,11 @@
 
 namespace App\Entities;
 
-use Illuminate\Database\Eloquent\Model;
+use App\Entities\AbstractEntity;
 
-class Project extends Model
+class Project extends AbstractEntity
 {
     protected $fillable = ['name'];
-
-    public function dailyMaterials()
-    {
-        return $this->belongsToMany(DailyMaterial::class, 'project_daily_material', 'project_id', 'daily_material_id')
-            ->withPivot('id', 'amount')
-            ->withTimestamps();
-    }
-
-    public function dailyLabors()
-    {
-        return $this->belongsToMany(DailyLabor::class, 'project_daily_labor', 'project_id', 'daily_labor_id')
-            ->withPivot('id', 'amount')
-            ->withTimestamps();
-    }
-
-    public function dailyAppliances()
-    {
-        return $this->belongsToMany(DailyAppliance::class, 'project_daily_appliance', 'project_id', 'daily_appliance_id')
-            ->withPivot('id', 'amount')
-            ->withTimestamps();
-    }
 
     public function dailyRecords()
     {
@@ -47,5 +26,25 @@ class Project extends Model
     public function costEstimations()
     {
         return $this->hasMany(CostEstimation::class);
+    }
+
+    public function users()
+    {
+        return (
+            $this
+            ->belongsToMany(config('auth.model'), config('entrust.role_user_table'))
+            ->withPivot('role_id')
+            ->withTimestamps()
+        );
+    }
+
+    public function addUser($userId, $roleId)
+    {
+        return $this->users()->attach($userId, ['role_id' => $roleId]);
+    }
+
+    public function constructionDailies()
+    {
+        return $this->hasMany(ConstructionDaily::class);
     }
 }

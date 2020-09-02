@@ -25,7 +25,7 @@
 
         <div class="field">
             <label>{{ trans('all.select_type_order') }}</label>
-            <flowtype-select main-default="{{ $work->detailingflowType->mainflowType->id }}" detail-default="{{ $work->detailingflowType->id }}"></flowtype-select>
+            <mainflow-type-select main-default="{{ $work->detailingflowType->mainflowType->id }}"></mainflow-type-select>
         </div>
 
 

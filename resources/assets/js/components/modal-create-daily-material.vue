@@ -6,11 +6,11 @@
                     <div class="field">
                         <div class="label">材料名稱</div>
                         <div class="ui search fluid selection dropdown" v-el:dropdown>
-                            <input type="hidden" name="daily_material_id">
+                            <input type="hidden" name="material_id">
                             <i class="dropdown icon"></i>
                             <div class="default text"></div>
                             <div class="menu">
-                                <div class="item" v-for="dailyMaterial in dailyMaterials" :data-value="dailyMaterial.id">{{ dailyMaterial.name }}</div>
+                                <div class="item" v-for="material in materials" :data-value="material.id">{{ material.name }}</div>
                             </div>
                         </div>
                     </div>
@@ -35,7 +35,7 @@
     </div>
 </template>
 
-<script type="text/babel">
+<script>
     import { getAll, create as createDailyMaterial } from '../query-helpers/daily-materials'
     import pluck from 'lodash/collection/pluck'
     import zipObject from 'lodash/array/zipObject'
@@ -44,7 +44,7 @@
     import isEmpty from 'lodash/lang/isEmpty'
 
     export default {
-        props: ['projectId', 'onSuccess', 'onCancel'],
+        props: ['projectId', 'date', 'onSuccess', 'onCancel'],
 
         methods: {
             openModal() {
@@ -59,25 +59,45 @@
             },
             onApprove() {
                 const inputs = window.$(this.$els.form).serializeArray()
+                const projectId = this.projectId
+                const date = this.date
 
                 const values = omit(merge(
                     zipObject(pluck(inputs, 'name'), pluck(inputs, 'value')),
                     { name: this.name }
                 ), isEmpty);
 
-                createDailyMaterial(this.projectId, values).then(response => {
-                    if (values.name) {
-                        getAll().then(response => {
-                            this.dailyMaterials = response.daily_materials
+                // Create new material
+                if (values.name) {
+                    window.$.post('/api/v1/materials', values).then(response => {
+                        this.fetchMaterials()
+                        window.$.post(
+                            '/api/v1' +
+                            `/projects/${projectId}` +
+                            `/construction-dailies/${date}` +
+                            '/materials',
+                            {
+                                material_id: response.material.id,
+                                amount: values.amount
+                            }
+                        ).then(() => {
+                            this.onSuccess()
                         })
-                    }
-
-                    this.$els.form.reset()
-
-                    if (this.onSuccess) {
+                    })
+                } else {
+                    window.$.post(
+                        '/api/v1' +
+                        `/projects/${projectId}` +
+                        `/construction-dailies/${date}` +
+                        '/materials',
+                        {
+                            material_id: values.material_id,
+                            amount: values.amount
+                        }
+                    ).then(() => {
                         this.onSuccess()
-                    }
-                })
+                    })
+                }
             },
             onDeny() {
                 this.$els.form.reset()
@@ -93,19 +113,24 @@
             },
             onChange(val) {
                 this.name = ''
+            },
+            fetchMaterials() {
+                return (
+                    window.$.getJSON(`/api/v1/materials`).then(rep => {
+                        this.materials = rep.materials
+                    })
+                )
             }
         },
 
         data() {
             return {
-                'dailyMaterials': []
+                'materials': []
             }
         },
 
         ready() {
-            getAll().then(response => {
-                this.dailyMaterials = response.daily_materials
-            })
+            this.fetchMaterials()
 
             this.$modal = window.$(this.$els.modal).modal({
                 closable: false,

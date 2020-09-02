@@ -14,6 +14,7 @@ class CreateWorkflowsTable extends Migration
     {
         Schema::create('workflows', function (Blueprint $table) {
             $table->increments('id');
+            $table->integer('user_id')->unsigned();
 
             $table->string('name');
 

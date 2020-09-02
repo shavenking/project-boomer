@@ -6,11 +6,11 @@
                     <div class="field">
                         <div class="label">工別</div>
                         <div class="ui search fluid selection dropdown" v-el:dropdown>
-                            <input type="hidden" name="daily_labor_id">
+                            <input type="hidden" name="labor_id">
                             <i class="dropdown icon"></i>
                             <div class="default text"></div>
                             <div class="menu">
-                                <div class="item" v-for="dailyLabor in dailyLabors" :data-value="dailyLabor.id">{{ dailyLabor.name }}</div>
+                                <div class="item" v-for="labor in labors" :data-value="labor.id">{{ labor.name }}</div>
                             </div>
                         </div>
                     </div>
@@ -44,7 +44,7 @@
     import isEmpty from 'lodash/lang/isEmpty'
 
     export default {
-        props: ['projectId', 'onSuccess', 'onCancel'],
+        props: ['projectId', 'date', 'onSuccess', 'onCancel'],
 
         methods: {
             openModal() {
@@ -59,25 +59,45 @@
             },
             onApprove() {
                 const inputs = window.$(this.$els.form).serializeArray()
+                const projectId = this.projectId
+                const date = this.date
 
                 const values = omit(merge(
                     zipObject(pluck(inputs, 'name'), pluck(inputs, 'value')),
                     { name: this.name }
                 ), isEmpty);
 
-                createDailyLabor(this.projectId, values).then(response => {
-                    if (values.name) {
-                        getAll().then(response => {
-                            this.dailyLabors = response.daily_labors
+                // Create new material
+                if (values.name) {
+                    window.$.post('/api/v1/labors', values).then(response => {
+                        this.fetchLabors()
+                        window.$.post(
+                            '/api/v1' +
+                            `/projects/${projectId}` +
+                            `/construction-dailies/${date}` +
+                            '/labors',
+                            {
+                                labor_id: response.labor.id,
+                                amount: values.amount
+                            }
+                        ).then(() => {
+                            this.onSuccess()
                         })
-                    }
-
-                    this.$els.form.reset()
-
-                    if (this.onSuccess) {
+                    })
+                } else {
+                    window.$.post(
+                        '/api/v1' +
+                        `/projects/${projectId}` +
+                        `/construction-dailies/${date}` +
+                        '/labors',
+                        {
+                            labor_id: values.labor_id,
+                            amount: values.amount
+                        }
+                    ).then(() => {
                         this.onSuccess()
-                    }
-                })
+                    })
+                }
             },
             onDeny() {
                 this.$els.form.reset()
@@ -93,19 +113,24 @@
             },
             onChange(val) {
                 this.name = ''
+            },
+            fetchLabors() {
+                return (
+                    window.$.getJSON('/api/v1/labors').then(rep => {
+                        this.labors = rep.labors
+                    })
+                )
             }
         },
 
         data() {
             return {
-                'dailyLabors': []
+                'labors': []
             }
         },
 
         ready() {
-            getAll().then(response => {
-                this.dailyLabors = response.daily_labors
-            })
+            this.fetchLabors()
 
             this.$modal = window.$(this.$els.modal).modal({
                 closable: false,
