@@ -32,7 +32,7 @@
     import FlowtypeWorkSelect from './flowtype-work-select.vue'
     import WorkflowChart from './workflow-chart.vue'
 
-    export default {
+    export default
         props: ['projectId', 'action', 'backUrl', 'settingWorkUrl'],
 
         components: { FlowtypeWorkSelect, WorkflowChart },

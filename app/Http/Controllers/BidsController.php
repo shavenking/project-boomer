@@ -25,6 +25,9 @@ class BidsController extends Controller
 
         $query = \App\Entities\ProjectWork::query();
 
+        $mainflowTypeName = null;
+        $detailingflowTypeName = null;
+
         if (!empty($mainflowTypeId)) {
             $query->whereHas('detailingflowType', function ($query) use ($mainflowTypeId) {
                 $query->whereMainflowTypeId($mainflowTypeId);

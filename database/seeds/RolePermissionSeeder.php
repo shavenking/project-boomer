@@ -4,7 +4,7 @@ use App\Entities\Permission;
 use App\Entities\Role;
 use Illuminate\Database\Seeder;
 
-class RolePermissionSeerder extends Seeder
+class RolePermissionSeeder extends Seeder
 {
     private $rolePermission = [
         'general_manager' => [
